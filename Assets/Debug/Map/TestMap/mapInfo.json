@@ -1,0 +1,681 @@
+{
+    "name": "TestMap",
+    "layer": [
+        {
+            "name": "AllyLayer",
+            "tileInfos": [
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_01",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_02",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_03",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_04",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_05",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 3.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_06",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 3.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_07",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 3.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_08",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 3.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_09",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 6.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_10",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 6.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_11",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 6.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_12",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 6.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_13",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 9.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_14",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 9.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_15",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 9.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_01",
+                    "name": "Block_16",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 9.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                }
+            ]
+        },
+        {
+            "name": "EnemyLayer",
+            "tileInfos": [
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_17",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 12.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_02",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 12.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_03",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 12.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_04",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 12.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_05",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 15.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_06",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 15.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_07",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 15.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_08",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 15.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_09",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 18.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_10",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 18.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_11",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 18.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_12",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 18.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_13",
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 21.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_14",
+                    "position": {
+                        "x": 3.0,
+                        "y": 0.0,
+                        "z": 21.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_15",
+                    "position": {
+                        "x": 6.0,
+                        "y": 0.0,
+                        "z": 21.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                },
+                {
+                    "prefabPath": "Block_02",
+                    "name": "Block_16",
+                    "position": {
+                        "x": 9.0,
+                        "y": 0.0,
+                        "z": 21.0
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 3.0,
+                        "y": 3.0,
+                        "z": 3.0
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Wall",
+            "tileInfos": [
+                {
+                    "prefabPath": "Wall",
+                    "name": "Wall",
+                    "position": {
+                        "x": 1.5,
+                        "y": 0.7900000214576721,
+                        "z": 3.5
+                    },
+                    "rotation": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0,
+                        "w": 1.0
+                    },
+                    "scale": {
+                        "x": 4.0,
+                        "y": 1.7300000190734864,
+                        "z": 0.10000000149011612
+                    }
+                }
+            ]
+        }
+    ],
+    "tileInfos": []
+}
