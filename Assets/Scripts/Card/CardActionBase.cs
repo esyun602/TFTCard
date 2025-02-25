@@ -3,10 +3,20 @@ using MessageSystem;
 public abstract class CardActionBase : IAction
 {
 	protected IBattleObject owner;
+
+	private IUpdatableRoutine routine;
+	public IUpdatableRoutine UpdatableRoutine => routine;
+
+	protected CardActionBase()
+	{
+		routine = new UpdatableRoutine(UpdateFrame);
+	}
 	
 	public void Trigger()
 	{
 		NoticeSystem.Instance.Publish(new CardActionTriggerNotice(owner, this));
+		//todo: updatable routine 내부로?
+		routine.Initialize();
 		OnTrigger();
 	}
 
@@ -21,7 +31,7 @@ public abstract class CardActionBase : IAction
 		this.owner = owner;
 	}
 	
-	public void UpdateFrame(float dt, out bool routineDone)
+	private void UpdateFrame(float dt, out bool routineDone)
 	{
 		OnUpdate(dt, out routineDone);
 		if (routineDone)

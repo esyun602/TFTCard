@@ -14,4 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapData: {fileID: 11400000, guid: 2c6aa9d50575d5c4a84ff7f1f4fad9e7, type: 2}
   camSize: 15
-  testCard: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+  testCard: {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
+  WaveData:
+  - rows: 8
+    columns: 4
+    cells:
+    - row: 7
+      col: 3
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 7
+      col: 0
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 4
+      col: 0
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 4
+      col: 3
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+  - rows: 8
+    columns: 4
+    cells:
+    - row: 6
+      col: 1
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 5
+      col: 1
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 6
+      col: 2
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 5
+      col: 2
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}

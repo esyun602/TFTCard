@@ -9,6 +9,6 @@ public class CardStat
 	public CardStat(CardStatData statData)
 	{
 		staticStatData = statData;
-		Speed = statData.Speed;
+		Speed = statData.speed;
 	}
 }

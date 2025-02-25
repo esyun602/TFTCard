@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using UnityEngine;
 
 public class BattleStat
 {
@@ -11,7 +12,14 @@ public class BattleStat
 	//battlestat -> 
 	private CardStat originStat;
 	public int Attack { get; }
-	public int Hp { get; }
+	private int hp;
+
+	public int Hp
+	{
+		get => hp;
+		set => hp = Mathf.Max(value, 0);
+	}
+	public bool IsDead => Hp == 0;
 	public int MaxHp { get; }
 	public float Speed { get; }
 	private List<IOption> optionList;

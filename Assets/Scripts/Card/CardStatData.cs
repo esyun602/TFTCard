@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu]
 public class CardStatData : ScriptableObject
 {
-	public float Speed;
+	public int hp;
+	public float speed;
 }

@@ -11,8 +11,8 @@ using UnityEngine.InputSystem;
 public enum InputBlockFlag
 {
 	None = 0,
-	Hover = 1<<0,
-	Select = 1<<1,
+	Hover = 1 << 0,
+	Select = 1 << 1,
 	All = Hover | Select
 }
 
@@ -24,7 +24,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 	private const string cardPrefabPath = "Card/CardPrefab";
 	private SimpleStateMachine cardObjectStateMachine = new();
 	private new BoxCollider collider;
-	
+
 	private Card targetCard;
 
 	private Vector3 handTargetPos;
@@ -32,15 +32,15 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 	private Vector3 hoverTargetPos;
 
 	private InputBlockFlag blockInput;
-	
+
 	public BattleStat BattleStat { get; private set; }
 
 	private bool CanUse(ITile tile = null)
 	{
 		//todo: tile 없이 사용하는 경우?
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		return tile?.TileType == ObjectType.Ally 
-		       && map.GetBattleObjectOfTile(tile) == null 
+		return tile?.TileType == ObjectType.Ally
+		       && map.GetBattleObjectOfTile(tile) == null
 		       && cardObjectStateMachine.CurrentState is CardObjectSelectedInHandState;
 	}
 
@@ -85,7 +85,9 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 
 	public void SummonCreature(ITile targetTile)
 	{
-		BattleCardObjectInField.Instantiate(targetCard, targetTile, BattleStat, ObjectType.Ally);
+		//todo: 결합끊기
+		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerField.AddToField(
+			BattleCardObjectInField.Instantiate(targetCard, targetTile, BattleStat, ObjectType.Ally));
 	}
 
 	public static BattleCardObjectInHand Instantiate(Card targetCard, BattleStat battleStat)
@@ -93,8 +95,8 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<BattleCardObjectInHand>();
 		cardObject.gameObject.SetActive(false);
 		cardObject.targetCard = targetCard;
-		cardObject.BattleStat = battleStat;	
-		
+		cardObject.BattleStat = battleStat;
+
 		return cardObject;
 	}
 
@@ -282,7 +284,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 
 		private void OnTryUseHandCard(InputAction.CallbackContext obj)
 		{
-			if(owner.CanUse(currentTile))
+			if (owner.CanUse(currentTile))
 				owner.ChangeState(new CardObjectUsedInHandState(owner, currentTile));
 		}
 
@@ -321,9 +323,10 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			var totalTime = Vector3.Distance(targetPos, owner.transform.position) / realSpeed;
 			owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
 			owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
-				                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
-				                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
-			                                Vector3.Cross(Camera.main.transform.forward, (targetPos - owner.transform.position).normalized)) *
+					                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
+					                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
+				                                Vector3.Cross(Camera.main.transform.forward,
+					                                (targetPos - owner.transform.position).normalized)) *
 			                                Camera.main.transform.localRotation;
 		}
 	}
@@ -343,6 +346,10 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		{
 			NoticeSystem.Instance.Publish(new HandCardStartUseNotice(owner));
 			owner.SummonCreature(targetTile);
+
+			//todo: 결합끊기
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerHand.RemoveCard(owner);
+
 			owner.Deactivate();
 		}
 

@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e4b40bc83f74dd9be64c53213770d22, type: 3}
-  m_Name: TestCardStat
+  m_Name: TestCardAllyStat
   m_EditorClassIdentifier: 
-  Speed: 15
+  hp: 5
+  speed: 30

@@ -13,12 +13,13 @@ public class Map : IMap
 
 		public void SetTile(ITile tile, IBattleObject obj)
 		{
-			if (tile.TileType != obj.ObjectType || GetBattleObjectOn(tile) != null)
+			//todo: object type 비교 필요?
+			if (GetBattleObjectOn(tile) != null)
 			{
 				//todo: fix
 				throw new ArgumentException();
 			}
-			
+
 			RemoveFromTile(obj);
 			battleObjectToTile[obj] = tile;
 			tileToBattleObject[tile] = obj;
@@ -28,7 +29,7 @@ public class Map : IMap
 		{
 			if (GetTileOf(obj) == null)
 				return;
-			
+
 			tileToBattleObject.Remove(GetTileOf(obj));
 			battleObjectToTile.Remove(obj);
 		}
@@ -85,6 +86,8 @@ public class Map : IMap
 
 	private void RegisterTiles(Transform root)
 	{
+		var xSet = new HashSet<int>();
+		var ySet = new HashSet<int>();
 		foreach (Transform child in root)
 		{
 			//todo constant, tileprop serialize
@@ -95,27 +98,33 @@ public class Map : IMap
 					child.parent.name == "AllyLayer" ? ObjectType.Ally :
 					child.parent.name == "EnemyLayer" ? ObjectType.Enemy : ObjectType.Neutral);
 
-				if (pos.x > xMax)
+				if (xSet.Add(pos.x))
 				{
 					colCnt++;
+				}
+
+				if (pos.x > xMax)
+				{
 					xMax = pos.x;
 				}
 
 				if (pos.x < xMin)
 				{
-					colCnt++;
 					xMin = pos.x;
+				}
+
+				if (ySet.Add(pos.y))
+				{
+					rowCnt++;
 				}
 
 				if (pos.y > yMax)
 				{
-					rowCnt++;
 					yMax = pos.y;
 				}
 
 				if (pos.y < yMin)
 				{
-					rowCnt++;
 					yMin = pos.y;
 				}
 			}
@@ -134,14 +143,20 @@ public class Map : IMap
 		return tileDict.GetValueOrDefault((position.GetX0z() / tileSize).ToRoundedVector2IntXZ() * tileSize);
 	}
 
+	/// <summary>
+	/// zeroBase Coordinate
+	/// </summary>
 	public ITile GetTileAt(int row, int col)
 	{
-		return tileDict.GetValueOrDefault(new Vector2Int(xMin + (col - 1) * tileSize, yMin + (row - 1) * tileSize));
+		return tileDict.GetValueOrDefault(new Vector2Int(xMin + col * tileSize, yMin + row * tileSize));
 	}
 
+	/// <summary>
+	/// zeroBase Coordinate
+	/// </summary>
 	public (int, int) GetTileCoord(ITile tile)
 	{
-		var coordVector = (tile.GetPosition().ToRoundedVector2IntXZ() - new Vector2Int(xMin, yMin)) / tileSize + Vector2Int.one;
+		var coordVector = (tile.GetPosition().ToRoundedVector2IntXZ() - new Vector2Int(xMin, yMin)) / tileSize;
 		return (coordVector.x, coordVector.y);
 	}
 
@@ -168,6 +183,11 @@ public class Map : IMap
 	public void SetTile(ITile tile, IBattleObject obj)
 	{
 		battleObjectManager.SetTile(tile, obj);
+	}
+
+	public void RemoveFromTile(IBattleObject obj)
+	{
+		battleObjectManager.RemoveFromTile(obj);
 	}
 
 	public int RowCnt => rowCnt;

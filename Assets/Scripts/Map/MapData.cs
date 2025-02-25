@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -6,8 +7,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class MapData : ScriptableObject
 {
-	[SerializeField, HideInInspector]
-	private byte[] data;
+	[SerializeField, HideInInspector] private byte[] data;
 
 	public void SaveMapData(byte[] data)
 	{
@@ -21,20 +21,22 @@ public class MapData : ScriptableObject
 			Debug.LogError($"Wrong Map Data: {name}");
 			return null;
 		}
+
 		string json = JsonCompressor.DecompressJson(data);
 		var sMapData = JsonUtility.FromJson<SerializedMapInfo>(json);
-		
+
 		GameObject go = sMapData.DeSerialize();
 		go.transform.position = Vector3.zero;
 		if (Game.Instance.GetGameMode<StageGameMode>()?.GetCurrentStage().StageGameObject != null)
 		{
-			go.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
+			go.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject
+				.transform);
 		}
-		
+
 		var mapInstance = new Map(go);
 		return mapInstance;
 	}
-	
+
 #if UNITY_EDITOR
 	public GameObject InstantiateMapForMapEditor()
 	{
@@ -52,11 +54,19 @@ public class MapData : ScriptableObject
 
 			go = sMapData.DeSerializeForMapEditor();
 		}
-		
+
 		go.transform.position = Vector3.zero;
 		SetEditHelperComponentForMapEditor(go, json);
-		
+
 		return go;
+	}
+
+	public (int, int) GetRowColOfLayer(string layer, out HashSet<(int,int)> layerTiles)
+	{
+		var json = JsonCompressor.DecompressJson(data);
+		var sMapData = JsonUtility.FromJson<SerializedMapInfo>(json);
+
+		return sMapData.GetGridInfoOfLayer(layer, out layerTiles);
 	}
 
 	private void SetEditHelperComponentForMapEditor(GameObject mapInstance, string json)

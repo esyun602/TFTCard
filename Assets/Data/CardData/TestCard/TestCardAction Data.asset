@@ -14,3 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionDuration: 1
   fxPrefab: {fileID: 4075397547705564689, guid: 92c7d2f99a71f01458e72ffd12edd8b2, type: 3}
+  actionRange:
+    rows: 3
+    columns: 3
+    isAbsolute: 0
+    selectedCells:
+    - row: 1
+      col: -1
+    - row: -1
+      col: -1
+    - row: 1
+      col: 1
+    - row: -1
+      col: 1

@@ -13,6 +13,7 @@ public interface IMap
 	public IBattleObject GetBattleObjectOfTile(ITile tile);
 	public ITile GetTileOfBattleObject(IBattleObject obj);
 	public void SetTile(ITile tile, IBattleObject obj);
+	public void RemoveFromTile(IBattleObject obj);
 	
 	public int RowCnt { get; }
 	public int ColumnCnt { get; }

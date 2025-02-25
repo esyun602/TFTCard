@@ -12,26 +12,42 @@ using MessageSystem;
 public class PlayerTurn : ITurnObject, IDisposable
 {
 	private bool playerActionDone;
-	
+	private IUpdatableRoutine routine;
+	public IUpdatableRoutine UpdatableRoutine => routine;
 	public void Initialize()
 	{
 		NoticeSystem.Instance.Subscribe<HandCardEndUseNotice>(OnCardUse);
+		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnCardMove);
+		routine = new UpdatableRoutine(UpdateFrame);
 	}
 
 	public void Dispose()
 	{
 		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardUse);
+		NoticeSystem.Instance.Unsubscribe<PlayerFieldCardMoveNotice>(OnCardMove);
 	}
 
 	private void OnCardUse(HandCardEndUseNotice m)
+	{
+		EndTurn();
+	}
+	
+	private void OnCardMove(PlayerFieldCardMoveNotice m)
+	{
+		EndTurn();
+	}
+
+	private void EndTurn()
 	{
 		playerActionDone = true;
 		NoticeSystem.Instance.PublishSync(new PlayerTurnEndNotice(this));
 	}
 
+
 	public void StartTurn()
 	{
 		playerActionDone = false;
+		routine.Initialize();
 		NoticeSystem.Instance.Publish(new PlayerTurnStartNotice(this));
 	}
 
@@ -42,13 +58,4 @@ public class PlayerTurn : ITurnObject, IDisposable
 
 	//todo: fix
 	public float TurnSpeed => 10f;
-	public void AddChain(IUpdatableRoutine routine)
-	{
-		throw new NotImplementedException();
-	}
-
-	public void RemoveChain(IUpdatableRoutine routine)
-	{
-		throw new NotImplementedException();
-	}
 }

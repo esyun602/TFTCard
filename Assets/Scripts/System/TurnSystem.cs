@@ -12,6 +12,7 @@ public class TurnSystem
 	//todo: 타이 해결
 	private Queue<ITurnObject> candidates;
 	private Action<float> currentUpdateRoutine;
+	private IUpdatableRoutine priorityRoutine;
 	
 	public void Initialize()
 	{
@@ -32,16 +33,27 @@ public class TurnSystem
 
 	public void UpdateTurn(float dt)
 	{
+		if (priorityRoutine != null)
+		{
+			priorityRoutine.UpdateFrame(dt, out var done);
+			if (done)
+			{
+				priorityRoutine = null;
+			}
+
+			return;
+		}
 		currentUpdateRoutine?.Invoke(dt);
 	}
 
 	private void UpdateCurrentObject(float dt)
 	{
 		//todo: start 전에 update가 불리는 경우 방지
-		currentObject.UpdateFrame(dt, out var routineDone);
+		currentObject.UpdatableRoutine.UpdateFrame(dt, out var routineDone);
 		if (routineDone)
 		{
 			turnGaugeDict[currentObject] = 0f;
+			NoticeSystem.Instance.Publish(new TurnEndNotice(currentObject));
 			currentObject = null;
 			currentUpdateRoutine = DetermineCurrentObject;
 		}
@@ -58,6 +70,8 @@ public class TurnSystem
 		//todo: fix
 		currentObject = candidates.Dequeue();
 		currentObject.StartTurn();
+		NoticeSystem.Instance.Publish(new TurnStartNotice(currentObject));
+		
 		currentUpdateRoutine = UpdateCurrentObject;
 	}
 
@@ -91,6 +105,12 @@ public class TurnSystem
 		turnGaugeDict.Remove(obj);
 		
 		NoticeSystem.Instance.Publish(new TurnObjectUnregisterNotice(obj));
+	}
+	
+	//todo: fix?
+	public void RegisterPriorityRoutine(IUpdatableRoutine routine)
+	{
+		priorityRoutine = routine;
 	}
 	
 	//턴?

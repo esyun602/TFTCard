@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -26,7 +27,47 @@ public class SerializedMapInfo
 		return ret;
 	}
 
+
 #if UNITY_EDITOR
+	public (int, int) GetGridInfoOfLayer(string layerName, out HashSet<(int,int)> layerTiles)
+	{
+		layerTiles = new();
+		var row = 0;
+		var col = 0;
+
+		var xSet = new HashSet<int>();
+		var ySet = new HashSet<int>();
+
+		layerName = !layerName.EndsWith("Layer")
+			? layerName + "Layer"
+			: layerName;
+
+		foreach (var l in layer)
+		{
+			if (!l.name.Contains("Enemy") && !l.name.Contains("Ally"))
+				continue;
+			foreach (var tile in l.tileInfos)
+			{
+				if (xSet.Add(tile.position.ToRoundedVector2IntXZ().x))
+				{
+					col++;
+				}
+
+				if (ySet.Add(tile.position.ToRoundedVector2IntXZ().y))
+				{
+					row++;
+				}
+
+				if (l.name == layerName)
+				{
+					var pos = tile.position.ToRoundedVector2IntXZ() / (int)tile.scale.x;
+					layerTiles.Add((pos.y, pos.x));
+				}
+			}
+		}
+
+		return (row, col);
+	}
 
 	public GameObject DeSerializeForMapEditor()
 	{

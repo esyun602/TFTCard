@@ -18,102 +18,25 @@ public class PlayerHand
 	private float cardDistance = 1.3f;
 	private float cardRotationAngle = 5f;
 
-	private Dictionary<object, InputBlockFlag> blockRequestDict = new();
 	private InputBlockFlag blockInput;
 
 	public void Initialize()
 	{
-		NoticeSystem.Instance.Subscribe<HandCardSelectNotice>(OnCardSelected);
-		NoticeSystem.Instance.Subscribe<HandCardSelectCancelNotice>(OnCardSelectCanceled);
-		NoticeSystem.Instance.Subscribe<HandCardStartUseNotice>(OnCardStartUse);
-		NoticeSystem.Instance.Subscribe<HandCardEndUseNotice>(OnCardEndUse);
-		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
-		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
-		//todo: fix
-		blockInput = InputBlockFlag.Select;
+		blockInput = InputBlockFlag.All;
 	}
 
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<HandCardSelectNotice>(OnCardSelected);
-		NoticeSystem.Instance.Unsubscribe<HandCardSelectCancelNotice>(OnCardSelectCanceled);
-		NoticeSystem.Instance.Unsubscribe<HandCardStartUseNotice>(OnCardStartUse);
-		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardEndUse);
-		NoticeSystem.Instance.Unsubscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
-		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
-	}
-
-	private void OnPlayerTurnStart(PlayerTurnStartNotice m)
-	{
-		//todo:fix
-		if (!blockRequestDict.ContainsKey(m.PlayerTurnObject))
-		{
-			blockInput = InputBlockFlag.None;
-			return;
-		}
-		RestoreInputs(InputBlockFlag.Select, m.PlayerTurnObject);
-	}
-
-	private void OnPlayerTurnEnd(PlayerTurnEndNotice m)
-	{
-		BlockInputs(InputBlockFlag.Select, m.PlayerTurnObject);
-	}
-
-	private void BlockInputs(InputBlockFlag flag, object requester)
-	{
-		if (!blockRequestDict.TryAdd(requester, flag))
-		{
-			blockRequestDict[requester] |= flag;
-		}
-		UpdateBlockFlags();
 	}
 	
-	private void RestoreInputs(InputBlockFlag flag, object requester)
+	public void UpdateBlockFlags(InputBlockFlag flag)
 	{
-		if (!blockRequestDict.ContainsKey(requester)) return;
-		
-		blockRequestDict[requester] &= ~flag;
-		if (blockRequestDict[requester] == InputBlockFlag.None)
-		{
-			blockRequestDict.Remove(requester);
-		}
-		UpdateBlockFlags();
-	}
-	
-	private void UpdateBlockFlags()
-	{
-		blockInput = InputBlockFlag.None;
-		foreach (var eachFlag in blockRequestDict.Values)
-		{
-			blockInput |= eachFlag;
-		}
+		blockInput = flag;
 		
 		foreach (var card in CardList)
 		{
 			card.UpdateBlockInput(blockInput);
 		}
-	}
-	
-
-	private void OnCardSelected(HandCardSelectNotice m)
-	{
-		BlockInputs(InputBlockFlag.All, m.SelectedCard);
-	}
-
-	private void OnCardSelectCanceled(HandCardSelectCancelNotice m)
-	{
-		RestoreInputs(InputBlockFlag.All, m.SelectedCard);
-	}
-
-	private void OnCardStartUse(HandCardStartUseNotice m)
-	{
-		BlockInputs(InputBlockFlag.All, m.SelectedCard);
-		RemoveCard(m.SelectedCard);
-	}
-
-	private void OnCardEndUse(HandCardEndUseNotice m)
-	{
-		RestoreInputs(InputBlockFlag.All, m.SelectedCard);
 	}
 
 	public void AddCard(BattleCardObjectInHand card)

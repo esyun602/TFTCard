@@ -5,6 +5,7 @@ public class TestCardActionData : CardActionData
 {
 	public float actionDuration;
 	public GameObject fxPrefab;
+	public GridSelector actionRange;
 	public override IAction CreateCardAction()
 	{
 		return new TestCardAction(this);

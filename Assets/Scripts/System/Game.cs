@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
 	public static Game Instance { get; private set; }
 	private IGameMode currentGameMode;
 	[SerializeField]
-	private StageData testStage;
+	private TestStageData testStage;
 	private Player player;
 	
 	private void Awake()
@@ -28,7 +28,7 @@ public class Game : MonoBehaviour
 	{
 		player = new Player();
 		var stage = testStage.InstantiateStage();
-		ChangeGameMode(new BattleStageGameMode(stage));
+		ChangeGameMode(new BattleStageGameMode(testStage.WaveData, stage));
 	}
 
 	public void ChangeGameMode(IGameMode gameMode)

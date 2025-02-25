@@ -1,4 +1,7 @@
 
+using System.Collections;
+using Coroutine;
+
 public abstract class StageGameMode : IGameMode
 {
 	private readonly IStage currentStage;
@@ -19,10 +22,28 @@ public abstract class StageGameMode : IGameMode
 		OnInitialize();
 		
 		//todo: fix
+		CoroutineManager.Instance.StartCoroutine(StartStage());
+	}
+
+	//todo: 싹다 코루틴으로?
+	private IEnumerator StartStage()
+	{
+		yield return StageStartRoutine();
 		currentStage.Start();
+		OnStageStart();
+	}
+
+	protected virtual IEnumerator StageStartRoutine()
+	{
+		yield return null;
 	}
 
 	protected virtual void OnInitialize()
+	{
+		
+	}
+
+	protected virtual void OnStageStart()
 	{
 		
 	}

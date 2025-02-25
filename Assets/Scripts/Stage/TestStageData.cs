@@ -6,7 +6,7 @@ using UnityEngine;
 public class TestStageData : StageData
 {
 	[SerializeField] private CardData testCard;
-	public List<WaveData> WaveDataList;
+	public List<WaveGrid> WaveData;
 	
 	public override IStage InstantiateStage()
 	{
