@@ -10,6 +10,7 @@ public class WaveSystem
 	private List<WaveGrid> waveData;
 	private List<BattleCardObjectInField> currentEnemyObjects;
 	private BlockInputHandler blockInputHandler = new();
+	private Transform waveParentTransform;
 	
 	public WaveSystem(List<WaveGrid> waveData)
 	{
@@ -24,6 +25,8 @@ public class WaveSystem
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		currentWaveIdx = -1;
+		waveParentTransform = new GameObject("EnemyWave").transform;
+		waveParentTransform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
 	}
 
 	private void OnPlayerTurnStart(PlayerTurnStartNotice m)
@@ -31,21 +34,23 @@ public class WaveSystem
 		//todo:fix
 		if (!blockInputHandler.HasRequest(m.PlayerTurnObject))
 		{
-			blockInputHandler.RestoreInputs(InputBlockFlag.All, this);
-			
-			foreach (var enemy in currentEnemyObjects)
-			{
-				enemy.UpdateBlockInput(blockInputHandler.BlockInput);
-			}
+			blockInputHandler.RestoreInputs(InputBlockFlag.All ^ InputBlockFlag.Select, this);
+			PropagateBlockInputInfo();
 			
 			return;
 		}
-		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.PlayerTurnObject);
+		blockInputHandler.RestoreInputs(InputBlockFlag.All ^ InputBlockFlag.Select, m.PlayerTurnObject);
+		PropagateBlockInputInfo();
 	}
 
 	private void OnPlayerTurnEnd(PlayerTurnEndNotice m)
 	{
 		blockInputHandler.BlockInputs(InputBlockFlag.All, m.PlayerTurnObject);
+		PropagateBlockInputInfo();
+	}
+
+	private void PropagateBlockInputInfo()
+	{
 		foreach (var enemy in currentEnemyObjects)
 		{
 			enemy.UpdateBlockInput(blockInputHandler.BlockInput);
@@ -63,7 +68,10 @@ public class WaveSystem
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 		foreach (var cellInfo in gridInfoList.cells)
 		{
-			currentEnemyObjects.Add(BattleCardObjectInField.Instantiate(cellInfo.cardObject, map.GetTileAt(cellInfo.row, cellInfo.col), ObjectType.Enemy));
+			var card = BattleCardObjectInField.Instantiate(cellInfo.cardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
+				ObjectType.Enemy);
+			card.transform.SetParent(waveParentTransform);
+			currentEnemyObjects.Add(card);
 			currentEnemyObjects[^1].UpdateBlockInput(blockInputHandler.BlockInput);
 		}
 		

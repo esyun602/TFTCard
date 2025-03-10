@@ -14,6 +14,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 	private SimpleStateMachine battleStageStateMachine = new();
 
+	//todo: map gamemode 넣는게 맞나?
 	public BattleStageGameMode(List<WaveGrid> waveData, IStage targetStage) : base(targetStage)
 	{
 		DeckSystem = new();
@@ -77,10 +78,19 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		{
 			m.Context.AddChain(routine);
 		}
+		else
+		{
+			battleStageStateMachine.ChangeState(new BattleStageGameEndState(this));
+		}
 	}
 
 	protected override void OnDispose()
 	{
+		NoticeSystem.Instance.Unsubscribe<TurnObjectGeneratedNotice>(OnTurnObjectGenerate);
+		NoticeSystem.Instance.Unsubscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);
+		NoticeSystem.Instance.Unsubscribe<BattleObjectDestroyedNotice>(OnBattleObjectDestroy);
+		NoticeSystem.Instance.Unsubscribe<TurnObjectDestroyNotice>(OnTurnObjectDestroy);
+		NoticeSystem.Instance.Unsubscribe<BattleObjectTypeEliminateNotice>(OnBattleObjectEliminate);
 		DeckSystem.Dispose();
 		TurnSystem.Dispose();
 		WaveSystem.Dispose();
@@ -111,7 +121,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 		public void Exit(IState nextState)
 		{
-			
+			NoticeSystem.Instance.Publish(new BattleStageInitRoutineDoneNotice());
 		}
 
 		public void UpdateFrame(float dt)
@@ -138,12 +148,45 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 		public void Exit(IState nextState)
 		{
-			
 		}
 		
 		public void UpdateFrame(float dt)
 		{
 			owner.TurnSystem.UpdateTurn(dt);
+		}
+	}
+
+	private class BattleStageGameEndState : IState, IUpdatable
+	{
+		private BattleStageGameMode owner;
+		
+		public BattleStageGameEndState(BattleStageGameMode owner)
+		{
+			this.owner = owner;
+		}
+		public void Enter(IState prevState)
+		{
+			Game.Instance.UIManager.GenerateUI<ShopUIPanel>(new ShopUIPanelGenState()
+			{
+				rollCount = 5,
+				doneAction = ReturnToMapGameMode
+			});
+		}
+		
+		//todo: 고도화(캐시 사용)
+		private void ReturnToMapGameMode()
+		{
+			Game.Instance.ChangeGameMode(new MapGameMode());
+		}
+
+		public void Exit(IState nextState)
+		{
+			
+		}
+
+		public void UpdateFrame(float dt)
+		{
+			
 		}
 	}
 }

@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public abstract class StageBase : IStage
 {
 	//game -> subsystem -> stagemanager 
-	protected StageData stageData;
+	protected StageSpec StageSpec;
 	protected MapData mapData;
 	protected IMap map;
 	public GameObject StageGameObject => stageGo;
@@ -16,15 +16,15 @@ public abstract class StageBase : IStage
 	protected StageCamera stageCamera;
 	//라이팅 어떻게? -> 맵에 포함?
 
-	protected StageBase(StageData stageData)
+	protected StageBase(StageSpec stageSpec)
 	{
-		this.stageData = stageData;
-		mapData = stageData.MapData;
+		this.StageSpec = stageSpec;
+		mapData = stageSpec.MapData;
 	}
 	
 	public void Load()
 	{
-		stageGo = new GameObject(stageData.StageName);
+		stageGo = new GameObject(StageSpec.StageName);
 		map = mapData.InstantiateMap();
 		map.Load();
 		stageCamera = SpawnStageCamera();
@@ -55,7 +55,7 @@ public abstract class StageBase : IStage
 		var camera = new GameObject("StageCamera");
 		var camComponent = camera.AddComponent<Camera>();
 		camComponent.orthographic = true;
-		camComponent.orthographicSize = stageData.CamSize;
+		camComponent.orthographicSize = StageSpec.CamSize;
 		camera.AddComponent<AudioListener>();
 		camera.AddComponent<UniversalAdditionalCameraData>();
 		camera.AddComponent<PhysicsRaycaster>();

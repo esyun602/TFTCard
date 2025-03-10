@@ -2,9 +2,9 @@ using MessageSystem;
 
 public class PlayerTurnEndNotice : Notice
 {
-	public ITurnObject PlayerTurnObject { get; }
+	public PlayerTurn PlayerTurnObject { get; }
 
-	public PlayerTurnEndNotice(ITurnObject obj)
+	public PlayerTurnEndNotice(PlayerTurn obj)
 	{
 		PlayerTurnObject = obj;
 	}

@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class Game : MonoBehaviour
 	public static Game Instance { get; private set; }
 	private IGameMode currentGameMode;
 	[SerializeField]
-	private TestStageData testStage;
+	private TestStageSpec testStage;
 	private Player player;
+	public UIManager UIManager { get; private set; }
 	
 	private void Awake()
 	{
@@ -26,14 +28,15 @@ public class Game : MonoBehaviour
 
 	private void Start()
 	{
+		UIManager = new();
 		player = new Player();
-		var stage = testStage.InstantiateStage();
-		ChangeGameMode(new BattleStageGameMode(testStage.WaveData, stage));
+		ChangeGameMode(new TitleGameMode());
 	}
-
+	
 	public void ChangeGameMode(IGameMode gameMode)
 	{
 		//todo: null check?
+		//todo: transition을 넣도록 동작 수정 필요
 		currentGameMode?.Dispose();
 		currentGameMode = gameMode;
 		currentGameMode.Initialize();

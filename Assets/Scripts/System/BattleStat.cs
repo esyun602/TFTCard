@@ -21,7 +21,7 @@ public class BattleStat
 	}
 	public bool IsDead => Hp == 0;
 	public int MaxHp { get; }
-	public float Speed { get; }
+	public int Speed { get; }
 	private List<IOption> optionList;
 	//field scope 기믹
 	private List<IBuff> buffList;

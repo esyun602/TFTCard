@@ -8,7 +8,7 @@ public class WaveCellInfo
 {
 	public int row;
 	public int col;
-	public CardData cardObject;
+	public CardSpec cardObject;
 
 	public WaveCellInfo(int row, int col)
 	{

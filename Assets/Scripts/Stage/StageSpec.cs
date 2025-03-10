@@ -1,9 +1,9 @@
 
 using UnityEngine;
 
-public abstract class StageData : ScriptableObject
+public abstract class StageSpec : ScriptableObject
 {
-	public string StageName => name.EndsWith("Data") ? name.Substring(0, name.Length - 4) : name;
+	public string StageName => name.EndsWith("Spec") ? name.Substring(0, name.Length - 4) : name;
 	[SerializeField] protected MapData mapData;
 	public MapData MapData => mapData;
 	[SerializeField] protected float camSize;

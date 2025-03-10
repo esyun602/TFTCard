@@ -1,11 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu]
-public class CardData : ScriptableObject
+public class CardData : GameData
 {
-	public CardStatData statData;
-	public Texture2D cardResource;
-	public Texture2D creatureResource;
-	public CardActionData actionData;
+	[SerializeField]
+	private List<CardSpec> CardSpecList;
+	public override void Initialize()
+	{
+	}
+
+	public override void Dispose()
+	{
+	}
+
+	public CardSpec GetRandomSpec()
+	{
+		return CardSpecList[Random.Range(0, CardSpecList.Count)];
+	}
 }

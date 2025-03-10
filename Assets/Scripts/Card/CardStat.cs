@@ -1,14 +1,14 @@
 
 public class CardStat
 {
-	public float Speed;
+	public int Speed;
 	public int MaxHp;
 	public int Attack;
-	private CardStatData staticStatData;
+	private CardStatSpec staticStatSpec;
 
-	public CardStat(CardStatData statData)
+	public CardStat(CardStatSpec statSpec)
 	{
-		staticStatData = statData;
-		Speed = statData.speed;
+		staticStatSpec = statSpec;
+		Speed = statSpec.speed;
 	}
 }

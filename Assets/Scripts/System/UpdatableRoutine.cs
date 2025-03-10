@@ -7,15 +7,18 @@ public class UpdatableRoutine : IUpdatableRoutine
 	public static IUpdatableRoutine CurrentRoutine { get; protected set; }
 	public delegate void UpdatableRoutineDelegate(float dt, out bool done);
 
-	private Queue<UpdatableRoutineDelegate> interruptQueue;
-	private Queue<UpdatableRoutineDelegate> chainQueue;
+	private Queue<IUpdatableRoutine> interruptQueue;
+	private Queue<IUpdatableRoutine> chainQueue;
 	private UpdatableRoutineDelegate baseRoutine;
 
 	private UpdatableRoutineDelegate currentSubRoutine;
+
+	private Action initializeAction;
 	
-	public UpdatableRoutine(UpdatableRoutineDelegate routine)
+	public UpdatableRoutine(UpdatableRoutineDelegate routine, Action initializeAction = null)
 	{
 		this.baseRoutine = routine;
+		this.initializeAction = initializeAction;
 	}
 
 	public void Initialize()
@@ -23,13 +26,16 @@ public class UpdatableRoutine : IUpdatableRoutine
 		currentSubRoutine = baseRoutine;
 		interruptQueue = new();
 		chainQueue = new();
+		
+		initializeAction?.Invoke();
 	}
 
 	public void UpdateFrame(float dt, out bool routineDone)
 	{
 		if (currentSubRoutine == null && chainQueue.TryDequeue(out var routine))
 		{
-			currentSubRoutine = routine;
+			routine.Initialize();
+			currentSubRoutine = routine.UpdateFrame;
 		}
 		else if (currentSubRoutine == null && interruptQueue.Count == 0)
 		{
@@ -47,7 +53,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 			currentSubRoutine.Invoke(dt, out var subRoutineDone);
 			if (subRoutineDone && chainQueue.TryDequeue(out var chainedRoutine))
 			{
-				currentSubRoutine = chainedRoutine;
+				chainedRoutine.Initialize();
+				currentSubRoutine = chainedRoutine.UpdateFrame;
 			}
 			else if (subRoutineDone)
 			{
@@ -56,7 +63,7 @@ public class UpdatableRoutine : IUpdatableRoutine
 		}
 		else
 		{
-			interruptQueue.Peek().Invoke(dt, out var subRoutineDone);
+			interruptQueue.Peek().UpdateFrame(dt, out var subRoutineDone);
 			if (subRoutineDone)
 			{
 				interruptQueue.Dequeue();
@@ -66,11 +73,12 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 	public void AddChain(IUpdatableRoutine routine)
 	{
-		chainQueue.Enqueue(routine.UpdateFrame);
+		chainQueue.Enqueue(routine);
 	}
 
 	public void AddInterrupt(IUpdatableRoutine routine)
 	{
-		interruptQueue.Enqueue(routine.UpdateFrame);
+		interruptQueue.Enqueue(routine);
+		routine.Initialize();
 	}
 }

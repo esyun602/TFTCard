@@ -6,25 +6,25 @@ using WaitForSeconds = Coroutine.WaitForSeconds;
 
 public class TestStage : StageBase
 {
-	private CardData cardData;
-	public TestStage(CardData cardData, StageData stageData) : base(stageData)
+	private CardSpec cardSpec;
+	public TestStage(CardSpec cardSpec, StageSpec stageSpec) : base(stageSpec)
 	{
-		this.cardData = cardData;
+		this.cardSpec = cardSpec;
 	}
 	
 	protected override void OnLoad()
 	{
 		base.OnLoad();
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardData));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
 		
 	}
 

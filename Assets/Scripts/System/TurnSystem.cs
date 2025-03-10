@@ -1,34 +1,216 @@
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MessageSystem;
 
 public class TurnSystem
 {
+	//todo: to balanced bst?
+	private class TurnOrderHandler
+	{
+		public class TurnOrderNode : IEnumerable
+		{
+			public TurnOrderNode left;
+			public TurnOrderNode right;
+			public ITurnObject target;
+			public TurnOrderNode(ITurnObject target)
+			{
+				this.target = target;
+			}
+			
+			public void AddChildNode(TurnOrderNode child)
+			{
+				if (child.target.TurnSpeed > target.TurnSpeed)
+				{
+					if (left == null)
+					{
+						left = child;
+					}
+					else
+					{
+						left.AddChildNode(child);
+					}
+				}
+				else
+				{
+					if (right == null)
+					{
+						right = child;
+					}
+					else
+					{
+						right.AddChildNode(child);
+					}
+				}
+			}
+
+			public void RemoveChildNode(ITurnObject obj)
+			{
+				if (target.TurnSpeed < obj.TurnSpeed)
+				{
+					if (left.target == obj)
+					{
+						RLReplace(ref left);
+					}
+					else
+					{
+						left.RemoveChildNode(obj);
+					}
+				}
+				else
+				{
+					if (right.target == obj)
+					{
+						RLReplace(ref right);
+					}
+					else
+					{
+						right.RemoveChildNode(obj);
+					}
+				}
+			}
+
+			public void RLReplace(ref TurnOrderNode targetPtr)
+			{
+				if (targetPtr.right == null)
+				{
+					targetPtr = targetPtr.left;
+				}
+				else
+				{
+					var replace = targetPtr.right;
+					if (replace.left == null)
+					{
+						targetPtr.right = replace.right;
+					}
+					else
+					{
+						while (replace.left != null)
+						{
+							var tmp = replace.left;
+							if (tmp.left == null)
+							{
+								replace.left = tmp.right;
+							}
+							replace = tmp;
+						}
+					}
+
+					replace.right = targetPtr.right;
+					replace.left = targetPtr.left;
+					targetPtr = replace;
+				}
+			}
+
+			public IEnumerator GetEnumerator()
+			{
+				if(left != null)
+				{
+					foreach (var lTarget in left)
+					{
+						yield return lTarget;
+					}
+				}
+
+				yield return target;
+
+				if (right != null)
+				{
+					foreach (var rTarget in right)
+					{
+						yield return rTarget;
+					}
+				}
+			}
+		}
+
+		private TurnOrderNode root;
+
+		public void AddObj(ITurnObject turnObject)
+		{
+			var child = new TurnOrderNode(turnObject);
+			if (root == null)
+			{
+				root = child;
+			}
+			else
+			{
+				root.AddChildNode(child);
+			}
+		}
+
+		public void RemoveObj(ITurnObject turnObject)
+		{
+			if (turnObject == root.target)
+			{
+				root.RLReplace(ref root);
+			}
+			else
+			{
+				root.RemoveChildNode(turnObject);
+			}
+		}
+		
+		public IEnumerator GetEnumerator()
+		{
+			if (root == null) yield break;
+			foreach (var node in root)
+			{
+				yield return node;
+			}
+		}
+	}
 	private const float MaxTurnGauge = 100;
-	private Dictionary<ITurnObject, float> turnGaugeDict;
+	private TurnOrderHandler turnOrderHandler;
 	private ITurnObject currentObject;
 	//todo: 타이 해결
 	private Queue<ITurnObject> candidates;
 	private Action<float> currentUpdateRoutine;
 	private IUpdatableRoutine priorityRoutine;
+	private IEnumerator currentTurnEnumerator;
+	private PlayerTurn playerTurn;
 	
 	public void Initialize()
 	{
-		turnGaugeDict = new();
+		//todo: fix subscribe once
+		NoticeSystem.Instance.Subscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
+		
+		turnOrderHandler = new();
 		candidates = new();
 		
-		var playerTurn = new PlayerTurn();
+		playerTurn = new PlayerTurn();
 		playerTurn.Initialize();
-		RegisterNewObject(playerTurn, MaxTurnGauge);
+	}
+
+	private void OnBattleStageInitRoutineDone(BattleStageInitRoutineDoneNotice m)
+	{
+		//todo: 일일히 해줘야하나?
+		playerTurn.StartTurn();
+		currentUpdateRoutine = UpdatePlayerTurn;
+	}
+
+	public void InitializeAutoTurn()
+	{
+		// ReSharper disable once NotDisposedResource : No Dispose Needed
+		currentTurnEnumerator = turnOrderHandler.GetEnumerator();
+		if (!currentTurnEnumerator.MoveNext())
+		{
+			//todo: fix
+			playerTurn.StartTurn();
+			currentUpdateRoutine = UpdatePlayerTurn;
+			return;
+		}
 		
-		currentUpdateRoutine = DetermineCandidates;
+		currentObject = (ITurnObject)currentTurnEnumerator.Current;
+		currentObject.StartTurn();
 	}
 
 	public void Dispose()
 	{
-		//todo:impl
+		(currentTurnEnumerator as IDisposable)?.Dispose();
+		NoticeSystem.Instance.Unsubscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
 	}
 
 	public void UpdateTurn(float dt)
@@ -46,63 +228,48 @@ public class TurnSystem
 		currentUpdateRoutine?.Invoke(dt);
 	}
 
-	private void UpdateCurrentObject(float dt)
+	private void UpdatePlayerTurn(float dt)
+	{
+		playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
+		if (done)
+		{
+			InitializeAutoTurn();
+			currentUpdateRoutine = UpdateAutoTurn;
+		}
+	}
+
+	private void UpdateAutoTurn(float dt)
 	{
 		//todo: start 전에 update가 불리는 경우 방지
 		currentObject.UpdatableRoutine.UpdateFrame(dt, out var routineDone);
 		if (routineDone)
 		{
-			turnGaugeDict[currentObject] = 0f;
 			NoticeSystem.Instance.Publish(new TurnEndNotice(currentObject));
-			currentObject = null;
-			currentUpdateRoutine = DetermineCurrentObject;
-		}
-	}
-
-	private void DetermineCurrentObject(float dt)
-	{
-		if (candidates.Count == 0)
-		{
-			currentUpdateRoutine = DetermineCandidates;
-			return;
-		}
-		
-		//todo: fix
-		currentObject = candidates.Dequeue();
-		currentObject.StartTurn();
-		NoticeSystem.Instance.Publish(new TurnStartNotice(currentObject));
-		
-		currentUpdateRoutine = UpdateCurrentObject;
-	}
-
-	private void DetermineCandidates(float dt)
-	{
-		foreach (var key in turnGaugeDict.Keys.ToArray())
-		{
-			turnGaugeDict[key] += key.TurnSpeed * dt;
-			if (turnGaugeDict[key] >= MaxTurnGauge)
+			if (currentTurnEnumerator.MoveNext())
 			{
-				candidates.Enqueue(key);
-				currentUpdateRoutine = DetermineCurrentObject;
+				currentObject = (ITurnObject)currentTurnEnumerator.Current;
+				currentObject.StartTurn();
+				NoticeSystem.Instance.Publish(new TurnStartNotice(currentObject));
+			}
+			else
+			{
+				(currentTurnEnumerator as IDisposable)?.Dispose();
+				playerTurn.StartTurn();
+				currentUpdateRoutine = UpdatePlayerTurn;
 			}
 		}
-		
-		NoticeSystem.Instance.Publish(new TurnGaugeUpdateNotice(MaxTurnGauge, turnGaugeDict));
 	}
 	
 	public void RegisterNewObject(ITurnObject obj, float startGauge = 0f)
 	{
-		if (!turnGaugeDict.TryAdd(obj, startGauge))
-		{
-			throw new ArgumentException();
-		}
+		turnOrderHandler.AddObj(obj);
 		
 		NoticeSystem.Instance.Publish(new TurnObjectRegisterNotice(obj));
 	}
 
 	public void UnregisterObject(ITurnObject obj)
 	{
-		turnGaugeDict.Remove(obj);
+		turnOrderHandler.RemoveObj(obj);
 		
 		NoticeSystem.Instance.Publish(new TurnObjectUnregisterNotice(obj));
 	}

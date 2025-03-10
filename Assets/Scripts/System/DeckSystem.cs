@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MessageSystem;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class DeckSystem
 {
@@ -10,6 +11,8 @@ public class DeckSystem
 	public PlayerField PlayerField { get; } = new();
 
 	private List<BattleCardObjectInHand> deck = new();
+
+	private GameObject deckObject;
 
 	private Vector3 deckPos = Vector3.zero;
 
@@ -29,9 +32,13 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
 		PlayerField.Initialize();
+		deckObject = new GameObject("Deck");
+		//todo:fix?
+		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
 		foreach (var card in Game.Instance.GetPlayer().CardList)
 		{
 			var cardObject = BattleCardObjectInHand.Instantiate(card, new BattleStat(card.Stat));
+			cardObject.transform.SetParent(deckObject.transform);
 			deck.Add(cardObject);
 		}
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
@@ -61,6 +68,12 @@ public class DeckSystem
 
 	public void Dispose()
 	{
+		PlayerHand.Dispose();
+		PlayerField.Dispose();
+		foreach (var cardObject in deck)
+		{
+			cardObject.Dispose();
+		}
 		NoticeSystem.Instance.Unsubscribe<HandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Unsubscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<HandCardStartUseNotice>(OnCardStartUse);

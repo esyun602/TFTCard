@@ -23,7 +23,7 @@ public class WaveGridDrawer : PropertyDrawer
         // GridSelector의 하위 프로퍼티 접근
         SerializedProperty rowsProp = property.FindPropertyRelative("rows");
         SerializedProperty columnsProp = property.FindPropertyRelative("columns");
-        var mapData = (property.serializedObject.targetObject as StageData)?.MapData;
+        var mapData = (property.serializedObject.targetObject as StageSpec)?.MapData;
         HashSet<(int, int)> layerTiles = null;
         if (mapData != null)
         {
@@ -71,7 +71,7 @@ public class WaveGridDrawer : PropertyDrawer
                 {
                     SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("cardObject");
                     var rect = new Rect(cellRect.position.x, cellRect.position.y + cellSize, cellSize + referenceCellSize + padding, referenceCellSize);
-                    EditorGUI.DrawPreviewTexture(cellRect, ((CardData)linkedObjProp.objectReferenceValue).cardResource);
+                    EditorGUI.DrawPreviewTexture(cellRect, ((CardSpec)linkedObjProp.objectReferenceValue).cardResource.texture);
                     EditorGUI.LabelField(rect, linkedObjProp.objectReferenceValue.name);
                 }
                 else
@@ -87,7 +87,7 @@ public class WaveGridDrawer : PropertyDrawer
                     referenceCellSize, referenceCellSize);
                 UnityEngine.Object newObj = EditorGUI.ObjectField(referenceRect,
                     cellDataProp != null ? cellDataProp.FindPropertyRelative("cardObject").objectReferenceValue : null, 
-                    typeof(CardData), true);
+                    typeof(CardSpec), true);
                     
                 if (EditorGUI.EndChangeCheck())
                 {

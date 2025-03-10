@@ -1,11 +1,10 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class TestStageData : StageData
+public class TestStageSpec : StageSpec
 {
-	[SerializeField] private CardData testCard;
+	[SerializeField] private CardSpec testCard;
 	public List<WaveGrid> WaveData;
 	
 	public override IStage InstantiateStage()

@@ -4,12 +4,12 @@ public class Card
 {
 	public CardStat Stat { get; }
 	public IAction Action { get; }
-	public CardData CardStaticData { get; }
+	public CardSpec CardStaticSpec { get; }
 
-	public Card(CardData data)
+	public Card(CardSpec spec)
 	{
-		CardStaticData = data;
-		Action = data.actionData.CreateCardAction();
-		Stat = new CardStat(data.statData);
+		CardStaticSpec = spec;
+		Action = spec.actionData.CreateCardAction();
+		Stat = new CardStat(spec.statSpec);
 	}
 }

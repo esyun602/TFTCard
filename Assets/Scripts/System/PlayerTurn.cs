@@ -1,5 +1,7 @@
 
 using System;
+using System.Collections;
+using Coroutine;
 using MessageSystem;
 
 /// <summary>
@@ -9,16 +11,21 @@ using MessageSystem;
 ///           - todo: 카드 이동 막음
 /// </summary>
 
-public class PlayerTurn : ITurnObject, IDisposable
+public class PlayerTurn : IDisposable
 {
+	private bool turnStartRoutineDone;
 	private bool playerActionDone;
-	private IUpdatableRoutine routine;
-	public IUpdatableRoutine UpdatableRoutine => routine;
+	private IUpdatableRoutine startRoutine;
+	private IUpdatableRoutine turnRoutine;
+	private IUpdatableRoutine currentRoutine;
+	public IUpdatableRoutine UpdatableCurrentRoutine => currentRoutine;
 	public void Initialize()
 	{
 		NoticeSystem.Instance.Subscribe<HandCardEndUseNotice>(OnCardUse);
 		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnCardMove);
-		routine = new UpdatableRoutine(UpdateFrame);
+		startRoutine = new UpdatableRoutine(UpdateTurnStart);
+		turnRoutine = new UpdatableRoutine(UpdateTurn);
+		currentRoutine = startRoutine;
 	}
 
 	public void Dispose()
@@ -46,16 +53,36 @@ public class PlayerTurn : ITurnObject, IDisposable
 
 	public void StartTurn()
 	{
-		playerActionDone = false;
-		routine.Initialize();
-		NoticeSystem.Instance.Publish(new PlayerTurnStartNotice(this));
+		turnStartRoutineDone = false;
+		currentRoutine = startRoutine;
+		currentRoutine.Initialize();
+		CoroutineManager.Instance.StartCoroutine(TurnStartRoutine());
 	}
 
-	public void UpdateFrame(float dt, out bool routineDone)
+	private void UpdateTurnStart(float dt, out bool routineDone)
+	{
+		if (turnStartRoutineDone)
+		{
+			routineDone = true;
+			playerActionDone = false;
+			currentRoutine = turnRoutine;
+			currentRoutine.Initialize();
+			NoticeSystem.Instance.Publish(new PlayerTurnStartNotice(this));
+			return;
+		}
+
+		routineDone = false;
+	}
+
+	private IEnumerator TurnStartRoutine()
+	{
+		turnStartRoutineDone = false;
+		yield return new WaitForSeconds(1.0f);
+		turnStartRoutineDone = true;
+	}
+	
+	private void UpdateTurn(float dt, out bool routineDone)
 	{
 		routineDone = playerActionDone;
 	}
-
-	//todo: fix
-	public float TurnSpeed => 10f;
 }

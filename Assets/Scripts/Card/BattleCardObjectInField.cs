@@ -119,9 +119,9 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		return cardObject;
 	}
 		
-	public static BattleCardObjectInField Instantiate(CardData cardData, ITile targetTile, ObjectType objectType)
+	public static BattleCardObjectInField Instantiate(CardSpec cardSpec, ITile targetTile, ObjectType objectType)
 	{
-		var card = new Card(cardData);
+		var card = new Card(cardSpec);
 		return Instantiate(card, targetTile, new BattleStat(card.Stat), objectType);
 	}
 
@@ -135,7 +135,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
 	
-	public float TurnSpeed => BattleStat.Speed;
+	public int TurnSpeed => BattleStat.Speed;
 	
 	
 	private class CardObjectNormalInFieldState : IState, IUpdatable
@@ -331,5 +331,9 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			NoticeSystem.Instance.PublishSync(new PlayerFieldCardMoveNotice(owner));
 		}
+	}
+
+	public void Dispose()
+	{
 	}
 }
