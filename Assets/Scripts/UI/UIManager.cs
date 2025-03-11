@@ -67,7 +67,7 @@ public class UIManager
 
 	private Canvas GetTargetCanvasByType(UIType type)
 	{
-		if (canvasMap.TryGetValue(type, out var canvas))
+		if (canvasMap.TryGetValue(type, out var canvas) && canvas != null)
 		{
 			return canvas;
 		}

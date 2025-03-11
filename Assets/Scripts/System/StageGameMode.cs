@@ -1,6 +1,7 @@
 
 using System.Collections;
 using Coroutine;
+using MessageSystem;
 
 public abstract class StageGameMode : IGameMode
 {
@@ -18,10 +19,14 @@ public abstract class StageGameMode : IGameMode
 
 	public void Initialize()
 	{
+		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
+	}
+
+	private void OnTransitionDone()
+	{
 		currentStage.Load();
-		OnInitialize();
-		
 		//todo: fix
+		OnInitialize();
 		CoroutineManager.Instance.StartCoroutine(StartStage());
 	}
 
@@ -31,6 +36,11 @@ public abstract class StageGameMode : IGameMode
 		yield return StageStartRoutine();
 		currentStage.Start();
 		OnStageStart();
+	}
+
+	public void ClearStage()
+	{
+		NoticeSystem.Instance.Publish(new StageClearNotice());
 	}
 
 	protected virtual IEnumerator StageStartRoutine()

@@ -195,6 +195,7 @@ MonoBehaviour:
   gameDataList:
   - {fileID: 11400000, guid: 5982b0bfadabe04429d5d8dc38b88724, type: 2}
   - {fileID: 11400000, guid: b05a41d199fae0b4abd011293f7ed19d, type: 2}
+  - {fileID: 11400000, guid: fd42fbf0856e930429cc2172d28b3eb7, type: 2}
 --- !u!4 &671050016
 Transform:
   m_ObjectHideFlags: 0

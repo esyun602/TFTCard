@@ -67,7 +67,7 @@ public class ShopUIPanel : UIInstance
 
 public void OnCardClick(int idx)
 	{
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardDataList[idx]));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardDataList[idx]));
 		cardImageList[idx].gameObject.SetActive(false);
 	}
 

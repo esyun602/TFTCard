@@ -14,6 +14,7 @@ public class Game : MonoBehaviour
 	private TestStageSpec testStage;
 	private Player player;
 	public UIManager UIManager { get; private set; }
+	public SceneHandler SceneHandler { get; private set; }
 	
 	private void Awake()
 	{
@@ -24,12 +25,15 @@ public class Game : MonoBehaviour
 		}
 		
 		Instance = this;
+		DontDestroyOnLoad(gameObject);
 	}
 
 	private void Start()
 	{
+		SceneHandler = new();
 		UIManager = new();
-		player = new Player();
+		player = new();
+		player.Initialize();
 		ChangeGameMode(new TitleGameMode());
 	}
 	

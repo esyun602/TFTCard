@@ -28,7 +28,7 @@ public class UnityObjectPool : MonoBehaviour
 	public static UnityObjectPool GetOrCreatePool(string pathName, string assetName, float? disposeTime = null)
 	{
 		var presetFullName = String.IsNullOrEmpty(pathName) ? assetName : pathName + "/" + assetName;
-		if (poolMap.TryGetValue(presetFullName, out var pool))
+		if (poolMap.TryGetValue(presetFullName, out var pool) && pool != null)
 		{
 			return pool;
 		}

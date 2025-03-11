@@ -2,11 +2,11 @@ using MessageSystem;
 
 public class MapNodeSelectNotice : Notice
 {
-	public MapNodeSelectNotice(StageSpec targetSpec)
+	public MapNodeSelectNotice(MapNodeInfo targetInfo)
 	{
-		TargetSpec = targetSpec;
+		TargetInfo = targetInfo;
 	}
 
-	public StageSpec TargetSpec { get; private set; }
+	public MapNodeInfo TargetInfo { get; private set; }
 	
 }

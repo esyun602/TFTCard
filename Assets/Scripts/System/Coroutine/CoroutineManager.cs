@@ -16,6 +16,7 @@ namespace Coroutine
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {

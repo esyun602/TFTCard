@@ -10,29 +10,52 @@ public class MapPanel : UIInstance
 	
 	[SerializeField]
 	private MapNode mapNodePrefab;
-	private List<MapNode> nodeList;
+
+	private MapInfo mapInfo;
+	private List<MapNode> nodeList = new();
+	
 	public override UIType UIType => UIType.SceneUI;
 	protected override void Init(object param)
 	{
 		GenerateNodeForTest();
+		InstantiateNodes();
 	}
 
 #if UNITY_EDITOR
 	private void GenerateNodeForTest()
 	{
-		nodeList = new();
-		var node = Instantiate<MapNode>(mapNodePrefab, transform);
-		node.OpenNode();
-		nodeList.Add(node);
-
+		if (Game.Instance.GetPlayer().CurrentPlayInfo.CurrentMapInfo != null)
+		{
+			mapInfo = Game.Instance.GetPlayer().CurrentPlayInfo.CurrentMapInfo;
+			return;
+		}
+		
+		Game.Instance.GetPlayer().CurrentPlayInfo.CurrentMapInfo = mapInfo = new();
+		var root = new MapNodeInfo();
+		root.OpenNode();
+		//todo: fix..
+		root.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
+		var tailNode = root;
 		for (int i = 1; i <= 5; i++)
 		{
-			node = Instantiate<MapNode>(mapNodePrefab, transform);
-			nodeList.Add(node);
-			nodeList[i - 1].AddChild(nodeList[i]);
+			tailNode.AddChild(tailNode = new MapNodeInfo());
+			//todo: fix
+			tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
 		}
+		
+		mapInfo.AddStartNode(root);
 	}
 #endif
+
+	private void InstantiateNodes()
+	{
+		foreach (var nodeInfo in mapInfo.MapNodeInfos)
+		{
+			var node = Instantiate<MapNode>(mapNodePrefab, transform);
+			node.targetInfo = nodeInfo;
+			nodeList.Add(node);
+		}
+	}
 
 	/// <summary>
 	/// frame issue로 Start에서 Align

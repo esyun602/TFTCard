@@ -15,16 +15,16 @@ public class TestStage : StageBase
 	protected override void OnLoad()
 	{
 		base.OnLoad();
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
-		Game.Instance.GetPlayer().CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardSpec));
 		
 	}
 

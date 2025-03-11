@@ -35,7 +35,7 @@ public class DeckSystem
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
-		foreach (var card in Game.Instance.GetPlayer().CardList)
+		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.CardList)
 		{
 			var cardObject = BattleCardObjectInHand.Instantiate(card, new BattleStat(card.Stat));
 			cardObject.transform.SetParent(deckObject.transform);

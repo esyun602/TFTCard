@@ -1,7 +1,14 @@
-
 using System.Collections.Generic;
 
 public class Player
 {
-	public List<Card> CardList { get; } = new();
+	public void Initialize()
+	{
+		//todo: load
+		CurrentPlayInfo = new();
+		CurrentPlayInfo.Initialize();
+	}
+
+	//todo: save infos
+	public PlayInfo CurrentPlayInfo { get; private set; }
 }

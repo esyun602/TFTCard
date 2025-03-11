@@ -1,33 +1,19 @@
+using System;
 using System.Collections.Generic;
 using MessageSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum NodeState
-{
-	Closed = 0,
-	Opened = 1,
-	Selected = 2,
-	Cleared = 3,
-}
-
 public class MapNode : MonoBehaviour
 {
-	public StageSpec targetStageSpec;
+	//todo: fix
+	public MapNodeInfo targetInfo { get; set; }
 
-	private List<MapNode> mapNodeList = new();
-
-	public NodeState NodeState { get; private set; } = NodeState.Closed;
 	
-	public void AddChild(MapNode target)
-	{
-		mapNodeList.Add(target);
-	}
-
 	public void OpenNode()
 	{
 		//todo:fix
-		NodeState = NodeState.Opened;
+		targetInfo.OpenNode();
 		GetComponentInChildren<Image>().color = Color.red;
 	}
 
@@ -35,22 +21,41 @@ public class MapNode : MonoBehaviour
 	{
 		//todo:fix
 		//todo: 아예 클릭이 안되게
-		if (NodeState != NodeState.Opened)
-		{
-			return;
-		}
-		
-		NodeState = NodeState.Selected;
+		targetInfo.SelectNode();
 		GetComponentInChildren<Image>().color = Color.yellow;
 		
-		NoticeSystem.Instance.Publish(new MapNodeSelectNotice(targetStageSpec));
 	}
 
 	public void ClearNode()
 	{
 		//todo:fix
-		NodeState = NodeState.Cleared;
+		targetInfo.ClearNode();
 		GetComponentInChildren<Image>().color = Color.blue;
 		
+	}
+	
+	//todo : fix
+	public void UpdateNodeColor()
+	{
+		switch (targetInfo.NodeState)
+		{
+			case MapNodeState.Closed:
+				GetComponentInChildren<Image>().color = Color.black;
+				break;
+			case MapNodeState.Opened:
+				GetComponentInChildren<Image>().color = Color.red;
+				break;
+			case MapNodeState.Cleared:
+				GetComponentInChildren<Image>().color = Color.blue;
+				break;
+			case MapNodeState.Selected:
+				GetComponentInChildren<Image>().color = Color.yellow;
+				break;
+		}
+	}
+
+	private void Update()
+	{
+		UpdateNodeColor();
 	}
 }

@@ -80,6 +80,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 		else
 		{
+			ClearStage();
 			battleStageStateMachine.ChangeState(new BattleStageGameEndState(this));
 		}
 	}

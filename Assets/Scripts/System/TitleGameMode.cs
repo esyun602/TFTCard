@@ -2,6 +2,11 @@ public class TitleGameMode : IGameMode
 {
 	public void Initialize()
 	{
+		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
+	}
+
+	private void OnTransitionDone()
+	{
 		Game.Instance.UIManager.GenerateUI<MainMenuPanel>(new MainMenuPanelGenState()
 		{
 			GameStartAction = StartGame,

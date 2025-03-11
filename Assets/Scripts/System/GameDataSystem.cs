@@ -20,6 +20,7 @@ public class GameDataSystem : MonoBehaviour
 		}
 		
 		Instance = this;
+		DontDestroyOnLoad(gameObject);
 	}
 
 	public T GetGameData<T>() where T : GameData

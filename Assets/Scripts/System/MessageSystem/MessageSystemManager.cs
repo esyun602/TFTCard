@@ -36,6 +36,7 @@ namespace MessageSystem
             if (Instance == null)
             {
                 Instance = this;
+                DontDestroyOnLoad(gameObject);
             }
             else
             {
