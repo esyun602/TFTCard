@@ -322,6 +322,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().GetCurrentStage().Map;
 			owner.transform.position = targetTile.GetPosition();
+			owner.transform.up = Camera.main.transform.up;
 			map.RemoveFromTile(owner);
 			map.SetTile(targetTile, owner);
 			owner.ChangeState(new CardObjectNormalInFieldState(owner));
