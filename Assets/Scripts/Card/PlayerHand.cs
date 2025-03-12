@@ -13,7 +13,7 @@ public class PlayerHand
 
 	private Vector3 handCenter =>
 		(Camera.main.transform.position + -Camera.main.orthographicSize * Camera.main.transform.up +
-		 Camera.main.transform.up).GetX0z(1f);
+		 Camera.main.transform.up).GetX0z(3f);
 
 	private float cardDistance = 1.3f;
 	private float cardRotationAngle = 5f;
@@ -29,6 +29,7 @@ public class PlayerHand
 	{
 	}
 	
+	//todo: handler를 안넘겨줄 이유가 있나
 	public void UpdateBlockFlags(InputBlockFlag flag)
 	{
 		blockInput = flag;

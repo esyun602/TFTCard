@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: TestCardStat
   m_EditorClassIdentifier: 
   hp: 5
+  attack: 2
   speed: 3

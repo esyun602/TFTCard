@@ -5,6 +5,11 @@ public class BlockInputHandler
 	private Dictionary<object, InputBlockFlag> blockRequestDict = new();
 	
 	public InputBlockFlag BlockInput { get; private set; }
+
+	public bool IsBlocked(InputBlockFlag flag)
+	{
+		return (BlockInput & flag) != InputBlockFlag.None;
+	}
 		
 	public void BlockInputs(InputBlockFlag flag, object requester)
 	{

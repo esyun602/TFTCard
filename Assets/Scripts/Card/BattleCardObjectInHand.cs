@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Exception = System.Exception;
 
 [Flags]
 public enum InputBlockFlag
@@ -33,11 +34,26 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 
 	private InputBlockFlag blockInput;
 
+	//todo: 스탯이 없는 카드
 	public BattleStat BattleStat { get; private set; }
 
+	private bool CanSelect()
+	{
+		//todo: access fix?
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy < BattleStat.Cost)
+		{
+			return false;
+		}
+
+		return true;
+	}
+	
 	private bool CanUse(ITile tile = null)
 	{
 		//todo: tile 없이 사용하는 경우?
+		
+		//todo: cost 방어?
+		
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 		return tile?.TileType == ObjectType.Ally
 		       && map.GetBattleObjectOfTile(tile) == null
@@ -106,7 +122,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		if ((blockInput & InputBlockFlag.Select) != InputBlockFlag.None) return;
+		if ((blockInput & InputBlockFlag.Select) != InputBlockFlag.None && CanSelect()) return;
 		if (cardObjectStateMachine.CurrentState is CardObjectNormalInHandState { IsHovered: true } &&
 		    eventData.button == PointerEventData.InputButton.Left)
 		{
@@ -284,8 +300,19 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 
 		private void OnTryUseHandCard(InputAction.CallbackContext obj)
 		{
+			if (!owner.CanSelect())
+			{
+				//todo: 이런 상황이 발생하면 안되는데
+				throw new Exception();
+			}
+			
+			//todo: 타일이 필요 없는 카드
 			if (owner.CanUse(currentTile))
+			{
+				//todo: 사용함수를 분리?
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.BattleStat.Cost;
 				owner.ChangeState(new CardObjectUsedInHandState(owner, currentTile));
+			}
 		}
 
 		public void Exit(IState nextState)

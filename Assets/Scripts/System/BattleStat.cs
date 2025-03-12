@@ -20,8 +20,9 @@ public class BattleStat
 		set => hp = Mathf.Max(value, 0);
 	}
 	public bool IsDead => Hp == 0;
-	public int MaxHp { get; }
-	public int Speed { get; }
+	public int MaxHp { get; set; }
+	public int Speed { get; set; }
+	public int Cost { get; set; }
 	private List<IOption> optionList;
 	//field scope 기믹
 	private List<IBuff> buffList;
@@ -32,5 +33,6 @@ public class BattleStat
 		Attack = cardStat.Attack;
 		MaxHp = Hp = cardStat.MaxHp;
 		Speed = cardStat.Speed;
+		Cost = cardStat.Cost;
 	}
 }

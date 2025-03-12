@@ -38,7 +38,7 @@ public class TestCardAction : CardActionBase
 				Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
 				if (target?.ObjectType.IsHostile(owner.ObjectType) == true)
 				{
-					map.GetBattleObjectOfTile(targetTile).Damage(owner, 5);
+					map.GetBattleObjectOfTile(targetTile).Damage(owner, owner.BattleStat.Attack);
 				}
 			}
 		}

@@ -210,6 +210,7 @@ public class TurnSystem
 	public void Dispose()
 	{
 		(currentTurnEnumerator as IDisposable)?.Dispose();
+		playerTurn.Dispose();
 		NoticeSystem.Instance.Unsubscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
 	}
 

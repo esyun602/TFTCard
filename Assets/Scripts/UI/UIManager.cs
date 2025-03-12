@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using MessageSystem;
+using UnityEngine.InputSystem.UI;
 
 public class UIManager
 {
@@ -51,6 +52,10 @@ public class UIManager
 		{
 			canvasMap[UIType.DontDestroyUI] = GenerateTargetCanvas(UIType.DontDestroyUI);
 			Object.DontDestroyOnLoad(canvasMap[UIType.DontDestroyUI].gameObject);
+		}
+
+		if (EventSystem.current == null)
+		{
 			GenerateEventSystem();
 		}
 
@@ -95,9 +100,7 @@ public class UIManager
 
 	private void GenerateEventSystem()
 	{
-		var go = new GameObject("EventSystem");
-		go.AddComponent<EventSystem>();
-		go.AddComponent<StandaloneInputModule>();
+		var go = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
 		Object.DontDestroyOnLoad(go);
 	}
 

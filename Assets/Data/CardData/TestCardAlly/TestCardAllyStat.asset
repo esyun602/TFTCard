@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: TestCardAllyStat
   m_EditorClassIdentifier: 
   hp: 5
+  attack: 2
   speed: 2
+  cost: 1

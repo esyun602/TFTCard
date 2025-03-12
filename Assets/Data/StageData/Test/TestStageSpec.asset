@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: TestStageSpec
   m_EditorClassIdentifier: 
   mapData: {fileID: 11400000, guid: 2c6aa9d50575d5c4a84ff7f1f4fad9e7, type: 2}
-  camSize: 15
+  camSize: 7
   testCard: {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
   WaveData:
-  - rows: 8
-    columns: 4
+  - rows: 4
+    columns: 8
     cells:
-    - row: 4
-      col: 0
+    - row: 1
+      col: 5
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 2
+      col: 5
       cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}

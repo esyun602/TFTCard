@@ -25,6 +25,11 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 	protected override void OnInitialize()
 	{
+		Game.Instance.UIManager.GenerateUI<BattleUI>(new BattleUIGenState()
+		{
+			InputHandler = this.DeckSystem.BlockInputHandler
+		});
+		
 		NoticeSystem.Instance.Subscribe<TurnObjectGeneratedNotice>(OnTurnObjectGenerate);
 		NoticeSystem.Instance.Subscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);
 		NoticeSystem.Instance.Subscribe<BattleObjectDestroyedNotice>(OnBattleObjectDestroy);

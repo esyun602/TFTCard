@@ -21,8 +21,7 @@ public class PlayerTurn : IDisposable
 	public IUpdatableRoutine UpdatableCurrentRoutine => currentRoutine;
 	public void Initialize()
 	{
-		NoticeSystem.Instance.Subscribe<HandCardEndUseNotice>(OnCardUse);
-		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnCardMove);
+		NoticeSystem.Instance.Subscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 		startRoutine = new UpdatableRoutine(UpdateTurnStart);
 		turnRoutine = new UpdatableRoutine(UpdateTurn);
 		currentRoutine = startRoutine;
@@ -30,20 +29,14 @@ public class PlayerTurn : IDisposable
 
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardUse);
-		NoticeSystem.Instance.Unsubscribe<PlayerFieldCardMoveNotice>(OnCardMove);
+		NoticeSystem.Instance.Unsubscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 	}
 
-	private void OnCardUse(HandCardEndUseNotice m)
+	private void OnTurnEndButtonClick(TurnEndClickNotice m)
 	{
 		EndTurn();
 	}
 	
-	private void OnCardMove(PlayerFieldCardMoveNotice m)
-	{
-		EndTurn();
-	}
-
 	private void EndTurn()
 	{
 		playerActionDone = true;

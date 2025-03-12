@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using MessageSystem;
 using Unity.Mathematics;
@@ -7,6 +8,17 @@ using UnityEngine.XR;
 
 public class DeckSystem
 {
+	//todo: command->log화?
+	private int energy;
+	public int Energy
+	{
+		get => energy;
+		set
+		{
+			NoticeSystem.Instance.Publish(new EnergyChangeNotice(energy, value));
+			energy = value;
+		}
+	}
 	public PlayerHand PlayerHand { get; } = new();
 	public PlayerField PlayerField { get; } = new();
 
@@ -17,7 +29,7 @@ public class DeckSystem
 	private Vector3 deckPos = Vector3.zero;
 
 	private BlockInputHandler blockInputHandler = new();
-	
+	public BlockInputHandler BlockInputHandler => blockInputHandler;
 	
 	public void Initialize()
 	{
@@ -32,6 +44,7 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
 		PlayerField.Initialize();
+		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
@@ -97,6 +110,8 @@ public class DeckSystem
 		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.PlayerTurnObject);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+
+		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
 	}
 
 	private void OnPlayerTurnEnd(PlayerTurnEndNotice m)

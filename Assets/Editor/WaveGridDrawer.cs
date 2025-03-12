@@ -42,7 +42,6 @@ public class WaveGridDrawer : PropertyDrawer
         Rect gridRect = new Rect(position.x, position.y, gridWidth, gridHeight);
 
         // 마우스 이벤트 처리 (드래그&드롭 대신 각 셀의 오브젝트 필드를 사용하므로 별도의 클릭 처리 없이 ObjectField를 사용)
-        // 각 셀을 그립니다.
 
         var dict = new Dictionary<(int, int), SerializedProperty>();
         for (int i = 0; i < cellsProp.arraySize; i++)
@@ -66,7 +65,7 @@ public class WaveGridDrawer : PropertyDrawer
                 );
 
                 dict.TryGetValue((row, col), out var cellDataProp);
-
+/*
                 if (cellDataProp != null)
                 {
                     SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("cardObject");
@@ -78,17 +77,17 @@ public class WaveGridDrawer : PropertyDrawer
                 {
                     EditorGUI.DrawRect(cellRect, Color.gray);
                 }
-
+*/
                 if (layerTiles?.Contains((row, col)) != true) continue;
                 // 각 셀에 오브젝트 필드를 오버레이로 표시합니다.
                 EditorGUI.BeginChangeCheck();
-                    
+                
                 var referenceRect = new Rect(cellRect.position.x + cellSize, cellRect.position.y,
                     referenceCellSize, referenceCellSize);
                 UnityEngine.Object newObj = EditorGUI.ObjectField(referenceRect,
                     cellDataProp != null ? cellDataProp.FindPropertyRelative("cardObject").objectReferenceValue : null, 
                     typeof(CardSpec), true);
-                    
+                
                 if (EditorGUI.EndChangeCheck())
                 {
                     if (newObj == null && cellDataProp != null)
@@ -107,8 +106,38 @@ public class WaveGridDrawer : PropertyDrawer
                         }
                         
                         cellDataProp.FindPropertyRelative("cardObject").objectReferenceValue = newObj;
-                        property.serializedObject.ApplyModifiedProperties();
                     }
+                }
+            }
+        }
+
+        
+        //fix - object picker와 objectField 간의 control id 관련 이슈
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                Rect cellRect = new Rect(
+                    gridRect.x + col * (cellSize + referenceCellSize + padding),
+                    gridRect.y + (rows - 1 - row) * (cellSize + referenceCellSize + padding),
+                    cellSize,
+                    cellSize
+                );
+
+                dict.TryGetValue((row, col), out var cellDataProp);
+
+                if (cellDataProp != null)
+                {
+                    SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("cardObject");
+                    var rect = new Rect(cellRect.position.x, cellRect.position.y + cellSize,
+                        cellSize + referenceCellSize + padding, referenceCellSize);
+                    EditorGUI.DrawPreviewTexture(cellRect,
+                        ((CardSpec)linkedObjProp.objectReferenceValue).cardResource.texture);
+                    EditorGUI.LabelField(rect, linkedObjProp.objectReferenceValue.name);
+                }
+                else
+                {
+                    EditorGUI.DrawRect(cellRect, Color.gray);
                 }
             }
         }
@@ -118,6 +147,7 @@ public class WaveGridDrawer : PropertyDrawer
             cellsProp.DeleteArrayElementAtIndex(idx);
         }
 
+        property.serializedObject.ApplyModifiedProperties();
         EditorGUI.EndProperty();
     }
 

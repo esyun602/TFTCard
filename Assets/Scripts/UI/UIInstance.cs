@@ -53,6 +53,11 @@ public abstract class UIInstance : MonoBehaviour
 		OnRemove();
 	}
 
+	private void OnDestroy()
+	{
+		OnRemove();
+	}
+
 	protected virtual void OnRemove()
 	{
 	}
