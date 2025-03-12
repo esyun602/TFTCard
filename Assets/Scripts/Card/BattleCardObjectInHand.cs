@@ -122,7 +122,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		if ((blockInput & InputBlockFlag.Select) != InputBlockFlag.None && CanSelect()) return;
+		if ((blockInput & InputBlockFlag.Select) != InputBlockFlag.None || !CanSelect()) return;
 		if (cardObjectStateMachine.CurrentState is CardObjectNormalInHandState { IsHovered: true } &&
 		    eventData.button == PointerEventData.InputButton.Left)
 		{
