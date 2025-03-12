@@ -23,17 +23,16 @@ public class TileBase : ITile
 		return new Vector2Int((int)transform.position.x, (int)transform.position.z);
 	}*/
 	private Vector2Int position;
-	private int tileSize;
+	private const float tileHeight = 0.5f;
 	private ObjectType tileType;
-	public TileBase(Vector2Int position, int tileSize, ObjectType tileType)
+	public TileBase(Vector2Int position, int tileSizeX, int tileSizeY, ObjectType tileType)
 	{
 		this.position = position;
-		this.tileSize = tileSize;
 		this.tileType = tileType;
 	}
 	public Vector3 GetPosition()
 	{
-		return position.ToVector3XZ(tileSize);
+		return position.ToVector3XZ(0.5f);
 	}
 
 	public ObjectType TileType => tileType;

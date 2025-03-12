@@ -17,11 +17,11 @@ MonoBehaviour:
   testCard: {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
   WaveData:
   - rows: 4
-    columns: 8
+    columns: 10
     cells:
-    - row: 1
-      col: 5
-      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
     - row: 2
       col: 5
       cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 1
+      col: 6
+      cardObject: {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}

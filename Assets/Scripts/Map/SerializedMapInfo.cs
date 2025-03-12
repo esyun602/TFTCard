@@ -60,7 +60,7 @@ public class SerializedMapInfo
 
 				if (l.name == layerName)
 				{
-					var pos = tile.position.ToRoundedVector2IntXZ() / (int)tile.scale.x;
+					var pos = new Vector2Int(Mathf.RoundToInt(tile.position.x) / (int)tile.scale.x, Mathf.RoundToInt(tile.position.z) / (int)tile.scale.z);
 					layerTiles.Add((pos.y, pos.x));
 				}
 			}

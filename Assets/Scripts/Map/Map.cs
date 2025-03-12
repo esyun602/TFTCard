@@ -63,8 +63,9 @@ public class Map : IMap
 	private int yMax;
 
 	//todo: fix
-	private const int tileSize = 3;
-
+	private const int tileSizeX = 2;
+	private const int tileSizeY = 3;
+	
 	public Map(GameObject mapObject)
 	{
 		this.mapObject = mapObject;
@@ -94,7 +95,7 @@ public class Map : IMap
 			if (child.CompareTag("Tile"))
 			{
 				var pos = child.position.ToRoundedVector2IntXZ();
-				tileDict[pos] = new TileBase(pos, tileSize,
+				tileDict[pos] = new TileBase(pos, tileSizeX, tileSizeY,
 					child.parent.name == "AllyLayer" ? ObjectType.Ally :
 					child.parent.name == "EnemyLayer" ? ObjectType.Enemy : ObjectType.Neutral);
 
@@ -140,7 +141,7 @@ public class Map : IMap
 
 	public ITile GetTileAt(Vector3 position)
 	{
-		return tileDict.GetValueOrDefault((position.GetX0z() / tileSize).ToRoundedVector2IntXZ() * tileSize);
+		return tileDict.GetValueOrDefault((new Vector2Int(Mathf.RoundToInt(position.x / tileSizeX) * tileSizeX, Mathf.RoundToInt(position.z / tileSizeY) * tileSizeY)));
 	}
 
 	/// <summary>
@@ -148,7 +149,7 @@ public class Map : IMap
 	/// </summary>
 	public ITile GetTileAt(int row, int col)
 	{
-		return tileDict.GetValueOrDefault(new Vector2Int(xMin + col * tileSize, yMin + row * tileSize));
+		return tileDict.GetValueOrDefault(new Vector2Int(xMin + col * tileSizeX, yMin + row * tileSizeY));
 	}
 
 	/// <summary>
@@ -156,8 +157,8 @@ public class Map : IMap
 	/// </summary>
 	public (int, int) GetTileCoord(ITile tile)
 	{
-		var coordVector = (tile.GetPosition().ToRoundedVector2IntXZ() - new Vector2Int(xMin, yMin)) / tileSize;
-		return (coordVector.x, coordVector.y);
+		var coordVector = (tile.GetPosition().ToRoundedVector2IntXZ() - new Vector2Int(xMin, yMin));
+		return (coordVector.x / tileSizeX, coordVector.y / tileSizeY);
 	}
 
 	public ITile[] GetTiles()
