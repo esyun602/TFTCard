@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,6 +22,14 @@ public class GameDataSystem : MonoBehaviour
 		
 		Instance = this;
 		DontDestroyOnLoad(gameObject);
+	}
+
+	private void Start()
+	{
+		foreach (var data in gameDataList)
+		{
+			data.Initialize();
+		}
 	}
 
 	public T GetGameData<T>() where T : GameData

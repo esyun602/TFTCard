@@ -8,4 +8,5 @@ public class CardStatSpec : ScriptableObject
 	public int attack;
 	public int speed;
 	public int cost;
+	public Synergy[] synergy;
 }

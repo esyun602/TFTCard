@@ -26,6 +26,7 @@ public class BattleStat
 	private List<IOption> optionList;
 	//field scope 기믹
 	private List<IBuff> buffList;
+	private List<Synergy> synergyList;
 
 	public BattleStat(CardStat cardStat)
 	{
@@ -34,5 +35,11 @@ public class BattleStat
 		MaxHp = Hp = cardStat.MaxHp;
 		Speed = cardStat.Speed;
 		Cost = cardStat.Cost;
+		synergyList = new(cardStat.synergyList);
+	}
+
+	public List<Synergy> GetSynergyList()
+	{
+		return new(synergyList);
 	}
 }

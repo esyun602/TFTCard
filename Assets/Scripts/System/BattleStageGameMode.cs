@@ -7,10 +7,13 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 {
 	//sfx system
 	//fx system
+	//todo: input 관리해주는거 묶기
+	//todo: 오브젝트 리스트 파편화해서 관리하는 것 하나로 통일 
 	public DeckSystem DeckSystem { get; }
 	public TurnSystem TurnSystem { get; }
 	public WaveSystem WaveSystem { get; }
-	public BattleSystem BattleSystem { get; }
+	public BattleFieldSystem BattleFieldSystem { get; }
+	public SynergySystem SynergySystem { get; }
 
 	private SimpleStateMachine battleStageStateMachine = new();
 
@@ -19,8 +22,9 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	{
 		DeckSystem = new();
 		TurnSystem = new();
-		BattleSystem = new();
+		BattleFieldSystem = new();
 		WaveSystem = new(waveData);
+		SynergySystem = new();
 	}
 
 	protected override void OnInitialize()
@@ -38,7 +42,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		DeckSystem.Initialize();
 		TurnSystem.Initialize();
 		WaveSystem.Initialize();
-		BattleSystem.Initialize();
+		BattleFieldSystem.Initialize();
+		SynergySystem.Initialize();
 	}
 
 	protected override void OnStageStart()
@@ -62,7 +67,11 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	private void OnBattleObjectGenerate(BattleObjectGeneratedNotice m)
 	{
 		GetCurrentStage().Map.SetTile(m.TargetTile, m.TargetObject);
-		BattleSystem.Register(m.TargetObject);
+		BattleFieldSystem.Register(m.TargetObject);
+		if (m.TargetObject.ObjectType == ObjectType.Ally)
+		{
+			SynergySystem.Register(m.TargetObject);
+		}
 	}
 	
 	private void OnTurnObjectDestroy(TurnObjectDestroyNotice m)
@@ -73,7 +82,12 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	private void OnBattleObjectDestroy(BattleObjectDestroyedNotice m)
 	{
 		GetCurrentStage().Map.RemoveFromTile(m.Target);
-		BattleSystem.UnRegister(m.Target, m.Context);
+		BattleFieldSystem.UnRegister(m.Target, m.Context);
+		if (m.Target.ObjectType == ObjectType.Ally)
+		{
+			SynergySystem.Register(m.Target);
+		}
+		
 	}
 
 	private void OnBattleObjectEliminate(BattleObjectTypeEliminateNotice m)
@@ -100,7 +114,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		DeckSystem.Dispose();
 		TurnSystem.Dispose();
 		WaveSystem.Dispose();
-		BattleSystem.Dispose();
+		BattleFieldSystem.Dispose();
 	}
 
 	public void UpdateFrame(float dt)

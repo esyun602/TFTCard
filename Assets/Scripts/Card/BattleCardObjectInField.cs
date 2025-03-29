@@ -179,6 +179,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		public void Enter(IState prevState)
 		{
+			owner.transform.up = Camera.main.transform.up;
 			Restart();
 			RestartHover();
 			//todo:fix

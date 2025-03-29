@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
@@ -13,11 +14,38 @@ public class BattleUI : UIInstance
 	private BlockInputHandler inputHandler;
 	[SerializeField]
 	private TextMeshProUGUI energy;
+
+	private Dictionary<Synergy, SynergyLabel> synergyLabelMap = new();
+	[SerializeField]
+	private SynergyLabel synergyLabelPrefab;
+
+	[SerializeField] 
+	private Transform synergyContentTransform;
 	public override UIType UIType => UIType.SceneUI;
 	protected override void Init(object param)
 	{
 		NoticeSystem.Instance.Subscribe<EnergyChangeNotice>(OnEnergyChange);
+		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
 		inputHandler = ((BattleUIGenState)param).InputHandler;
+	}
+
+	private void OnSynergyUpdate(SynergyInfoUpdateNotice m)
+	{
+		if (m.Count <= 0)
+		{
+			synergyLabelMap[m.TargetSynergy] = null;
+
+			return;
+		}
+		
+		if (!synergyLabelMap.TryGetValue(m.TargetSynergy, out var label))
+		{
+			label = Instantiate(synergyLabelPrefab, synergyContentTransform);
+			label.Initialize(m.TargetSynergy);
+			synergyLabelMap[m.TargetSynergy] = label;
+		}
+		
+		label.SynergyCount = m.Count;
 	}
 
 	private void OnEnergyChange(EnergyChangeNotice m)
@@ -36,5 +64,6 @@ public class BattleUI : UIInstance
 	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<EnergyChangeNotice>(OnEnergyChange);
+		NoticeSystem.Instance.Unsubscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
 	}
 }

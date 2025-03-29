@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e4b40bc83f74dd9be64c53213770d22, type: 3}
-  m_Name: TestCardStat
+  m_Script: {fileID: 11500000, guid: 61378f86d6a540e7a776ba9e1204ef49, type: 3}
+  m_Name: TestSynergyData
   m_EditorClassIdentifier: 
-  hp: 5
-  attack: 2
-  speed: 3
-  cost: 0
-  synergy: 0000000001000000
+  synergySpecList:
+  - {fileID: 11400000, guid: 6f76e7d9887508e4391c95de23cd8e4f, type: 2}
+  - {fileID: 11400000, guid: c1e3c81239a3a1d4bb481efd49d60abd, type: 2}

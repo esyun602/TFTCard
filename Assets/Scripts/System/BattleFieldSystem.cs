@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MessageSystem;
 
-public class BattleSystem
+public class BattleFieldSystem
 {
 	private Dictionary<ObjectType, List<IBattleObject>> battleObjectDict;
 	
