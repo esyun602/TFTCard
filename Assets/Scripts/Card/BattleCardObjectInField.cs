@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MessageSystem;
 using Unity.VisualScripting;
@@ -15,6 +16,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	public Vector3 Position => transform.position;
 	public BattleStat BattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
+
 	//todo: context?
 	public void Damage(IBattleObject sender, int dmg)
 	{
@@ -48,10 +50,12 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.RemoveFromTile(this);
 		Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.UnregisterObject(this);
 
-		
+		//todo: pooling
 		gameObject.SetActive(false);
+		Destroy(this);
 	}
-	
+
+
 	private bool CanMove(ITile target)
 	{
 		return target != null 
@@ -98,8 +102,10 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		}
 	}
 	
+	//todo: hand와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
 	public static BattleCardObjectInField Instantiate(Card targetCard, ITile targetTile, BattleStat battleStat, ObjectType objectType)
 	{
+		//todo: pooling
 		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation).AddComponent<BattleCardObjectInField>();
 		cardObject.targetCard = targetCard;
 		cardObject.targetCard.Action.SetBattleOwner(cardObject);

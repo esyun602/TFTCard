@@ -64,7 +64,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 	{
 		if (collider == null)
 		{
-			collider = GetComponent<BoxCollider>();
+			collider = GetComponentInChildren<BoxCollider>();
 		}
 
 		gameObject.SetActive(true);
@@ -106,6 +106,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			BattleCardObjectInField.Instantiate(targetCard, targetTile, BattleStat, ObjectType.Ally));
 	}
 
+	//todo: field와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
 	public static BattleCardObjectInHand Instantiate(Card targetCard, BattleStat battleStat)
 	{
 		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<BattleCardObjectInHand>();
