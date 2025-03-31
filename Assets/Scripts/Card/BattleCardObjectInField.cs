@@ -155,7 +155,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		private float hoverTime = 0.2f;
 		private Vector3 hoverTarget;
 		private Vector3 startScale;
-		private Vector3 originalScale = new Vector3(1.8f, 2.7f, 0.01f);
+		private Vector3 originalScale = Vector3.one;
 		private AnimationCurve returnAnimationCurve;
 		private const float returnTime = 0.5f;
 		private float timePassed;

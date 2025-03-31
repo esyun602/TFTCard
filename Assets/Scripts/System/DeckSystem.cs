@@ -91,6 +91,9 @@ public class DeckSystem
 		NoticeSystem.Instance.Unsubscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<HandCardStartUseNotice>(OnCardStartUse);
 		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 	}

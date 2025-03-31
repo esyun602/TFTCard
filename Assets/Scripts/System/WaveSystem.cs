@@ -23,7 +23,17 @@ public class WaveSystem
 		spawnNextWaveRoutine = new UpdatableRoutine(UpdateSpawn);
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
-		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
+		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);		
+		//todo: need inputsystem
+		NoticeSystem.Instance.Subscribe<HandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Subscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
+		NoticeSystem.Instance.Subscribe<HandCardStartUseNotice>(OnCardStartUse);
+		NoticeSystem.Instance.Subscribe<HandCardEndUseNotice>(OnCardEndUse);
+		//
+		
 		currentWaveIdx = -1;
 		waveParentTransform = new GameObject("EnemyWave").transform;
 		waveParentTransform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
@@ -89,5 +99,57 @@ public class WaveSystem
 	{
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
+		
+		NoticeSystem.Instance.Unsubscribe<HandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Unsubscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<HandCardStartUseNotice>(OnCardStartUse);
+		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 	}
+	
+	private void OnHandCardSelect(HandCardSelectNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnHandCardSelectCancel(HandCardSelectCancelNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnCardStartUse(HandCardStartUseNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnCardEndUse(HandCardEndUseNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+	
+	private void OnPlayerFieldCardMove(PlayerFieldCardMoveNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.Target);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnFieldCardSelect(FieldCardSelectNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnFieldCardSelectCancel(FieldCardSelectCancelNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+
 }

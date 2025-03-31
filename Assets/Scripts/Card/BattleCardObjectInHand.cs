@@ -181,8 +181,8 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		private Quaternion? targetRotationOverride;
 		private Vector3 hoverTarget;
 		private Vector3 startScale;
-		private Vector3 originalScale = new Vector3(1.8f, 2.7f, 0.01f);
 		private Vector3 originalColliderScale = new Vector3(0.7f, 1f, 1f);
+		private Vector3 originalScale = Vector3.one;
 
 		public CardObjectNormalInHandState(BattleCardObjectInHand owner)
 		{
