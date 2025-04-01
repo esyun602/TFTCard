@@ -66,8 +66,8 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		if (collider == null)
 		{
 			collider = GetComponentInChildren<BoxCollider>();
-			GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, BattleStat);
 		}
+		GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, BattleStat);
 
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;

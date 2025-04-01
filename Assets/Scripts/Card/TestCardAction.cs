@@ -1,3 +1,5 @@
+using System.Collections;
+using Coroutine;
 using UnityEngine;
 
 public class TestCardAction : CardActionBase

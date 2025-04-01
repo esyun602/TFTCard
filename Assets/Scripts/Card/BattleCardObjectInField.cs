@@ -68,7 +68,6 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObjectStateMachine.ChangeState(targetState);
 	}
 	
-	private Queue<IUpdatableRoutine> currentChain = new();
 	private IUpdatableRoutine routine;
 	private InputBlockFlag blockInput;
 
@@ -112,7 +111,6 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		cardObject.objectType = objectType;
 		cardObject.BattleStat = battleStat;
-		cardObject.routine = cardObject.targetCard.Action.UpdatableRoutine;
 		
 		//todo: fix
 		NoticeSystem.Instance.PublishSync(new BattleObjectGeneratedNotice(cardObject, targetTile));
@@ -123,6 +121,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 		
 		cardObject.GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, battleStat);
+		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 		
 		return cardObject;
 	}
@@ -135,7 +134,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	public void StartTurn()
 	{
-		targetCard.Action.Trigger();
+		ChangeState(new CardObjectActionState(this));
 	}
 
 	private void Update()
@@ -343,6 +342,71 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		}
 	}
 
+	private class CardObjectActionState : IState
+	{
+		private BattleCardObjectInField owner;
+		private Action currentUpdateAction;
+		
+		public CardObjectActionState(BattleCardObjectInField owner)
+		{
+			this.owner = owner;
+		}
+
+		public void Enter(IState prevState)
+		{
+			owner.routine = new UpdatableRoutine(UpdateFrame);
+			owner.routine.Initialize();
+			currentUpdateAction = UpdatePrepareAttack;
+			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
+		}
+
+		private void UpdateFrame(float dt, out bool done)
+		{
+			currentUpdateAction?.Invoke();
+			done = currentUpdateAction == null;
+		}
+
+		private float timePassed = 0f;
+		private void UpdatePrepareAttack()
+		{
+			timePassed += Time.deltaTime;
+			owner.transform.localScale = Vector3.one * Mathf.Lerp(1f, 1.5f, timePassed / 0.5f);
+			if (timePassed > 0.5f)
+			{
+				timePassed = 0f;
+				owner.targetCard.Action.Trigger();
+				currentUpdateAction = UpdateAttack;
+			}
+		}
+
+		private void UpdateAttack()
+		{
+			owner.targetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
+			if (routineDone)
+			{
+				currentUpdateAction = UpdateEndAttack;
+			}
+		}
+
+		private void UpdateEndAttack()
+		{
+			timePassed += Time.deltaTime;
+			owner.transform.localScale = Vector3.one * Mathf.Lerp(1.5f, 1f, timePassed / 0.5f);
+			if (timePassed > 0.5f)
+			{
+				timePassed = 0f;
+				currentUpdateAction = null;
+				owner.ChangeState(new CardObjectNormalInFieldState(owner));
+			}
+		}
+
+		public void Exit(IState nextState)
+		{
+			owner.transform.localScale = Vector3.one;
+			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldYPos);
+		}
+	}
+	
 	public void Dispose()
 	{
 	}
