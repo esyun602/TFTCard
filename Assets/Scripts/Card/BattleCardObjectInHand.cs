@@ -60,11 +60,13 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		       && cardObjectStateMachine.CurrentState is CardObjectSelectedInHandState;
 	}
 
+	//todo: 풀링으로 수정
 	public void Activate()
 	{
 		if (collider == null)
 		{
 			collider = GetComponentInChildren<BoxCollider>();
+			GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, BattleStat);
 		}
 
 		gameObject.SetActive(true);

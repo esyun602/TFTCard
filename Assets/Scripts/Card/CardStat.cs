@@ -1,8 +1,9 @@
 
 using System.Collections.Generic;
 
-public class CardStat
+public class CardStat : IStat
 {
+	int IStat.Hp => MaxHp;
 	public int Speed { get; set; }
 	public int MaxHp { get; set; }
 	public int Attack { get; set; }

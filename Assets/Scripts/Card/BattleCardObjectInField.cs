@@ -122,6 +122,8 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 		
+		cardObject.GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, battleStat);
+		
 		return cardObject;
 	}
 		
