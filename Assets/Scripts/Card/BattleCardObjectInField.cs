@@ -209,7 +209,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			timePassed += dt;
 			var progress = returnAnimationCurve.Evaluate(timePassed / returnTime);
-			owner.transform.position = Vector3.Lerp(startPos, map.GetTileOfBattleObject(owner).GetPosition(), progress);
+			owner.transform.position = Vector3.Lerp(startPos, map.GetTileOfBattleObject(owner).GetPosition().GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos), progress);
 		}
 		
 		private void UpdateScale(float dt)
@@ -265,7 +265,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
 			targetPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-			owner.transform.position = targetPos;
+			owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);
 		}
 
 		private void OnTryMoveCard(InputAction.CallbackContext obj)
@@ -296,7 +296,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
 			currentTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
-			targetPos = owner.CanMove(currentTile) ? currentTile.GetPosition() : mousePos;
+			targetPos = owner.CanMove(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos.GetX0z(Constant.SelectYPos);
 
 			if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
 			{

@@ -199,6 +199,8 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			owner.collider.size = Vector3.one;
 			targetRotationOverride = Camera.main.transform.localRotation;
 			RestartHover();
+			//todo: 애니메이션 빼면 순간적으로 마우스 탈출하는 문제
+			Restart();
 		}
 
 		public void RemoveHover()
@@ -298,7 +300,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
 			targetPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-			owner.transform.position = targetPos;
+			owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);;
 		}
 
 		private void OnTryUseHandCard(InputAction.CallbackContext obj)
@@ -340,7 +342,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
 			currentTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
-			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition() : mousePos;
+			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos.GetX0z(Constant.SelectYPos);
 
 			if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
 			{

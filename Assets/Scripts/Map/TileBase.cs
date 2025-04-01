@@ -32,7 +32,7 @@ public class TileBase : ITile
 	}
 	public Vector3 GetPosition()
 	{
-		return position.ToVector3XZ(0.5f);
+		return position.ToVector3XZ(Constant.FieldYPos);
 	}
 
 	public ObjectType TileType => tileType;

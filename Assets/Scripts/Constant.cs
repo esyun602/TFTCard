@@ -8,6 +8,16 @@ public class Constant : GameData
 	public AnimationCurve HandCardVerticalOffsetCurve;
 	public const float Epsilon = 0.001f;
 	public const int DefaultEnergy = 3;
+
+	public const float FieldYPos = 0.55f;
+	public const float FieldHoverYPos = 1f;
+
+	public const float HandCenterZOffset = 1.3f;
+	public const float HandCenterYPos = 10f;
+	public const float HandIndexYOffset = 1f;
+	public const float HandHoverYPos = 30f;
+	
+	public const float SelectYPos = 40f;
 	
 	public override void Initialize()
 	{

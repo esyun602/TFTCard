@@ -12,8 +12,7 @@ public class PlayerHand
 	private float startAngle => (CardList.Count - 1) / 2f * cardRotationAngle;
 
 	private Vector3 handCenter =>
-		(Camera.main.transform.position + -Camera.main.orthographicSize * Camera.main.transform.up +
-		 Camera.main.transform.up).GetX0z(3f);
+		(Camera.main.transform.position + (Constant.HandCenterZOffset - Camera.main.orthographicSize) * Camera.main.transform.up).GetX0z(Constant.HandCenterYPos);
 
 	private float cardDistance = 1.3f;
 	private float cardRotationAngle = 5f;
@@ -63,7 +62,7 @@ public class PlayerHand
 			var targetPos = lineTargetPos + GameDataSystem.Instance.GetGameData<Constant>().HandCardVerticalOffsetCurve
 				                .Evaluate(i -
 				                          (CardList.Count - 1) / 2f) * Camera.main.transform.up +
-			                i * -Camera.main.transform.forward * 0.001f;
+			                i * -Camera.main.transform.forward * Constant.HandIndexYOffset;
 			
 			NoticeSystem.Instance.Send(
 				new CardHandPosUpdatedNotice(
@@ -71,7 +70,7 @@ public class PlayerHand
 					Quaternion.AngleAxis(-cardRotationAngle * i, Camera.main.transform.forward) *
 					Quaternion.AngleAxis(startAngle, Camera.main.transform.forward) * Camera.main.transform
 						.localRotation,
-					lineTargetPos + Camera.main.transform.up * 1f +  Camera.main.transform.forward * -0.1f),
+					(lineTargetPos + Camera.main.transform.up).GetX0z(Constant.HandHoverYPos)),
 				CardList[i]
 			);
 		}
