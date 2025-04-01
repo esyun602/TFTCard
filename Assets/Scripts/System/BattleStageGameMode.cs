@@ -85,7 +85,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem.UnRegister(m.Target, m.Context);
 		if (m.Target.ObjectType == ObjectType.Ally)
 		{
-			SynergySystem.Register(m.Target);
+			SynergySystem.UnRegister(m.Target);
 		}
 		
 	}
