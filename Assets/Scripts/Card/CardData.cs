@@ -18,4 +18,10 @@ public class CardData : GameData
 	{
 		return CardSpecList[Random.Range(0, CardSpecList.Count)];
 	}
+	
+	//todo: fix?
+	public CardSpec GetSpecById(int id)
+	{
+		return CardSpecList[id];
+	}
 }

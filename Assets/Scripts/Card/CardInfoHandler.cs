@@ -12,11 +12,17 @@ public class CardInfoHandler : MonoBehaviour
 	[SerializeField] private TextMeshPro speed;
 	[SerializeField] private TextMeshPro name;
 	[SerializeField] private TextMeshPro desc;
+	[SerializeField] private MeshRenderer TextureRenderer;
 	
 	public void Initialize(CardSpec spec, IStat stat = null)
 	{
 		this.spec = spec;
 		this.stat = stat ?? spec.statSpec;
+		
+		name.text = spec.name;
+		desc.text = "Some Description...";
+		Debug.Log(TextureRenderer.material.GetTexture("_MainTex"));
+		TextureRenderer.material.SetTexture("_MainTex", spec.cardResource.texture);
 	}
 	
 	//todo: callback or notice?
@@ -27,9 +33,5 @@ public class CardInfoHandler : MonoBehaviour
 		atk.text = $"{stat.Attack}";
 		hp.text = $"{stat.Hp}";
 		speed.text = $"{stat.Speed}";
-		
-		//todo: fix
-		name.text = spec.name;
-		desc.text = "Some Description...";
 	}
 }

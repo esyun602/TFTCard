@@ -19,11 +19,11 @@ MonoBehaviour:
     columns: 3
     isAbsolute: 0
     selectedCells:
-    - row: 1
-      col: -1
     - row: -1
       col: -1
-    - row: 1
-      col: 1
     - row: -1
       col: 1
+    - row: 1
+      col: 1
+    - row: 1
+      col: -1

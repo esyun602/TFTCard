@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36be9efe775f42968e68f6fe43c8f5d5, type: 3}
-  m_Name: TestCard
+  m_Name: TestCard2
   m_EditorClassIdentifier: 
-  statSpec: {fileID: 11400000, guid: 19741edd579755042915f9c171156468, type: 2}
-  cardResource: {fileID: 21300000, guid: f51cdff2bd40ec44dac216da7c9685f1, type: 3}
-  creatureResource: {fileID: 21300000, guid: f51cdff2bd40ec44dac216da7c9685f1, type: 3}
-  actionData: {fileID: 11400000, guid: 42b1ab03786504840a30c9c3357dc0e3, type: 2}
+  statSpec: {fileID: 11400000, guid: dbe7a86af49a3fe43abee0f2e4224351, type: 2}
+  cardResource: {fileID: 21300000, guid: 2a727bb653e4fb64ba69900d91ea812b, type: 3}
+  creatureResource: {fileID: 21300000, guid: 2a727bb653e4fb64ba69900d91ea812b, type: 3}
+  actionData: {fileID: 11400000, guid: 502d57281c1ebe34a91a9db5e4889d73, type: 2}
