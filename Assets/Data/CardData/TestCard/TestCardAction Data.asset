@@ -15,15 +15,9 @@ MonoBehaviour:
   actionDuration: 1
   fxPrefab: {fileID: 4075397547705564689, guid: 92c7d2f99a71f01458e72ffd12edd8b2, type: 3}
   actionRange:
+    isEnemyView: 0
     rows: 3
-    columns: 3
-    isAbsolute: 0
-    selectedCells:
-    - row: -1
-      col: -1
-    - row: -1
-      col: 1
-    - row: 1
-      col: 1
-    - row: 1
-      col: -1
+    columns: 4
+    swapView: 0
+    triggerCellList: 0100000002000000
+    attackCellList: 0100000002000000

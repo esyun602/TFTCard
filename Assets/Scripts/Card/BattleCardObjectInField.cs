@@ -59,6 +59,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	private bool CanMove(ITile target)
 	{
 		return target != null 
+		       && target.TileType == ObjectType.Ally
 		       && target != Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileOfBattleObject(this)
 		       && Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetBattleObjectOfTile(target) == null;
 	}

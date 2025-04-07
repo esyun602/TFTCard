@@ -158,7 +158,7 @@ public class Map : IMap
 	public (int, int) GetTileCoord(ITile tile)
 	{
 		var coordVector = (tile.GetPosition().ToRoundedVector2IntXZ() - new Vector2Int(xMin, yMin));
-		return (coordVector.x / tileSizeX, coordVector.y / tileSizeY);
+		return ( coordVector.y / tileSizeY, coordVector.x / tileSizeX);
 	}
 
 	public ITile[] GetTiles()

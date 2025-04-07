@@ -23,17 +23,9 @@ public class TestCardAction : CardActionBase
 	protected override void OnTrigger()
 	{
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		var (col, row) = map.GetTileCoord(map.GetTileOfBattleObject(owner));
 
-		foreach (var cell in gridInfo.selectedCells)
+		foreach (var targetTile in map.GetTargetTiles(gridInfo, owner))
 		{
-			var modifier = (1, 1);
-			if (owner.ObjectType == ObjectType.Enemy && !gridInfo.isAbsolute)
-			{
-				modifier = (-1, 1);
-			}
-			var targetTile = map.GetTileAt(row + modifier.Item1 * cell.row, col + modifier.Item2 * cell.col);
-
 			if (targetTile != null)
 			{
 				var target = map.GetBattleObjectOfTile(targetTile);

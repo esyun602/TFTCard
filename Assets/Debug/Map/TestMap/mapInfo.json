@@ -6,26 +6,6 @@
             "tileInfos": [
                 {
                     "prefabPath": "Block_01",
-                    "name": "Block_05",
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 3.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0,
-                        "w": 1.0
-                    },
-                    "scale": {
-                        "x": 2.0,
-                        "y": 1.0,
-                        "z": 3.0
-                    }
-                },
-                {
-                    "prefabPath": "Block_01",
                     "name": "Block_06",
                     "position": {
                         "x": 2.0,
@@ -86,26 +66,6 @@
                 },
                 {
                     "prefabPath": "Block_01",
-                    "name": "Block_09",
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 6.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0,
-                        "w": 1.0
-                    },
-                    "scale": {
-                        "x": 2.0,
-                        "y": 1.0,
-                        "z": 3.0
-                    }
-                },
-                {
-                    "prefabPath": "Block_01",
                     "name": "Block_10",
                     "position": {
                         "x": 2.0,
@@ -151,26 +111,6 @@
                         "x": 6.0,
                         "y": 0.0,
                         "z": 6.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0,
-                        "w": 1.0
-                    },
-                    "scale": {
-                        "x": 2.0,
-                        "y": 1.0,
-                        "z": 3.0
-                    }
-                },
-                {
-                    "prefabPath": "Block_01",
-                    "name": "Block_13",
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 9.0
                     },
                     "rotation": {
                         "x": 0.0,
@@ -534,66 +474,6 @@
                     "name": "Block_16",
                     "position": {
                         "x": 16.0,
-                        "y": 0.0,
-                        "z": 9.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0,
-                        "w": 1.0
-                    },
-                    "scale": {
-                        "x": 2.0,
-                        "y": 1.0,
-                        "z": 3.0
-                    }
-                },
-                {
-                    "prefabPath": "Block_02",
-                    "name": "Block_19",
-                    "position": {
-                        "x": 18.0,
-                        "y": 0.0,
-                        "z": 3.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0,
-                        "w": 1.0
-                    },
-                    "scale": {
-                        "x": 2.0,
-                        "y": 1.0,
-                        "z": 3.0
-                    }
-                },
-                {
-                    "prefabPath": "Block_02",
-                    "name": "Block_20",
-                    "position": {
-                        "x": 18.0,
-                        "y": 0.0,
-                        "z": 6.0
-                    },
-                    "rotation": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0,
-                        "w": 1.0
-                    },
-                    "scale": {
-                        "x": 2.0,
-                        "y": 1.0,
-                        "z": 3.0
-                    }
-                },
-                {
-                    "prefabPath": "Block_02",
-                    "name": "Block_21",
-                    "position": {
-                        "x": 18.0,
                         "y": 0.0,
                         "z": 9.0
                     },
