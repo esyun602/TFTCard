@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CardInfoHandler : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class CardInfoHandler : MonoBehaviour
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
-	[SerializeField] private TextMeshPro speed;
+	[SerializeField] private TextMeshPro turnCount;
 	[SerializeField] private TextMeshPro name;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private MeshRenderer TextureRenderer;
@@ -21,7 +22,6 @@ public class CardInfoHandler : MonoBehaviour
 		
 		name.text = spec.name;
 		desc.text = "Some Description...";
-		Debug.Log(TextureRenderer.material.GetTexture("_MainTex"));
 		TextureRenderer.material.SetTexture("_MainTex", spec.cardResource.texture);
 	}
 	
@@ -32,6 +32,6 @@ public class CardInfoHandler : MonoBehaviour
 		cost.text = $"{stat.Cost}";
 		atk.text = $"{stat.Attack}";
 		hp.text = $"{stat.Hp}";
-		speed.text = $"{stat.Speed}";
+		turnCount.text = $"{stat.TurnCount}";
 	}
 }

@@ -8,7 +8,9 @@ public class TestCardAction : CardActionBase
 	private float actionDuration;
 	private GameObject fxPrefab;
 	private GridSelector gridInfo;
-	
+
+	public override GridSelector AttackRangeInfo => gridInfo;
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		routineDone = false;

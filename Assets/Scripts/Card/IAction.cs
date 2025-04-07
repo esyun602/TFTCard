@@ -6,4 +6,5 @@ public interface IAction
 	public void Trigger();
 	public void Cancel();
 	public void SetBattleOwner(IBattleObject owner);
+	public GridSelector AttackRangeInfo { get; }
 }

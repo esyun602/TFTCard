@@ -48,7 +48,6 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		}
 		
 		Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.RemoveFromTile(this);
-		Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.UnregisterObject(this);
 
 		//todo: pooling
 		gameObject.SetActive(false);
@@ -115,7 +114,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		
 		//todo: fix
 		NoticeSystem.Instance.PublishSync(new BattleObjectGeneratedNotice(cardObject, targetTile));
-		NoticeSystem.Instance.PublishSync(new TurnObjectGeneratedNotice(cardObject, cardObject.BattleStat.Speed));
+		NoticeSystem.Instance.PublishSync(new TurnObjectGeneratedNotice(cardObject));
 
 		//기본적으로 선택 불가, 플레이어 카드의 경우 PlayerField의 제어를 받음
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
@@ -143,7 +142,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
 	
-	public int TurnSpeed => BattleStat.Speed;
+	public int TurnCount => BattleStat.TurnCount;
 	
 	
 	private class CardObjectNormalInFieldState : IState, IUpdatable
@@ -357,7 +356,8 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			owner.routine = new UpdatableRoutine(UpdateFrame);
 			owner.routine.Initialize();
-			currentUpdateAction = UpdatePrepareAttack;
+			owner.BattleStat.TurnCount -= 1;
+			currentUpdateAction = UpdateTurnCount;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
 		}
 
@@ -365,9 +365,40 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			currentUpdateAction?.Invoke();
 			done = currentUpdateAction == null;
+			if (done)
+			{
+				owner.ChangeState(new CardObjectNormalInFieldState(owner));
+			}
 		}
 
 		private float timePassed = 0f;
+		
+		private void UpdateTurnCount()
+		{
+			timePassed += Time.deltaTime;
+			if (timePassed > 0.5f)
+			{
+				timePassed = 0f;
+				if (owner.BattleStat.TurnCount == 0)
+				{
+					if (Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+					    .IsInTriggerPos(owner.targetCard.Action.AttackRangeInfo, owner))
+					{
+						currentUpdateAction = UpdatePrepareAttack;
+					}
+					else
+					{
+						owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
+						currentUpdateAction = null;
+					}
+				}
+				else
+				{
+					currentUpdateAction = null;
+				}
+			}
+		}
+		
 		private void UpdatePrepareAttack()
 		{
 			timePassed += Time.deltaTime;
@@ -397,7 +428,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			{
 				timePassed = 0f;
 				currentUpdateAction = null;
-				owner.ChangeState(new CardObjectNormalInFieldState(owner));
+				owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
 			}
 		}
 

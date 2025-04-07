@@ -2,12 +2,10 @@ using MessageSystem;
 
 public class TurnObjectGeneratedNotice : Notice
 {
-	public TurnObjectGeneratedNotice(ITurnObject target, float startGauge)
+	public TurnObjectGeneratedNotice(ITurnObject target)
 	{
 		Target = target;
-		StartGauge = startGauge;
 	}
 
 	public ITurnObject Target { get; }
-	public float StartGauge { get; }
 }

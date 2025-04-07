@@ -30,7 +30,9 @@ public abstract class CardActionBase : IAction
 	{
 		this.owner = owner;
 	}
-	
+
+	public abstract GridSelector AttackRangeInfo { get; }
+
 	private void UpdateFrame(float dt, out bool routineDone)
 	{
 		OnUpdate(dt, out routineDone);

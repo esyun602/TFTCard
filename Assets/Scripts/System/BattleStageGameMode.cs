@@ -34,10 +34,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			InputHandler = this.DeckSystem.BlockInputHandler
 		});
 		
-		NoticeSystem.Instance.Subscribe<TurnObjectGeneratedNotice>(OnTurnObjectGenerate);
 		NoticeSystem.Instance.Subscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);
 		NoticeSystem.Instance.Subscribe<BattleObjectDestroyedNotice>(OnBattleObjectDestroy);
-		NoticeSystem.Instance.Subscribe<TurnObjectDestroyNotice>(OnTurnObjectDestroy);
 		NoticeSystem.Instance.Subscribe<BattleObjectTypeEliminateNotice>(OnBattleObjectEliminate);
 		DeckSystem.Initialize();
 		TurnSystem.Initialize();
@@ -58,12 +56,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			throw new ArgumentException();
 		}
 	}
-
-	private void OnTurnObjectGenerate(TurnObjectGeneratedNotice m)
-	{
-		TurnSystem.RegisterNewObject(m.Target, m.StartGauge);
-	}
-
+	
 	private void OnBattleObjectGenerate(BattleObjectGeneratedNotice m)
 	{
 		GetCurrentStage().Map.SetTile(m.TargetTile, m.TargetObject);
@@ -74,11 +67,6 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 	}
 	
-	private void OnTurnObjectDestroy(TurnObjectDestroyNotice m)
-	{
-		TurnSystem.UnregisterObject(m.Target);
-	}
-
 	private void OnBattleObjectDestroy(BattleObjectDestroyedNotice m)
 	{
 		GetCurrentStage().Map.RemoveFromTile(m.Target);
@@ -106,10 +94,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 	protected override void OnDispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnObjectGeneratedNotice>(OnTurnObjectGenerate);
 		NoticeSystem.Instance.Unsubscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);
 		NoticeSystem.Instance.Unsubscribe<BattleObjectDestroyedNotice>(OnBattleObjectDestroy);
-		NoticeSystem.Instance.Unsubscribe<TurnObjectDestroyNotice>(OnTurnObjectDestroy);
 		NoticeSystem.Instance.Unsubscribe<BattleObjectTypeEliminateNotice>(OnBattleObjectEliminate);
 		DeckSystem.Dispose();
 		TurnSystem.Dispose();

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public class CardStat : IStat
 {
 	int IStat.Hp => MaxHp;
-	public int Speed { get; set; }
+	public int MaxTurnCount { get; set; }
+	public int TurnCount => MaxTurnCount;
 	public int MaxHp { get; set; }
 	public int Attack { get; set; }
 	public int Cost { get; set; }
@@ -14,7 +15,7 @@ public class CardStat : IStat
 	public CardStat(CardStatSpec statSpec)
 	{
 		staticStatSpec = statSpec;
-		Speed = statSpec.speed;
+		MaxTurnCount = statSpec.turnCount;
 		MaxHp = statSpec.hp;
 		Attack = statSpec.attack;
 		Cost = statSpec.cost;

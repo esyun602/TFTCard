@@ -20,7 +20,8 @@ public class BattleStat : IStat
 	}
 	public bool IsDead => Hp == 0;
 	public int MaxHp { get; set; }
-	public int Speed { get; set; }
+	public int MaxTurnCount { get; set; }
+	public int TurnCount { get; set; }
 	public int Cost { get; set; }
 	private List<IOption> optionList;
 	//field scope 기믹
@@ -32,7 +33,8 @@ public class BattleStat : IStat
 		originStat = cardStat;
 		Attack = cardStat.Attack;
 		MaxHp = Hp = cardStat.MaxHp;
-		Speed = cardStat.Speed;
+		MaxTurnCount = cardStat.MaxTurnCount;
+		TurnCount = MaxTurnCount;
 		Cost = cardStat.Cost;
 		synergyList = new(cardStat.synergyList);
 	}

@@ -4,5 +4,5 @@ public interface ITurnObject
 	//todo: 필요?
 	public IUpdatableRoutine UpdatableRoutine { get; }
 	public void StartTurn();
-	public int TurnSpeed { get; }
+	public int TurnCount { get; }
 }
