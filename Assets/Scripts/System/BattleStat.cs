@@ -21,7 +21,14 @@ public class BattleStat : IStat
 	public bool IsDead => Hp == 0;
 	public int MaxHp { get; set; }
 	public int MaxTurnCount { get; set; }
-	public int TurnCount { get; set; }
+
+	public int TurnCount
+	{
+		get => turnCount;
+		set => turnCount = Mathf.Max(0, value);
+	}
+
+	private int turnCount;
 	public int Cost { get; set; }
 	private List<IOption> optionList;
 	//field scope 기믹

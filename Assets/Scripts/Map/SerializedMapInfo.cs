@@ -38,6 +38,8 @@ public class SerializedMapInfo
 		var xSet = new HashSet<int>();
 		var ySet = new HashSet<int>();
 
+		var (xMin, yMin) = (int.MaxValue, int.MaxValue);
+		
 		layerName = !layerName.EndsWith("Layer")
 			? layerName + "Layer"
 			: layerName;
@@ -46,21 +48,38 @@ public class SerializedMapInfo
 		{
 			if (!l.name.Contains("Enemy") && !l.name.Contains("Ally"))
 				continue;
+			
 			foreach (var tile in l.tileInfos)
 			{
-				if (xSet.Add(tile.position.ToRoundedVector2IntXZ().x))
+				var rpos = tile.position.ToRoundedVector2IntXZ();
+				if (rpos.x < xMin)
+				{
+					xMin = rpos.x;
+				}
+
+				if (rpos.y < yMin)
+				{
+					yMin = rpos.y;
+				}
+			}
+			
+			foreach (var tile in l.tileInfos)
+			{
+				var rpos = tile.position.ToRoundedVector2IntXZ();
+				if (xSet.Add(rpos.x))
 				{
 					col++;
 				}
-
-				if (ySet.Add(tile.position.ToRoundedVector2IntXZ().y))
+				
+				if (ySet.Add(rpos.y))
 				{
 					row++;
 				}
 
 				if (l.name == layerName)
 				{
-					var pos = new Vector2Int(Mathf.RoundToInt(tile.position.x) / (int)tile.scale.x, Mathf.RoundToInt(tile.position.z) / (int)tile.scale.z);
+					var pos = new Vector2Int((Mathf.RoundToInt(tile.position.x) - xMin)/ (int)tile.scale.x,
+						(Mathf.RoundToInt(tile.position.z) - yMin)/ (int)tile.scale.z);
 					layerTiles.Add((pos.y, pos.x));
 				}
 			}

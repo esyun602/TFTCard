@@ -16,12 +16,21 @@ MonoBehaviour:
   camSize: 7
   testCard: {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
   WaveData:
-  - rows: 4
-    columns: 10
+  - rows: 3
+    columns: 8
     cells:
     - row: 2
       col: 5
       cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
     - row: 1
       col: 6
-      cardObject: {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
+      cardObject: {fileID: 11400000, guid: db0521d330b1e5b4884128ca47d33c35, type: 2}
+    - row: 1
+      col: 5
+      cardObject: {fileID: 11400000, guid: 907f3f151f02ba949ac56da95b08ed4b, type: 2}
+    - row: 0
+      col: 4
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
+    - row: 2
+      col: 4
+      cardObject: {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
