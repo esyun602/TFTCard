@@ -26,7 +26,7 @@ public class TestCardAction : CardActionBase
 	{
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 
-		foreach (var targetTile in map.GetTargetTiles(gridInfo, owner))
+		foreach (var targetTile in map.GetAttackTargetTiles(gridInfo, owner))
 		{
 			if (targetTile != null)
 			{
