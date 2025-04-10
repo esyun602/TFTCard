@@ -76,7 +76,7 @@ public class WaveSystem
 		}
 		var gridInfoList = waveData[++currentWaveIdx];
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		foreach (var cellInfo in gridInfoList.cells)
+		foreach (var cellInfo in gridInfoList.CellList)
 		{
 			var card = BattleCardObjectInField.Instantiate(cellInfo.cardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
 				ObjectType.Enemy);

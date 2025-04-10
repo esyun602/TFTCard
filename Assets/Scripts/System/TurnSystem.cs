@@ -17,7 +17,7 @@ public class TurnSystem
 			{
 				foreach (var col in cols)
 				{
-					var bo = map.GetBattleObjectOfTile(map.GetTileAt(row, col));
+					var bo = map.GetBattleObjectAt(row, col);
 					if(bo is ITurnObject to)
 					{
 						yield return to;
@@ -59,7 +59,7 @@ public class TurnSystem
 		currentUpdateRoutine = UpdatePlayerTurn;
 	}
 
-	public void InitializeAutoTurn()
+	public void StartAutoTurn()
 	{
 		// ReSharper disable once NotDisposedResource : No Dispose Needed
 		currentTurnEnumerator = turnOrderHandler.GetEnumerator();
@@ -73,6 +73,7 @@ public class TurnSystem
 
 		currentObject = (ITurnObject)currentTurnEnumerator.Current;
 		currentObject.StartTurn();
+		currentUpdateRoutine = UpdateAutoTurn;
 	}
 
 	public void Dispose()
@@ -103,8 +104,7 @@ public class TurnSystem
 		playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
 		if (done)
 		{
-			InitializeAutoTurn();
-			currentUpdateRoutine = UpdateAutoTurn;
+			StartAutoTurn();
 		}
 	}
 

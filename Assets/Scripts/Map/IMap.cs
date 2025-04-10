@@ -28,11 +28,11 @@ public static class IMapExtensions
 		if (owner.ObjectType == ObjectType.Enemy)
 		{
 			return gridSelector.triggerCellList.Contains((map.ColumnCnt - 1 -
-			                                       map.GetTileCoord(map.GetTileOfBattleObject(owner)).Item2));
+			                                       map.GetTileCoordOf(owner).Item2));
 		}
 		else if(owner.ObjectType == ObjectType.Ally)
 		{
-			return gridSelector.triggerCellList.Contains((map.GetTileCoord(map.GetTileOfBattleObject(owner)).Item2));
+			return gridSelector.triggerCellList.Contains((map.GetTileCoordOf(owner).Item2));
 		}
 
 		return false;
@@ -44,9 +44,24 @@ public static class IMapExtensions
 		return IsInAttackTargetTile(map, gridSelector, owner, row, col);
 	}
 
+	public static (int, int) GetTileCoordOf(this IMap map, IBattleObject bo)
+	{
+		return map.GetTileCoord(map.GetTileOfBattleObject(bo));
+	}
+
+	public static IBattleObject GetBattleObjectAt(this IMap map, int row, int col)
+	{
+		return map.GetBattleObjectOfTile(map.GetTileAt(row, col));
+	}
+	
+	public static IBattleObject GetBattleObjectAt(this IMap map, Vector3 position)
+	{
+		return map.GetBattleObjectOfTile(map.GetTileAt(position));
+	}
+
 	public static int GetAttackTargetRow(this IMap map, IBattleObject owner)
 	{
-		var (row, _) = map.GetTileCoord(map.GetTileOfBattleObject(owner));
+		var (row, _) = map.GetTileCoordOf(owner);
 
 		for (var offset = 0; offset < map.RowCnt; offset++)
 		{
@@ -67,7 +82,7 @@ public static class IMapExtensions
 			var baseCol = owner.ObjectType == ObjectType.Ally ? map.ColumnCnt / 2 : 0;
 			for (var col = 0; col < 4; col++)
 			{
-				if (row>=0 && row < map.RowCnt && map.GetBattleObjectOfTile(map.GetTileAt(row, baseCol + col)) != null)
+				if (row>=0 && row < map.RowCnt && map.GetBattleObjectAt(row, baseCol + col) != null)
 				{
 					return true;
 				}
@@ -116,5 +131,47 @@ public static class IMapExtensions
 		}
 
 		return ret;
+	}
+	
+	public static ITile GetFirstTileInRow(this IMap map, ITile tile)
+	{
+		var (row, _) = map.GetTileCoord(tile);
+		return map.GetFirstTileInRow(row, tile.TileType);
+	}
+	
+	public static ITile GetFirstTileInRow(this IMap map, int row, ObjectType type)
+	{
+		if (type == ObjectType.Ally)
+		{
+			return map.GetTileAt(row, map.ColumnCnt / 2 - 1);
+		}
+		else
+		{
+			return map.GetTileAt(row, map.ColumnCnt / 2);
+		}
+	}
+
+	public static IBattleObject GetFirstObjectInRow(this IMap map, ITile tile)
+	{
+		var (row, _) = map.GetTileCoord(tile);
+		return map.GetFirstObjectInRow(row, tile.TileType);
+	}
+	
+	public static IBattleObject GetFirstObjectInRow(this IMap map, int row, ObjectType type)
+	{
+		for (var i = 0; i < map.ColumnCnt / 2; i++)
+		{
+			IBattleObject ret;
+			if (type == ObjectType.Ally && (ret = map.GetBattleObjectAt(row, map.ColumnCnt / 2 - 1 - i)) != null)
+			{
+				return ret;
+			}
+			if (type == ObjectType.Enemy && (ret = map.GetBattleObjectAt(row, map.ColumnCnt / 2 + i)) != null)
+			{
+				return ret;
+			}
+		}
+
+		return null;
 	}
 }

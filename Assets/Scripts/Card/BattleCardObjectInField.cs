@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBattleObject, ITurnObject
+public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBattleObject, ITurnObject, IMessageReceiver
 {
 	private ObjectType objectType;
 	private Card targetCard;
@@ -16,7 +16,15 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	public Vector3 Position => transform.position;
 	public BattleStat BattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
-
+	
+	public void CatchMessage(Message m)
+	{
+		if (m is BattleObjectPosUpdatedNotice)
+		{
+			NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
+		}
+	}
+	
 	//todo: context?
 	public void Damage(IBattleObject sender, int dmg)
 	{
@@ -145,7 +153,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	public int TurnCount => BattleStat.TurnCount;
 	
 	
-	private class CardObjectNormalInFieldState : IState, IUpdatable
+	private class CardObjectNormalInFieldState : IState, IUpdatable, IMessageReceiver
 	{
 		private BattleCardObjectInField owner;
 
@@ -211,6 +219,14 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			owner.transform.position = Vector3.Lerp(startPos, map.GetTileOfBattleObject(owner).GetPosition().GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos), progress);
 		}
 		
+		public void CatchMessage(Message m)
+		{
+			if (m is BattleObjectPosUpdatedNotice)
+			{
+				Restart();
+			}
+		}
+
 		private void UpdateScale(float dt)
 		{
 			hoverTimePassed += dt;

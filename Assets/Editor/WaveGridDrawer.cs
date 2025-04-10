@@ -146,7 +146,7 @@ public class WaveGridDrawer : PropertyDrawer
         {
             cellsProp.DeleteArrayElementAtIndex(idx);
         }
-
+        
         property.serializedObject.ApplyModifiedProperties();
         EditorGUI.EndProperty();
     }

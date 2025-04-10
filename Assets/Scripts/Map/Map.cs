@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MessageSystem;
 using UnityEngine;
 
 
@@ -8,11 +9,25 @@ public class Map : IMap
 {
 	private class BattleObjectManager
 	{
+		private IMap owner;
 		private Dictionary<ITile, IBattleObject> tileToBattleObject = new();
 		private Dictionary<IBattleObject, ITile> battleObjectToTile = new();
 
+		public BattleObjectManager(IMap owner)
+		{
+			this.owner = owner;
+		}
+
 		public void SetTile(ITile tile, IBattleObject obj)
 		{
+			//todo: rule을 맵마다 다르게 할꺼면 추후 분리
+			var targetTile = owner.GetFirstTileInRow(tile);
+			if (owner.GetBattleObjectOfTile(targetTile) != null)
+			{
+				targetTile = tile;
+			}
+			//
+			
 			//todo: object type 비교 필요?
 			if (GetBattleObjectOn(tile) != null)
 			{
@@ -21,17 +36,38 @@ public class Map : IMap
 			}
 
 			RemoveFromTile(obj);
-			battleObjectToTile[obj] = tile;
-			tileToBattleObject[tile] = obj;
+			battleObjectToTile[obj] = targetTile;
+			tileToBattleObject[targetTile] = obj;
+
+			if (obj is IMessageReceiver mr)
+			{
+				Debug.LogError(mr);
+				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(obj, targetTile), mr);
+			}
 		}
 
 		public void RemoveFromTile(IBattleObject obj)
 		{
-			if (GetTileOf(obj) == null)
+			var targetTile = GetTileOf(obj);
+			
+			if (targetTile == null)
 				return;
-
-			tileToBattleObject.Remove(GetTileOf(obj));
+			
+			
+			tileToBattleObject.Remove(targetTile);
 			battleObjectToTile.Remove(obj);
+			
+			//todo: rule을 맵마다 다르게 할꺼면 추후 분리
+			if (targetTile == owner.GetFirstTileInRow(targetTile))
+			{
+				IBattleObject secondObj;
+				if ((secondObj = owner.GetFirstObjectInRow(targetTile)) != null)
+				{
+					SetTile(targetTile, secondObj);
+				}
+			}
+			//
+			
 		}
 
 		public IBattleObject GetBattleObjectOn(ITile tile)
@@ -134,7 +170,7 @@ public class Map : IMap
 
 	private void LoadBattleObjects()
 	{
-		battleObjectManager = new();
+		battleObjectManager = new(this);
 	}
 
 	public ITile GetTileAt(Vector3 position)
