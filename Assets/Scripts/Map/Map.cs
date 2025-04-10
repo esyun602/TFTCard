@@ -82,13 +82,11 @@ public class Map : IMap
 		tileDict = new();
 		xMin = yMin = int.MaxValue;
 		xMax = yMax = int.MinValue;
-		RegisterTiles(mapObject.transform);
+		RegisterTiles(mapObject.transform, new HashSet<int>(), new HashSet<int>());
 	}
 
-	private void RegisterTiles(Transform root)
+	private void RegisterTiles(Transform root, HashSet<int> xSet, HashSet<int> ySet)
 	{
-		var xSet = new HashSet<int>();
-		var ySet = new HashSet<int>();
 		foreach (Transform child in root)
 		{
 			//todo constant, tileprop serialize
@@ -130,7 +128,7 @@ public class Map : IMap
 				}
 			}
 
-			RegisterTiles(child);
+			RegisterTiles(child, xSet, ySet);
 		}
 	}
 
