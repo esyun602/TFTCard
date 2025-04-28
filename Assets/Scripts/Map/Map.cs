@@ -41,8 +41,26 @@ public class Map : IMap
 
 			if (obj is IMessageReceiver mr)
 			{
-				Debug.LogError(mr);
 				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(obj, targetTile), mr);
+			}
+		}
+
+		public void SwitchBattleObjectOfTile(ITile tileA, ITile tileB)
+		{
+			var objA = GetBattleObjectOn(tileA);
+			var objB = GetBattleObjectOn(tileB);
+
+			(battleObjectToTile[objA], battleObjectToTile[objB]) = (battleObjectToTile[objB], battleObjectToTile[objA]);
+			(tileToBattleObject[tileA], tileToBattleObject[tileB]) = (tileToBattleObject[tileB], tileToBattleObject[tileA]);
+			
+			if (objA is IMessageReceiver mra)
+			{
+				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(objA, tileB), mra);
+			}
+			
+			if (objB is IMessageReceiver mrb)
+			{
+				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(objB, tileA), mrb);
 			}
 		}
 
@@ -218,6 +236,11 @@ public class Map : IMap
 	public void SetTile(ITile tile, IBattleObject obj)
 	{
 		battleObjectManager.SetTile(tile, obj);
+	}
+
+	public void SwitchTile(ITile tileA, ITile tileB)
+	{
+		battleObjectManager.SwitchBattleObjectOfTile(tileA, tileB);
 	}
 
 	public void RemoveFromTile(IBattleObject obj)

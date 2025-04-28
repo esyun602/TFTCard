@@ -15,6 +15,7 @@ public interface IMap
 	public IBattleObject GetBattleObjectOfTile(ITile tile);
 	public ITile GetTileOfBattleObject(IBattleObject obj);
 	public void SetTile(ITile tile, IBattleObject obj);
+	public void SwitchTile(ITile tileA, ITile tileB);
 	public void RemoveFromTile(IBattleObject obj);
 	
 	public int RowCnt { get; }

@@ -6,25 +6,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBattleObject, ITurnObject, IMessageReceiver
+public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
+	IBattleObject, ITurnObject, IMessageReceiver
 {
 	private ObjectType objectType;
 	private Card targetCard;
 	private const string cardPrefabPath = "Card/CardPrefab";
-	
+
 	public ObjectType ObjectType => objectType;
 	public Vector3 Position => transform.position;
 	public BattleStat BattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
-	
+
 	public void CatchMessage(Message m)
 	{
-		if (m is BattleObjectPosUpdatedNotice)
-		{
-			NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
-		}
+		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
 	}
-	
+
 	//todo: context?
 	public void Damage(IBattleObject sender, int dmg)
 	{
@@ -36,7 +34,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(sender, this));
 		}
 	}
-	
+
 	public void UpdateBlockInput(InputBlockFlag flag)
 	{
 		blockInput = flag;
@@ -54,7 +52,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			ChangeState(null);
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerField.RemoveFromField(this);
 		}
-		
+
 		Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.RemoveFromTile(this);
 
 		//todo: pooling
@@ -65,22 +63,22 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	private bool CanMove(ITile target)
 	{
-		return target != null 
-		       && target.TileType == ObjectType.Ally
-		       && target != Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileOfBattleObject(this)
-		       && Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetBattleObjectOfTile(target) == null;
+		return target is { TileType: ObjectType.Ally } &&
+		       (target == Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+			        .GetTileOfBattleObject(this) ||
+		        Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy > 0);
 	}
-	
+
 	private void ChangeState(IState targetState)
 	{
 		cardObjectStateMachine.ChangeState(targetState);
 	}
-	
+
 	private IUpdatableRoutine routine;
 	private InputBlockFlag blockInput;
 
 	public IUpdatableRoutine UpdatableRoutine => routine;
-	
+
 	public void OnPointerEnter(PointerEventData eventData)
 	{
 		if ((blockInput & InputBlockFlag.Hover) != InputBlockFlag.None) return;
@@ -108,18 +106,21 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			ChangeState(new CardObjectSelectedInFieldState(this));
 		}
 	}
-	
+
 	//todo: hand와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
-	public static BattleCardObjectInField Instantiate(Card targetCard, ITile targetTile, BattleStat battleStat, ObjectType objectType)
+	public static BattleCardObjectInField Instantiate(Card targetCard, ITile targetTile, BattleStat battleStat,
+		ObjectType objectType)
 	{
 		//todo: pooling
-		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation).AddComponent<BattleCardObjectInField>();
+		var cardObject = GameObject
+			.Instantiate(Resources.Load(cardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
+			.AddComponent<BattleCardObjectInField>();
 		cardObject.targetCard = targetCard;
 		cardObject.targetCard.Action.SetBattleOwner(cardObject);
 
 		cardObject.objectType = objectType;
 		cardObject.BattleStat = battleStat;
-		
+
 		//todo: fix
 		NoticeSystem.Instance.PublishSync(new BattleObjectGeneratedNotice(cardObject, targetTile));
 		NoticeSystem.Instance.PublishSync(new TurnObjectGeneratedNotice(cardObject));
@@ -127,13 +128,13 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		//기본적으로 선택 불가, 플레이어 카드의 경우 PlayerField의 제어를 받음
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
-		
+
 		cardObject.GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, battleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
-		
+
 		return cardObject;
 	}
-		
+
 	public static BattleCardObjectInField Instantiate(CardSpec cardSpec, ITile targetTile, ObjectType objectType)
 	{
 		var card = new Card(cardSpec);
@@ -149,10 +150,10 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	{
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
-	
+
 	public int TurnCount => BattleStat.TurnCount;
-	
-	
+
+
 	private class CardObjectNormalInFieldState : IState, IUpdatable, IMessageReceiver
 	{
 		private BattleCardObjectInField owner;
@@ -170,6 +171,8 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		private float timePassed;
 		private Vector3 startPos;
 		private IMap map;
+
+		private ITile actOverrideTile;
 
 		public CardObjectNormalInFieldState(BattleCardObjectInField owner)
 		{
@@ -216,13 +219,26 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			timePassed += dt;
 			var progress = returnAnimationCurve.Evaluate(timePassed / returnTime);
-			owner.transform.position = Vector3.Lerp(startPos, map.GetTileOfBattleObject(owner).GetPosition().GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos), progress);
+			owner.transform.position = Vector3.Lerp(startPos, GetTargetPos(), progress);
 		}
-		
+
+		private Vector3 GetTargetPos()
+		{
+			return actOverrideTile != null
+				? actOverrideTile.GetPosition().GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos)
+				: map.GetTileOfBattleObject(owner).GetPosition()
+					.GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos);
+		}
+
 		public void CatchMessage(Message m)
 		{
 			if (m is BattleObjectPosUpdatedNotice)
 			{
+				Restart();
+			}
+			else if (m is BattleObjectSwitchActNotice san)
+			{
+				actOverrideTile = san.TargetTile;
 				Restart();
 			}
 		}
@@ -239,7 +255,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			hoverTimePassed = 0f;
 			startScale = owner.transform.localScale;
 		}
-		
+
 		private void Restart()
 		{
 			timePassed = 0f;
@@ -269,7 +285,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			//todo:fix
 			NoticeSystem.Instance.PublishSync(new FieldCardSelectNotice(owner));
-			
+
 			InputManager.Instance.InputActions.Player.UseHandCard.Enable();
 			InputManager.Instance.InputActions.Player.CancelHandCard.Enable();
 			InputManager.Instance.InputActions.Player.UseHandCard.performed += OnTryMoveCard;
@@ -285,8 +301,17 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		private void OnTryMoveCard(InputAction.CallbackContext obj)
 		{
-			if(owner.CanMove(currentTile))
+			if (!owner.CanMove(currentTile)) return;
+			
+			if (currentTile == Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+				    .GetTileOfBattleObject(owner))
+			{
+				CancelMove();
+			}
+			else
+			{
 				owner.ChangeState(new CardObjectMoveState(owner, currentTile));
+			}
 		}
 
 		public void Exit(IState nextState)
@@ -295,9 +320,21 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			InputManager.Instance.InputActions.Player.CancelHandCard.Disable();
 			InputManager.Instance.InputActions.Player.UseHandCard.performed -= OnTryMoveCard;
 			InputManager.Instance.InputActions.Player.CancelHandCard.performed -= OnCancelMoveCard;
+
+			if (currentTile != null && Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+					    .GetBattleObjectOfTile(currentTile)
+				    is IMessageReceiver receiver)
+			{
+				NoticeSystem.Instance.Send(new BattleObjectSwitchActNotice(null), receiver);
+			}
 		}
 
 		private void OnCancelMoveCard(InputAction.CallbackContext obj)
+		{
+			CancelMove();
+		}
+
+		private void CancelMove()
 		{
 			owner.ChangeState(new CardObjectNormalInFieldState(owner));
 			NoticeSystem.Instance.PublishSync(new FieldCardSelectCancelNotice(owner));
@@ -310,8 +347,33 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			mouseScreenPos.z = 10f;
 			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 
-			currentTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
-			targetPos = owner.CanMove(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos.GetX0z(Constant.SelectYPos);
+			var mouseTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
+			if (currentTile != mouseTile)
+			{
+				if (currentTile != null && Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+						    .GetBattleObjectOfTile(currentTile)
+					    is IMessageReceiver receiver)
+				{
+					NoticeSystem.Instance.Send(new BattleObjectSwitchActNotice(null), receiver);
+				}
+
+				currentTile = mouseTile;
+			}
+
+			targetPos = mousePos.GetX0z(Constant.SelectYPos);
+			if (owner.CanMove(currentTile))
+			{
+				var bo = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+					.GetBattleObjectOfTile(currentTile);
+				if (bo is IMessageReceiver messageReceiver)
+				{
+					NoticeSystem.Instance.Send(
+						new BattleObjectSwitchActNotice(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+							.GetTileOfBattleObject(owner)), messageReceiver);
+				}
+
+				targetPos = currentTile.GetPosition().GetX0z(Constant.SelectYPos);
+			}
 
 			if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
 			{
@@ -324,9 +386,10 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			var totalTime = Vector3.Distance(targetPos, owner.transform.position) / realSpeed;
 			owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
 			owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
-				                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
-				                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
-			                                Vector3.Cross(Camera.main.transform.forward, (targetPos - owner.transform.position).normalized)) *
+					                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
+					                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
+				                                Vector3.Cross(Camera.main.transform.forward,
+					                                (targetPos - owner.transform.position).normalized)) *
 			                                Camera.main.transform.localRotation;
 		}
 	}
@@ -345,10 +408,20 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		public void Enter(IState prevState)
 		{
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().GetCurrentStage().Map;
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= 1;
 			owner.transform.position = targetTile.GetPosition();
 			owner.transform.up = Camera.main.transform.up;
-			map.RemoveFromTile(owner);
-			map.SetTile(targetTile, owner);
+
+			if (map.GetBattleObjectOfTile(targetTile) != null)
+			{
+				map.SwitchTile(map.GetTileOfBattleObject(owner), targetTile);
+			}
+			else
+			{
+				map.RemoveFromTile(owner);
+				map.SetTile(targetTile, owner);
+			}
+
 			owner.ChangeState(new CardObjectNormalInFieldState(owner));
 		}
 
@@ -362,7 +435,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	{
 		private BattleCardObjectInField owner;
 		private Action currentUpdateAction;
-		
+
 		public CardObjectActionState(BattleCardObjectInField owner)
 		{
 			this.owner = owner;
@@ -388,7 +461,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		}
 
 		private float timePassed = 0f;
-		
+
 		private void UpdateTurnCount()
 		{
 			timePassed += Time.deltaTime;
@@ -414,7 +487,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 				}
 			}
 		}
-		
+
 		private void UpdatePrepareAttack()
 		{
 			timePassed += Time.deltaTime;
@@ -454,7 +527,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldYPos);
 		}
 	}
-	
+
 	public void Dispose()
 	{
 	}
