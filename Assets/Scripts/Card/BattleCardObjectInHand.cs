@@ -339,10 +339,10 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			//todo: optimize and fix - new input mouse pos not working
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
-			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos).GetX0z(Constant.SelectYPos);
 
 			currentTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
-			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos.GetX0z(Constant.SelectYPos);
+			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos;
 
 			if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
 			{

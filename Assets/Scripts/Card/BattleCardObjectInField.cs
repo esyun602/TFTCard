@@ -345,7 +345,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			//todo: optimize and fix - new input mouse pos not working
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
-			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos).GetX0z(Constant.SelectYPos);
 
 			var mouseTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
 			if (currentTile != mouseTile)
@@ -360,7 +360,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 				currentTile = mouseTile;
 			}
 
-			targetPos = mousePos.GetX0z(Constant.SelectYPos);
+			targetPos = mousePos;
 			if (owner.CanMove(currentTile))
 			{
 				var bo = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map

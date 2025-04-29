@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using MessageSystem;
 using UnityEngine;
 
@@ -106,19 +107,12 @@ public class Map : IMap
 
 	private BattleObjectManager battleObjectManager;
 	private GameObject mapObject;
-	private Dictionary<Vector2Int, ITile> tileDict;
 
-	private int rowCnt;
-	private int colCnt;
+	private List<float> colPosList;
+	private List<float> rowPosList;
 
-	private int xMin;
-	private int xMax;
-	private int yMin;
-	private int yMax;
-
-	//todo: fix
-	private const int tileSizeX = 2;
-	private const int tileSizeY = 3;
+	private Dictionary<(int, int), ITile> tileDict;
+	private Vector3 tileSize = new Vector3(1f,100f,1.5f);
 	
 	public Map(GameObject mapObject)
 	{
@@ -134,55 +128,87 @@ public class Map : IMap
 	private void LoadTiles()
 	{
 		tileDict = new();
-		xMin = yMin = int.MaxValue;
-		xMax = yMax = int.MinValue;
-		RegisterTiles(mapObject.transform, new HashSet<int>(), new HashSet<int>());
+		colPosList = new List<float>();
+		rowPosList = new List<float>();
+		RegisterTiles(mapObject.transform);
 	}
 
-	private void RegisterTiles(Transform root, HashSet<int> xSet, HashSet<int> ySet)
+	private void RegisterTiles(Transform root)
 	{
 		foreach (Transform child in root)
 		{
 			//todo constant, tileprop serialize
 			if (child.CompareTag("Tile"))
 			{
-				var pos = child.position.ToRoundedVector2IntXZ();
-				tileDict[pos] = new TileBase(pos, tileSizeX, tileSizeY,
+				var pos = child.position;
+
+				int col = -1;
+				int row = -1;
+
+				if (colPosList.Count == 0)
+				{
+					col = 0;
+					colPosList.Add(pos.x);	
+				}
+				else
+				{
+					for (var i = 0; i < colPosList.Count; i++)
+					{
+						if (colPosList[i].IsAlmostCloseTo(pos.x))
+						{
+							col = i;
+							break;
+						}
+						else if(colPosList[i] > pos.x)
+						{
+							colPosList.Insert(i, pos.x);
+							col = i;
+							break;
+						}
+						else if (i == colPosList.Count - 1)
+						{
+							col = colPosList.Count - 1;
+							colPosList.Add(pos.x);
+						}
+					}
+				}
+
+
+				if (rowPosList.Count == 0)
+				{
+					row = 0;
+					rowPosList.Add(pos.z);
+				}
+				else
+				{
+					for (var i = 0; i < rowPosList.Count; i++)
+					{
+						if (rowPosList[i].IsAlmostCloseTo(pos.z))
+						{
+							row = i;
+							break;
+						}
+						else if (rowPosList[i] > pos.z)
+						{
+							row = i;
+							rowPosList.Insert(i, pos.z);
+							break;
+						}
+						else if (i == rowPosList.Count - 1)
+						{
+							row = rowPosList.Count - 1;
+							rowPosList.Add(pos.z);
+						}
+					}
+				}
+				
+
+				tileDict[(row, col)] = new TileBase(pos, tileSize,
 					child.parent.name == "AllyLayer" ? ObjectType.Ally :
 					child.parent.name == "EnemyLayer" ? ObjectType.Enemy : ObjectType.Neutral);
-
-				if (xSet.Add(pos.x))
-				{
-					colCnt++;
-				}
-
-				if (pos.x > xMax)
-				{
-					xMax = pos.x;
-				}
-
-				if (pos.x < xMin)
-				{
-					xMin = pos.x;
-				}
-
-				if (ySet.Add(pos.y))
-				{
-					rowCnt++;
-				}
-
-				if (pos.y > yMax)
-				{
-					yMax = pos.y;
-				}
-
-				if (pos.y < yMin)
-				{
-					yMin = pos.y;
-				}
 			}
 
-			RegisterTiles(child, xSet, ySet);
+			RegisterTiles(child);
 		}
 	}
 
@@ -193,7 +219,49 @@ public class Map : IMap
 
 	public ITile GetTileAt(Vector3 position)
 	{
-		return tileDict.GetValueOrDefault((new Vector2Int(Mathf.RoundToInt(position.x / tileSizeX) * tileSizeX, Mathf.RoundToInt(position.z / tileSizeY) * tileSizeY)));
+		var tile = tileDict.GetValueOrDefault(Vector3ToRowCol(position));
+		return tile?.Contains(position) == true ? tile : null;
+	}
+
+	private (int, int) Vector3ToRowCol(Vector3 vector)
+	{
+		var minDist = float.MaxValue;
+		int col = -1;
+		int row = -1;
+		for (var i = 0; i < colPosList.Count; i++)
+		{
+			var colPos = colPosList[i];
+			if (minDist <= Mathf.Abs(colPos - vector.x))
+			{
+				col = i - 1;
+				break;
+			}
+			else if (i == colPosList.Count - 1)
+			{
+				col = i;
+			}
+
+			minDist = Mathf.Abs(colPos - vector.x);
+		}
+		minDist = float.MaxValue;
+		
+		for (var i = 0; i < rowPosList.Count; i++)
+		{
+			var rowPos = rowPosList[i];
+			if (minDist <= Mathf.Abs(rowPos - vector.z))
+			{
+				row = i - 1;
+				break;
+			}
+			else if (i == rowPosList.Count - 1)
+			{
+				row = i;
+			}
+
+			minDist = Mathf.Abs(rowPos - vector.z);
+		}
+
+		return (row, col);
 	}
 
 	/// <summary>
@@ -201,7 +269,7 @@ public class Map : IMap
 	/// </summary>
 	public ITile GetTileAt(int row, int col)
 	{
-		return tileDict.GetValueOrDefault(new Vector2Int(xMin + col * tileSizeX, yMin + row * tileSizeY));
+		return tileDict.GetValueOrDefault((row, col));
 	}
 
 	/// <summary>
@@ -209,8 +277,7 @@ public class Map : IMap
 	/// </summary>
 	public (int, int) GetTileCoord(ITile tile)
 	{
-		var coordVector = (tile.GetPosition().ToRoundedVector2IntXZ() - new Vector2Int(xMin, yMin));
-		return ( coordVector.y / tileSizeY, coordVector.x / tileSizeX);
+		return Vector3ToRowCol(tile.GetPosition());
 	}
 
 	public ITile[] GetTiles()
@@ -248,6 +315,6 @@ public class Map : IMap
 		battleObjectManager.RemoveFromTile(obj);
 	}
 
-	public int RowCnt => rowCnt;
-	public int ColumnCnt => colCnt;
+	public int RowCnt => rowPosList.Count;
+	public int ColumnCnt => colPosList.Count;
 }

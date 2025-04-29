@@ -11,5 +11,6 @@ public enum ObjectType
 public interface ITile
 {
 	public Vector3 GetPosition();
+	public bool Contains(Vector3 position);
 	public ObjectType TileType { get; }
 }
