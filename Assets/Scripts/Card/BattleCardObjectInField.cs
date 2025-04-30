@@ -236,6 +236,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			{
 				Restart();
 			}
+			//todo: normal 상태에서 처리하지 않고 새로 상태 추가 필요
 			else if (m is BattleObjectSwitchActNotice san)
 			{
 				actOverrideTile = san.TargetTile;

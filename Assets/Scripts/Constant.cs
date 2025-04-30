@@ -18,6 +18,7 @@ public class Constant : GameData
 	public const float HandHoverYPos = 30f;
 	
 	public const float SelectYPos = 40f;
+	public const float AttackYPos = 50f;
 	
 	public override void Initialize()
 	{

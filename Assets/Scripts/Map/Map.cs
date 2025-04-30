@@ -111,8 +111,9 @@ public class Map : IMap
 	private List<float> colPosList;
 	private List<float> rowPosList;
 
-	private Dictionary<(int, int), ITile> tileDict;
-	private Vector3 tileSize = new Vector3(1f,100f,1.5f);
+	private Dictionary<(int, int), ITile> tilePosCache;
+	private List<ITile> tileList;
+	private Vector3 tileSize = new Vector3(1.5f,100f,2f);
 	
 	public Map(GameObject mapObject)
 	{
@@ -127,13 +128,20 @@ public class Map : IMap
 
 	private void LoadTiles()
 	{
-		tileDict = new();
+		tilePosCache = new();
 		colPosList = new List<float>();
 		rowPosList = new List<float>();
 		RegisterTiles(mapObject.transform);
 	}
 
 	private void RegisterTiles(Transform root)
+	{
+		tileList = new();
+		InitializeTileInfos(root);
+		InitializeTileCache();
+	}
+	
+	private void InitializeTileInfos(Transform root)
 	{
 		foreach (Transform child in root)
 		{
@@ -147,7 +155,6 @@ public class Map : IMap
 
 				if (colPosList.Count == 0)
 				{
-					col = 0;
 					colPosList.Add(pos.x);	
 				}
 				else
@@ -156,13 +163,11 @@ public class Map : IMap
 					{
 						if (colPosList[i].IsAlmostCloseTo(pos.x))
 						{
-							col = i;
 							break;
 						}
 						else if(colPosList[i] > pos.x)
 						{
 							colPosList.Insert(i, pos.x);
-							col = i;
 							break;
 						}
 						else if (i == colPosList.Count - 1)
@@ -176,7 +181,6 @@ public class Map : IMap
 
 				if (rowPosList.Count == 0)
 				{
-					row = 0;
 					rowPosList.Add(pos.z);
 				}
 				else
@@ -185,30 +189,36 @@ public class Map : IMap
 					{
 						if (rowPosList[i].IsAlmostCloseTo(pos.z))
 						{
-							row = i;
 							break;
 						}
 						else if (rowPosList[i] > pos.z)
 						{
-							row = i;
 							rowPosList.Insert(i, pos.z);
 							break;
 						}
 						else if (i == rowPosList.Count - 1)
 						{
-							row = rowPosList.Count - 1;
 							rowPosList.Add(pos.z);
 						}
 					}
 				}
 				
 
-				tileDict[(row, col)] = new TileBase(pos, tileSize,
+				tileList.Add(new TileBase(pos, tileSize,
 					child.parent.name == "AllyLayer" ? ObjectType.Ally :
-					child.parent.name == "EnemyLayer" ? ObjectType.Enemy : ObjectType.Neutral);
+					child.parent.name == "EnemyLayer" ? ObjectType.Enemy : ObjectType.Neutral));
 			}
 
-			RegisterTiles(child);
+			InitializeTileInfos(child);
+		}
+	}
+
+	private void InitializeTileCache()
+	{
+		foreach (var tile in tileList)
+		{
+			var (row, col) = (tile.GetPosition().ToRowCol(rowPosList, colPosList));
+			tilePosCache[(row, col)] = tile;
 		}
 	}
 
@@ -219,49 +229,8 @@ public class Map : IMap
 
 	public ITile GetTileAt(Vector3 position)
 	{
-		var tile = tileDict.GetValueOrDefault(Vector3ToRowCol(position));
+		var tile = tilePosCache.GetValueOrDefault(position.ToRowCol(rowPosList, colPosList));
 		return tile?.Contains(position) == true ? tile : null;
-	}
-
-	private (int, int) Vector3ToRowCol(Vector3 vector)
-	{
-		var minDist = float.MaxValue;
-		int col = -1;
-		int row = -1;
-		for (var i = 0; i < colPosList.Count; i++)
-		{
-			var colPos = colPosList[i];
-			if (minDist <= Mathf.Abs(colPos - vector.x))
-			{
-				col = i - 1;
-				break;
-			}
-			else if (i == colPosList.Count - 1)
-			{
-				col = i;
-			}
-
-			minDist = Mathf.Abs(colPos - vector.x);
-		}
-		minDist = float.MaxValue;
-		
-		for (var i = 0; i < rowPosList.Count; i++)
-		{
-			var rowPos = rowPosList[i];
-			if (minDist <= Mathf.Abs(rowPos - vector.z))
-			{
-				row = i - 1;
-				break;
-			}
-			else if (i == rowPosList.Count - 1)
-			{
-				row = i;
-			}
-
-			minDist = Mathf.Abs(rowPos - vector.z);
-		}
-
-		return (row, col);
 	}
 
 	/// <summary>
@@ -269,7 +238,7 @@ public class Map : IMap
 	/// </summary>
 	public ITile GetTileAt(int row, int col)
 	{
-		return tileDict.GetValueOrDefault((row, col));
+		return tilePosCache.GetValueOrDefault((row, col));
 	}
 
 	/// <summary>
@@ -277,12 +246,12 @@ public class Map : IMap
 	/// </summary>
 	public (int, int) GetTileCoord(ITile tile)
 	{
-		return Vector3ToRowCol(tile.GetPosition());
+		return (tile.GetPosition().ToRowCol(rowPosList, colPosList));
 	}
 
 	public ITile[] GetTiles()
 	{
-		return tileDict.Values.ToArray();
+		return tilePosCache.Values.ToArray();
 	}
 
 	public IBattleObject[] GetBattleObjects()
