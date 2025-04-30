@@ -23,7 +23,6 @@ public class SynergyLabel : MonoBehaviour
 		}
 	}
 
-	[SerializeField] private Image synergyImage;
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
 	[SerializeField] private TextMeshProUGUI synergyCountText;
@@ -32,7 +31,6 @@ public class SynergyLabel : MonoBehaviour
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergy);
 		targetSpec = spec;
-		synergyImage.sprite = spec.targetSprite;
 		synergyName.text = spec.synergyName;
 	}
 
@@ -53,7 +51,7 @@ public class SynergyLabel : MonoBehaviour
 		{
 			if (i != 0)
 			{
-				strBuilder.Append($"> ");
+				strBuilder.Append($"/ ");
 			}
 			
 			if (found || synergyCount < targetSpec.synergyCountList[i])
