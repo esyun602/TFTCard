@@ -495,7 +495,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 					else
 					{
 						owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
-						currentUpdateAction = null;
+						currentUpdateAction = UpdateEndAttack;
 					}
 				}
 				else
@@ -510,14 +510,19 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			owner.targetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
 			if (routineDone)
 			{
+				owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
 				currentUpdateAction = UpdateEndAttack;
 			}
 		}
 
 		private void UpdateEndAttack()
 		{
-			currentUpdateAction = null;
-			owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
+			timePassed += Time.deltaTime;
+			if (timePassed > 0.5f)
+			{
+				timePassed = 0f;
+				currentUpdateAction = null;
+			}
 		}
 
 		public void Exit(IState nextState)

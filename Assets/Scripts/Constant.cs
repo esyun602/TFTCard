@@ -19,6 +19,9 @@ public class Constant : GameData
 	
 	public const float SelectYPos = 40f;
 	public const float AttackYPos = 50f;
+
+	public readonly Vector3 HandColliderSize = new Vector3(0.7f, 1f, 0.01f);
+	public readonly Vector3 HandHoverColliderSize = new Vector3(1f, 1f, 0.01f);
 	
 	public override void Initialize()
 	{

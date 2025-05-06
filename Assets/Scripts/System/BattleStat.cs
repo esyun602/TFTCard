@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using MessageSystem;
 using UnityEngine;
 
 public class BattleStat : IStat
@@ -16,7 +17,12 @@ public class BattleStat : IStat
 	public int Hp
 	{
 		get => hp;
-		set => hp = Mathf.Max(value, 0);
+		set
+		{
+			var clampedValue = Mathf.Max(value, 0);
+			NoticeSystem.Instance.Publish(new BattleHpChangeNotice(hp, clampedValue, this));
+			hp = clampedValue;
+		}
 	}
 	public bool IsDead => Hp == 0;
 	public int MaxHp { get; set; }
@@ -25,7 +31,12 @@ public class BattleStat : IStat
 	public int TurnCount
 	{
 		get => turnCount;
-		set => turnCount = Mathf.Max(0, value);
+		set
+		{
+			var clampedValue = Mathf.Max(value, 0);
+			NoticeSystem.Instance.Publish(new BattleTurnCountChangedNotice(turnCount, clampedValue, this));
+			turnCount = clampedValue;
+		}
 	}
 
 	private int turnCount;
@@ -39,9 +50,9 @@ public class BattleStat : IStat
 	{
 		originStat = cardStat;
 		Attack = cardStat.Attack;
-		MaxHp = Hp = cardStat.MaxHp;
+		MaxHp = hp = cardStat.MaxHp;
 		MaxTurnCount = cardStat.MaxTurnCount;
-		TurnCount = MaxTurnCount;
+		turnCount = MaxTurnCount;
 		Cost = cardStat.Cost;
 		synergyList = new(cardStat.synergyList);
 	}

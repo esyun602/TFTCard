@@ -1,4 +1,6 @@
 using System;
+using DG.Tweening;
+using MessageSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -22,16 +24,38 @@ public class CardInfoHandler : MonoBehaviour
 		
 		name.text = spec.name;
 		desc.text = "Some Description...";
-		TextureRenderer.material.SetTexture("_MainTex", spec.cardResource.texture);
-	}
-	
-	//todo: callback or notice?
-
-	private void Update()
-	{
+		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
+		
 		cost.text = $"{stat.Cost}";
 		atk.text = $"{stat.Attack}";
 		hp.text = $"{stat.Hp}";
 		turnCount.text = $"{stat.TurnCount}";
+		
+		NoticeSystem.Instance.Subscribe<BattleHpChangeNotice>(OnBattleHpChange);
+		NoticeSystem.Instance.Subscribe<BattleTurnCountChangedNotice>(OnBattleTurnCountChange);
+	}
+
+	private void OnBattleHpChange(BattleHpChangeNotice m)
+	{
+		if (m.Stat != stat) return;
+		DOTween.Kill(hp);
+		hp.text = $"{stat.Hp}";
+		hp.transform.localScale = Vector3.one * 2f;
+		hp.transform.DOScale(Vector3.one,  0.5f);
+	}
+
+	private void OnBattleTurnCountChange(BattleTurnCountChangedNotice m)
+	{
+		if (m.Stat != stat) return;
+		DOTween.Kill(turnCount);
+		turnCount.text = $"{stat.TurnCount}";
+		turnCount.transform.localScale = Vector3.one * 2f;
+		turnCount.transform.DOScale(Vector3.one, 0.5f);
+	}
+
+	//todo: callback or notice?
+
+	private void Update()
+	{
 	}
 }

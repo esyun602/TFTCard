@@ -183,7 +183,6 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		private Quaternion? targetRotationOverride;
 		private Vector3 hoverTarget;
 		private Vector3 startScale;
-		private Vector3 originalColliderScale = new Vector3(0.7f, 1f, 1f);
 		private Vector3 originalScale = Vector3.one;
 
 		public CardObjectNormalInHandState(BattleCardObjectInHand owner)
@@ -196,7 +195,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 		{
 			isHovered = true;
 			hoverTarget = originalScale * 1.8f;
-			owner.collider.size = Vector3.one;
+			owner.collider.size = GameDataSystem.Instance.GetGameData<Constant>().HandHoverColliderSize;
 			targetRotationOverride = Camera.main.transform.localRotation;
 			RestartHover();
 			//todo: 애니메이션 빼면 순간적으로 마우스 탈출하는 문제
@@ -208,7 +207,7 @@ public class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPoin
 			isHovered = false;
 			hoverTarget = originalScale;
 			targetRotationOverride = null;
-			owner.collider.size = originalColliderScale;
+			owner.collider.size = GameDataSystem.Instance.GetGameData<Constant>().HandColliderSize;
 			RestartHover();
 		}
 

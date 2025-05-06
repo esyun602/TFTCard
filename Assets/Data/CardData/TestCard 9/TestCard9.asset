@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: TestCard9
   m_EditorClassIdentifier: 
   statSpec: {fileID: 11400000, guid: 2a4c6a4370e63b94ea66cf4f848bd86b, type: 2}
-  cardResource: {fileID: 21300000, guid: ba767a7276051764a97ffa265698e58f, type: 3}
-  creatureResource: {fileID: 21300000, guid: ba767a7276051764a97ffa265698e58f, type: 3}
+  cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
+  creatureResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
   actionData: {fileID: 11400000, guid: ecb6239c97d18de4da666990e319eade, type: 2}
