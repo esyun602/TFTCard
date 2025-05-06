@@ -150,9 +150,6 @@ public class Map : IMap
 			{
 				var pos = child.position;
 
-				int col = -1;
-				int row = -1;
-
 				if (colPosList.Count == 0)
 				{
 					colPosList.Add(pos.x);	
@@ -172,7 +169,6 @@ public class Map : IMap
 						}
 						else if (i == colPosList.Count - 1)
 						{
-							col = colPosList.Count - 1;
 							colPosList.Add(pos.x);
 						}
 					}

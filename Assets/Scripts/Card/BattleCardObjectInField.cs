@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using MessageSystem;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,8 +16,14 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	public ObjectType ObjectType => objectType;
 	public Vector3 Position => transform.position;
+	private Transform transformCache;
+	public Transform Transform => transformCache == null ? transformCache = transform : transformCache;
 	public BattleStat BattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
+	private Material materialCache;
+	private Material Material => materialCache == null ? materialCache = transform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
+
+	private bool onAnimation = false;
 
 	public void CatchMessage(Message m)
 	{
@@ -26,6 +33,20 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	//todo: context?
 	public void Damage(IBattleObject sender, int dmg)
 	{
+		var movSeq = DOTween.Sequence();
+		movSeq.Append(Transform
+			.DOMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right + Position,
+				0.15f).SetEase(Ease.InQuart));
+		movSeq.Append(Transform.DOMove(Position, 0.5f).SetEase(Ease.OutQuart));
+		movSeq.onComplete += () => onAnimation = false;
+		onAnimation = true;
+
+		Material.DOFade(1, 0.15f).SetLoops(2, LoopType.Yoyo);
+		
+		//틴트, 데미지 텍스트
+		
+		movSeq.Play();
+			
 		BattleStat.Hp = Mathf.Max(BattleStat.Hp - dmg, 0);
 		NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
 		if (BattleStat.IsDead)
@@ -47,15 +68,8 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	private void Deactivate()
 	{
-		if (objectType == ObjectType.Ally)
-		{
-			ChangeState(null);
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerField.RemoveFromField(this);
-		}
-
-		Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.RemoveFromTile(this);
-
 		//todo: pooling
+		ChangeState(null);
 		gameObject.SetActive(false);
 		Destroy(this);
 	}
@@ -131,7 +145,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		cardObject.GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, battleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
-
+		
 		return cardObject;
 	}
 
@@ -148,6 +162,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	private void Update()
 	{
+		if (onAnimation) return;
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
 
@@ -474,7 +489,8 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 					if (Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
 					    .IsInTriggerPos(owner.targetCard.Action.AttackRangeInfo, owner))
 					{
-						currentUpdateAction = UpdatePrepareAttack;
+						owner.targetCard.Action.Trigger();
+						currentUpdateAction = UpdateAttack;
 					}
 					else
 					{
@@ -489,18 +505,6 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			}
 		}
 
-		private void UpdatePrepareAttack()
-		{
-			timePassed += Time.deltaTime;
-			owner.transform.localScale = Vector3.one * Mathf.Lerp(1f, 1.5f, timePassed / 0.5f);
-			if (timePassed > 0.5f)
-			{
-				timePassed = 0f;
-				owner.targetCard.Action.Trigger();
-				currentUpdateAction = UpdateAttack;
-			}
-		}
-
 		private void UpdateAttack()
 		{
 			owner.targetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
@@ -512,14 +516,8 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		private void UpdateEndAttack()
 		{
-			timePassed += Time.deltaTime;
-			owner.transform.localScale = Vector3.one * Mathf.Lerp(1.5f, 1f, timePassed / 0.5f);
-			if (timePassed > 0.5f)
-			{
-				timePassed = 0f;
-				currentUpdateAction = null;
-				owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
-			}
+			currentUpdateAction = null;
+			owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
 		}
 
 		public void Exit(IState nextState)

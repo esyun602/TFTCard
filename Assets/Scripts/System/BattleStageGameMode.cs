@@ -74,6 +74,10 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		if (m.Target.ObjectType == ObjectType.Ally)
 		{
 			SynergySystem.UnRegister(m.Target);
+			if (m.Target is BattleCardObjectInField bco)
+			{
+				DeckSystem.PlayerField.RemoveFromField(bco);
+			}
 		}
 		
 	}

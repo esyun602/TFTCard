@@ -87,7 +87,10 @@ public class UIManager
 	{
 		var go = new GameObject(type.ToString() + "Canvas");
 		var canvas = go.AddComponent<Canvas>();
-		go.AddComponent<CanvasScaler>();
+		var scalar = go.AddComponent<CanvasScaler>();
+		//todo: 분리 필요?
+		scalar.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+		scalar.referenceResolution = new Vector2(1920, 1080);
 		go.AddComponent<GraphicRaycaster>();
 		canvas.renderMode = GetRenderModeFromType(type);
 		return canvas;

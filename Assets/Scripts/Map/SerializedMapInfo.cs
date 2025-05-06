@@ -52,9 +52,6 @@ public class SerializedMapInfo
 			{
 				var pos = tile.position;
 
-				int col = -1;
-				int row = -1;
-
 				if (colPosList.Count == 0)
 				{
 					colPosList.Add(pos.x);	

@@ -61,6 +61,10 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Publish(new TurnEndClickNotice());
 	}
 
+	private void Update()
+	{
+	}
+
 	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<EnergyChangeNotice>(OnEnergyChange);
