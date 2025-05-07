@@ -10,7 +10,9 @@ public class Constant : GameData
 	public const int DefaultEnergy = 3;
 
 	public const float FieldYPos = 0.55f;
-	public const float FieldHoverYPos = 1f;
+	public const float FieldMoveYPos = 2f;
+	public const float FieldSwitchActYPos = 4f;
+	public const float FieldHoverYPos = 6f;
 
 	public const float HandCenterZOffset = 1.3f;
 	public const float HandCenterYPos = 10f;

@@ -234,15 +234,36 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			timePassed += dt;
 			var progress = returnAnimationCurve.Evaluate(timePassed / returnTime);
-			owner.transform.position = Vector3.Lerp(startPos, GetTargetPos(), progress);
+			var targetPos = GetTargetPos();
+			var isMoving = !targetPos.IsAlmostCloseToXZ(owner.transform.position);
+			owner.transform.position = Vector3.Lerp(startPos.GetX0z(GetYValue(isMoving)), targetPos.GetX0z(GetYValue(isMoving)), progress);
 		}
 
 		private Vector3 GetTargetPos()
 		{
 			return actOverrideTile != null
-				? actOverrideTile.GetPosition().GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos)
-				: map.GetTileOfBattleObject(owner).GetPosition()
-					.GetX0z(isHovered ? Constant.FieldHoverYPos : Constant.FieldYPos);
+				? actOverrideTile.GetPosition()
+				: map.GetTileOfBattleObject(owner).GetPosition();
+		}
+
+		private float GetYValue(bool isMoving)
+		{
+			if (isHovered)
+			{
+				return Constant.FieldHoverYPos;
+			}
+			else if (actOverrideTile != null)
+			{
+				return Constant.FieldSwitchActYPos;
+			}
+			else if (isMoving)
+			{
+				return Constant.FieldMoveYPos;
+			}
+			else
+			{
+				return Constant.FieldYPos;
+			}
 		}
 
 		public void CatchMessage(Message m)
@@ -434,7 +455,6 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			}
 			else
 			{
-				map.RemoveFromTile(owner);
 				map.SetTile(targetTile, owner);
 			}
 

@@ -21,14 +21,6 @@ public class Map : IMap
 
 		public void SetTile(ITile tile, IBattleObject obj)
 		{
-			//todo: rule을 맵마다 다르게 할꺼면 추후 분리
-			var targetTile = owner.GetFirstTileInRow(tile);
-			if (owner.GetBattleObjectOfTile(targetTile) != null)
-			{
-				targetTile = tile;
-			}
-			//
-			
 			//todo: object type 비교 필요?
 			if (GetBattleObjectOn(tile) != null)
 			{
@@ -36,14 +28,13 @@ public class Map : IMap
 				throw new ArgumentException();
 			}
 
-			RemoveFromTile(obj);
-			battleObjectToTile[obj] = targetTile;
-			tileToBattleObject[targetTile] = obj;
-
-			if (obj is IMessageReceiver mr)
-			{
-				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(obj, targetTile), mr);
-			}
+			var originTile = GetTileOf(obj);
+			
+			RemoveFromTileImpl(obj);
+			SetTileImpl(obj, tile);
+			
+			ReAlignRow(originTile);
+			ReAlignRow(tile);
 		}
 
 		public void SwitchBattleObjectOfTile(ITile tileA, ITile tileB)
@@ -67,6 +58,34 @@ public class Map : IMap
 
 		public void RemoveFromTile(IBattleObject obj)
 		{
+			RemoveFromTileImpl(obj);
+			
+			var targetTile = GetTileOf(obj);
+			ReAlignRow(targetTile);
+		}
+
+		public void ReAlignRow(ITile tile)
+		{
+			if (tile == null) return;
+			
+			var firstObj = owner.GetFirstObjectInRow(tile);
+			var firstTile = owner.GetFirstTileInRow(tile);
+			if (GetBattleObjectOn(firstTile) == firstObj)
+			{
+				return;
+			}
+			
+			RemoveFromTileImpl(firstObj);
+			SetTileImpl(firstObj, firstTile);
+			
+			if (firstObj is IMessageReceiver mr)
+			{
+				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(firstObj, firstTile), mr);
+			}
+		}
+
+		private void RemoveFromTileImpl(IBattleObject obj)
+		{
 			var targetTile = GetTileOf(obj);
 			
 			if (targetTile == null)
@@ -75,18 +94,12 @@ public class Map : IMap
 			
 			tileToBattleObject.Remove(targetTile);
 			battleObjectToTile.Remove(obj);
-			
-			//todo: rule을 맵마다 다르게 할꺼면 추후 분리
-			if (targetTile == owner.GetFirstTileInRow(targetTile))
-			{
-				IBattleObject secondObj;
-				if ((secondObj = owner.GetFirstObjectInRow(targetTile)) != null)
-				{
-					SetTile(targetTile, secondObj);
-				}
-			}
-			//
-			
+		}
+
+		private void SetTileImpl(IBattleObject obj, ITile tile)
+		{
+			battleObjectToTile[obj] = tile;
+			tileToBattleObject[tile] = obj;
 		}
 
 		public IBattleObject GetBattleObjectOn(ITile tile)
