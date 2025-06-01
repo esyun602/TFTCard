@@ -48,9 +48,15 @@ public class DeckSystem
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
+		BattleCardObjectInHand cardObject;
 		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.CardList)
 		{
-			var cardObject = BattleCardObjectInHand.Instantiate(card, new BattleStat(card.Stat));
+			cardObject = card switch
+			{
+				UnitCard unitCard => UnitCardInHand.Instantiate(unitCard, new UnitCardBattleStat(unitCard.Stat)),
+				_ => throw new ArgumentException()
+			};
+
 			cardObject.transform.SetParent(deckObject.transform);
 			deck.Add(cardObject);
 		}

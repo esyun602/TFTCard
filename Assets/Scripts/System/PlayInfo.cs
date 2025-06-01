@@ -3,7 +3,7 @@ using MessageSystem;
 
 public class PlayInfo
 {
-	public List<Card> CardList { get; } = new();
+	public List<ICard> CardList { get; } = new();
 	public MapInfo CurrentMapInfo { get; set; }
 	public MapNodeInfo CurrentSelectedNode { get; private set; }
 

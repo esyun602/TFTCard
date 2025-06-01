@@ -17,7 +17,7 @@ public class ShopUIPanel : UIInstance
 	private int rollCount;
 	private Action cancelAction;
 	
-	private List<CardSpec> cardDataList;
+	private List<UnitCardSpec> cardDataList;
 	[SerializeField] private List<Image> cardImageList;
 	[SerializeField] private TextMeshProUGUI rollCountUI;
 
@@ -67,7 +67,7 @@ public class ShopUIPanel : UIInstance
 
 public void OnCardClick(int idx)
 	{
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardDataList[idx]));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(cardDataList[idx]));
 		cardImageList[idx].gameObject.SetActive(false);
 	}
 

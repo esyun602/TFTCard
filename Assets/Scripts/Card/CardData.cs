@@ -5,7 +5,7 @@ using UnityEngine;
 public class CardData : GameData
 {
 	[SerializeField]
-	private List<CardSpec> CardSpecList;
+	private List<UnitCardSpec> CardSpecList;
 	public override void Initialize()
 	{
 	}
@@ -14,13 +14,13 @@ public class CardData : GameData
 	{
 	}
 
-	public CardSpec GetRandomSpec()
+	public UnitCardSpec GetRandomSpec()
 	{
 		return CardSpecList[Random.Range(0, CardSpecList.Count)];
 	}
 	
 	//todo: fix?
-	public CardSpec GetSpecById(int id)
+	public UnitCardSpec GetSpecById(int id)
 	{
 		return CardSpecList[id];
 	}
