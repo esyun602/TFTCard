@@ -9,5 +9,7 @@ public enum CardType
 public interface ICardSpec
 {
 	public Sprite CardResource { get; }
+	public string Name { get; }
+	public string Desc { get; }
 	//todo: desc?
 }

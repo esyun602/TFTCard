@@ -3,7 +3,7 @@ using Coroutine;
 using DG.Tweening;
 using UnityEngine;
 
-public class TestCardAction : CardActionBase
+public class TestUnitCardAction : UnitCardActionBase
 {
 	private float timePassed = 0f;
 	private float actionDuration;
@@ -39,7 +39,7 @@ public class TestCardAction : CardActionBase
 		}
 	}
 
-	protected override void OnTrigger()
+	protected override void OnTrigger(object triggerInfo = null)
 	{
 		var rotSeq = DOTween.Sequence();
 		rotSeq.Append(owner.Transform.DORotate(
@@ -69,7 +69,7 @@ public class TestCardAction : CardActionBase
 		throw new System.NotImplementedException();
 	}
 
-	public TestCardAction(TestCardActionData actionData)
+	public TestUnitCardAction(TestUnitCardActionData actionData)
 	{
 		actionDuration = actionData.actionDuration;
 		fxPrefab = actionData.fxPrefab;

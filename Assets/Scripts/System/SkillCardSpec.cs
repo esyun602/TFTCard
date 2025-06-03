@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu]
-public class UnitCardSpec : ScriptableObject, ICardSpec
+public class SkillCardSpec : ScriptableObject, ICardSpec
 {
-	public UnitCardStatSpec statSpec;
+	public SkillCardStatSpec statSpec;
 	public Sprite cardResource;
-	public UnitCardActionData actionData;
+	public SkillCardActionData actionData;
 
 	public Sprite CardResource => cardResource;
 	public string Name => name;

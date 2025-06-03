@@ -1,24 +1,26 @@
 using System;
 using MessageSystem;
 using Unity.VisualScripting;
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class UnitCardInHand : BattleCardObjectInHand
+//todo: 우선 타게팅만
+public class SkillCardInHand : BattleCardObjectInHand
 {
-	private const string cardPrefabPath = "Card/CardPrefab";
-	private UnitCard targetCard;
-	private UnitCardBattleStat battleStat;
+	private const string cardPrefabPath = "Card/SkillCardPrefab";
+	private SkillCard targetCard;
+	private SkillCardBattleStat battleStat;
 	protected override ICard TargetCard => targetCard;
 	public override IStat Stat => battleStat;
 	
-	public static UnitCardInHand Instantiate(UnitCard targetUnitCard, UnitCardBattleStat unitCardBattleStat)
+	public static SkillCardInHand Instantiate(SkillCard targetSkillCard, SkillCardBattleStat skillCardStat)
 	{
-		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<UnitCardInHand>();
+		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<SkillCardInHand>();
 		cardObject.gameObject.SetActive(false);
-		cardObject.targetCard = targetUnitCard;
-		cardObject.battleStat = unitCardBattleStat;
+		cardObject.targetCard = targetSkillCard;
+		cardObject.battleStat = skillCardStat;
+		cardObject.targetCard.Action.SetCardStat(skillCardStat);
 
 		return cardObject;
 	}
@@ -27,18 +29,16 @@ public class UnitCardInHand : BattleCardObjectInHand
 	protected override bool CanUse(ITile tile = null)
 	{
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		return tile?.TileType == ObjectType.Ally
-		       && map.GetBattleObjectOfTile(tile) == null
-		       && cardObjectStateMachine.CurrentState is UnitCardSelectedInHandState;
+		if (tile == null)
+		{
+			return false;
+		}
+		
+		var bo = map.GetBattleObjectOfTile(tile);
+		return bo != null
+		       && cardObjectStateMachine.CurrentState is SkillCardSelectedInHandState;
 	}
 	
-	private void SummonCreature(ITile targetTile)
-	{
-		//todo: 결합끊기
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerField.AddToField(
-			UnitCardInField.Instantiate(targetCard, targetTile, battleStat, ObjectType.Ally));
-	}
-
 	protected override void OnPointerClickImpl(PointerEventData eventData)
 	{
 		if ((blockInput & InputBlockFlag.Select) != InputBlockFlag.None || !CanSelect()) return;
@@ -46,7 +46,7 @@ public class UnitCardInHand : BattleCardObjectInHand
 		    eventData.button == PointerEventData.InputButton.Left)
 		{
 			NoticeSystem.Instance.PublishSync(new HandCardSelectNotice(this));
-			ChangeState(new UnitCardSelectedInHandState(this));
+			ChangeState(new SkillCardSelectedInHandState(this));
 		}
 	}
 	
@@ -54,10 +54,10 @@ public class UnitCardInHand : BattleCardObjectInHand
 	/// <summary>
 	/// 마우스 포인터를 따라가는 상태
 	/// </summary>
-	private class UnitCardSelectedInHandState : IState, IUpdatable
+	private class SkillCardSelectedInHandState : IState, IUpdatable
 	{
 		public bool IsMoving => targetPos != owner.transform.position;
-		private UnitCardInHand owner;
+		private SkillCardInHand owner;
 		private Vector3 targetPos;
 		private Quaternion targetRotation;
 		private const float followSpeed = 400f;
@@ -65,7 +65,7 @@ public class UnitCardInHand : BattleCardObjectInHand
 		private float timePassed = 0f;
 		private ITile currentTile;
 
-		public UnitCardSelectedInHandState(UnitCardInHand owner)
+		public SkillCardSelectedInHandState(SkillCardInHand owner)
 		{
 			this.owner = owner;
 		}
@@ -97,7 +97,7 @@ public class UnitCardInHand : BattleCardObjectInHand
 			if (owner.CanUse(currentTile))
 			{
 				//todo: 사용함수를 분리?
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.battleStat.Cost;
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.battleStat.CostValue;
 				owner.ChangeState(new CardObjectUsedInHandState(owner, currentTile));
 			}
 		}
@@ -145,31 +145,76 @@ public class UnitCardInHand : BattleCardObjectInHand
 		}
 	}
 	
-	private class CardObjectUsedInHandState : IState
+	//todo: run action
+	private class CardObjectUsedInHandState : IState, IUpdatable
 	{
-		private UnitCardInHand owner;
-		private ITile targetTile;
-
-		public CardObjectUsedInHandState(UnitCardInHand owner, ITile targetTile)
+		private SkillCardInHand owner;
+		private IBattleObject targetObject;
+		private float timePassed;
+		private Action currentUpdateAction;
+		
+		public CardObjectUsedInHandState(SkillCardInHand owner, ITile targetTile)
 		{
+			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 			this.owner = owner;
-			this.targetTile = targetTile;
+			this.targetObject = map.GetBattleObjectOfTile(targetTile);;
+			
 		}
 
 		public void Enter(IState prevState)
 		{
 			NoticeSystem.Instance.Publish(new HandCardStartUseNotice(owner));
-			owner.SummonCreature(targetTile);
-
-			//todo: 결합끊기
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerHand.RemoveCard(owner);
-
-			owner.Deactivate();
+			currentUpdateAction = UpdatePreAttack;
+			timePassed = 0f;
 		}
 
 		public void Exit(IState nextState)
 		{
 			NoticeSystem.Instance.Publish(new HandCardEndUseNotice(owner));
+		}
+		
+		private void UpdatePreAttack()
+		{
+			timePassed += Time.deltaTime;
+			if (timePassed > 0f)
+			{
+				timePassed = 0f;
+				owner.targetCard.Action.Trigger(new DefaultActionTriggerInfo()
+				{
+					Target = targetObject 
+				});
+				currentUpdateAction = UpdateAttack;
+			}
+		}
+
+		private void UpdateAttack()
+		{
+			owner.targetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
+			if (routineDone)
+			{
+				currentUpdateAction = UpdateEndAttack;
+			}
+		}
+
+		private void UpdateEndAttack()
+		{
+			timePassed += Time.deltaTime;
+			if (timePassed > 0f)
+			{
+				timePassed = 0f;
+				currentUpdateAction = null;
+			}
+		}
+
+
+		public void UpdateFrame(float dt)
+		{
+			currentUpdateAction?.Invoke();
+			if (currentUpdateAction == null)
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerHand.RemoveCard(owner);
+				owner.Deactivate();
+			}
 		}
 	}
 }

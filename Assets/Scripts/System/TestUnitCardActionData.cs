@@ -1,14 +1,14 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class TestCardActionData : CardActionData
+public class TestUnitCardActionData : UnitCardActionData
 {
 	public float actionDuration;
 	public GameObject fxPrefab;
 	public GridSelector actionRange;
-	public override IAction CreateCardAction()
+	public override UnitCardActionBase CreateCardAction()
 	{
-		return new TestCardAction(this);
+		return new TestUnitCardAction(this);
 	}
 	//todo: 추후 툴 개발
 }

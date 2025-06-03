@@ -5,7 +5,10 @@ using UnityEngine;
 public class CardData : GameData
 {
 	[SerializeField]
-	private List<UnitCardSpec> CardSpecList;
+	private List<UnitCardSpec> UnitCardSpecList;
+	[SerializeField]
+	private List<SkillCardSpec> SkillCardSpecList;
+	
 	public override void Initialize()
 	{
 	}
@@ -14,14 +17,27 @@ public class CardData : GameData
 	{
 	}
 
-	public UnitCardSpec GetRandomSpec()
+	public ICardSpec GetRandomUnitCardSpec()
 	{
-		return CardSpecList[Random.Range(0, CardSpecList.Count)];
+		return UnitCardSpecList[Random.Range(0, UnitCardSpecList.Count)];
 	}
 	
 	//todo: fix?
-	public UnitCardSpec GetSpecById(int id)
+	public ICardSpec GetSpecById(int id)
 	{
-		return CardSpecList[id];
+		return UnitCardSpecList[id];
+	}
+
+	//todo: fix
+	public UnitCardSpec GetUnitCardSpecById(int id)
+	{
+		return UnitCardSpecList[id];
+		
+	}
+	
+	public SkillCardSpec GetSkillCardSpecById(int id)
+	{
+		return SkillCardSpecList[id];
+		
 	}
 }

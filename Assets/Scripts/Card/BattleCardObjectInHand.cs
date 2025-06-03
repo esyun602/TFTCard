@@ -22,7 +22,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 	IMessageReceiver
 {
 	//todo: fix how?
-	protected const string cardPrefabPath = "Card/CardPrefab";
+	protected abstract ICard TargetCard { get; }
 	protected SimpleStateMachine cardObjectStateMachine = new();
 	private new BoxCollider collider;
 
@@ -59,6 +59,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;
 		ChangeState(new CardObjectNormalInHandState(this));
+		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard.CardStaticSpec, Stat);
 		OnActivate();
 	}
 

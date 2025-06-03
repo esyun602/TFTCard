@@ -54,7 +54,7 @@ public class DeckSystem
 			cardObject = card switch
 			{
 				UnitCard unitCard => UnitCardInHand.Instantiate(unitCard, new UnitCardBattleStat(unitCard.Stat)),
-				_ => throw new ArgumentException()
+				SkillCard skillCard => SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat))
 			};
 
 			cardObject.transform.SetParent(deckObject.transform);

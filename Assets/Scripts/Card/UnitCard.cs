@@ -3,7 +3,7 @@ using UnityEngine;
 public class UnitCard : ICard
 {
 	public UnitCardStat Stat { get; }
-	public IAction Action { get; }
+	public UnitCardActionBase Action { get; }
 	public UnitCardSpec UnitCardStaticSpec { get; }
 
 	public UnitCard(UnitCardSpec spec)

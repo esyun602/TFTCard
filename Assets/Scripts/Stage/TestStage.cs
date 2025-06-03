@@ -15,17 +15,17 @@ public class TestStage : StageBase
 	protected override void OnLoad()
 	{
 		base.OnLoad();
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(0)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(1)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(2)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(3)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(4)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(5)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(6)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(7)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(8)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(9)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetSpecById(10)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(0)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(1)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(2)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(3)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(4)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(5)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(6)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(7)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(8)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(9)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(0)));
 		
 	}
 

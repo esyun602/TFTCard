@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class UnitCardInfoHandler : MonoBehaviour
+public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
 	private UnitCardSpec spec;
@@ -17,8 +17,13 @@ public class UnitCardInfoHandler : MonoBehaviour
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	
-	public void Initialize(UnitCardSpec spec, IStat stat = null)
+	public void Initialize(ICardSpec cardSpec, IStat stat = null)
 	{
+		if (cardSpec is not UnitCardSpec spec)
+		{
+			throw new ArgumentException();
+		}
+		
 		this.spec = spec;
 		this.stat = stat ?? spec.statSpec;
 		
