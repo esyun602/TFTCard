@@ -15,3 +15,5 @@ MonoBehaviour:
   synergySpecList:
   - {fileID: 11400000, guid: 6f76e7d9887508e4391c95de23cd8e4f, type: 2}
   - {fileID: 11400000, guid: c1e3c81239a3a1d4bb481efd49d60abd, type: 2}
+  - {fileID: 11400000, guid: 247b0c05d4e6d714d88d97fd50114ac5, type: 2}
+  - {fileID: 11400000, guid: f12aa3eeba7e1834da2df2ec7b031aed, type: 2}

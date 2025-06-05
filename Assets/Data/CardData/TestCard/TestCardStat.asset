@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 5
   attack: 2
-  turnCount: 2
+  turnCount: 1
   cost: 0
-  synergy: 0000000001000000
+  synergy: 0000000002000000

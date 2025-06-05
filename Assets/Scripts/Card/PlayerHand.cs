@@ -8,13 +8,12 @@ using UnityEngine;
 public class PlayerHand
 {
 	public List<BattleCardObjectInHand> CardList { get; } = new();
-	private float StartOffset => (CardList.Count - 1) / 2f * cardDistance;
+	private float StartOffset => (CardList.Count - 1) / 2f * Constant.HandCardDistance;
 	private float startAngle => (CardList.Count - 1) / 2f * cardRotationAngle;
 
 	private Vector3 handCenter =>
 		(Camera.main.transform.position + (Constant.HandCenterZOffset - Camera.main.orthographicSize) * Camera.main.transform.up).GetX0z(Constant.HandCenterYPos);
 
-	private float cardDistance = 1.3f;
 	private float cardRotationAngle = 5f;
 
 	private InputBlockFlag blockInput;
@@ -58,7 +57,7 @@ public class PlayerHand
 		for (var i = 0; i < CardList.Count; i++)
 		{
 			var lineTargetPos = handCenter -
-				StartOffset * Vector3.right + Vector3.right * i * cardDistance;
+				StartOffset * Vector3.right + Vector3.right * i * Constant.HandCardDistance;
 			var targetPos = lineTargetPos + GameDataSystem.Instance.GetGameData<Constant>().HandCardVerticalOffsetCurve
 				                .Evaluate(i -
 				                          (CardList.Count - 1) / 2f) * Camera.main.transform.up +
@@ -70,7 +69,7 @@ public class PlayerHand
 					Quaternion.AngleAxis(-cardRotationAngle * i, Camera.main.transform.forward) *
 					Quaternion.AngleAxis(startAngle, Camera.main.transform.forward) * Camera.main.transform
 						.localRotation,
-					(lineTargetPos + Camera.main.transform.up).GetX0z(Constant.HandHoverYPos)),
+					(lineTargetPos + Camera.main.transform.up * Constant.HoverZOffset).GetX0z(Constant.HandHoverYPos)),
 				CardList[i]
 			);
 		}

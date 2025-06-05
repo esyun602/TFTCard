@@ -25,7 +25,6 @@ public class TestUnitCardAction : UnitCardActionBase
 				if (targetTile != null)
 				{
 					var target = map.GetBattleObjectOfTile(targetTile);
-					Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
 					if (target?.ObjectType.IsHostile(owner.ObjectType) == true)
 					{
 						map.GetBattleObjectOfTile(targetTile).Damage(owner, owner.UnitCardBattleStat.Attack);

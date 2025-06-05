@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,14 +21,19 @@ public class ShopUIPanel : UIInstance
 	private List<ICardSpec> cardDataList;
 	[SerializeField] private List<Image> cardImageList;
 	[SerializeField] private TextMeshProUGUI rollCountUI;
-
+	public Image[] images;
+	
 	protected override void Init(object param)
 	{
-		rollCount = ((ShopUIPanelGenState)param).rollCount;
-		cancelAction = ((ShopUIPanelGenState)param).doneAction;
-
-		UpdateRollCountText();
-		RenewCandidates();
+		var fadeSeq1 = DOTween.Sequence();
+		fadeSeq1.Append(images[0].DOFade(0.75f, 1f));
+		
+		var fadeSeq2 = DOTween.Sequence();
+		fadeSeq2.Append(images[1].DOFade(1f, 1f));
+		
+		fadeSeq1.Play();
+		fadeSeq2.Play();
+		
 	}
 
 	private void RenewCandidates()

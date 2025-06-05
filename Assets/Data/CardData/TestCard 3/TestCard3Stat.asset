@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e4b40bc83f74dd9be64c53213770d22, type: 3}
   m_Name: TestCard3Stat
   m_EditorClassIdentifier: 
-  hp: 5
-  attack: 2
-  turnCount: 3
+  hp: 10
+  attack: 6
+  turnCount: 5
   cost: 0
   synergy: 0000000001000000

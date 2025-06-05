@@ -8,13 +8,12 @@ using UnityEngine.InputSystem;
 //todo: 우선 타게팅만
 public class SkillCardInHand : BattleCardObjectInHand
 {
-	private const string cardPrefabPath = "Card/SkillCardPrefab";
 	private SkillCard targetCard;
 	private SkillCardBattleStat battleStat;
 	protected override ICard TargetCard => targetCard;
 	public override IStat Stat => battleStat;
 	
-	public static SkillCardInHand Instantiate(SkillCard targetSkillCard, SkillCardBattleStat skillCardStat)
+	public static SkillCardInHand Instantiate(SkillCard targetSkillCard, SkillCardBattleStat skillCardStat, string cardPrefabPath)
 	{
 		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<SkillCardInHand>();
 		cardObject.gameObject.SetActive(false);

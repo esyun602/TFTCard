@@ -9,7 +9,9 @@ using UnityEngine.UI;
 public class SynergyLabel : MonoBehaviour
 {
 	private SynergySpec targetSpec;
-
+	public Image img;
+	public Sprite offSprite;
+	public Sprite onSprite;
 	private int synergyCount;
 
 	public int SynergyCount
@@ -44,7 +46,7 @@ public class SynergyLabel : MonoBehaviour
 #endif
 
 		var strBuilder = new StringBuilder();
-		strBuilder.Append("<color=\"grey\">");
+		strBuilder.Append("<color=#282117>");
 		bool found = false;
 		
 		for (var i = 0; i < targetSpec.synergyCountList.Count; i++)
@@ -62,9 +64,18 @@ public class SynergyLabel : MonoBehaviour
 			         (i + 1 >= targetSpec.synergyCountList.Count || targetSpec.synergyCountList[i + 1] > synergyCount))
 			{
 				found = true;
-				strBuilder.Append($"<color=\"white\">{targetSpec.synergyCountList[i]}</color> ");
+				strBuilder.Append($"<color=#2C241E>{targetSpec.synergyCountList[i]}</color> ");
 				
 			}
+		}
+
+		if (found)
+		{
+			img.sprite = onSprite;
+		}
+		else
+		{
+			img.sprite = offSprite;
 		}
 
 		strBuilder.Append("</color>");

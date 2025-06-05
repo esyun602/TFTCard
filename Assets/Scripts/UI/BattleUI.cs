@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BattleUIGenState
 {
@@ -21,12 +22,22 @@ public class BattleUI : UIInstance
 
 	[SerializeField] 
 	private Transform synergyContentTransform;
+
+	[SerializeField] 
+	private GameObject turnStartNoticePanel;
+	
 	public override UIType UIType => UIType.SceneUI;
 	protected override void Init(object param)
 	{
 		NoticeSystem.Instance.Subscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnSTart);
 		inputHandler = ((BattleUIGenState)param).InputHandler;
+	}
+
+	private void OnPlayerTurnSTart(PlayerTurnStartNotice m)
+	{
+		turnStartNoticePanel.gameObject.SetActive(true);
 	}
 
 	private void OnSynergyUpdate(SynergyInfoUpdateNotice m)

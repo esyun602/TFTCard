@@ -1,5 +1,7 @@
 
+using System.Collections;
 using System.Collections.Generic;
+using Coroutine;
 using MessageSystem;
 using UnityEngine;
 
@@ -76,23 +78,52 @@ public class WaveSystem
 		}
 		var gridInfoList = waveData[++currentWaveIdx];
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		foreach (var cellInfo in gridInfoList.CellList)
+		spawnIdx = 0;
+
+		currentCellInfo = gridInfoList.CellList;
+		/*foreach (var cellInfo in gridInfoList.CellList)
 		{
 			var card = UnitCardInField.Instantiate(cellInfo.unitCardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
-				ObjectType.Enemy);
+				ObjectType.Enemy, cellInfo.unitCardObject.cardPrefabPath);
 			card.transform.SetParent(waveParentTransform);
 			currentEnemyObjects.Add(card);
 			currentEnemyObjects[^1].UpdateBlockInput(blockInputHandler.BlockInput);
-		}
+		}*/
 		
 		spawnNextWaveRoutine.Initialize();
 		routine = spawnNextWaveRoutine;
 		return true;
 	}
 
+	private float timePassed = 0f;
+	private int spawnIdx = 0;
+	private List<WaveCellInfo> currentCellInfo;
 	private void UpdateSpawn(float dt, out bool done)
 	{
-		done = true;
+		done = false;
+		if (timePassed < 0.2f)
+		{
+			timePassed += dt;
+			return;
+		}
+
+		timePassed = 0f;
+		
+		if (spawnIdx > currentCellInfo.Count - 1)
+		{
+			done = true;
+			return;
+		}
+
+		var cellInfo = currentCellInfo[spawnIdx];
+		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+		
+		var card = UnitCardInField.Instantiate(cellInfo.unitCardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
+			ObjectType.Enemy, cellInfo.unitCardObject.cardPrefabPath, new Vector3(999, 999, 999));
+		card.transform.SetParent(waveParentTransform);
+		currentEnemyObjects.Add(card);
+		currentEnemyObjects[^1].UpdateBlockInput(blockInputHandler.BlockInput);
+		spawnIdx++;
 	}
 
 	public void Dispose()

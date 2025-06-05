@@ -60,7 +60,6 @@ public class PlayerTurn : IDisposable
 			playerActionDone = false;
 			currentRoutine = turnRoutine;
 			currentRoutine.Initialize();
-			NoticeSystem.Instance.Publish(new PlayerTurnStartNotice(this));
 			return;
 		}
 
@@ -69,8 +68,9 @@ public class PlayerTurn : IDisposable
 
 	private IEnumerator TurnStartRoutine()
 	{
+		NoticeSystem.Instance.Publish(new PlayerTurnStartNotice(this));
 		turnStartRoutineDone = false;
-		yield return new WaitForSeconds(1.0f);
+		yield return new WaitForSeconds(4.5f);
 		turnStartRoutineDone = true;
 	}
 	

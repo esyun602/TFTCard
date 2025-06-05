@@ -27,3 +27,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
   SkillCardSpecList:
   - {fileID: 11400000, guid: 78ac35212ad83fc45b665c65460ad828, type: 2}
+  - {fileID: 11400000, guid: e1b594008afb0c94286a4ac4ee9696a9, type: 2}
+  - {fileID: 11400000, guid: 183b8430c7da8ab4b9d8815b879a0fd1, type: 2}

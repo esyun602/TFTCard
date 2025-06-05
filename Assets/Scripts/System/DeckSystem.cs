@@ -53,8 +53,8 @@ public class DeckSystem
 		{
 			cardObject = card switch
 			{
-				UnitCard unitCard => UnitCardInHand.Instantiate(unitCard, new UnitCardBattleStat(unitCard.Stat)),
-				SkillCard skillCard => SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat))
+				UnitCard unitCard => UnitCardInHand.Instantiate(unitCard, new UnitCardBattleStat(unitCard.Stat), unitCard.CardStaticSpec.cardPrefabPath),
+				SkillCard skillCard => SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat), skillCard.CardStaticSpec.cardPrefabPath)
 			};
 
 			cardObject.transform.SetParent(deckObject.transform);

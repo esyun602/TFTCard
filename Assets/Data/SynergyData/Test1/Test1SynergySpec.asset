@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   synergy: 0
   targetSprite: {fileID: 21300000, guid: ba767a7276051764a97ffa265698e58f, type: 3}
-  synergyName: Test1
+  synergyName: "\uC99D\uAE30\uAE30\uAD00"
   commonDesc: Synergy For Test 1
-  synergyCountList: 020000000400000006000000
+  synergyCountList: 0300000006000000
   desc:
   - 2 = 2
   - 4 = 4
-  - 6 = 6
   actionSpec: {fileID: 11400000, guid: 7b4e3ea37811d1246bcb61f450a481af, type: 2}

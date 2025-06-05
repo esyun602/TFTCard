@@ -7,18 +7,19 @@ using UnityEngine.InputSystem;
 
 public class UnitCardInHand : BattleCardObjectInHand
 {
-	private const string cardPrefabPath = "Card/CardPrefab";
+	private string cardPrefabPath;
 	private UnitCard targetCard;
 	private UnitCardBattleStat battleStat;
 	protected override ICard TargetCard => targetCard;
 	public override IStat Stat => battleStat;
 	
-	public static UnitCardInHand Instantiate(UnitCard targetUnitCard, UnitCardBattleStat unitCardBattleStat)
+	public static UnitCardInHand Instantiate(UnitCard targetUnitCard, UnitCardBattleStat unitCardBattleStat, string cardPrefabPath)
 	{
 		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<UnitCardInHand>();
 		cardObject.gameObject.SetActive(false);
 		cardObject.targetCard = targetUnitCard;
 		cardObject.battleStat = unitCardBattleStat;
+		cardObject.cardPrefabPath = cardPrefabPath;
 
 		return cardObject;
 	}
@@ -32,11 +33,11 @@ public class UnitCardInHand : BattleCardObjectInHand
 		       && cardObjectStateMachine.CurrentState is UnitCardSelectedInHandState;
 	}
 	
-	private void SummonCreature(ITile targetTile)
+	private void SummonCreature(ITile targetTile, string cardPrefabPath)
 	{
 		//todo: 결합끊기
 		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerField.AddToField(
-			UnitCardInField.Instantiate(targetCard, targetTile, battleStat, ObjectType.Ally));
+			UnitCardInField.Instantiate(targetCard, targetTile, battleStat, ObjectType.Ally, cardPrefabPath));
 	}
 
 	protected override void OnPointerClickImpl(PointerEventData eventData)
@@ -159,7 +160,7 @@ public class UnitCardInHand : BattleCardObjectInHand
 		public void Enter(IState prevState)
 		{
 			NoticeSystem.Instance.Publish(new HandCardStartUseNotice(owner));
-			owner.SummonCreature(targetTile);
+			owner.SummonCreature(targetTile, owner.cardPrefabPath);
 
 			//todo: 결합끊기
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerHand.RemoveCard(owner);

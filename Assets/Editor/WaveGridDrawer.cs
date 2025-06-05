@@ -68,7 +68,7 @@ public class WaveGridDrawer : PropertyDrawer
 /*
                 if (cellDataProp != null)
                 {
-                    SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("cardObject");
+                    SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("unitCardObject");
                     var rect = new Rect(cellRect.position.x, cellRect.position.y + cellSize, cellSize + referenceCellSize + padding, referenceCellSize);
                     EditorGUI.DrawPreviewTexture(cellRect, ((CardSpec)linkedObjProp.objectReferenceValue).cardResource.texture);
                     EditorGUI.LabelField(rect, linkedObjProp.objectReferenceValue.name);
@@ -85,7 +85,7 @@ public class WaveGridDrawer : PropertyDrawer
                 var referenceRect = new Rect(cellRect.position.x + cellSize, cellRect.position.y,
                     referenceCellSize, referenceCellSize);
                 UnityEngine.Object newObj = EditorGUI.ObjectField(referenceRect,
-                    cellDataProp != null ? cellDataProp.FindPropertyRelative("cardObject").objectReferenceValue : null, 
+                    cellDataProp != null ? cellDataProp.FindPropertyRelative("unitCardObject").objectReferenceValue : null, 
                     typeof(UnitCardSpec), true);
                 
                 if (EditorGUI.EndChangeCheck())
@@ -105,7 +105,7 @@ public class WaveGridDrawer : PropertyDrawer
                             cellDataProp.FindPropertyRelative("col").intValue = col;
                         }
                         
-                        cellDataProp.FindPropertyRelative("cardObject").objectReferenceValue = newObj;
+                        cellDataProp.FindPropertyRelative("unitCardObject").objectReferenceValue = newObj;
                     }
                 }
             }
@@ -128,7 +128,7 @@ public class WaveGridDrawer : PropertyDrawer
 
                 if (cellDataProp != null)
                 {
-                    SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("cardObject");
+                    SerializedProperty linkedObjProp = cellDataProp.FindPropertyRelative("unitCardObject");
                     var rect = new Rect(cellRect.position.x, cellRect.position.y + cellSize,
                         cellSize + referenceCellSize + padding, referenceCellSize);
                     EditorGUI.DrawPreviewTexture(cellRect,

@@ -59,7 +59,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;
 		ChangeState(new CardObjectNormalInHandState(this));
-		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard.CardStaticSpec, Stat);
+		GetComponentInChildren<ICardInfoHandler>()?.Initialize(TargetCard.CardStaticSpec, Stat);
 		OnActivate();
 	}
 

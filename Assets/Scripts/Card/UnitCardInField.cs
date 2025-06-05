@@ -12,7 +12,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 {
 	private ObjectType objectType;
 	private UnitCard targetUnitCard;
-	private const string cardPrefabPath = "Card/CardPrefab";
 
 	public ObjectType ObjectType => objectType;
 	public Vector3 Position => transform.position;
@@ -51,6 +50,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
 		if (UnitCardBattleStat.IsDead)
 		{
+			var fxPrefab = Resources.Load("CFXR3 Hit Misc A");
+			Instantiate(fxPrefab, Position, Quaternion.identity);
 			Deactivate();
 			NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(sender, this));
 		}
@@ -123,11 +124,12 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	//todo: hand와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
 	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, UnitCardBattleStat unitCardBattleStat,
-		ObjectType objectType)
+		ObjectType objectType, string cardPrefabPath, Vector3? overridePosition = null)
 	{
 		//todo: pooling
+		cardPrefabPath = cardPrefabPath + "Field";
 		var cardObject = GameObject
-			.Instantiate(Resources.Load(cardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
+			.Instantiate(Resources.Load(cardPrefabPath), overridePosition ?? targetTile.GetPosition(), Camera.main.transform.localRotation)
 			.AddComponent<UnitCardInField>();
 		cardObject.targetUnitCard = targetUnitCard;
 		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
@@ -143,16 +145,16 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 
-		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard.UnitCardStaticSpec, unitCardBattleStat);
+		cardObject.GetComponentInChildren<UnitCardInfoHandler>()?.Initialize(targetUnitCard.UnitCardStaticSpec, unitCardBattleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 		
 		return cardObject;
 	}
 
-	public static UnitCardInField Instantiate(UnitCardSpec unitCardSpec, ITile targetTile, ObjectType objectType)
+	public static UnitCardInField Instantiate(UnitCardSpec unitCardSpec, ITile targetTile, ObjectType objectType, string cardPrefabPath, Vector3? overridePosition = null)
 	{
 		var card = new UnitCard(unitCardSpec);
-		return Instantiate(card, targetTile, new UnitCardBattleStat(card.Stat), objectType);
+		return Instantiate(card, targetTile, new UnitCardBattleStat(card.Stat), objectType, cardPrefabPath, overridePosition);
 	}
 
 	public void StartTurn()
