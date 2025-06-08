@@ -19,5 +19,5 @@ MonoBehaviour:
     rows: 3
     columns: 4
     swapView: 0
-    triggerCellList: 0100000000000000
-    attackCellList: 0200000001000000
+    triggerCellList: 0100000002000000
+    attackCellList: 0200000003000000

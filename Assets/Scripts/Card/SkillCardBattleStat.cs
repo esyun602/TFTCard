@@ -12,7 +12,6 @@ public class SkillCardBattleStat : IStat
 	public int CostValue { get; set; }
 
 	private int turnCount;
-	public int Cost { get; set; }
 	private List<IOption> optionList;
 	//field scope 기믹
 	private List<IBuff> buffList;
@@ -24,7 +23,7 @@ public class SkillCardBattleStat : IStat
 		AttackValue = skillCardStat.AttackValue;
 		HpValue = skillCardStat.HpValue;
 		turnCount = TurnCountValue;
-		Cost = skillCardStat.CostValue;
+		CostValue = skillCardStat.CostValue;
 	}
 	
 	public int[] GetValuesByValueType(ValueType type)
