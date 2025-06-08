@@ -15,5 +15,5 @@ MonoBehaviour:
   hp: 5
   attack: 2
   turnCount: 1
-  cost: 0
+  cost: 3
   synergy: 0000000002000000

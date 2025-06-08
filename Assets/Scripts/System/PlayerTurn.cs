@@ -34,6 +34,10 @@ public class PlayerTurn : IDisposable
 
 	private void OnTurnEndButtonClick(TurnEndClickNotice m)
 	{
+		if (!turnStartRoutineDone)
+		{
+			return;
+		}
 		EndTurn();
 	}
 	

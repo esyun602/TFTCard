@@ -17,9 +17,9 @@ public class TestStage : StageBase
 		base.OnLoad();
 		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(0)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(1)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(1)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(4)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(0)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(1)));
 		
 	}
 

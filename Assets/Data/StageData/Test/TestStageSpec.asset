@@ -19,15 +19,15 @@ MonoBehaviour:
   - rows: 3
     columns: 8
     cells:
-    - row: 0
-      col: 4
+    - row: 1
+      col: 6
       unitCardObject: {fileID: 11400000, guid: 907f3f151f02ba949ac56da95b08ed4b, type: 2}
     - row: 1
       col: 4
       unitCardObject: {fileID: 11400000, guid: 907f3f151f02ba949ac56da95b08ed4b, type: 2}
-    - row: 2
-      col: 4
-      unitCardObject: {fileID: 11400000, guid: 907f3f151f02ba949ac56da95b08ed4b, type: 2}
+  - rows: 3
+    columns: 8
+    cells:
     - row: 1
       col: 6
       unitCardObject: {fileID: 11400000, guid: 4e2640147d5facf4daaf92d68ed974f2, type: 2}

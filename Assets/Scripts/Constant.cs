@@ -7,7 +7,7 @@ public class Constant : GameData
 	public AnimationCurve CardFollowingSpeedCurve;
 	public AnimationCurve HandCardVerticalOffsetCurve;
 	public const float Epsilon = 0.001f;
-	public const int DefaultEnergy = 10;
+	public const int DefaultEnergy = 3;
 
 	public const float FieldYPos = 0.55f;
 	public const float FieldMoveYPos = 2f;

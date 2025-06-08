@@ -120,7 +120,7 @@ public class DeckSystem
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 
-		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
+		Energy += Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
 	}
 
 	private void OnPlayerTurnEnd(PlayerTurnEndNotice m)
