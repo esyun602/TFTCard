@@ -15,14 +15,14 @@ public class MapEditHelper : MonoBehaviour
 	//
 	public string json;
 	public byte[] bytes;
-
+#if UNITY_EDITOR
 	public void SerializeMapDataToJson()
 	{
 		var sMap = SerializeMap(transform);
 		json = JsonUtility.ToJson(sMap, true);
 		WriteDebugJsonFile();
 	}
-
+#endif
 	private void WriteDebugJsonFile()
 	{
 		string directoryPath =
@@ -40,7 +40,7 @@ public class MapEditHelper : MonoBehaviour
 
 		File.WriteAllText(jsonPath, json);
 	}
-
+#if UNITY_EDITOR
 	private SerializedMapInfo SerializeMap(Transform map)
 	{
 		var mapInfo = new SerializedMapInfo();
@@ -68,7 +68,6 @@ public class MapEditHelper : MonoBehaviour
 
 		return mapInfo;
 	}
-
 	private SerializedLayerInfo SerializeLayer(Transform layer)
 	{
 		var layerInfo = new SerializedLayerInfo();
@@ -87,6 +86,7 @@ public class MapEditHelper : MonoBehaviour
 		return layerInfo;
 		
 	}
+#endif
 
 	public void UpdateBytesFromJson()
 	{
@@ -120,22 +120,22 @@ public class MapEditHelper : MonoBehaviour
 		json = Encoding.UTF8.GetString(bytes);
 	}
 
+#if UNITY_EDITOR
 	public void ReInstantiateMap()
 	{
 		TargetMapData.InstantiateMapForMapEditor();
 		DestroyImmediate(gameObject);
 	}
-
 	public void SaveToAsset()
 	{
 		TargetMapData.SaveMapData(bytes);
 		EditorUtility.SetDirty(TargetMapData);
 	}
-
 	public void SerializeMapData()
 	{
 		SerializeMapDataToJson();
 		UpdateBytesFromJson();
 	}
+#endif
 }
 

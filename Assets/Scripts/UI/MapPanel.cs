@@ -21,7 +21,6 @@ public class MapPanel : UIInstance
 		InstantiateNodes();
 	}
 
-#if UNITY_EDITOR
 	private void GenerateNodeForTest()
 	{
 		if (Game.Instance.GetPlayer().CurrentPlayInfo.CurrentMapInfo != null)
@@ -45,7 +44,6 @@ public class MapPanel : UIInstance
 		
 		mapInfo.AddStartNode(root);
 	}
-#endif
 
 	private void InstantiateNodes()
 	{
@@ -64,6 +62,11 @@ public class MapPanel : UIInstance
 	{
 		AlignNodes();
 	}
+
+	private void Update()
+{
+AlignNodes();
+}
 
 	private void AlignNodes()
 	{
