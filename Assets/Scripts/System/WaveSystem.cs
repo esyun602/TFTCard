@@ -8,7 +8,7 @@ public class WaveSystem
 	private int currentWaveIdx;
 	private IUpdatableRoutine spawnNextWaveRoutine;
 	private List<WaveGrid> waveData;
-	private List<BattleCardObjectInField> currentEnemyObjects;
+	private List<UnitCardInField> currentEnemyObjects;
 	private BlockInputHandler blockInputHandler = new();
 	private Transform waveParentTransform;
 	
@@ -78,7 +78,7 @@ public class WaveSystem
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 		foreach (var cellInfo in gridInfoList.CellList)
 		{
-			var card = BattleCardObjectInField.Instantiate(cellInfo.cardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
+			var card = UnitCardInField.Instantiate(cellInfo.unitCardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
 				ObjectType.Enemy);
 			card.transform.SetParent(waveParentTransform);
 			currentEnemyObjects.Add(card);

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be82cdf4406444eaf1c5b6870c82ea3, type: 3}
   m_Name: CardData
   m_EditorClassIdentifier: 
-  CardSpecList:
+  UnitCardSpecList:
   - {fileID: 11400000, guid: 3f5c610e81c661c4189ad0e3bdae2fb1, type: 2}
-  - {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
   - {fileID: 11400000, guid: db0521d330b1e5b4884128ca47d33c35, type: 2}
   - {fileID: 11400000, guid: 907f3f151f02ba949ac56da95b08ed4b, type: 2}
   - {fileID: 11400000, guid: 4e2640147d5facf4daaf92d68ed974f2, type: 2}
@@ -25,3 +24,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dd84e21176c104848b45bee35b860273, type: 2}
   - {fileID: 11400000, guid: e68ebfaa070299d4a9490bfd0ae96c6c, type: 2}
   - {fileID: 11400000, guid: 032b97099ebfcfc4680318019ca8ab08, type: 2}
+  - {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
+  SkillCardSpecList:
+  - {fileID: 11400000, guid: 78ac35212ad83fc45b665c65460ad828, type: 2}

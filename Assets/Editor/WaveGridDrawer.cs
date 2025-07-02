@@ -86,7 +86,7 @@ public class WaveGridDrawer : PropertyDrawer
                     referenceCellSize, referenceCellSize);
                 UnityEngine.Object newObj = EditorGUI.ObjectField(referenceRect,
                     cellDataProp != null ? cellDataProp.FindPropertyRelative("cardObject").objectReferenceValue : null, 
-                    typeof(CardSpec), true);
+                    typeof(UnitCardSpec), true);
                 
                 if (EditorGUI.EndChangeCheck())
                 {
@@ -132,7 +132,7 @@ public class WaveGridDrawer : PropertyDrawer
                     var rect = new Rect(cellRect.position.x, cellRect.position.y + cellSize,
                         cellSize + referenceCellSize + padding, referenceCellSize);
                     EditorGUI.DrawPreviewTexture(cellRect,
-                        ((CardSpec)linkedObjProp.objectReferenceValue).cardResource.texture);
+                        ((UnitCardSpec)linkedObjProp.objectReferenceValue).cardResource.texture);
                     EditorGUI.LabelField(rect, linkedObjProp.objectReferenceValue.name);
                 }
                 else

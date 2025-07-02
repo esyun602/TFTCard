@@ -22,7 +22,7 @@ public class SynergySystem
 			return;
 		}
 
-		foreach (var synergy in targetObject.BattleStat.GetSynergyList())
+		foreach (var synergy in targetObject.UnitCardBattleStat.GetSynergyList())
 		{
 			if (!synergyBattleObjectMap.TryGetValue(synergy, out var objList))
 			{
@@ -40,7 +40,7 @@ public class SynergySystem
 
 	public void UnRegister(IBattleObject targetObject)
 	{
-		foreach (var synergy in targetObject.BattleStat.GetSynergyList())
+		foreach (var synergy in targetObject.UnitCardBattleStat.GetSynergyList())
 		{
 			if (!synergyBattleObjectMap.TryGetValue(synergy, out var objList))
 			{

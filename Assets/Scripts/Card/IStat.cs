@@ -1,11 +1,24 @@
+public enum ValueType
+{
+	None,
+	MaxHp,
+	Hp,
+	TurnCount,
+	MaxTurnCount,
+	Attack,
+	Cost
+}
 
 public interface IStat
 {
-	public int MaxHp { get; }
-	public int Hp { get; }
-	public int MaxTurnCount { get; }
-	public int TurnCount { get; }
-	public int Attack { get; }
-	public int Cost { get; }
+	public int[] GetValuesByValueType(ValueType type);
+}
 
+public static class IStatExtensions
+{
+	public static int GetValueByValueType(this IStat stat, ValueType type)
+	{
+		var values = stat.GetValuesByValueType(type);
+		return values == null || values.Length == 0 ? -1 : values[0];
+	}
 }

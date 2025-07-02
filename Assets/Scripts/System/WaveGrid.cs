@@ -8,13 +8,13 @@ public class WaveCellInfo
 {
 	public int row;
 	public int col;
-	public CardSpec cardObject;
+	[FormerlySerializedAs("cardObject")] public UnitCardSpec unitCardObject;
 
 	public WaveCellInfo(int row, int col)
 	{
 		this.row = row;
 		this.col = col;
-		cardObject = null;
+		unitCardObject = null;
 	}
 }
 

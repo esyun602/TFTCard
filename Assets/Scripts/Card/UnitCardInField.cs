@@ -7,18 +7,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
+public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
 	IBattleObject, ITurnObject, IMessageReceiver
 {
 	private ObjectType objectType;
-	private Card targetCard;
+	private UnitCard targetUnitCard;
 	private const string cardPrefabPath = "Card/CardPrefab";
 
 	public ObjectType ObjectType => objectType;
 	public Vector3 Position => transform.position;
 	private Transform transformCache;
 	public Transform Transform => transformCache == null ? transformCache = transform : transformCache;
-	public BattleStat BattleStat { get; private set; }
+	public UnitCardBattleStat UnitCardBattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
 	private Material materialCache;
 	private Material Material => materialCache == null ? materialCache = transform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
@@ -47,9 +47,9 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		
 		movSeq.Play();
 			
-		BattleStat.Hp = Mathf.Max(BattleStat.Hp - dmg, 0);
+		UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
 		NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
-		if (BattleStat.IsDead)
+		if (UnitCardBattleStat.IsDead)
 		{
 			Deactivate();
 			NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(sender, this));
@@ -122,18 +122,18 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	}
 
 	//todo: hand와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
-	public static BattleCardObjectInField Instantiate(Card targetCard, ITile targetTile, BattleStat battleStat,
+	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, UnitCardBattleStat unitCardBattleStat,
 		ObjectType objectType)
 	{
 		//todo: pooling
 		var cardObject = GameObject
 			.Instantiate(Resources.Load(cardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
-			.AddComponent<BattleCardObjectInField>();
-		cardObject.targetCard = targetCard;
-		cardObject.targetCard.Action.SetBattleOwner(cardObject);
+			.AddComponent<UnitCardInField>();
+		cardObject.targetUnitCard = targetUnitCard;
+		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
 
 		cardObject.objectType = objectType;
-		cardObject.BattleStat = battleStat;
+		cardObject.UnitCardBattleStat = unitCardBattleStat;
 
 		//todo: fix
 		NoticeSystem.Instance.PublishSync(new BattleObjectGeneratedNotice(cardObject, targetTile));
@@ -143,16 +143,16 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 
-		cardObject.GetComponentInChildren<CardInfoHandler>().Initialize(targetCard.CardStaticSpec, battleStat);
+		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard.UnitCardStaticSpec, unitCardBattleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 		
 		return cardObject;
 	}
 
-	public static BattleCardObjectInField Instantiate(CardSpec cardSpec, ITile targetTile, ObjectType objectType)
+	public static UnitCardInField Instantiate(UnitCardSpec unitCardSpec, ITile targetTile, ObjectType objectType)
 	{
-		var card = new Card(cardSpec);
-		return Instantiate(card, targetTile, new BattleStat(card.Stat), objectType);
+		var card = new UnitCard(unitCardSpec);
+		return Instantiate(card, targetTile, new UnitCardBattleStat(card.Stat), objectType);
 	}
 
 	public void StartTurn()
@@ -166,12 +166,12 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
 
-	public int TurnCount => BattleStat.TurnCount;
+	public int TurnCount => UnitCardBattleStat.TurnCount;
 
 
 	private class CardObjectNormalInFieldState : IState, IUpdatable, IMessageReceiver
 	{
-		private BattleCardObjectInField owner;
+		private UnitCardInField owner;
 
 		//todo:fix
 		private bool isHovered;
@@ -189,7 +189,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		private ITile actOverrideTile;
 
-		public CardObjectNormalInFieldState(BattleCardObjectInField owner)
+		public CardObjectNormalInFieldState(UnitCardInField owner)
 		{
 			this.owner = owner;
 			map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
@@ -305,7 +305,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 	/// </summary>
 	private class CardObjectSelectedInFieldState : IState, IUpdatable
 	{
-		private BattleCardObjectInField owner;
+		private UnitCardInField owner;
 		private Vector3 targetPos;
 		private Quaternion targetRotation;
 		private const float followSpeed = 400f;
@@ -313,7 +313,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		private float timePassed = 0f;
 		private ITile currentTile;
 
-		public CardObjectSelectedInFieldState(BattleCardObjectInField owner)
+		public CardObjectSelectedInFieldState(UnitCardInField owner)
 		{
 			this.owner = owner;
 		}
@@ -433,10 +433,10 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	private class CardObjectMoveState : IState
 	{
-		private BattleCardObjectInField owner;
+		private UnitCardInField owner;
 		private ITile targetTile;
 
-		public CardObjectMoveState(BattleCardObjectInField owner, ITile targetTile)
+		public CardObjectMoveState(UnitCardInField owner, ITile targetTile)
 		{
 			this.owner = owner;
 			this.targetTile = targetTile;
@@ -469,10 +469,10 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 	private class CardObjectActionState : IState
 	{
-		private BattleCardObjectInField owner;
+		private UnitCardInField owner;
 		private Action currentUpdateAction;
 
-		public CardObjectActionState(BattleCardObjectInField owner)
+		public CardObjectActionState(UnitCardInField owner)
 		{
 			this.owner = owner;
 		}
@@ -481,7 +481,7 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 		{
 			owner.routine = new UpdatableRoutine(UpdateFrame);
 			owner.routine.Initialize();
-			owner.BattleStat.TurnCount -= 1;
+			owner.UnitCardBattleStat.TurnCount -= 1;
 			currentUpdateAction = UpdateTurnCount;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
 		}
@@ -504,17 +504,17 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 			if (timePassed > 0.5f)
 			{
 				timePassed = 0f;
-				if (owner.BattleStat.TurnCount == 0)
+				if (owner.UnitCardBattleStat.TurnCount == 0)
 				{
 					if (Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
-					    .IsInTriggerPos(owner.targetCard.Action.AttackRangeInfo, owner))
+					    .IsInTriggerPos(owner.targetUnitCard.Action.AttackRangeInfo, owner))
 					{
-						owner.targetCard.Action.Trigger();
+						owner.targetUnitCard.Action.Trigger();
 						currentUpdateAction = UpdateAttack;
 					}
 					else
 					{
-						owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
+						owner.UnitCardBattleStat.TurnCount = owner.UnitCardBattleStat.MaxTurnCount;
 						currentUpdateAction = UpdateEndAttack;
 					}
 				}
@@ -527,10 +527,10 @@ public class BattleCardObjectInField : MonoBehaviour, IPointerClickHandler, IPoi
 
 		private void UpdateAttack()
 		{
-			owner.targetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
+			owner.targetUnitCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
 			if (routineDone)
 			{
-				owner.BattleStat.TurnCount = owner.BattleStat.MaxTurnCount;
+				owner.UnitCardBattleStat.TurnCount = owner.UnitCardBattleStat.MaxTurnCount;
 				currentUpdateAction = UpdateEndAttack;
 			}
 		}

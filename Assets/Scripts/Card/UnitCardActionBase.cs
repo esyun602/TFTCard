@@ -1,23 +1,23 @@
 using MessageSystem;
 
-public abstract class CardActionBase : IAction
+public abstract class UnitCardActionBase : IAction
 {
 	protected IBattleObject owner;
 
 	private IUpdatableRoutine routine;
 	public IUpdatableRoutine UpdatableRoutine => routine;
 
-	protected CardActionBase()
+	protected UnitCardActionBase()
 	{
 		routine = new UpdatableRoutine(UpdateFrame);
 	}
 	
-	public void Trigger()
+	public void Trigger(object triggerInfo = null)
 	{
 		NoticeSystem.Instance.Publish(new CardActionTriggerNotice(owner, this));
 		//todo: updatable routine 내부로?
 		routine.Initialize();
-		OnTrigger();
+		OnTrigger(triggerInfo);
 	}
 
 	public void Cancel()
@@ -26,7 +26,7 @@ public abstract class CardActionBase : IAction
 		OnCancel();
 	}
 
-	public void SetBattleOwner(IBattleObject owner)
+	public virtual void SetBattleOwner(IBattleObject owner)
 	{
 		this.owner = owner;
 	}
@@ -43,8 +43,8 @@ public abstract class CardActionBase : IAction
 	}
 
 	protected abstract void OnUpdate(float dt, out bool routineDone);
-	
-	protected abstract void OnTrigger();
+
+	protected abstract void OnTrigger(object triggerInfo = null);
 
 	protected abstract void OnCancel();
 }

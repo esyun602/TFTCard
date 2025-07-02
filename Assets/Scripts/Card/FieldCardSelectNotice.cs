@@ -2,8 +2,8 @@ using MessageSystem;
 
 public class FieldCardSelectNotice : Notice
 {
-	public BattleCardObjectInField SelectedCard { get; }
-	public FieldCardSelectNotice(BattleCardObjectInField owner)
+	public UnitCardInField SelectedCard { get; }
+	public FieldCardSelectNotice(UnitCardInField owner)
 	{
 		SelectedCard = owner;
 	}
