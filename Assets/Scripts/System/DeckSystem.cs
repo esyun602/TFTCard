@@ -44,16 +44,16 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
 		PlayerField.Initialize();
+		
 		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
 		BattleCardObjectInHand cardObject;
-		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.CardList)
+		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList)
 		{
 			cardObject = card switch
 			{
-				UnitCard unitCard => UnitCardInHand.Instantiate(unitCard, new UnitCardBattleStat(unitCard.Stat)),
 				SkillCard skillCard => SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat))
 			};
 
@@ -61,6 +61,8 @@ public class DeckSystem
 			deck.Add(cardObject);
 		}
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
+		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 
 	private void OnPlayerFieldCardMove(PlayerFieldCardMoveNotice m)
@@ -112,6 +114,7 @@ public class DeckSystem
 			blockInputHandler.RestoreInputs(InputBlockFlag.All, this);
 			
 			PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+			PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 			
 			return;
 		}
@@ -158,9 +161,31 @@ public class DeckSystem
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 	
+	public void SpawnAllyUnits()
+	{
+		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+		var deployInfos = Game.Instance.GetPlayer().CurrentPlayInfo.FieldDeployLocationInfo;
+		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
+		
+		//todo: 소환순서..
+		foreach (var info in deployInfos)
+		{
+			var card = UnitCardInField.Instantiate(info.TargetCard.UnitCardStaticSpec, map.GetTileAt(info.Row, info.Col),
+				ObjectType.Ally);
+				
+			PlayerField.AddToField(card);
+			
+			card.UpdateBlockInput(blockInputHandler.BlockInput);
+		}
+	}
+	
 	//todo: 없을 때 예외 체크
 	public void DrawCard()
 	{
+		if (deck.Count == 0)
+		{
+			return;
+		}
 		var targetCard = deck[^1];
 		targetCard.Activate();
 		deck.RemoveAt(deck.Count - 1);

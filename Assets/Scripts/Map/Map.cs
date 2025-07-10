@@ -58,9 +58,9 @@ public class Map : IMap
 
 		public void RemoveFromTile(IBattleObject obj)
 		{
+			var targetTile = GetTileOf(obj);
 			RemoveFromTileImpl(obj);
 			
-			var targetTile = GetTileOf(obj);
 			ReAlignRow(targetTile);
 		}
 

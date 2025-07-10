@@ -47,6 +47,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	protected override void OnStageStart()
 	{
 		//todo: fix
+		DeckSystem.SpawnAllyUnits();
 		if (WaveSystem.TrySpawnNextWave(out var initialRoutine))
 		{
 			battleStageStateMachine.ChangeState(new BattleStageInitState(this, initialRoutine));
@@ -56,7 +57,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			throw new ArgumentException();
 		}
 	}
-	
+
 	private void OnBattleObjectGenerate(BattleObjectGeneratedNotice m)
 	{
 		GetCurrentStage().Map.SetTile(m.TargetTile, m.TargetObject);

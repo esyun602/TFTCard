@@ -21,8 +21,8 @@ public class WaveCellInfo
 [Serializable]
 public class WaveGrid
 {
-	public int rows = 5;
-	public int columns = 5;
+	public int rows = 3;
+	public int columns = 4;
     
 	// 각 셀의 데이터 저장 (격자 전체 셀을 미리 생성하거나 사용자가 등록할 때마다 추가)
 	public List<WaveCellInfo> CellList

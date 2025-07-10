@@ -1218,6 +1218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: {fileID: 64864127186155411}
   desc: {fileID: 2895419098678452965}
+  cost: {fileID: 3600686552586747095}
   TextureRenderer: {fileID: 1890791694346428213}
 --- !u!1 &7517443571351419595
 GameObject:

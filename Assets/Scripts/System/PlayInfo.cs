@@ -1,11 +1,29 @@
 using System.Collections.Generic;
 using MessageSystem;
 
+public struct DeployInfo
+{
+	public DeployInfo(int row, int col, UnitCard targetCard)
+	{
+		Row = row;
+		Col = col;
+		TargetCard = targetCard;
+	}
+
+	public int Row { get; }
+	public int Col { get; }
+	public UnitCard TargetCard { get; }
+}
+
 public class PlayInfo
 {
-	public List<ICard> CardList { get; } = new();
+	public List<UnitCard> BagUnitCardList { get; } = new();
+	//todo: fix?
+	public List<SkillCard> DeckCardList { get; } = new();
+	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	public MapInfo CurrentMapInfo { get; set; }
 	public MapNodeInfo CurrentSelectedNode { get; private set; }
+	public int MaxFieldUnitCard { get; private set; } = 3;
 
 	//todo: additional value
 	public int MaxEnergy => Constant.DefaultEnergy;

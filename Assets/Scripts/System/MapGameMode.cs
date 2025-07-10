@@ -12,6 +12,7 @@ public class MapGameMode : IGameMode
 	private void OnTransitionDone()
 	{
 		Game.Instance.UIManager.GenerateUI<MapPanel>();
+		Game.Instance.UIManager.GenerateUI<InGameInteraction>();
 		var curNode = Game.Instance.GetPlayer().CurrentPlayInfo.CurrentSelectedNode;
 		if (curNode?.NodeState == MapNodeState.Cleared)
 		{
@@ -29,6 +30,8 @@ public class MapGameMode : IGameMode
 	public void Dispose()
 	{
 		NoticeSystem.Instance.Unsubscribe<MapNodeSelectNotice>(StartTestStage);
+		//todo: remove?
 		Game.Instance.UIManager.HideUI<MapPanel>();
+		Game.Instance.UIManager.RemoveUI<InGameInteraction>();
 	}
 }
