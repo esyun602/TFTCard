@@ -20,16 +20,15 @@ public class TestUnitCardAction : UnitCardActionBase
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
 			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-			foreach (var targetTile in map.GetAttackTargetTiles(gridInfo, owner))
+			
+			var targetTile = map.GetAttackTargetTile(map.GetTileOfBattleObject(owner));
+			if (targetTile != null)
 			{
-				if (targetTile != null)
+				var target = map.GetBattleObjectOfTile(targetTile);
+				Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
+				if (target?.ObjectType.IsHostile(owner.ObjectType) == true)
 				{
-					var target = map.GetBattleObjectOfTile(targetTile);
-					Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
-					if (target?.ObjectType.IsHostile(owner.ObjectType) == true)
-					{
-						map.GetBattleObjectOfTile(targetTile).Damage(owner, owner.UnitCardBattleStat.Attack);
-					}
+					map.GetBattleObjectOfTile(targetTile).Damage(owner, owner.UnitCardBattleStat.Attack);
 				}
 			}
 		}

@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
@@ -112,7 +113,15 @@ public static class IMapExtensions
 
 		return false;
 	}
+
+	//새로운 기획 반영
+	public static ITile GetAttackTargetTile(this IMap map, ITile tile)
+	{
+		var (row, _) = map.GetTileCoord(tile);
+		return map.GetFirstTileInRow(row, tile.TileType.GetOpposite());
+	}
 	
+	[Obsolete]
 	public static List<ITile> GetAttackTargetTiles(this IMap map, GridSelector gridSelector, IBattleObject owner)
 	{
 		var ret = new List<ITile>();

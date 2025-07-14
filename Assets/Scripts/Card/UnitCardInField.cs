@@ -506,17 +506,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 				timePassed = 0f;
 				if (owner.UnitCardBattleStat.TurnCount == 0)
 				{
-					if (Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
-					    .IsInTriggerPos(owner.targetUnitCard.Action.AttackRangeInfo, owner))
-					{
-						owner.targetUnitCard.Action.Trigger();
-						currentUpdateAction = UpdateAttack;
-					}
-					else
-					{
-						owner.UnitCardBattleStat.TurnCount = owner.UnitCardBattleStat.MaxTurnCount;
-						currentUpdateAction = UpdateEndAttack;
-					}
+					owner.targetUnitCard.Action.Trigger();
+					currentUpdateAction = UpdateAttack;
 				}
 				else
 				{

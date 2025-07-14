@@ -5,4 +5,14 @@ public static class ObjectTypeExtensions
 		return type == ObjectType.Ally && target == ObjectType.Enemy ||
 		       type == ObjectType.Enemy && target == ObjectType.Ally;
 	}
+	
+	public static ObjectType GetOpposite(this ObjectType type)
+	{
+		return type switch
+		{
+			ObjectType.Ally => ObjectType.Enemy,
+			ObjectType.Enemy => ObjectType.Ally,
+			_ => ObjectType.Neutral
+		};
+	}
 }
