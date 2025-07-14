@@ -25,6 +25,9 @@ public class PlayerBagPanel : UIInstance
 	public float verticalSpace;
 	public int cardCountPerRow;
 
+	private int DeckCardStartRow =>
+		(Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count - 1) / cardCountPerRow + 1;
+
 	public Dictionary<ICard, BagUICard> cardDictionary;
 	
 	protected override void Init(object param)
@@ -35,8 +38,8 @@ public class PlayerBagPanel : UIInstance
 		NoticeSystem.Instance.Subscribe<BagUITileHoverNotice>(OnTileHover);
 		NoticeSystem.Instance.Subscribe<BagUICardPlaceNotice>(OnCardDeploy);
 		NoticeSystem.Instance.Subscribe<BagUICardUnPlaceNotice>(OnCardUnDeploy);
-		InitializeDeckCards();
 		InitializeBagUnitCards();
+		InitializeDeckCards();
 		InitializeField();
 	}
 
@@ -203,14 +206,6 @@ public class PlayerBagPanel : UIInstance
 		var bagUnitCards = playInfo.BagUnitCardList;
 		var deckCards = playInfo.DeckCardList;
 
-		for (var i = 0; i < deckCards.Count; i++)
-		{
-			//todo : exception check?
-			var bagUICard = cardDictionary[deckCards[i]];
-			var pos = CalculateDeckCardPositionWithIndex(i);
-			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
-		}
-		
 		for (var i = 0; i < bagUnitCards.Count; i++)
 		{
 			//todo : exception check?
@@ -218,7 +213,14 @@ public class PlayerBagPanel : UIInstance
 			var pos = CalculateBagUnitCardPositionWithIndex(i);
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
 		}
-
+		
+		for (var i = 0; i < deckCards.Count; i++)
+		{
+			//todo : exception check?
+			var bagUICard = cardDictionary[deckCards[i]];
+			var pos = CalculateDeckCardPositionWithIndex(i);
+			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
+		}
 
 		foreach (var info in locationInfos)
 		{
@@ -246,6 +248,6 @@ public class PlayerBagPanel : UIInstance
 	{
 		return DeckCardArea.position + LeftTopOffset
 		                + Vector3.right * (idx % cardCountPerRow) * horizontalSpace
-						+ Vector3.down * (idx / cardCountPerRow) * verticalSpace;
+						+ Vector3.down * (idx / cardCountPerRow + DeckCardStartRow) * verticalSpace;
 	}
 }
