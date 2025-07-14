@@ -115,10 +115,10 @@ public static class IMapExtensions
 	}
 
 	//새로운 기획 반영
-	public static ITile GetAttackTargetTile(this IMap map, ITile tile)
+	public static ITile GetAttackTargetTile(this IMap map, IBattleObject owner)
 	{
-		var (row, _) = map.GetTileCoord(tile);
-		return map.GetFirstTileInRow(row, tile.TileType.GetOpposite());
+		var row = map.GetAttackTargetRow(owner);
+		return map.GetFirstTileInRow(row, owner.ObjectType.GetOpposite());
 	}
 	
 	[Obsolete]

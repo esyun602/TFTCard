@@ -21,7 +21,7 @@ public class TestUnitCardAction : UnitCardActionBase
 		{
 			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 			
-			var targetTile = map.GetAttackTargetTile(map.GetTileOfBattleObject(owner));
+			var targetTile = map.GetAttackTargetTile(owner);
 			if (targetTile != null)
 			{
 				var target = map.GetBattleObjectOfTile(targetTile);
