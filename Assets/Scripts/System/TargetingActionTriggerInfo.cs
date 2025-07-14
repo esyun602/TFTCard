@@ -1,4 +1,4 @@
-public class DefaultActionTriggerInfo
+public class TargetingActionTriggerInfo
 {
 	public IBattleObject Target { get; set; }
 }

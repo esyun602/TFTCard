@@ -38,7 +38,7 @@ public class TestSkillAction : SkillCardActionBase
 	protected override void OnTrigger(object triggerInfo)
 	{
 		timePassed = 0f;
-		if (triggerInfo is not DefaultActionTriggerInfo ti)
+		if (triggerInfo is not TargetingActionTriggerInfo ti)
 		{
 			throw new ArgumentException();
 		}

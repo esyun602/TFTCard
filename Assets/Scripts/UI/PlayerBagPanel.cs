@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 //todo: 정렬을 기준 수정 필요 
 //todo: bag unit card랑 스킬 카드 포지션 및 배치 방식 관련 수정 필요
 //todo: 유닛 개수가 최대 개수보다 적다면 자동 배치되도록 구현 필요
+//todo: play info 건드리는 부분 분리 필요?
 public class PlayerBagPanel : UIInstance
 {
 	private static PlayerBagPanel instance;
@@ -123,11 +124,24 @@ public class PlayerBagPanel : UIInstance
 		//플레이어 덱 및 배치 정보 업데이트
 		//그거 기반으로 포지션들 다시 계산해서 뿌리기
 		//유닛 스킬카드 생성 해줘야함
-		
-		var locationInfos = Game.Instance.GetPlayer().CurrentPlayInfo.FieldDeployLocationInfo;
-		var bagUnitCards = Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList;
 
-		bagUnitCards.Remove(m.TargetCard.TargetUnitCard);
+		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		
+		var locationInfos = playInfo.FieldDeployLocationInfo;
+		var bagUnitCards = playInfo.BagUnitCardList;
+		var deckCards = playInfo.DeckCardList;
+
+		var isInBag = bagUnitCards.Remove(m.TargetCard.TargetUnitCard);
+		if (isInBag)
+		{
+			var unitSkillCard = m.TargetCard.TargetUnitCard.UnitSkillCard;
+			deckCards.Add(unitSkillCard);
+			var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
+			var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagSkillCard")
+				.Instantiate(pos).GetComponent<BagSkillCard>();
+			bagUICard.Initialize(unitSkillCard, pos);
+			cardDictionary.Add(unitSkillCard, bagUICard);
+		}
 		
 		var info = locationInfos.Find(info => info.TargetCard == m.TargetCard.TargetCard);
 		BagUITile.GetTargetTile(info.Row, info.Col).IsOccupied = false;
@@ -150,12 +164,21 @@ public class PlayerBagPanel : UIInstance
 		//유닛 스킬카드 제거 해줘야함
 		m.TargetTile.IsOccupied = false;
 		
-		var locationInfos = Game.Instance.GetPlayer().CurrentPlayInfo.FieldDeployLocationInfo;
-		var bagUnitCards = Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList;
+		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		
+		var locationInfos = playInfo.FieldDeployLocationInfo;
+		var bagUnitCards = playInfo.BagUnitCardList;
+		var deckCards = playInfo.DeckCardList;
 		
 		locationInfos.RemoveAll(info => info.TargetCard == m.TargetCard.TargetCard);
 		bagUnitCards.Add(m.TargetCard.TargetUnitCard);
-		
+		var unitSkillCard = m.TargetCard.TargetUnitCard.UnitSkillCard;
+		deckCards.Remove(unitSkillCard);
+
+		//todo: pooledObj를 보유하고 있는게 나을수도
+		cardDictionary[unitSkillCard].GetComponent<PooledUnityObject>().Dispose();
+		cardDictionary.Remove(unitSkillCard);
+			
 		NormalizeLocationInfos();
 		
 		UpdateAndPropagateTargetPos();

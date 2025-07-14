@@ -19,34 +19,8 @@ public class TestStage : StageBase
 
 	protected override void OnStart()
 	{
-		CoroutineManager.Instance.StartCoroutine(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject, TestStartRoutine());
 	}
-
-	private IEnumerator TestStartRoutine()
-	{
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-		yield return new WaitForSeconds(1.0f);
-	}
-
-
+	
 	protected override void OnUnLoad()
 	{
 		base.OnUnLoad();

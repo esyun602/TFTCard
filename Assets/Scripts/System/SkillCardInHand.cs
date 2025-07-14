@@ -179,7 +179,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			if (timePassed > 0f)
 			{
 				timePassed = 0f;
-				owner.targetCard.Action.Trigger(new DefaultActionTriggerInfo()
+				owner.targetCard.Action.Trigger(new TargetingActionTriggerInfo()
 				{
 					Target = targetObject 
 				});
@@ -212,7 +212,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			currentUpdateAction?.Invoke();
 			if (currentUpdateAction == null)
 			{
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerHand.RemoveCard(owner);
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
 				owner.Deactivate();
 			}
 		}

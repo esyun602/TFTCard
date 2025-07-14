@@ -49,11 +49,18 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			
 		UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
 		NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
+		//todo: 죽음 및 데미지 처리 관련 다듬기 필요
 		if (UnitCardBattleStat.IsDead)
 		{
-			Deactivate();
-			NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(sender, this));
+			Die(sender);
 		}
+	}
+
+	public void Die(IBattleObject destroyer)
+	{
+		Deactivate();
+		targetUnitCard.UnitSkillCard.Owner = null;
+		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
 	}
 
 	public void UpdateBlockInput(InputBlockFlag flag)
@@ -145,6 +152,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard.UnitCardStaticSpec, unitCardBattleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
+
+		targetUnitCard.UnitSkillCard.Owner = cardObject;
 		
 		return cardObject;
 	}

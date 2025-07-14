@@ -23,7 +23,9 @@ public class PlayInfo
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	public MapInfo CurrentMapInfo { get; set; }
 	public MapNodeInfo CurrentSelectedNode { get; private set; }
+	//todo: to constant
 	public int MaxFieldUnitCard { get; private set; } = 3;
+	public int DrawCount { get; private set; } = 5;
 
 	//todo: additional value
 	public int MaxEnergy => Constant.DefaultEnergy;

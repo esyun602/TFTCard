@@ -23,6 +23,7 @@ public class DeckSystem
 	public PlayerField PlayerField { get; } = new();
 
 	private List<BattleCardObjectInHand> deck = new();
+	private List<BattleCardObjectInHand> dropCardList = new();
 
 	private GameObject deckObject;
 
@@ -99,9 +100,9 @@ public class DeckSystem
 		NoticeSystem.Instance.Unsubscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<HandCardStartUseNotice>(OnCardStartUse);
 		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardEndUse);
-		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
-		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
-		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
+		NoticeSystem.Instance.Unsubscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Unsubscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 	}
@@ -112,22 +113,26 @@ public class DeckSystem
 		if (!blockInputHandler.HasRequest(m.PlayerTurnObject))
 		{
 			blockInputHandler.RestoreInputs(InputBlockFlag.All, this);
-			
-			PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
-			PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
-			
-			return;
 		}
-		//todo: hand, field 플래그 분리
-		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.PlayerTurnObject);
+		else
+		{
+			//todo: hand, field 플래그 분리
+			blockInputHandler.RestoreInputs(InputBlockFlag.All, m.PlayerTurnObject);
+		}
+		
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 
 		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
+		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.DrawCount; i++)
+		{
+			DrawCard();
+		}
 	}
 
 	private void OnPlayerTurnEnd(PlayerTurnEndNotice m)
 	{
+		DropAllCards();
 		blockInputHandler.BlockInputs(InputBlockFlag.All, m.PlayerTurnObject);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
@@ -184,11 +189,39 @@ public class DeckSystem
 	{
 		if (deck.Count == 0)
 		{
-			return;
+			//todo: shuffle
+			if (dropCardList.Count != 0)
+			{
+				(deck, dropCardList) = (dropCardList, deck);
+			}
+			else
+			{
+				return;
+			}
 		}
 		var targetCard = deck[^1];
 		targetCard.Activate();
 		deck.RemoveAt(deck.Count - 1);
 		PlayerHand.AddCard(targetCard);
+	}
+
+	public void DropCard(BattleCardObjectInHand target)
+	{
+		if (PlayerHand.CardList.Count == 0)
+		{
+			return;
+		}
+		
+		PlayerHand.RemoveCard(target);
+		dropCardList.Add(target);
+		target.Deactivate();
+	}
+	
+	public void DropAllCards()
+	{
+		for (var i = PlayerHand.CardList.Count - 1; i >= 0; i--)
+		{
+			DropCard(PlayerHand.CardList[i]);
+		}
 	}
 }

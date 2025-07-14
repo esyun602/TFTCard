@@ -1,7 +1,3 @@
-public enum SkillCardType
-{
-	Targeting = 0,
-}
 public class SkillCard : ICard
 {
 	public SkillCardStat Stat { get; }
