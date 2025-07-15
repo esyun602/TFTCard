@@ -33,6 +33,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	//todo: context?
 	public void Damage(IBattleObject sender, int dmg)
 	{
+		dmg = ProcessShield(dmg);
 		var movSeq = DOTween.Sequence();
 		movSeq.Append(Transform
 			.DOMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right + Position,
@@ -46,14 +47,25 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		//틴트, 데미지 텍스트
 		
 		movSeq.Play();
-			
-		UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
-		NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
-		//todo: 죽음 및 데미지 처리 관련 다듬기 필요
-		if (UnitCardBattleStat.IsDead)
+
+		if (dmg != 0)
 		{
-			Die(sender);
+			UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
+			NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
+			//todo: 죽음 및 데미지 처리 관련 다듬기 필요
+			if (UnitCardBattleStat.IsDead)
+			{
+				Die(sender);
+			}
 		}
+	}
+
+	private int ProcessShield(int dmg)
+	{
+		var damageAfter = Mathf.Max(0, dmg - UnitCardBattleStat.Shield);
+		UnitCardBattleStat.Shield = Mathf.Max(0,  UnitCardBattleStat.Shield - dmg);
+
+		return damageAfter;
 	}
 
 	public void Die(IBattleObject destroyer)

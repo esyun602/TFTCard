@@ -8,7 +8,7 @@ public class SkillCard : ICard
 	public SkillCard(SkillCardSpec spec)
 	{
 		SkillCardStaticSpec = spec;
-		Action = spec.actionData.CreateCardAction();
+		Action = spec.actionSpec.CreateCardAction();
 		Stat = new SkillCardStat(spec.statSpec);
 	}
 

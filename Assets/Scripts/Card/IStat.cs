@@ -6,7 +6,8 @@ public enum ValueType
 	TurnCount,
 	MaxTurnCount,
 	Attack,
-	Cost
+	Cost,
+	Shield
 }
 
 public interface IStat

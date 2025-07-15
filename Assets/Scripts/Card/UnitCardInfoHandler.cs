@@ -13,9 +13,10 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
 	[SerializeField] private TextMeshPro turnCount;
-	[SerializeField] private TextMeshPro name;
+	[SerializeField] private TextMeshPro nameText;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private MeshRenderer TextureRenderer;
+	[SerializeField] private TextMeshPro shield;
 	
 	public void Initialize(ICardSpec cardSpec, IStat stat = null)
 	{
@@ -27,7 +28,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		this.spec = spec;
 		this.stat = stat ?? spec.statSpec;
 		
-		name.text = spec.name;
+		nameText.text = spec.name;
 		desc.text = "Some Description...";
 		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
 		
@@ -36,22 +37,57 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		hp.text = $"{stat.GetValueByValueType(ValueType.Hp)}";
 		turnCount.text = $"{stat.GetValueByValueType(ValueType.TurnCount)}";
 		
-		NoticeSystem.Instance.Subscribe<BattleHpChangeNotice>(OnBattleHpChange);
-		NoticeSystem.Instance.Subscribe<BattleTurnCountChangedNotice>(OnBattleTurnCountChange);
+		NoticeSystem.Instance.Subscribe<BattleValueChangeNotice>(OnBattleValueChange);
 	}
 
-	private void OnBattleHpChange(BattleHpChangeNotice m)
+	private void OnBattleValueChange(BattleValueChangeNotice m)
 	{
 		if (m.Stat != stat) return;
+		
+		switch (m.Type)
+		{
+			case ValueType.Hp:
+				OnBattleHpChange(m);
+				break;
+			
+			case ValueType.TurnCount:
+				OnBattleTurnCountChange(m);
+				break;
+			
+			case ValueType.Shield:
+				OnBattleShieldChange(m);
+				break;
+		}
+	}
+
+	private void OnBattleShieldChange(BattleValueChangeNotice m)
+	{
+		if (m.ChangedValue == 0)
+		{
+			shield.gameObject.SetActive(false);
+		}
+		else if (m.ChangedValue > 0 && !shield.gameObject.activeSelf)
+		{
+			shield.gameObject.SetActive(true);	
+		}
+		
+		
+		DOTween.Kill(shield);
+		shield.text = $"{stat.GetValueByValueType(ValueType.Shield)}";
+		shield.transform.localScale = Vector3.one * 2f;
+		shield.transform.DOScale(Vector3.one,  0.5f);
+	}
+
+	private void OnBattleHpChange(BattleValueChangeNotice m)
+	{
 		DOTween.Kill(hp);
 		hp.text = $"{stat.GetValueByValueType(ValueType.Hp)}";
 		hp.transform.localScale = Vector3.one * 2f;
 		hp.transform.DOScale(Vector3.one,  0.5f);
 	}
 
-	private void OnBattleTurnCountChange(BattleTurnCountChangedNotice m)
+	private void OnBattleTurnCountChange(BattleValueChangeNotice m)
 	{
-		if (m.Stat != stat) return;
 		DOTween.Kill(turnCount);
 		turnCount.text = $"{stat.GetValueByValueType(ValueType.TurnCount)}";
 		turnCount.transform.localScale = Vector3.one * 2f;

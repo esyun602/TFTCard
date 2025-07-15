@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statSpec: {fileID: 11400000, guid: 96501987ac7fb104fa7678fd834fe176, type: 2}
   cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
-  creatureResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
   actionData: {fileID: 11400000, guid: 7b2acff713f22354084ae806db257497, type: 2}
+  targetSkillCardSpec: {fileID: 11400000, guid: 78ac35212ad83fc45b665c65460ad828, type: 2}

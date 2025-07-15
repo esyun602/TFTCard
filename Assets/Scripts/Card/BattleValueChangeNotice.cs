@@ -1,10 +1,10 @@
-
 using MessageSystem;
 
-public class BattleHpChangeNotice : Notice
+public class BattleValueChangeNotice : Notice
 {
-	public BattleHpChangeNotice(int prevValue, int changedValue, UnitCardBattleStat stat)
+	public BattleValueChangeNotice(ValueType type, int prevValue, int changedValue, UnitCardBattleStat stat)
 	{
+		Type = type;
 		PrevValue = prevValue;
 		ChangedValue = changedValue;
 		Stat = stat;
@@ -13,5 +13,5 @@ public class BattleHpChangeNotice : Notice
 	public UnitCardBattleStat Stat { get; private set; }
 	public int PrevValue { get; private set; }
 	public int ChangedValue { get; private set; }
-	
+	public ValueType Type { get; private set; }
 }

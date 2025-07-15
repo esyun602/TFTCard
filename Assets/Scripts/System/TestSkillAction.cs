@@ -3,18 +3,16 @@ using UnityEngine;
 
 public class TestSkillAction : SkillCardActionBase
 {
-	private IUpdatableRoutine routine;
 	private float timePassed;
-	public IUpdatableRoutine UpdatableRoutine => routine;
 	private bool canceled;
 	private float actionDuration;
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public TestSkillAction(TestSkillActionData data)
+	public TestSkillAction(TestSkillActionSpec spec)
 	{
-		actionDuration = data.actionDuration;
-		fxPrefab = data.fxPrefab;
+		actionDuration = spec.actionDuration;
+		fxPrefab = spec.fxPrefab;
 	}
 	
 	protected override void OnUpdate(float dt, out bool routineDone)

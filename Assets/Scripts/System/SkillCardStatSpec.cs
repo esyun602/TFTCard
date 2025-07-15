@@ -7,6 +7,7 @@ public class SkillCardStatSpec : ScriptableObject, IStat
 	public int hpValue;
 	public int attackValue;
 	public int costValue;
+	public int shieldValue;
 
 	public int[] GetValuesByValueType(ValueType type)
 	{
@@ -22,6 +23,8 @@ public class SkillCardStatSpec : ScriptableObject, IStat
 				return new int[] { attackValue };
 			case ValueType.Cost:
 				return new int[] { costValue };
+			case ValueType.Shield:
+				return new int[] { shieldValue };
 			default:
 				return new int[] { };
 		}

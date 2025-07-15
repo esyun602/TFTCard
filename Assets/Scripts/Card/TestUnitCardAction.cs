@@ -8,9 +8,9 @@ public class TestUnitCardAction : UnitCardActionBase
 	private float timePassed = 0f;
 	private float actionDuration;
 	private GameObject fxPrefab;
-	private GridSelector gridInfo;
+	//private GridSelector gridInfo;
 
-	public override GridSelector AttackRangeInfo => gridInfo;
+	//public override GridSelector AttackRangeInfo => gridInfo;
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -72,6 +72,6 @@ public class TestUnitCardAction : UnitCardActionBase
 	{
 		actionDuration = actionData.actionDuration;
 		fxPrefab = actionData.fxPrefab;
-		gridInfo = actionData.actionRange;
+		//gridInfo = actionData.actionRange;
 	}
 }

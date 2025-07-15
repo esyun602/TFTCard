@@ -3,7 +3,7 @@ using UnityEngine;
 public class BagSkillCard : BagUICard
 {
 	public override ICard TargetCard => TargetSkillCard;
-	public new SkillCard TargetSkillCard { get; private set; }
+	public SkillCard TargetSkillCard { get; private set; }
 	public void Initialize(SkillCard targetCard, Vector3 targetPos)
 	{
 		this.cardPosInfo = new BagCardPosInfo(targetPos, null);

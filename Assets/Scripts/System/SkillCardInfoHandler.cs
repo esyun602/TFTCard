@@ -3,12 +3,13 @@ using DG.Tweening;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
 	private SkillCardSpec spec;
-	[SerializeField] private TextMeshPro name;
+	[SerializeField] private TextMeshPro nameText;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private MeshRenderer TextureRenderer;
@@ -22,7 +23,7 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		this.spec = spec;
 		this.stat = stat ?? spec.statSpec;
 		
-		name.text = spec.name;
+		nameText.text = spec.name;
 		desc.text = "Some Description...";
 		cost.text = $"{stat.GetValueByValueType(ValueType.Cost)}";
 		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);

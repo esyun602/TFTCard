@@ -31,7 +31,7 @@ public abstract class UnitCardActionBase : IAction
 		this.owner = owner;
 	}
 
-	public abstract GridSelector AttackRangeInfo { get; }
+	//public abstract GridSelector AttackRangeInfo { get; }
 
 	private void UpdateFrame(float dt, out bool routineDone)
 	{

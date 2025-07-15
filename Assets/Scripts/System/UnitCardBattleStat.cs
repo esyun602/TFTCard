@@ -17,7 +17,7 @@ public class UnitCardBattleStat : IStat
 		set
 		{
 			var clampedValue = Mathf.Max(value, 0);
-			NoticeSystem.Instance.Publish(new BattleHpChangeNotice(hp, clampedValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(ValueType.Hp, hp, clampedValue, this));
 			hp = clampedValue;
 		}
 	}
@@ -31,7 +31,7 @@ public class UnitCardBattleStat : IStat
 		set
 		{
 			var clampedValue = Mathf.Max(value, 0);
-			NoticeSystem.Instance.Publish(new BattleTurnCountChangedNotice(turnCount, clampedValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(ValueType.TurnCount, turnCount, clampedValue, this));
 			turnCount = clampedValue;
 		}
 	}
@@ -42,6 +42,18 @@ public class UnitCardBattleStat : IStat
 	//field scope 기믹
 	private List<IBuff> buffList;
 	private List<Synergy> synergyList;
+	private int shield;
+
+	public int Shield
+	{
+		get => shield;
+		set
+		{
+			var clampedValue = Mathf.Max(value, 0);
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(ValueType.Shield, shield, clampedValue, this));
+			shield = clampedValue;
+		}
+	}
 
 	public UnitCardBattleStat(UnitCardStat unitCardStat)
 	{
@@ -51,6 +63,7 @@ public class UnitCardBattleStat : IStat
 		MaxTurnCount = unitCardStat.MaxTurnCount;
 		turnCount = MaxTurnCount;
 		Cost = unitCardStat.Cost;
+		Shield = 0;
 		synergyList = new(unitCardStat.synergyList);
 	}
 
@@ -75,6 +88,8 @@ public class UnitCardBattleStat : IStat
 				return new int[] { Attack };
 			case ValueType.Cost:
 				return new int[] { Cost };
+			case ValueType.Shield:
+				return new int[] { Shield };
 			default:
 				return new int[] { };
 		}

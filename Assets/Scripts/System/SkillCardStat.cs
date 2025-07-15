@@ -4,6 +4,7 @@ public class SkillCardStat : IStat
 	public int HpValue { get; set; }
 	public int AttackValue { get; set; }
 	public int CostValue { get; set; }
+	public int ShieldValue { get; set; }
 
 	public SkillCardStat(SkillCardStatSpec statSpec)
 	{
@@ -11,6 +12,7 @@ public class SkillCardStat : IStat
 		HpValue = statSpec.hpValue;
 		AttackValue = statSpec.attackValue;
 		CostValue = statSpec.costValue;
+		ShieldValue = statSpec.shieldValue;
 	}
 
 	public int[] GetValuesByValueType(ValueType type)

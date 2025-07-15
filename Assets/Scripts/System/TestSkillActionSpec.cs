@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu]
-public class TestSkillActionData : SkillCardActionData
+public class TestSkillActionSpec : SkillCardActionSpec
 {
 	public float actionDuration;
 	public GameObject fxPrefab;

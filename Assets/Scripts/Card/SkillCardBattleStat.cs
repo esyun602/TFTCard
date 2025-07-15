@@ -10,6 +10,7 @@ public class SkillCardBattleStat : IStat
 	public int HpValue { get; set; }
 	public int AttackValue { get; set; }
 	public int CostValue { get; set; }
+	public int ShieldValue { get; set; }
 
 	private int turnCount;
 	private List<IOption> optionList;
@@ -24,6 +25,7 @@ public class SkillCardBattleStat : IStat
 		HpValue = skillCardStat.HpValue;
 		turnCount = TurnCountValue;
 		CostValue = skillCardStat.CostValue;
+		ShieldValue = skillCardStat.ShieldValue;
 	}
 	
 	public int[] GetValuesByValueType(ValueType type)
@@ -40,6 +42,8 @@ public class SkillCardBattleStat : IStat
 				return new int[] { AttackValue };
 			case ValueType.Cost:
 				return new int[] { CostValue };
+			case ValueType.Shield:
+				return new int[] { ShieldValue };
 			default:
 				return new int[] { };
 		}

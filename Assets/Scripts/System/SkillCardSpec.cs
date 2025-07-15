@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 public enum UseType
@@ -12,7 +13,7 @@ public class SkillCardSpec : ScriptableObject, ICardSpec
 {
 	public SkillCardStatSpec statSpec;
 	public Sprite cardResource;
-	public SkillCardActionData actionData;
+	[FormerlySerializedAs("actionData")] public SkillCardActionSpec actionSpec;
 	public UseType cardUseType;
 	
 	
