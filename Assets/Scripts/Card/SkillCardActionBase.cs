@@ -2,7 +2,7 @@ public abstract class SkillCardActionBase : IAction
 {
 	protected SkillCardBattleStat stat;
 
-	private IUpdatableRoutine routine;
+	protected IUpdatableRoutine routine;
 	public IUpdatableRoutine UpdatableRoutine => routine;
 
 	protected SkillCardActionBase()

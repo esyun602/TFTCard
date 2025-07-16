@@ -1,3 +1,4 @@
+//todo: type에 따른 dictionary 방식으로 수정하는게 나을듯
 public class SkillCardStat : IStat
 {
 	public int TurnCountValue { get; set; }

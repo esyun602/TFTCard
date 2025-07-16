@@ -176,9 +176,9 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		return Instantiate(card, targetTile, new UnitCardBattleStat(card.Stat), objectType);
 	}
 
-	public void StartTurn()
+	public void StartTurn(int overrideTurnCount)
 	{
-		ChangeState(new CardObjectActionState(this));
+		ChangeState(new CardObjectActionState(this, overrideTurnCount));
 	}
 
 	private void Update()
@@ -492,9 +492,11 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	{
 		private UnitCardInField owner;
 		private Action currentUpdateAction;
+		private int turnCount;
 
-		public CardObjectActionState(UnitCardInField owner)
+		public CardObjectActionState(UnitCardInField owner, int turnCount)
 		{
+			this.turnCount = turnCount;
 			this.owner = owner;
 		}
 
@@ -502,7 +504,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			owner.routine = new UpdatableRoutine(UpdateFrame);
 			owner.routine.Initialize();
-			owner.UnitCardBattleStat.TurnCount -= 1;
+			owner.UnitCardBattleStat.TurnCount -= turnCount;
 			currentUpdateAction = UpdateTurnCount;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
 		}

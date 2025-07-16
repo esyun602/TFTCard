@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCountValue: 0
   hpValue: 0
-  attackValue: 3
-  costValue: 0
+  attackValue: 0
+  costValue: 1
+  shieldValue: 2

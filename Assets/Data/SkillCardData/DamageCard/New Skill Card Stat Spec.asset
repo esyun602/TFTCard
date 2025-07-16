@@ -15,4 +15,5 @@ MonoBehaviour:
   turnCountValue: 0
   hpValue: 0
   attackValue: 3
-  costValue: 0
+  costValue: 1
+  shieldValue: 0
