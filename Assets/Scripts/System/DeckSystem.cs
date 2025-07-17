@@ -168,8 +168,12 @@ public class DeckSystem
 	
 	public void SpawnAllyUnits()
 	{
+		//충분히 배치를 해주지 않았다면 임의 배치
+		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		playInfo.NormalizeFieldDeployLocationInfo();
+		
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		var deployInfos = Game.Instance.GetPlayer().CurrentPlayInfo.FieldDeployLocationInfo;
+		var deployInfos = playInfo.FieldDeployLocationInfo;
 		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
 		
 		//todo: 소환순서..

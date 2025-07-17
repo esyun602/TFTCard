@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using NUnit.Framework;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class PlayerBagPanel : UIInstance
 	[SerializeField] private RectTransform DeckCardArea;
 
 	[SerializeField] private RectTransform DeployArea;
+
+	[SerializeField] private List<BagUITile> bagUITileList;
 
 	public Vector3 LeftTopOffset;
 	public float horizontalSpace;
@@ -76,6 +79,7 @@ public class PlayerBagPanel : UIInstance
 			var bagUICard = bagPool.Instantiate(tile.GetPosition()).GetComponent<BagUnitCard>();
 			bagUICard.Initialize(deployInfos[i].TargetCard, tile);
 			cardDictionary.Add(deployInfos[i].TargetCard, bagUICard);
+			CalculateFieldUnitCardTile(deployInfos[i]).IsOccupied = true;
 		}
 	}
 
@@ -121,104 +125,122 @@ public class PlayerBagPanel : UIInstance
 	
 	private void OnCardDeploy(BagUICardPlaceNotice m)
 	{
-		//플레이어 덱 및 배치 정보 업데이트
-		//그거 기반으로 포지션들 다시 계산해서 뿌리기
-		//유닛 스킬카드 생성 해줘야함
-
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
 		
 		var locationInfos = playInfo.FieldDeployLocationInfo;
-		var bagUnitCards = playInfo.BagUnitCardList;
-		var deckCards = playInfo.DeckCardList;
 
-		var isInBag = bagUnitCards.Remove(m.TargetCard.TargetUnitCard);
-		if (isInBag)
-		{
-			var unitSkillCard = m.TargetCard.TargetUnitCard.UnitSkillCard;
-			deckCards.Add(unitSkillCard);
-			var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
-			var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagSkillCard")
-				.Instantiate(pos).GetComponent<BagSkillCard>();
-			bagUICard.Initialize(unitSkillCard, pos);
-			cardDictionary.Add(unitSkillCard, bagUICard);
-		}
 		
+		/*
+		 
+		var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
+		var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagSkillCard")
+			.Instantiate(pos).GetComponent<BagSkillCard>();
+		bagUICard.Initialize(unitSkillCard, pos);
+		cardDictionary.Add(unitSkillCard, bagUICard);
+		
+		*/
+		
+		/*
+		 
 		var info = locationInfos.Find(info => info.TargetCard == m.TargetCard.TargetCard);
 		BagUITile.GetTargetTile(info.Row, info.Col).IsOccupied = false;
 		m.TargetTile.IsOccupied = true;
-		locationInfos.Remove(info);
 		
-		locationInfos.Add(new DeployInfo(m.TargetTile.Row, m.TargetTile.Col, m.TargetCard.TargetUnitCard));
+		*/
 
-		NormalizeLocationInfos();
+
+		playInfo.DeployCard(m.TargetTile.Row, m.TargetTile.Col, m.TargetCard.TargetUnitCard);
+		
+		SyncCardUIToPlayInfo();
 		
 		UpdateAndPropagateTargetPos();
-
 	}
 
 
 	private void OnCardUnDeploy(BagUICardUnPlaceNotice m)
 	{
-		//플레이어 덱 및 배치 정보 업데이트
-		//그거 기반으로 포지션들 다시 계산해서 뿌리기
-		//유닛 스킬카드 제거 해줘야함
-		m.TargetTile.IsOccupied = false;
+		//m.TargetTile.IsOccupied = false;
 		
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		
-		var locationInfos = playInfo.FieldDeployLocationInfo;
-		var bagUnitCards = playInfo.BagUnitCardList;
-		var deckCards = playInfo.DeckCardList;
-		
-		locationInfos.RemoveAll(info => info.TargetCard == m.TargetCard.TargetCard);
-		bagUnitCards.Add(m.TargetCard.TargetUnitCard);
-		var unitSkillCard = m.TargetCard.TargetUnitCard.UnitSkillCard;
-		deckCards.Remove(unitSkillCard);
 
+		playInfo.UndeployCard(m.TargetCard.TargetUnitCard);
 		//todo: pooledObj를 보유하고 있는게 나을수도
-		cardDictionary[unitSkillCard].GetComponent<PooledUnityObject>().Dispose();
-		cardDictionary.Remove(unitSkillCard);
-			
-		NormalizeLocationInfos();
+		/*cardDictionary[unitSkillCard].GetComponent<PooledUnityObject>().Dispose();
+		cardDictionary.Remove(unitSkillCard);*/
+		
+		SyncCardUIToPlayInfo();
 		
 		UpdateAndPropagateTargetPos();
 	}
 
-	private void NormalizeLocationInfos()
+	//성능에 문제가 있으면 reflect 말고 메세지 받아서 하는게 나을수도
+	private void SyncCardUIToPlayInfo()
 	{
-		var locationInfos = Game.Instance.GetPlayer().CurrentPlayInfo.FieldDeployLocationInfo;
-		var tmp = new List<(int, int)>();
-		
-		for (int row = 0; row < 3; row++)
+		//데이터에 있는데 없는거 만들기
+		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		var locationInfos = playInfo.FieldDeployLocationInfo;
+		var bagUnitCards = playInfo.BagUnitCardList;
+		var deckCards = playInfo.DeckCardList;
+
+		for (var i = 0; i < bagUnitCards.Count; i++)
 		{
-			if (!BagUITile.GetTargetTile(row, 3).IsOccupied)
+			if (!cardDictionary.ContainsKey(bagUnitCards[i]))
 			{
-				for (int col = 2; col >= 0; col--)
-				{
-					if (BagUITile.GetTargetTile(row, col).IsOccupied)
-					{
-						tmp.Add((row, col));
-						break;
-					}	
-				}
+				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
+				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagUnitCard")
+					.Instantiate(pos).GetComponent<BagUnitCard>();
+				bagUICard.Initialize(bagUnitCards[i], pos);
+				cardDictionary.Add(bagUnitCards[i], bagUICard);
+			}
+		}
+		
+		for (var i = 0; i < deckCards.Count; i++)
+		{
+			if (!cardDictionary.ContainsKey(deckCards[i]))
+			{
+				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
+				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagSkillCard")
+					.Instantiate(pos).GetComponent<BagSkillCard>();
+				bagUICard.Initialize(deckCards[i], pos);
+				cardDictionary.Add(deckCards[i], bagUICard);
 			}
 		}
 
-		foreach (var target in tmp)
+		foreach (var info in locationInfos)
 		{
-			var (row, col) = target;
-			for (var i = locationInfos.Count - 1; i >= 0; i--)
+			if (!cardDictionary.ContainsKey(info.TargetCard))
 			{
-				var info = locationInfos[i];
-				if (info.Row == row && info.Col == col)
-				{
-					locationInfos.RemoveAt(i);
-					BagUITile.GetTargetTile(row, col).IsOccupied = false;
-					locationInfos.Add(new DeployInfo(row, 3, info.TargetCard));
-					BagUITile.GetTargetTile(row, 3).IsOccupied = true;
-				}
+				var tile = CalculateFieldUnitCardTile(info);
+				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagUnitCard")
+					.Instantiate(tile.GetPosition()).GetComponent<BagUnitCard>();
+				bagUICard.Initialize(info.TargetCard, tile);
+				cardDictionary.Add(info.TargetCard, bagUICard);
 			}
-			
+		}
+		
+		
+		//데이터에 없는데 있는거 없애기
+		//todo: hashset 써서 효율 개선
+		
+		var toRemove = new List<ICard>();
+		foreach (var key in cardDictionary.Keys)
+		{
+			if (key is UnitCard uc && !bagUnitCards.Contains(uc) && locationInfos.All(info => info.TargetCard != key))
+			{
+				toRemove.Add(key);
+			}
+
+			if (key is SkillCard sk && !deckCards.Contains(sk))
+			{
+				toRemove.Add(key);
+			}
+		}
+
+		foreach (var card in toRemove)
+		{
+			var po = cardDictionary[card].GetComponent<PooledUnityObject>();
+			po.Dispose();
+			cardDictionary.Remove(card);
 		}
 	}
 
@@ -245,32 +267,38 @@ public class PlayerBagPanel : UIInstance
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
 		}
 
+		foreach (var tile in bagUITileList)
+		{
+			tile.IsOccupied = false;
+		}
+
 		foreach (var info in locationInfos)
 		{
 			var bagUICard = cardDictionary[info.TargetCard];
 			var tile = CalculateFieldUnitCardTile(info);
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(tile), bagUICard);
+			tile.IsOccupied = true;
 		}
 	}
 
 	private Vector3 CalculateBagUnitCardPositionWithIndex(int idx)
 	{
 		return DeckCardArea.position + LeftTopOffset
-		                             + Vector3.right * (idx % cardCountPerRow) * horizontalSpace
-		                             + Vector3.down * (idx / cardCountPerRow) * verticalSpace;
+		                             + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
+		                             + Vector3.down * ((idx / cardCountPerRow) * verticalSpace);
 	}
 
 
 	private BagUITile CalculateFieldUnitCardTile(DeployInfo info)
 	{
-		return BagUITile.GetTargetTile(info.Row, info.Col);
+		return bagUITileList[info.Row * 4 + info.Col];
 	}
 
 
 	private Vector3 CalculateDeckCardPositionWithIndex(int idx)
 	{
 		return DeckCardArea.position + LeftTopOffset
-		                + Vector3.right * (idx % cardCountPerRow) * horizontalSpace
-						+ Vector3.down * (idx / cardCountPerRow + DeckCardStartRow) * verticalSpace;
+		                + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
+						+ Vector3.down * ((idx / cardCountPerRow + DeckCardStartRow) * verticalSpace);
 	}
 }

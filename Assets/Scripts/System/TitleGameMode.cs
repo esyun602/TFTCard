@@ -18,7 +18,6 @@ public class TitleGameMode : IGameMode
 		//todo: 일단 바로 맵 씬으로
 		//todo: transition 추가해서 수정
 		//todo: transition 시 uimanager 동작도 체크
-		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Add(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecById(0)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(0)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(0)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(1)));
@@ -26,7 +25,7 @@ public class TitleGameMode : IGameMode
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(2)));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(2)));
 
-		Game.Instance.ChangeGameMode(new MapGameMode());
+		Game.Instance.ChangeGameMode(new DraftGameMode());
 	}
 	
 	public void Dispose()

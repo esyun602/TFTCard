@@ -740,6 +740,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeckCardArea: {fileID: 857944719933916007}
   DeployArea: {fileID: 1435427698437868807}
+  bagUITileList:
+  - {fileID: 8612428371522097427}
+  - {fileID: 6528984411740332892}
+  - {fileID: 1178388825377141431}
+  - {fileID: 2998506462187127121}
+  - {fileID: 6064730783297532411}
+  - {fileID: 1417902574250760140}
+  - {fileID: 467355239618942080}
+  - {fileID: 4108804735003255480}
+  - {fileID: 8997659915503817866}
+  - {fileID: 1420446932023249433}
+  - {fileID: 8770776328807891232}
+  - {fileID: 6516206538318750916}
   LeftTopOffset: {x: 150, y: -150, z: 0}
   horizontalSpace: 225
   verticalSpace: 270
@@ -1488,9 +1501,9 @@ RectTransform:
   - {fileID: 9198796013260372378}
   m_Father: {fileID: 4667885677404780006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 540}
   m_SizeDelta: {x: 960, y: 1080}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1988492404724552855
