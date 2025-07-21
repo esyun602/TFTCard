@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 //todo: 우선 타게팅만
 public class SkillCardInHand : BattleCardObjectInHand
 {
+	public bool IsTargeting => targetCard.SkillCardStaticSpec.cardUseType == UseType.Targeting;
 	private const string cardPrefabPath = "Card/SkillCardPrefab";
 	private SkillCard targetCard;
 	private SkillCardBattleStat battleStat;
@@ -45,7 +46,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 		if (cardObjectStateMachine.CurrentState is CardObjectNormalInHandState { IsHovered: true } &&
 		    eventData.button == PointerEventData.InputButton.Left)
 		{
-			NoticeSystem.Instance.PublishSync(new HandCardSelectNotice(this));
+			NoticeSystem.Instance.PublishSync(new SkillHandCardSelectNotice(this));
 			ChangeState(new SkillCardSelectedInHandState(this));
 		}
 	}
@@ -77,12 +78,15 @@ public class SkillCardInHand : BattleCardObjectInHand
 			InputManager.Instance.InputActions.Player.UseHandCard.performed += OnTryUseHandCard;
 			InputManager.Instance.InputActions.Player.CancelHandCard.performed += OnCancelHandCard;
 			owner.transform.up = Camera.main.transform.up;
+			//todo: fix
+			owner.transform.localScale = Vector3.one * 1.8f;
+			owner.transform.position = owner.hoverTargetPos;
 			followAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardFollowingSpeedCurve;
 
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
 			targetPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-			owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);;
+			//owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);;
 		}
 
 		private void OnTryUseHandCard(InputAction.CallbackContext obj)
@@ -112,7 +116,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 		private void OnCancelHandCard(InputAction.CallbackContext obj)
 		{
-			NoticeSystem.Instance.PublishSync(new HandCardSelectCancelNotice(owner));
+			NoticeSystem.Instance.PublishSync(new SkillHandCardSelectCancelNotice(owner));
 			owner.ChangeState(new CardObjectNormalInHandState(owner));
 		}
 
@@ -125,7 +129,8 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 			currentTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
 			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos;
-
+			NoticeSystem.Instance.Publish(new SkillHandCardTargetingUpdateNotice(Camera.main.WorldToScreenPoint(targetPos)));
+			
 			if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
 			{
 				timePassed = 0f;
@@ -135,13 +140,13 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 			var realSpeed = followAnimationCurve.Evaluate(timePassed) * followSpeed;
 			var totalTime = Vector3.Distance(targetPos, owner.transform.position) / realSpeed;
-			owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
-			owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
+			//owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
+			/*owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
 					                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
 					                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
 				                                Vector3.Cross(Camera.main.transform.forward,
 					                                (targetPos - owner.transform.position).normalized)) *
-			                                Camera.main.transform.localRotation;
+			                                Camera.main.transform.localRotation;*/
 		}
 	}
 	
@@ -163,14 +168,14 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 		public void Enter(IState prevState)
 		{
-			NoticeSystem.Instance.Publish(new HandCardStartUseNotice(owner));
+			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
 			currentUpdateAction = UpdatePreAttack;
 			timePassed = 0f;
 		}
 
 		public void Exit(IState nextState)
 		{
-			NoticeSystem.Instance.Publish(new HandCardEndUseNotice(owner));
+			NoticeSystem.Instance.Publish(new SkillHandCardEndUseNotice(owner));
 		}
 		
 		private void UpdatePreAttack()

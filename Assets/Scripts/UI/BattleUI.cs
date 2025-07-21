@@ -22,11 +22,48 @@ public class BattleUI : UIInstance
 	[SerializeField] 
 	private Transform synergyContentTransform;
 	public override UIType UIType => UIType.SceneUI;
+
+	[SerializeField] private ArrowDrawer arrowDrawer;
+
+	private Vector2 currentSelectedCardStartPosition;
+	
 	protected override void Init(object param)
 	{
 		NoticeSystem.Instance.Subscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
+		NoticeSystem.Instance.Subscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
+		
 		inputHandler = ((BattleUIGenState)param).InputHandler;
+	}
+
+	private void OnTargetingUpdate(SkillHandCardTargetingUpdateNotice m)
+	{
+		//todo: 임시구현  수정
+		var controlPos = new Vector2(currentSelectedCardStartPosition.x,
+			Mathf.Lerp(currentSelectedCardStartPosition.y, m.Position.y, 0.9f));
+		arrowDrawer.SetArrowTarget(controlPos, m.Position);
+	}
+
+	private void OnHandCardSelect(SkillHandCardSelectNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting) return;
+		currentSelectedCardStartPosition = Camera.main.WorldToScreenPoint(m.SelectedCard.transform.position);
+		arrowDrawer.Activate(currentSelectedCardStartPosition, 10);
+	}
+
+	private void OnHandCardSelectCancel(SkillHandCardSelectCancelNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting) return;
+		arrowDrawer.Deactivate();
+	}
+
+	private void OnHandCardStartUse(SkillHandCardStartUseNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting) return;
+		arrowDrawer.Deactivate();
 	}
 
 	private void OnSynergyUpdate(SynergyInfoUpdateNotice m)
@@ -69,5 +106,9 @@ public class BattleUI : UIInstance
 	{
 		NoticeSystem.Instance.Unsubscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Unsubscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
 	}
 }

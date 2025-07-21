@@ -28,7 +28,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 	private Vector3 handTargetPos;
 	private Quaternion handTargetRotation;
-	private Vector3 hoverTargetPos;
+	protected Vector3 hoverTargetPos;
 
 	protected InputBlockFlag blockInput;
 

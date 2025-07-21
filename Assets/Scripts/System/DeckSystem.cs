@@ -34,13 +34,13 @@ public class DeckSystem
 	
 	public void Initialize()
 	{
-		NoticeSystem.Instance.Subscribe<HandCardSelectNotice>(OnHandCardSelect);
-		NoticeSystem.Instance.Subscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
 		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
 		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
-		NoticeSystem.Instance.Subscribe<HandCardStartUseNotice>(OnCardStartUse);
-		NoticeSystem.Instance.Subscribe<HandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
+		NoticeSystem.Instance.Subscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
@@ -96,10 +96,10 @@ public class DeckSystem
 		{
 			cardObject.Dispose();
 		}
-		NoticeSystem.Instance.Unsubscribe<HandCardSelectNotice>(OnHandCardSelect);
-		NoticeSystem.Instance.Unsubscribe<HandCardSelectCancelNotice>(OnHandCardSelectCancel);
-		NoticeSystem.Instance.Unsubscribe<HandCardStartUseNotice>(OnCardStartUse);
-		NoticeSystem.Instance.Unsubscribe<HandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
 		NoticeSystem.Instance.Unsubscribe<FieldCardSelectNotice>(OnFieldCardSelect);
 		NoticeSystem.Instance.Unsubscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
@@ -138,28 +138,28 @@ public class DeckSystem
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 	
-	private void OnHandCardSelect(HandCardSelectNotice m)
+	private void OnHandCardSelect(SkillHandCardSelectNotice m)
 	{
 		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 
-	private void OnHandCardSelectCancel(HandCardSelectCancelNotice m)
+	private void OnHandCardSelectCancel(SkillHandCardSelectCancelNotice m)
 	{
 		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 
-	private void OnCardStartUse(HandCardStartUseNotice m)
+	private void OnCardStartUse(SkillHandCardStartUseNotice m)
 	{
 		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 
-	private void OnCardEndUse(HandCardEndUseNotice m)
+	private void OnCardEndUse(SkillHandCardEndUseNotice m)
 	{
 		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
