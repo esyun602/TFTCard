@@ -56,7 +56,6 @@ public class PlayInfo
 					{
 						toDeployCount--;
 						var targetCard = BagUnitCardList[^1];
-						BagUnitCardList.Remove(targetCard);
 						DeployCard(row, col, targetCard);
 					}
 				}
