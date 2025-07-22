@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -21,12 +22,16 @@ public class GameString : GameData
 
 	public override void Dispose()
 	{
-		throw new System.NotImplementedException();
 	}
 
 	//todo: language 대응 추가 필요
-	public void GetString(string key)
+	public string GetString(string key)
 	{
-		
+		return korStringKeyDict.GetValueOrDefault(key);
+	}
+	
+	public string Format(string key, params object[] parameters)
+	{
+		return String.Format(GetString(key), parameters);
 	}
 }
