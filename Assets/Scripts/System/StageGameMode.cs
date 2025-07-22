@@ -43,6 +43,11 @@ public abstract class StageGameMode : IGameMode
 		NoticeSystem.Instance.Publish(new StageClearNotice());
 	}
 
+	public void GameOver()
+	{
+		NoticeSystem.Instance.Publish(new GameOverNotice());
+	}
+
 	protected virtual IEnumerator StageStartRoutine()
 	{
 		yield return null;

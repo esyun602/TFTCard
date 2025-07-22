@@ -85,15 +85,22 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 	private void OnBattleObjectEliminate(BattleObjectTypeEliminateNotice m)
 	{
-		if (m.Type != ObjectType.Enemy) return;
-		if (WaveSystem.TrySpawnNextWave(out var routine))
+		if (m.Type == ObjectType.Ally)
 		{
-			m.Context.AddChain(routine);
+			GameOver();
+			battleStageStateMachine.ChangeState(new BattleStageGameOverState(this));
 		}
-		else
+		else if (m.Type == ObjectType.Enemy)
 		{
-			ClearStage();
-			battleStageStateMachine.ChangeState(new BattleStageGameEndState(this));
+			if (WaveSystem.TrySpawnNextWave(out var routine))
+			{
+				m.Context.AddChain(routine);
+			}
+			else
+			{
+				ClearStage();
+				battleStageStateMachine.ChangeState(new BattleStageGameClearState(this));
+			}
 		}
 	}
 
@@ -167,11 +174,11 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 	}
 
-	private class BattleStageGameEndState : IState, IUpdatable
+	private class BattleStageGameClearState : IState, IUpdatable
 	{
 		private BattleStageGameMode owner;
 		
-		public BattleStageGameEndState(BattleStageGameMode owner)
+		public BattleStageGameClearState(BattleStageGameMode owner)
 		{
 			this.owner = owner;
 		}
@@ -186,6 +193,36 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		
 		//todo: 고도화(캐시 사용)
 		private void ReturnToMapGameMode()
+		{
+			Game.Instance.ChangeGameMode(new MapGameMode());
+		}
+
+		public void Exit(IState nextState)
+		{
+			
+		}
+
+		public void UpdateFrame(float dt)
+		{
+			
+		}
+	}
+	
+	private class BattleStageGameOverState : IState, IUpdatable
+	{
+		private BattleStageGameMode owner;
+		
+		public BattleStageGameOverState(BattleStageGameMode owner)
+		{
+			this.owner = owner;
+		}
+		public void Enter(IState prevState)
+		{
+			Game.Instance.UIManager.GenerateUI<GameOverPanel>();
+		}
+		
+		//todo: 고도화(캐시 사용)
+		private void ReturnToTitleGameMode()
 		{
 			Game.Instance.ChangeGameMode(new MapGameMode());
 		}
