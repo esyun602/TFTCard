@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 
 public class CsvToJsonWindow : EditorWindow
 {
