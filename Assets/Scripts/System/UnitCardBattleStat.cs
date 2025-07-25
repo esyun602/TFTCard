@@ -120,6 +120,11 @@ public class UnitCardBattleStat : IStat
 
 		return true;
 	}
+
+	public IBuff GetBuff<T>() where T : IBuff
+	{
+		return buffList.Find(buff => buff is T);
+	}
 	
 
 	public UnitCardBattleStat(IBattleObject owner, UnitCardStat unitCardStat)
@@ -154,7 +159,7 @@ public class UnitCardBattleStat : IStat
 			case ValueType.Shield:
 				return new int[] { Shield };
 			default:
-				return new int[] { };
+				return new int[] { GetValueFromBuffs(type) };
 		}
 	}
 

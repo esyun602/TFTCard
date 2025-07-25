@@ -212,6 +212,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	{
 		if (UnitCardBattleStat.GetValueByValueType(ValueType.Stun) > 0)
 		{
+			NoticeSystem.Instance.Publish(new TurnStartBlockByStunNotice(this));
 			return;
 		}
 		ChangeState(new CardObjectActionState(this, overrideTurnCount));
@@ -542,6 +543,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			owner.routine.Initialize();
 			owner.UnitCardBattleStat.TurnCount -= turnCount;
 			currentUpdateAction = UpdateTurnCount;
+			NoticeSystem.Instance.Publish(new TurnStartNotice(owner));
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
 		}
 
@@ -599,6 +601,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			owner.transform.localScale = Vector3.one;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldYPos);
+			//todo: end 날리는 타이밍을 chain 루틴이 다 끝나고 날려야 되는지 고민 필요
+			NoticeSystem.Instance.Publish(new TurnEndNotice(owner));
 		}
 	}
 

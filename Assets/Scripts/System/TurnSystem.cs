@@ -73,7 +73,6 @@ public class TurnSystem
 
 		currentObject = (ITurnObject)currentTurnEnumerator.Current;
 		currentObject.StartTurn();
-		NoticeSystem.Instance.Publish(new TurnStartNotice(currentObject));
 		currentUpdateRoutine = UpdateAutoTurn;
 	}
 
@@ -115,12 +114,10 @@ public class TurnSystem
 		currentObject.UpdatableRoutine.UpdateFrame(dt, out var routineDone);
 		if (routineDone)
 		{
-			NoticeSystem.Instance.Publish(new TurnEndNotice(currentObject));
 			if (currentTurnEnumerator.MoveNext())
 			{
 				currentObject = (ITurnObject)currentTurnEnumerator.Current;
 				currentObject.StartTurn();
-				NoticeSystem.Instance.Publish(new TurnStartNotice(currentObject));
 			}
 			else
 			{

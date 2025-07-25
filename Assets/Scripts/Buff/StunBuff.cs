@@ -7,17 +7,17 @@ public class StunBuff : IBuff
 	public ValueType ControlValueType => ValueType.Stun;
 	public int Level => 1;
 	public void OnAdd(IBattleObject target)
-	{
+	{	
 		this.target = target;
-		NoticeSystem.Instance.Subscribe<TurnStartNotice>(OnTurnStart);
+		NoticeSystem.Instance.Subscribe<TurnStartBlockByStunNotice>(OnTurnStart);
 	}
 
 	public void OnRemove()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnStartNotice>(OnTurnStart);
+		NoticeSystem.Instance.Unsubscribe<TurnStartBlockByStunNotice>(OnTurnStart);
 	}
 
-	private void OnTurnStart(TurnStartNotice m)
+	private void OnTurnStart(TurnStartBlockByStunNotice m)
 	{
 		if (m.TargetObject == target)
 		{
