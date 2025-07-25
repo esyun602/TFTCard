@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using MessageSystem;
 using UnityEngine;
 
+//todo: 추후에 데이터 빼면 hashmap으로 묶어 쓰는게 나을 듯
 public class SkillCardBattleStat : IStat
 {	
 	private SkillCardStat originStat;
@@ -11,11 +12,11 @@ public class SkillCardBattleStat : IStat
 	public int AttackValue { get; set; }
 	public int CostValue { get; set; }
 	public int ShieldValue { get; set; }
-
-	private List<IOption> optionList;
-	//field scope 기믹
-	private List<IBuff> buffList;
-	private List<Synergy> synergyList;
+	public int BurnValue { get; set; }
+	public int CatalystValue { get; set; }
+	public int StunValue { get; set; }
+	public int DodgeValue { get; set; }
+	
 
 	public SkillCardBattleStat(SkillCardStat skillCardStat)
 	{
@@ -25,6 +26,11 @@ public class SkillCardBattleStat : IStat
 		TurnCountValue = skillCardStat.TurnCountValue;
 		CostValue = skillCardStat.CostValue;
 		ShieldValue = skillCardStat.ShieldValue;
+		
+		BurnValue = skillCardStat.BurnValue;
+		CatalystValue = skillCardStat.CatalystValue;
+		StunValue = skillCardStat.StunValue;
+		DodgeValue = skillCardStat.DodgeValue;
 	}
 	
 	public int[] GetValuesByValueType(ValueType type)
@@ -43,6 +49,14 @@ public class SkillCardBattleStat : IStat
 				return new int[] { CostValue };
 			case ValueType.Shield:
 				return new int[] { ShieldValue };
+			case ValueType.Burn:
+				return new int[] { BurnValue };
+			case ValueType.Catalyst:
+				return new int[] { CatalystValue };
+			case ValueType.Stun:
+				return new int[] { StunValue };
+			case ValueType.Dodge:
+				return new int[] { DodgeValue };
 			default:
 				return new int[] { };
 		}

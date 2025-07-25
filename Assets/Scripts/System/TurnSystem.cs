@@ -73,6 +73,7 @@ public class TurnSystem
 
 		currentObject = (ITurnObject)currentTurnEnumerator.Current;
 		currentObject.StartTurn();
+		NoticeSystem.Instance.Publish(new TurnStartNotice(currentObject));
 		currentUpdateRoutine = UpdateAutoTurn;
 	}
 
@@ -135,7 +136,4 @@ public class TurnSystem
 	{
 		priorityRoutine = routine;
 	}
-
-//턴?
-//이동/소환 -> 턴종 --> 플레이어 턴도 speed를 가지게?
 }

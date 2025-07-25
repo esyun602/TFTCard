@@ -23,6 +23,7 @@ public class PlayInfo
 	//todo: fix?
 	public List<SkillCard> DeckCardList { get; } = new();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
+	private List<ISynergy> activatedByDeploySynergyList { get; } = new();
 	public MapInfo CurrentMapInfo { get; set; }
 	public MapNodeInfo CurrentSelectedNode { get; private set; }
 	//todo: to constant

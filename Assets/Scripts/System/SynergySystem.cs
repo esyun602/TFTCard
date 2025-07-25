@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SynergySystem
 {
-	private Dictionary<Synergy, List<IBattleObject>> synergyBattleObjectMap;
+	private Dictionary<SynergyCategory, List<IBattleObject>> synergyBattleObjectMap;
 
 	public void Initialize()
 	{

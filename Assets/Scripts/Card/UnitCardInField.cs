@@ -18,6 +18,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public Vector3 Position => transform.position;
 	private Transform transformCache;
 	public Transform Transform => transformCache == null ? transformCache = transform : transformCache;
+	//todo: 다른 battle object 추가할 때 순환참조 해결하는게 좋을듯
 	public UnitCardBattleStat UnitCardBattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
 	private Material materialCache;
@@ -30,10 +31,50 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
 	}
 
-	//todo: context?
+	//todo: damageinfo로 수정
 	public void Damage(IBattleObject sender, int dmg)
 	{
-		dmg = ProcessShield(dmg);
+		if (ProcessDodge(sender))
+		{
+			return;
+		}
+		
+		dmg = this.CalculateDamageFromStat(dmg);
+		//dmg = 0 일 때 별도 연출 처리
+		if (dmg != 0)
+		{
+			dmg = ProcessShield(dmg);
+		
+			RunHitAction();
+		}
+
+		if (dmg != 0)
+		{
+			UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
+			NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
+			//todo: 죽음 및 데미지 처리 관련 다듬기 필요
+			if (UnitCardBattleStat.IsDead)
+			{
+				Die(sender);
+			}
+		}
+	}
+
+	private bool ProcessDodge(IBattleObject sender)
+	{
+		if (UnitCardBattleStat.GetValueByValueType(ValueType.Dodge) > 0)
+		{
+			NoticeSystem.Instance.Publish(new DamageDodgeNotice(sender, this));
+			RunHitAction();
+
+			return true;
+		}
+
+		return false;
+	}
+
+	private void RunHitAction()
+	{
 		var movSeq = DOTween.Sequence();
 		movSeq.Append(Transform
 			.DOMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right + Position,
@@ -47,17 +88,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		//틴트, 데미지 텍스트
 		
 		movSeq.Play();
-
-		if (dmg != 0)
-		{
-			UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
-			NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
-			//todo: 죽음 및 데미지 처리 관련 다듬기 필요
-			if (UnitCardBattleStat.IsDead)
-			{
-				Die(sender);
-			}
-		}
 	}
 
 	private int ProcessShield(int dmg)
@@ -72,6 +102,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	{
 		Deactivate();
 		targetUnitCard.UnitSkillCard.Owner = null;
+		UnitCardBattleStat.RemoveAllBuff();
 		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
 	}
 
@@ -141,7 +172,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	}
 
 	//todo: hand와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
-	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, UnitCardBattleStat unitCardBattleStat,
+	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, UnitCardStat unitCardStat,
 		ObjectType objectType)
 	{
 		//todo: pooling
@@ -152,6 +183,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
 
 		cardObject.objectType = objectType;
+		var unitCardBattleStat = new UnitCardBattleStat(cardObject, unitCardStat);
 		cardObject.UnitCardBattleStat = unitCardBattleStat;
 
 		//todo: fix
@@ -173,11 +205,15 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public static UnitCardInField Instantiate(UnitCardSpec unitCardSpec, ITile targetTile, ObjectType objectType)
 	{
 		var card = new UnitCard(unitCardSpec);
-		return Instantiate(card, targetTile, new UnitCardBattleStat(card.Stat), objectType);
+		return Instantiate(card, targetTile,card.Stat, objectType);
 	}
 
 	public void StartTurn(int overrideTurnCount)
 	{
+		if (UnitCardBattleStat.GetValueByValueType(ValueType.Stun) > 0)
+		{
+			return;
+		}
 		ChangeState(new CardObjectActionState(this, overrideTurnCount));
 	}
 

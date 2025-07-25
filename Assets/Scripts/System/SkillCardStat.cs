@@ -5,7 +5,11 @@ public class SkillCardStat : IStat
 	public int HpValue { get; set; }
 	public int AttackValue { get; set; }
 	public int CostValue { get; set; }
-	public int ShieldValue { get; set; }
+	public int ShieldValue { get; set; }	
+	public int BurnValue { get; set; }
+	public int CatalystValue { get; set; }
+	public int StunValue { get; set; }
+	public int DodgeValue { get; set; }
 
 	public SkillCardStat(SkillCardStatSpec statSpec)
 	{
@@ -30,6 +34,14 @@ public class SkillCardStat : IStat
 				return new int[] { AttackValue };
 			case ValueType.Cost:
 				return new int[] { CostValue };
+			case ValueType.Burn:
+				return new int[] { BurnValue };
+			case ValueType.Catalyst:
+				return new int[] { CatalystValue };
+			case ValueType.Stun:
+				return new int[] { StunValue };
+			case ValueType.Dodge:
+				return new int[] { DodgeValue };
 			default:
 				return new int[] { };
 		}

@@ -15,7 +15,7 @@ public class BattleUI : UIInstance
 	[SerializeField]
 	private TextMeshProUGUI energy;
 
-	private Dictionary<Synergy, SynergyLabel> synergyLabelMap = new();
+	private Dictionary<SynergyCategory, SynergyLabel> synergyLabelMap = new();
 	[SerializeField]
 	private SynergyLabel synergyLabelPrefab;
 
@@ -70,16 +70,16 @@ public class BattleUI : UIInstance
 	{
 		if (m.Count <= 0)
 		{
-			synergyLabelMap[m.TargetSynergy] = null;
+			synergyLabelMap[m.TargetSynergyCategory] = null;
 
 			return;
 		}
 		
-		if (!synergyLabelMap.TryGetValue(m.TargetSynergy, out var label))
+		if (!synergyLabelMap.TryGetValue(m.TargetSynergyCategory, out var label))
 		{
 			label = Instantiate(synergyLabelPrefab, synergyContentTransform);
-			label.Initialize(m.TargetSynergy);
-			synergyLabelMap[m.TargetSynergy] = label;
+			label.Initialize(m.TargetSynergyCategory);
+			synergyLabelMap[m.TargetSynergyCategory] = label;
 		}
 		
 		label.SynergyCount = m.Count;

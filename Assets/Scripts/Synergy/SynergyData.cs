@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum Synergy
+public enum SynergyCategory
 {
 	Test1,
 	Test2
@@ -13,20 +13,20 @@ public enum Synergy
 public class SynergyData : GameData
 {
 	[SerializeField] private List<SynergySpec> synergySpecList;
-	private Dictionary<Synergy, SynergySpec> synergyMap;
+	private Dictionary<SynergyCategory, SynergySpec> synergyMap;
 
 	public override void Initialize()
 	{
 		synergyMap = new();
 		foreach (var synergySpec in synergySpecList)
 		{
-			synergyMap[synergySpec.synergy] = synergySpec;
+			synergyMap[synergySpec.synergyCategory] = synergySpec;
 		}
 	}
 
-	public SynergySpec GetSynergySpec(Synergy synergy)
+	public SynergySpec GetSynergySpec(SynergyCategory synergyCategory)
 	{
-		return synergyMap.GetValueOrDefault(synergy);
+		return synergyMap.GetValueOrDefault(synergyCategory);
 	}
 	
 	public override void Dispose()

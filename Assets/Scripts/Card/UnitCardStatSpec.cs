@@ -8,7 +8,7 @@ public class UnitCardStatSpec : ScriptableObject, IStat
 	public int attack;
 	public int turnCount;
 	public int cost;
-	public Synergy[] synergy;
+	public SynergyCategory[] synergy;
 
 	public int[] GetValuesByValueType(ValueType type)
 	{

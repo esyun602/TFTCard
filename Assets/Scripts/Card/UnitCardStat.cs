@@ -7,7 +7,7 @@ public class UnitCardStat : IStat
 	public int MaxHp { get; set; }
 	public int Attack { get; set; }
 	public int Cost { get; set; }
-	public List<Synergy> synergyList = new();
+	public List<SynergyCategory> synergyList = new();
 	private UnitCardStatSpec staticStatSpec;
 
 	public UnitCardStat(UnitCardStatSpec statSpec)

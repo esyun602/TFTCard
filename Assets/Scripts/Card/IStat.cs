@@ -7,7 +7,11 @@ public enum ValueType
 	MaxTurnCount,
 	Attack,
 	Cost,
-	Shield
+	Shield,
+	Burn,
+	Catalyst,
+	Stun,
+	Dodge,
 }
 
 public interface IStat
