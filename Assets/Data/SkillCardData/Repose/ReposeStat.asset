@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 199d4b3b9d5344e0b485d5ba1fe5a802, type: 3}
-  m_Name: New Skill Card Stat Spec
+  m_Name: ReposeStat
   m_EditorClassIdentifier: 
   turnCountValue: 0
   hpValue: 0
   attackValue: 3
-  costValue: 1
-  shieldValue: 0
+  costValue: 0

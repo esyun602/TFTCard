@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: TestSynergyData
   m_EditorClassIdentifier: 
   synergySpecList:
-  - {fileID: 11400000, guid: 6f76e7d9887508e4391c95de23cd8e4f, type: 2}
-  - {fileID: 11400000, guid: c1e3c81239a3a1d4bb481efd49d60abd, type: 2}
+  - {fileID: 11400000, guid: 29dccbb334fd60346892a39761175b46, type: 2}

@@ -19,6 +19,7 @@ public class DeckSystem
 			energy = value;
 		}
 	}
+	public int CardMoveCount { get; set; }
 	public PlayerHand PlayerHand { get; } = new();
 	public PlayerField PlayerField { get; } = new();
 
@@ -47,6 +48,7 @@ public class DeckSystem
 		PlayerField.Initialize();
 		
 		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
+		CardMoveCount = 0;
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);

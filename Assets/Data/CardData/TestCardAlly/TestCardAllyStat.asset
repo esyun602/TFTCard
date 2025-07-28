@@ -16,4 +16,4 @@ MonoBehaviour:
   attack: 2
   turnCount: 1
   cost: 1
-  synergy: 0000000001000000
+  synergy: 00000000

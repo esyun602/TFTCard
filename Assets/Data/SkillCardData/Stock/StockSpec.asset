@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c00cfc037040cdae545ebec912f10b, type: 3}
-  m_Name: New Skill Card Spec
+  m_Name: StockSpec
   m_EditorClassIdentifier: 
-  statSpec: {fileID: 11400000, guid: a6f2eac3e93b11c44aa77a737beb1066, type: 2}
+  statSpec: {fileID: 11400000, guid: 7dddfb6ab2dac1740bf9c0e7143b556e, type: 2}
   cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
-  actionData: {fileID: 11400000, guid: 1f5d8435a6c7478439ef922128fe2927, type: 2}
+  actionSpec: {fileID: 11400000, guid: 13a06a9e87265ee478b89830f3d94a2c, type: 2}
+  cardUseType: 1

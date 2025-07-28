@@ -131,7 +131,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		return target is { TileType: ObjectType.Ally } &&
 		       (target == Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
 			        .GetTileOfBattleObject(this) ||
-		        Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy > 0);
+		        Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.CardMoveCount > 0);
 	}
 
 	private void ChangeState(IState targetState)
@@ -504,7 +504,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		public void Enter(IState prevState)
 		{
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().GetCurrentStage().Map;
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= 1;
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.CardMoveCount -= 1;
 			owner.transform.position = targetTile.GetPosition();
 			owner.transform.up = Camera.main.transform.up;
 

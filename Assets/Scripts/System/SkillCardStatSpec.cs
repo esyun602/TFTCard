@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//todo: dictionary 형태 인스펙터에 띄우기
 [CreateAssetMenu]
 public class SkillCardStatSpec : ScriptableObject, IStat
 {
