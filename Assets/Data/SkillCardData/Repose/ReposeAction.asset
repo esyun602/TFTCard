@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fee8371d5f24397afcc28940eba6d3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 875112326ba44556adb9ad40c043b501, type: 3}
   m_Name: ReposeAction
   m_EditorClassIdentifier: 
-  actionDuration: 0.5
-  fxPrefab: {fileID: 4075397547705564689, guid: 92c7d2f99a71f01458e72ffd12edd8b2, type: 3}
+  actionDuration: 0
+  fxPrefab: {fileID: 0}

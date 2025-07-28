@@ -26,9 +26,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 032b97099ebfcfc4680318019ca8ab08, type: 2}
   - {fileID: 11400000, guid: 7647de1f7081d724080b56ed6c90e4f2, type: 2}
   SkillCardSpecList:
+  - {fileID: 11400000, guid: 6a641748398c6274191f79e23f42355c, type: 2}
   - {fileID: 11400000, guid: 78ac35212ad83fc45b665c65460ad828, type: 2}
+  - {fileID: 11400000, guid: 5c76180d2804eff46830f60605de0773, type: 2}
+  - {fileID: 11400000, guid: fb79827425da7c745935a31fa7730282, type: 2}
+  - {fileID: 11400000, guid: df19c1752481bf1438265cf39014b44f, type: 2}
   - {fileID: 11400000, guid: 615bf47bb8e1593438a51fb0d5e902fc, type: 2}
-  - {fileID: 11400000, guid: fb79827425da7c745935a31fa7730282, type: 2}
-  - {fileID: 11400000, guid: fb79827425da7c745935a31fa7730282, type: 2}
-  - {fileID: 11400000, guid: fb79827425da7c745935a31fa7730282, type: 2}
-  - {fileID: 11400000, guid: fb79827425da7c745935a31fa7730282, type: 2}
+  - {fileID: 11400000, guid: 239cb3bde5d25364f9fed15c206f2a1c, type: 2}

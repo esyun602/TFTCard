@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu]
 public class FireArrowSkillActionSpec : SkillCardActionSpec
 {
 	public float actionDuration;

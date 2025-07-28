@@ -1,5 +1,5 @@
 using UnityEngine;
-
+[CreateAssetMenu]
 public class StockSkillActionSpec : SkillCardActionSpec
 {
 	public float actionDuration;
