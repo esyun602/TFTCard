@@ -48,6 +48,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	{
 		//todo: fix
 		DeckSystem.SpawnAllyUnits();
+		SynergySystem.ActivateSynergies();
 		if (WaveSystem.TrySpawnNextWave(out var initialRoutine))
 		{
 			battleStageStateMachine.ChangeState(new BattleStageInitState(this, initialRoutine));

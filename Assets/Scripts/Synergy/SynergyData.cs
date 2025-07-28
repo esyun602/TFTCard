@@ -5,8 +5,7 @@ using UnityEngine;
 
 public enum SynergyCategory
 {
-	Test1,
-	Test2
+	SteamEngine,
 }
 
 [CreateAssetMenu]

@@ -103,6 +103,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		Deactivate();
 		targetUnitCard.UnitSkillCard.Owner = null;
 		UnitCardBattleStat.RemoveAllBuff();
+		UnitCardBattleStat.RemoveAllOption();
 		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
 	}
 

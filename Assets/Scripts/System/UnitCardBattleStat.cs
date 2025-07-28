@@ -17,6 +17,7 @@ public class UnitCardBattleStat : IStat
 	
 	#region BattleValue
 	private int hp;
+	//todo: public setter 제거
 	public int Hp
 	{
 		get => hp;
@@ -55,10 +56,57 @@ public class UnitCardBattleStat : IStat
 	public bool IsDead => Hp == 0;
 
 
-	private List<IOption> optionList;
+	private Dictionary<Type, IOption> optionDict = new();
 	//field scope 기믹
-	private List<IBuff> buffList;
-	private List<SynergyCategory> synergyList;
+	private List<IBuff> buffList = new();
+	private List<SynergyCategory> synergyList = new();
+
+	public void AddOption(IOption targetOption)
+	{
+		//stack 루틴 분리 안해도 될 것 같은데, 추후 필요하면 수정
+		optionDict.TryGetValue(targetOption.GetType(), out var option);
+		if (option != null)
+		{
+			option.Level = Mathf.Max(option.Level, targetOption.Level);
+			return;
+		}
+			
+		optionDict[targetOption.GetType()] = targetOption;
+		targetOption.OnAdd(owner);
+	}
+
+	public bool RemoveOption<T>() where T : IOption
+	{
+		var exist = optionDict.TryGetValue(typeof(T), out var option);
+		if (exist)
+		{
+			return RemoveOption(option);
+		}
+
+		return false;
+	}
+
+	public bool RemoveOption(IOption targetOption)
+	{
+		var removed = optionDict.Remove(targetOption.GetType());
+		if (removed)
+		{
+			targetOption.OnRemove();
+		}
+
+		return removed;
+	}
+
+	public void RemoveAllOption()
+	{
+		foreach (var kvp in optionDict)
+		{
+			kvp.Value.OnRemove();
+		}
+		
+		optionDict.Clear();
+	}
+	
 
 	public void AddBuff(IBuff targetBuff)
 	{
@@ -112,6 +160,7 @@ public class UnitCardBattleStat : IStat
 			return false;
 		}
 		
+		targetBuff.OnRemove();
 		var curValue = this.GetValueByValueType(targetBuff.ControlValueType);
 		if (prevValue != curValue)
 		{

@@ -4,6 +4,12 @@ public class BurnBuff : IBuff
 {
 	private IBattleObject target;
 	private int burnLevel;
+
+	public BurnBuff(int burnLevel)
+	{
+		this.burnLevel = burnLevel;
+	}
+
 	public BuffType BuffType => BuffType.Negative;
 	public ValueType ControlValueType => ValueType.Burn;
 	public int Level => burnLevel;

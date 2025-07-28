@@ -20,12 +20,16 @@ public class DeployInfo
 public class PlayInfo
 {
 	public List<UnitCard> BagUnitCardList { get; } = new();
+
 	//todo: fix?
 	public List<SkillCard> DeckCardList { get; } = new();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
-	private List<ISynergy> activatedByDeploySynergyList { get; } = new();
+	private Dictionary<SynergyCategory, int> synergyNumDict = new();
+	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
 	public MapInfo CurrentMapInfo { get; set; }
+
 	public MapNodeInfo CurrentSelectedNode { get; private set; }
+
 	//todo: to constant
 	public int MaxDeployCount { get; private set; } = 3;
 	public int DrawCount { get; private set; } = 5;
@@ -33,6 +37,9 @@ public class PlayInfo
 	//todo: additional value
 	public int MaxEnergy => Constant.DefaultEnergy;
 
+	/// <summary>
+	/// 최대 배치 가능 갯수에 맞게 normalize
+	/// </summary>
 	public void NormalizeFieldDeployLocationInfo()
 	{
 		if (FieldDeployLocationInfo.Count == MaxDeployCount)
@@ -52,7 +59,7 @@ public class PlayInfo
 					{
 						return;
 					}
-					
+
 					if (!FieldDeployLocationInfo.Any(info => info.Row == row && info.Col == col))
 					{
 						toDeployCount--;
@@ -75,13 +82,22 @@ public class PlayInfo
 		if (isInBag)
 		{
 			var unitSkillCard = targetCard.UnitSkillCard;
+			foreach (var synergy in targetCard.Stat.synergyList)
+			{
+				if (!synergyNumDict.TryAdd(synergy, 1))
+				{
+					synergyNumDict[synergy]++;
+				}
+			}
+
 			DeckCardList.Add(unitSkillCard);
+			RefreshSynergyList();
 		}
-		
+
 		var info = FieldDeployLocationInfo.Find(info => info.TargetCard == targetCard);
-		
+
 		FieldDeployLocationInfo.Remove(info);
-		
+
 		FieldDeployLocationInfo.Add(new DeployInfo(row, col, targetCard));
 
 		NormalizeLocationInfos();
@@ -93,8 +109,45 @@ public class PlayInfo
 		BagUnitCardList.Add(targetCard);
 		var unitSkillCard = targetCard.UnitSkillCard;
 		DeckCardList.Remove(unitSkillCard);
-			
+
+		foreach (var synergy in targetCard.Stat.synergyList)
+		{
+			synergyNumDict[synergy]--;
+		}
+
 		NormalizeLocationInfos();
+		RefreshSynergyList();
+	}
+
+	private void RefreshSynergyList()
+	{
+		var kvps = synergyNumDict.ToList();
+		foreach (var kvp in kvps)
+		{
+			if (kvp.Value == 0)
+			{
+				synergyNumDict.Remove(kvp.Key);
+				var synergy = activatedByDeploySynergyDict[kvp.Key];
+				synergy.Dispose();
+				activatedByDeploySynergyDict.Remove(kvp.Key);
+			}
+			else
+			{
+				if (activatedByDeploySynergyDict.TryGetValue(kvp.Key, out var synergy))
+				{
+					synergy.Level = kvp.Value;
+				}
+				else
+				{
+					if (GameDataSystem.Instance.GetGameData<SynergyData>()
+					    .GetSynergySpec(kvp.Key).TryGenerateGlobalSynergyInstance(out var newSynergy))
+					{
+						activatedByDeploySynergyDict[kvp.Key] = newSynergy;
+						newSynergy.Initialize();
+					}
+				}
+			}
+		}
 	}
 
 	private void NormalizeLocationInfos()
@@ -106,12 +159,12 @@ public class PlayInfo
 				for (int col = 2; col >= 0; col--)
 				{
 					var info = FieldDeployLocationInfo.Find(info => info.Row == row && info.Col == col);
-					
+
 					if (info != null)
 					{
 						info.Col = 3;
 						break;
-					}	
+					}
 				}
 			}
 		}

@@ -1,8 +1,5 @@
-using System;
-using System.Reflection;
-
-
 public interface ISynergy
 {
-	public void Initialize();
+	public int Level { get; set; }
+	public SynergySpec Spec { get; }
 }

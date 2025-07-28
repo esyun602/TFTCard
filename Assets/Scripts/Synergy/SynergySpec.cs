@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu]
 public abstract class SynergySpec : ScriptableObject
 {
 	public SynergyCategory synergyCategory; 
@@ -12,5 +11,6 @@ public abstract class SynergySpec : ScriptableObject
 	public List<int> synergyCountList;
 	public List<string> desc;
 
-	public abstract ISynergy GenerateSynergyInstance();
+	public abstract bool TryGenerateGlobalSynergyInstance(out IGlobalSynergy globalSynergy);
+	public abstract bool TryGenerateBattleSynergyInstance(out IBattleSynergy battleSynergy);
 }
