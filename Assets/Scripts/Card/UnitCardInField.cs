@@ -25,7 +25,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private Material Material => materialCache == null ? materialCache = transform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
 
 	private bool onAnimation = false;
-
+	
 	public void CatchMessage(Message m)
 	{
 		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
@@ -101,7 +101,9 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public void Die(IBattleObject destroyer)
 	{
 		Deactivate();
-		targetUnitCard.UnitSkillCard.Owner = null;
+		
+		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard).SetOwner(null);
+			
 		UnitCardBattleStat.RemoveAllBuff();
 		UnitCardBattleStat.RemoveAllOption();
 		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
@@ -173,8 +175,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	}
 
 	//todo: hand와 같은 리소스 쓰는게 확정되면 리소스 재활용 추가
-	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, UnitCardStat unitCardStat,
-		ObjectType objectType)
+	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, ObjectType objectType)
 	{
 		//todo: pooling
 		var cardObject = GameObject
@@ -184,7 +185,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
 
 		cardObject.objectType = objectType;
-		var unitCardBattleStat = new UnitCardBattleStat(cardObject, unitCardStat);
+		var unitCardBattleStat = new UnitCardBattleStat(cardObject, targetUnitCard.Stat);
 		cardObject.UnitCardBattleStat = unitCardBattleStat;
 
 		//todo: fix
@@ -198,7 +199,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard.UnitCardStaticSpec, unitCardBattleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 
-		targetUnitCard.UnitSkillCard.Owner = cardObject;
+		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)?.SetOwner(cardObject);
 		
 		return cardObject;
 	}
@@ -206,7 +207,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public static UnitCardInField Instantiate(UnitCardSpec unitCardSpec, ITile targetTile, ObjectType objectType)
 	{
 		var card = new UnitCard(unitCardSpec);
-		return Instantiate(card, targetTile,card.Stat, objectType);
+		return Instantiate(card, targetTile, objectType);
 	}
 
 	public void StartTurn(int overrideTurnCount)

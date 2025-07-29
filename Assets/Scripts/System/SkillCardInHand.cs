@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-//todo: 우선 타게팅만
+//todo: 네이밍 수정 및 이동 관련 분리
 public class SkillCardInHand : BattleCardObjectInHand
 {
 	public bool IsTargeting => targetCard.SkillCardStaticSpec.cardUseType == UseType.Targeting;
@@ -21,22 +21,29 @@ public class SkillCardInHand : BattleCardObjectInHand
 		cardObject.gameObject.SetActive(false);
 		cardObject.targetCard = targetSkillCard;
 		cardObject.battleStat = skillCardStat;
-		cardObject.targetCard.Action.SetCardStat(skillCardStat);
+		cardObject.targetCard.Action.SetCardBattleStat(skillCardStat);
 
 		return cardObject;
 	}
 
+	public bool IsInstanceOf(SkillCard target)
+	{
+		return target == targetCard;
+	}
+
+	public void SetOwner(IBattleObject bo)
+	{
+		battleStat.Owner = bo;
+	}
 
 	protected override bool CanUse(ITile tile = null)
 	{
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 		if (tile == null)
 		{
 			return false;
 		}
 
-		var bo = map.GetBattleObjectOfTile(tile);
-		return bo != null
+		return targetCard.Action.CanUse(tile)
 		       && cardObjectStateMachine.CurrentState is TargetingSkillCardSelectedInHandState;
 	}
 

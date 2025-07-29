@@ -5,6 +5,14 @@ public abstract class SkillCardActionBase : IAction
 	protected IUpdatableRoutine routine;
 	public IUpdatableRoutine UpdatableRoutine => routine;
 
+	public virtual bool CanUse(ITile targetTile)
+	{
+		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+
+		var bo = map.GetBattleObjectOfTile(targetTile);
+		return bo != null;
+	}
+	
 	protected SkillCardActionBase()
 	{
 		routine = new UpdatableRoutine(UpdateFrame);
@@ -24,7 +32,7 @@ public abstract class SkillCardActionBase : IAction
 		OnCancel();
 	}
 
-	public virtual void SetCardStat(SkillCardBattleStat stat)
+	public virtual void SetCardBattleStat(SkillCardBattleStat stat)
 	{
 		this.stat = stat;
 	}

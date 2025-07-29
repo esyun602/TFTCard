@@ -35,6 +35,9 @@ public class DeckSystem
 	
 	public void Initialize()
 	{
+		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		playInfo.NormalizeFieldDeployLocationInfo();
+		
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
@@ -170,10 +173,7 @@ public class DeckSystem
 	
 	public void SpawnAllyUnits()
 	{
-		//충분히 배치를 해주지 않았다면 임의 배치
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		playInfo.NormalizeFieldDeployLocationInfo();
-		
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 		var deployInfos = playInfo.FieldDeployLocationInfo;
 		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
@@ -181,8 +181,7 @@ public class DeckSystem
 		//todo: 소환순서..
 		foreach (var info in deployInfos)
 		{
-			var card = UnitCardInField.Instantiate(info.TargetCard.UnitCardStaticSpec, map.GetTileAt(info.Row, info.Col),
-				ObjectType.Ally);
+			var card = UnitCardInField.Instantiate(info.TargetCard, map.GetTileAt(info.Row, info.Col), ObjectType.Ally);
 				
 			PlayerField.AddToField(card);
 			
@@ -229,5 +228,10 @@ public class DeckSystem
 		{
 			DropCard(PlayerHand.CardList[i]);
 		}
+	}
+
+	public SkillCardInHand GetSkillCardInstance(SkillCard skillCard)
+	{
+		return (SkillCardInHand)deck.Find(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard));
 	}
 }

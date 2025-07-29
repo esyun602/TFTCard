@@ -3,9 +3,11 @@ using MessageSystem;
 using UnityEngine;
 
 //todo: 추후에 데이터 빼면 hashmap으로 묶어 쓰는게 나을 듯
+//todo: owner 있는 타입을 분리해서?
 public class SkillCardBattleStat : IStat
-{	
+{
 	private SkillCardStat originStat;
+	public IBattleObject Owner { get; set; }
 	
 	public int TurnCountValue { get; set; }
 	public int HpValue { get; set; }
