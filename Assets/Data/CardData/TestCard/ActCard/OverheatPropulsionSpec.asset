@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36be9efe775f42968e68f6fe43c8f5d5, type: 3}
-  m_Name: TestCard
+  m_Script: {fileID: 11500000, guid: b3c00cfc037040cdae545ebec912f10b, type: 3}
+  m_Name: OverheatPropulsionSpec
   m_EditorClassIdentifier: 
-  statSpec: {fileID: 11400000, guid: 19741edd579755042915f9c171156468, type: 2}
+  statSpec: {fileID: 11400000, guid: 7eb528c55d3cdf844b4c14b2b580d45a, type: 2}
   cardResource: {fileID: 21300000, guid: f51cdff2bd40ec44dac216da7c9685f1, type: 3}
-  actionData: {fileID: 11400000, guid: 42b1ab03786504840a30c9c3357dc0e3, type: 2}
-  targetSkillCardSpec: {fileID: 11400000, guid: 3d6a00c84ff927440a8a64293969509d, type: 2}
+  actionSpec: {fileID: 11400000, guid: 4f24eaa857f752b4e8200dac978052e8, type: 2}
+  cardUseType: 0
