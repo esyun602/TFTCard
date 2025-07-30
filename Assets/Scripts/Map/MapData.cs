@@ -33,7 +33,7 @@ public class MapData : ScriptableObject
 				.transform);
 		}
 
-		var mapInstance = new Map(go);
+		var mapInstance = new BattleMap(go);
 		return mapInstance;
 	}
 

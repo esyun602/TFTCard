@@ -42,7 +42,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		{
 			return false;
 		}
-
+		
 		return true;
 	}
 

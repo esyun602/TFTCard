@@ -18,14 +18,19 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public Vector3 Position => transform.position;
 	private Transform transformCache;
 	public Transform Transform => transformCache == null ? transformCache = transform : transformCache;
+
+	public Transform FrameTransform { get; private set; }
 	//todo: 다른 battle object 추가할 때 순환참조 해결하는게 좋을듯
 	public UnitCardBattleStat UnitCardBattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
 	private Material materialCache;
-	private Material Material => materialCache == null ? materialCache = transform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
+	private Material Material => materialCache == null ? materialCache = FrameTransform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
 
-	private bool onAnimation = false;
-	
+	private void Awake()
+	{
+		FrameTransform = transform.Find("CardFrame").transform;
+	}
+
 	public void CatchMessage(Message m)
 	{
 		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
@@ -76,12 +81,10 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private void RunHitAction()
 	{
 		var movSeq = DOTween.Sequence();
-		movSeq.Append(Transform
-			.DOMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right + Position,
+		movSeq.Append(FrameTransform
+			.DOLocalMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right,
 				0.15f).SetEase(Ease.InQuart));
-		movSeq.Append(Transform.DOMove(Position, 0.5f).SetEase(Ease.OutQuart));
-		movSeq.onComplete += () => onAnimation = false;
-		onAnimation = true;
+		movSeq.Append(FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
 
 		Material.DOFade(1, 0.15f).SetLoops(2, LoopType.Yoyo);
 		
@@ -222,7 +225,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	private void Update()
 	{
-		if (onAnimation) return;
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
 
@@ -272,7 +274,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 		public void Enter(IState prevState)
 		{
-			owner.transform.up = Camera.main.transform.up;
+			owner.Transform.up = Camera.main.transform.up;
 			Restart();
 			RestartHover();
 			//todo:fix
@@ -344,13 +346,13 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			hoverTimePassed += dt;
 			var progress = returnAnimationCurve.Evaluate(hoverTimePassed / hoverTime);
-			owner.transform.localScale = Vector3.Lerp(startScale, hoverTarget, progress);
+			owner.Transform.localScale = Vector3.Lerp(startScale, hoverTarget, progress);
 		}
 
 		private void RestartHover()
 		{
 			hoverTimePassed = 0f;
-			startScale = owner.transform.localScale;
+			startScale = owner.Transform.localScale;
 		}
 
 		private void Restart()
@@ -387,7 +389,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			InputManager.Instance.InputActions.Player.CancelHandCard.Enable();
 			InputManager.Instance.InputActions.Player.UseHandCard.performed += OnTryMoveCard;
 			InputManager.Instance.InputActions.Player.CancelHandCard.performed += OnCancelMoveCard;
-			owner.transform.up = Camera.main.transform.up;
+			owner.Transform.up = Camera.main.transform.up;
 			followAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardFollowingSpeedCurve;
 
 			var mouseScreenPos = Input.mousePosition;
@@ -482,7 +484,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			var realSpeed = followAnimationCurve.Evaluate(timePassed) * followSpeed;
 			var totalTime = Vector3.Distance(targetPos, owner.transform.position) / realSpeed;
 			owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
-			owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
+			owner.Transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
 					                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
 					                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
 				                                Vector3.Cross(Camera.main.transform.forward,
@@ -507,7 +509,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().GetCurrentStage().Map;
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.CardMoveCount -= 1;
 			owner.transform.position = targetTile.GetPosition();
-			owner.transform.up = Camera.main.transform.up;
+			owner.Transform.up = Camera.main.transform.up;
 
 			if (map.GetBattleObjectOfTile(targetTile) != null)
 			{
@@ -601,7 +603,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 		public void Exit(IState nextState)
 		{
-			owner.transform.localScale = Vector3.one;
+			owner.Transform.localScale = Vector3.one;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldYPos);
 			//todo: end 날리는 타이밍을 chain 루틴이 다 끝나고 날려야 되는지 고민 필요
 			NoticeSystem.Instance.Publish(new TurnEndNotice(owner));

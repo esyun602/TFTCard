@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using MessageSystem;
+using UnityEngine;
 
 public class BattleStageGameMode : StageGameMode, IUpdatable
 {
@@ -14,9 +15,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	public WaveSystem WaveSystem { get; }
 	public BattleFieldSystem BattleFieldSystem { get; }
 	public SynergySystem SynergySystem { get; }
-
+	public BattleStage BattleStage { get; }
 	private SimpleStateMachine battleStageStateMachine = new();
-
 	//todo: map gamemode 넣는게 맞나?
 	public BattleStageGameMode(List<WaveGrid> waveData, IStage targetStage) : base(targetStage)
 	{
@@ -25,6 +25,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem = new();
 		WaveSystem = new(waveData);
 		SynergySystem = new();
+		BattleStage =  (BattleStage)targetStage;
 	}
 
 	protected override void OnInitialize()

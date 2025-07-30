@@ -4,7 +4,7 @@ using UnityEngine;
 using Coroutine;
 using WaitForSeconds = Coroutine.WaitForSeconds;
 
-public class TestStage : StageBase
+public class TestStage : BattleStage
 {
 	private UnitCardSpec unitCardSpec;
 	public TestStage(UnitCardSpec unitCardSpec, StageSpec stageSpec) : base(stageSpec)

@@ -41,20 +41,17 @@ public class TestUnitCardAction : UnitCardActionBase
 	protected override void OnTrigger(object triggerInfo = null)
 	{
 		var rotSeq = DOTween.Sequence();
-		rotSeq.Append(owner.Transform.DORotate(
-			(Quaternion.AngleAxis((owner.ObjectType == ObjectType.Ally ? -1 : 1) * 20f, owner.Transform.forward) *
-			 owner.Transform.localRotation).eulerAngles,
+		rotSeq.Append(owner.FrameTransform.DOLocalRotate(
+			Quaternion.AngleAxis((owner.ObjectType == ObjectType.Ally ? -1 : 1) * 20f, Vector3.forward).eulerAngles,
 			0.15f).SetEase(Ease.InQuart));
 		
-		rotSeq.Append(owner.Transform.DORotate(
-			(owner.Transform.localRotation).eulerAngles,
-			0.5f).SetEase(Ease.OutQuart));
+		rotSeq.Append(owner.FrameTransform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
 		
 		var movSeq = DOTween.Sequence();
-		movSeq.Append(owner.Transform
-			.DOMove((owner.ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * owner.Transform.right + owner.Position,
+		movSeq.Append(owner.FrameTransform
+			.DOLocalMove((owner.ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * owner.Transform.right,
 				0.15f).SetEase(Ease.InQuart));
-		movSeq.Append(owner.Transform.DOMove(owner.Position, 0.5f).SetEase(Ease.OutQuart));
+		movSeq.Append(owner.FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
 
 		movSeq.Play();
 		rotSeq.Play();

@@ -6,7 +6,7 @@ using MessageSystem;
 using UnityEngine;
 
 
-public class Map : IMap
+public class BattleMap : IMap
 {
 	private class BattleObjectManager
 	{
@@ -29,10 +29,10 @@ public class Map : IMap
 			}
 
 			var originTile = GetTileOf(obj);
-			
+
 			RemoveFromTileImpl(obj);
 			SetTileImpl(obj, tile);
-			
+
 			ReAlignRow(originTile);
 			ReAlignRow(tile);
 		}
@@ -43,41 +43,94 @@ public class Map : IMap
 			var objB = GetBattleObjectOn(tileB);
 
 			(battleObjectToTile[objA], battleObjectToTile[objB]) = (battleObjectToTile[objB], battleObjectToTile[objA]);
-			(tileToBattleObject[tileA], tileToBattleObject[tileB]) = (tileToBattleObject[tileB], tileToBattleObject[tileA]);
-			
+			(tileToBattleObject[tileA], tileToBattleObject[tileB]) =
+				(tileToBattleObject[tileB], tileToBattleObject[tileA]);
+
 			if (objA is IMessageReceiver mra)
 			{
 				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(objA, tileB), mra);
 			}
-			
+
 			if (objB is IMessageReceiver mrb)
 			{
 				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(objB, tileA), mrb);
 			}
 		}
 
+		public void GrabObject(IBattleObject battleObject)
+		{
+			var tile = GetTileOf(battleObject);
+			if (tile == null) return;
+
+			RemoveFromTileImpl(battleObject);
+
+			var firstTile = owner.GetFirstTileInRow(tile);
+			var firstObject = GetBattleObjectOn(firstTile);
+
+			if (firstTile == tile)
+			{
+				return;
+			}
+
+			if (KnockBackObject(firstObject))
+			{
+				SetTileImpl(battleObject, firstTile);
+				if (battleObject is IMessageReceiver mr)
+				{
+					NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(battleObject, firstTile), mr);
+				}
+			}
+			else
+			{
+				SetTileImpl(battleObject, tile);
+			}
+		}
+
+		private bool KnockBackObject(IBattleObject battleObject)
+		{
+			var tile = GetTileOf(battleObject);
+			if (tile == null) return false;
+			var backTile = owner.GetBackwardTile(tile);
+
+			if (backTile == null) return false;
+
+			var backObject = GetBattleObjectOn(backTile);
+			if (backObject == null || KnockBackObject(backObject))
+			{
+				RemoveFromTileImpl(battleObject);
+				SetTileImpl(battleObject, backTile);
+				if (battleObject is IMessageReceiver mr)
+				{
+					NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(battleObject, backTile), mr);
+				}
+				return true;
+			}
+
+			return false;
+		}
+
 		public void RemoveFromTile(IBattleObject obj)
 		{
 			var targetTile = GetTileOf(obj);
 			RemoveFromTileImpl(obj);
-			
+
 			ReAlignRow(targetTile);
 		}
 
 		public void ReAlignRow(ITile tile)
 		{
 			if (tile == null) return;
-			
+
 			var firstObj = owner.GetFirstObjectInRow(tile);
 			var firstTile = owner.GetFirstTileInRow(tile);
 			if (GetBattleObjectOn(firstTile) == firstObj)
 			{
 				return;
 			}
-			
+
 			RemoveFromTileImpl(firstObj);
 			SetTileImpl(firstObj, firstTile);
-			
+
 			if (firstObj is IMessageReceiver mr)
 			{
 				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(firstObj, firstTile), mr);
@@ -87,11 +140,11 @@ public class Map : IMap
 		private void RemoveFromTileImpl(IBattleObject obj)
 		{
 			var targetTile = GetTileOf(obj);
-			
+
 			if (targetTile == null)
 				return;
-			
-			
+
+
 			tileToBattleObject.Remove(targetTile);
 			battleObjectToTile.Remove(obj);
 		}
@@ -126,9 +179,9 @@ public class Map : IMap
 
 	private Dictionary<(int, int), ITile> tilePosCache;
 	private List<ITile> tileList;
-	private Vector3 tileSize = new Vector3(1.5f,100f,2f);
-	
-	public Map(GameObject mapObject)
+	private Vector3 tileSize = new Vector3(1.5f, 100f, 2f);
+
+	public BattleMap(GameObject mapObject)
 	{
 		this.mapObject = mapObject;
 	}
@@ -153,7 +206,7 @@ public class Map : IMap
 		InitializeTileInfos(root);
 		InitializeTileCache();
 	}
-	
+
 	private void InitializeTileInfos(Transform root)
 	{
 		foreach (Transform child in root)
@@ -165,7 +218,7 @@ public class Map : IMap
 
 				if (colPosList.Count == 0)
 				{
-					colPosList.Add(pos.x);	
+					colPosList.Add(pos.x);
 				}
 				else
 				{
@@ -175,7 +228,7 @@ public class Map : IMap
 						{
 							break;
 						}
-						else if(colPosList[i] > pos.x)
+						else if (colPosList[i] > pos.x)
 						{
 							colPosList.Insert(i, pos.x);
 							break;
@@ -211,7 +264,7 @@ public class Map : IMap
 						}
 					}
 				}
-				
+
 
 				tileList.Add(new TileBase(pos, tileSize,
 					child.parent.name == "AllyLayer" ? ObjectType.Ally :
@@ -291,6 +344,15 @@ public class Map : IMap
 	public void RemoveFromTile(IBattleObject obj)
 	{
 		battleObjectManager.RemoveFromTile(obj);
+	}
+
+	/// <summary>
+	/// 같은 행 맨 앞 열로만 가정
+	/// todo: 우선 턴 진행 중 사용되지 않을 것을 가정, 사용될 여지가 있으면 턴 시스템 수정 필요
+	/// </summary>
+	public void GrabObject(IBattleObject obj)
+	{
+		battleObjectManager.GrabObject(obj);
 	}
 
 	public int RowCnt => rowPosList.Count;

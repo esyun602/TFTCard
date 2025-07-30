@@ -25,6 +25,35 @@ public interface IMap
 
 public static class IMapExtensions
 {
+	public static ITile GetForwardTile(this IMap map, ITile tile)
+	{
+		var (row, col) = map.GetTileCoord(tile);
+		if (tile.TileType == ObjectType.Ally)
+		{
+			var ret = map.GetTileAt(row, col + 1);
+			return ret.TileType == ObjectType.Ally ? ret : null;
+		}
+		else
+		{
+			var ret = map.GetTileAt(row, col - 1);
+			return ret.TileType == ObjectType.Enemy ? ret : null;
+		}
+		
+	}
+	
+	public static ITile GetBackwardTile(this IMap map, ITile tile)
+	{
+		var (row, col) = map.GetTileCoord(tile);
+		if (tile.TileType == ObjectType.Ally)
+		{
+			return map.GetTileAt(row, col - 1);
+		}
+		else
+		{
+			return map.GetTileAt(row, col + 1);
+		}
+	}
+	
 	public static bool IsInTriggerPos(this IMap map, GridSelector gridSelector, IBattleObject owner)
 	{
 		if (owner.ObjectType == ObjectType.Enemy)

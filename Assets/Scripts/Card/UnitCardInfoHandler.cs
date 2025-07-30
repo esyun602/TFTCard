@@ -69,9 +69,10 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 
 	private void JustChangeValue(BattleValueChangeNotice m)
 	{
-		var targetText = valueMap[m.Type];
+		if (!valueMap.TryGetValue(m.Type, out var targetText)) return;
+		
 		DOTween.Kill(targetText);
-		targetText.text = $"{stat.GetValueByValueType(ValueType.Hp)}";
+		targetText.text = $"{stat.GetValueByValueType(m.Type)}";
 		targetText.transform.localScale = Vector3.one * 2f;
 		targetText.transform.DOScale(Vector3.one,  0.5f);
 		

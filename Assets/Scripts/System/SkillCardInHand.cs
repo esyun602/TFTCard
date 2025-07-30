@@ -26,6 +26,11 @@ public class SkillCardInHand : BattleCardObjectInHand
 		return cardObject;
 	}
 
+	protected override bool CanSelect()
+	{
+		return base.CanSelect() && (targetCard.Action is not UnitSkillCardActionBase || battleStat.Owner != null);
+	}
+
 	public bool IsInstanceOf(SkillCard target)
 	{
 		return target == targetCard;

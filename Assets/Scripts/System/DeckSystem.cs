@@ -23,6 +23,7 @@ public class DeckSystem
 	public PlayerHand PlayerHand { get; } = new();
 	public PlayerField PlayerField { get; } = new();
 
+	private List<BattleCardObjectInHand> totalList;
 	private List<BattleCardObjectInHand> deck = new();
 	private List<BattleCardObjectInHand> dropCardList = new();
 
@@ -66,6 +67,8 @@ public class DeckSystem
 			cardObject.transform.SetParent(deckObject.transform);
 			deck.Add(cardObject);
 		}
+
+		totalList = new(deck);
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
@@ -232,6 +235,6 @@ public class DeckSystem
 
 	public SkillCardInHand GetSkillCardInstance(SkillCard skillCard)
 	{
-		return (SkillCardInHand)deck.Find(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard));
+		return (SkillCardInHand)totalList.Find(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard));
 	}
 }
