@@ -1,4 +1,5 @@
 //todo: type에 따른 dictionary 방식으로 수정하는게 나을듯
+//todo: skill카드에서 value set 관련 수정
 public class SkillCardStat : IStat
 {
 	public int TurnCountValue { get; set; }
@@ -10,6 +11,8 @@ public class SkillCardStat : IStat
 	public int CatalystValue { get; set; }
 	public int StunValue { get; set; }
 	public int DodgeValue { get; set; }
+	//todo:fix
+	public bool IsExhaustion { get; set; }
 
 	public SkillCardStat(SkillCardStatSpec statSpec)
 	{
@@ -18,29 +21,32 @@ public class SkillCardStat : IStat
 		AttackValue = statSpec.attackValue;
 		CostValue = statSpec.costValue;
 		ShieldValue = statSpec.shieldValue;
+		
+		//todo: fix
+		IsExhaustion = statSpec.isExhaustion;
 	}
 
-	public int[] GetValuesByValueType(ValueType type)
+	public int[] GetValuesByValueType(BattleValueType type)
 	{
 		switch (type)
 		{
-			case ValueType.MaxHp:
-			case ValueType.Hp:
+			case BattleValueType.MaxHp:
+			case BattleValueType.Hp:
 				return new int[] { HpValue };
-			case ValueType.TurnCount:
-			case ValueType.MaxTurnCount:
+			case BattleValueType.TurnCount:
+			case BattleValueType.MaxTurnCount:
 				return new int[] { TurnCountValue };
-			case ValueType.Attack:
+			case BattleValueType.Attack:
 				return new int[] { AttackValue };
-			case ValueType.Cost:
+			case BattleValueType.Cost:
 				return new int[] { CostValue };
-			case ValueType.Burn:
+			case BattleValueType.Burn:
 				return new int[] { BurnValue };
-			case ValueType.Catalyst:
+			case BattleValueType.Catalyst:
 				return new int[] { CatalystValue };
-			case ValueType.Stun:
+			case BattleValueType.Stun:
 				return new int[] { StunValue };
-			case ValueType.Dodge:
+			case BattleValueType.Dodge:
 				return new int[] { DodgeValue };
 			default:
 				return new int[] { };

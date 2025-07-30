@@ -41,6 +41,19 @@ public class SkillCardInHand : BattleCardObjectInHand
 		battleStat.Owner = bo;
 	}
 
+	private void OnUseComplete()
+	{
+		if (battleStat.IsExhaustion)
+		{
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveCard(this);
+					
+		}
+		else
+		{
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(this);
+		}
+	}
+
 	protected override bool CanUse(ITile tile = null)
 	{
 		if (tile == null)
@@ -318,8 +331,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			currentUpdateAction?.Invoke();
 			if (currentUpdateAction == null)
 			{
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
-				owner.Deactivate();
+				owner.OnUseComplete();
 			}
 		}
 	}
@@ -384,8 +396,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			currentUpdateAction?.Invoke();
 			if (currentUpdateAction == null)
 			{
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
-				owner.Deactivate();
+				owner.OnUseComplete();
 			}
 		}
 	}

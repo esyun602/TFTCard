@@ -3,7 +3,7 @@ public class ValueAddAttackBuff : IBuff
 {
 	private IBattleObject target;
 	public BuffType BuffType => Level > 0 ? BuffType.Positive : BuffType.Negative;
-	public ValueType ControlValueType => ValueType.Attack;
+	public BattleValueType ControlBattleValueType => BattleValueType.Attack;
 	private int attackAddValue;
 	public int Level => attackAddValue;
 	

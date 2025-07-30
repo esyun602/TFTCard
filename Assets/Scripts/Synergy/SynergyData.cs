@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//todo: flag?
 public enum SynergyCategory
 {
 	SteamEngine,

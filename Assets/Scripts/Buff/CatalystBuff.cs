@@ -2,7 +2,7 @@ public class CatalystBuff : IBuff
 {
 	private IBattleObject target;
 	public BuffType BuffType => BuffType.Negative;
-	public ValueType ControlValueType => ValueType.Catalyst;
+	public BattleValueType ControlBattleValueType => BattleValueType.Catalyst;
 	private int catalystLevel;
 	public int Level { get; }
 

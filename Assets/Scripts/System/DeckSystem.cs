@@ -67,8 +67,9 @@ public class DeckSystem
 			cardObject.transform.SetParent(deckObject.transform);
 			deck.Add(cardObject);
 		}
-
+		
 		totalList = new(deck);
+		ShuffleDeck();
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
@@ -197,10 +198,10 @@ public class DeckSystem
 	{
 		if (deck.Count == 0)
 		{
-			//todo: shuffle
 			if (dropCardList.Count != 0)
 			{
 				(deck, dropCardList) = (dropCardList, deck);
+				ShuffleDeck();
 			}
 			else
 			{
@@ -223,6 +224,17 @@ public class DeckSystem
 		PlayerHand.RemoveCard(target);
 		dropCardList.Add(target);
 		target.Deactivate();
+	}
+
+	public void RemoveCard(BattleCardObjectInHand target)
+	{
+		PlayerHand.RemoveCard(target);
+		target.Deactivate();
+	}
+
+	public void ShuffleDeck()
+	{
+		deck.Shuffle();
 	}
 	
 	public void DropAllCards()

@@ -1,4 +1,4 @@
-public enum ValueType
+public enum BattleValueType
 {
 	None,
 	MaxHp,
@@ -16,12 +16,12 @@ public enum ValueType
 
 public interface IStat
 {
-	public int[] GetValuesByValueType(ValueType type);
+	public int[] GetValuesByValueType(BattleValueType type);
 }
 
 public static class IStatExtensions
 {
-	public static int GetValueByValueType(this IStat stat, ValueType type)
+	public static int GetValueByValueType(this IStat stat, BattleValueType type)
 	{
 		var values = stat.GetValuesByValueType(type);
 		return values == null || values.Length == 0 ? -1 : values[0];

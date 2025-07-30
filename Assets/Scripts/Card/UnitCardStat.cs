@@ -20,21 +20,21 @@ public class UnitCardStat : IStat
 		synergyList = new(statSpec.synergy);
 	}
 
-	public int[] GetValuesByValueType(ValueType type)
+	public int[] GetValuesByValueType(BattleValueType type)
 	{
 		switch (type)
 		{
-			case ValueType.MaxHp:
+			case BattleValueType.MaxHp:
 				return new int[]{ MaxHp };
-			case ValueType.Hp:
+			case BattleValueType.Hp:
 				return new int[] { MaxHp };
-			case ValueType.TurnCount:
+			case BattleValueType.TurnCount:
 				return new int[] { MaxTurnCount };
-			case ValueType.MaxTurnCount:
+			case BattleValueType.MaxTurnCount:
 				return new int[] { MaxTurnCount };
-			case ValueType.Attack:
+			case BattleValueType.Attack:
 				return new int[] { Attack };
-			case ValueType.Cost:
+			case BattleValueType.Cost:
 				return new int[] { Cost };
 			default:
 				return new int[] { };

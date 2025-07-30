@@ -4,7 +4,7 @@ using MessageSystem;
 
 public class SteamEngineSynergy : IBattleSynergy
 {
-	private List<IBattleObject> memberList;
+	private HashSet<IBattleObject> memberList;
 	private bool isRunning;
 	private Action<IBattleObject> onMemberAdd;
 	private Action<IBattleObject> onMemberRemove;
@@ -46,13 +46,29 @@ public class SteamEngineSynergy : IBattleSynergy
 
 	public void AddMember(IBattleObject obj)
 	{
-		memberList.Add(obj);
-		onMemberAdd?.Invoke(obj);
+		if (memberList.Add(obj))
+		{
+			onMemberAdd?.Invoke(obj);
+		}
+#if UNITY_EDITOR
+		else
+		{
+			throw new ArgumentException();
+		}
+#endif
 	}
 
 	public void RemoveMember(IBattleObject obj)
 	{
-		memberList.Remove(obj);
-		onMemberRemove?.Invoke(obj);
+		if (memberList.Remove(obj))
+		{
+			onMemberRemove?.Invoke(obj);
+		}
+#if UNITY_EDITOR
+		else
+		{
+			throw new ArgumentException();
+		}
+#endif
 	}
 }

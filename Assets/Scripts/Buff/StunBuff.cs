@@ -4,7 +4,7 @@ public class StunBuff : IBuff
 {
 	private IBattleObject target;
 	public BuffType BuffType => BuffType.Negative;
-	public ValueType ControlValueType => ValueType.Stun;
+	public BattleValueType ControlBattleValueType => BattleValueType.Stun;
 	public int Level => 1;
 	public void OnAdd(IBattleObject target)
 	{	

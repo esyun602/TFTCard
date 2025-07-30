@@ -10,21 +10,21 @@ public class UnitCardStatSpec : ScriptableObject, IStat
 	public int cost;
 	public SynergyCategory[] synergy;
 
-	public int[] GetValuesByValueType(ValueType type)
+	public int[] GetValuesByValueType(BattleValueType type)
 	{
 		switch (type)
 		{
-			case ValueType.MaxHp:
+			case BattleValueType.MaxHp:
 				return new int[]{ hp };
-			case ValueType.Hp:
+			case BattleValueType.Hp:
 				return new int[] { hp };
-			case ValueType.TurnCount:
+			case BattleValueType.TurnCount:
 				return new int[] { turnCount };
-			case ValueType.MaxTurnCount:
+			case BattleValueType.MaxTurnCount:
 				return new int[] { turnCount };
-			case ValueType.Attack:
+			case BattleValueType.Attack:
 				return new int[] { attack };
-			case ValueType.Cost:
+			case BattleValueType.Cost:
 				return new int[] { cost };
 			default:
 				return new int[] { };

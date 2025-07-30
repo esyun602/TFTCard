@@ -38,7 +38,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 	protected virtual bool CanSelect()
 	{
 		//todo: access fix?
-		if (Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy < Stat.GetValuesByValueType(ValueType.Cost)[0])
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy < Stat.GetValuesByValueType(BattleValueType.Cost)[0])
 		{
 			return false;
 		}

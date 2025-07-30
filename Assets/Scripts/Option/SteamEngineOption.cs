@@ -23,7 +23,7 @@ public class SteamEngineOption : IOption
 	
 	private void OnBattleValueChange(BattleValueChangeNotice m)
 	{
-		if (m.Stat == target.UnitCardBattleStat && m.Type == ValueType.Burn && m.Diff > 0)
+		if (m.Stat == target.UnitCardBattleStat && m.Type == BattleValueType.Burn && m.Diff > 0)
 		{
 			//todo: fix?
 			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(Level));

@@ -4,7 +4,7 @@ public class DodgeBuff : IBuff
 {
 	private IBattleObject target;
 	public BuffType BuffType => BuffType.Positive;
-	public ValueType ControlValueType => ValueType.Dodge;
+	public BattleValueType ControlBattleValueType => BattleValueType.Dodge;
 	public int Level => 1;
 
 	public void OnAdd(IBattleObject target)

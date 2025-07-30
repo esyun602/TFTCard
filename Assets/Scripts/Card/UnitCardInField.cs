@@ -67,7 +67,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	private bool ProcessDodge(IBattleObject sender)
 	{
-		if (UnitCardBattleStat.GetValueByValueType(ValueType.Dodge) > 0)
+		if (UnitCardBattleStat.GetValueByValueType(BattleValueType.Dodge) > 0)
 		{
 			NoticeSystem.Instance.Publish(new DamageDodgeNotice(sender, this));
 			RunHitAction();
@@ -215,7 +215,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	public void StartTurn(int overrideTurnCount)
 	{
-		if (UnitCardBattleStat.GetValueByValueType(ValueType.Stun) > 0)
+		if (UnitCardBattleStat.GetValueByValueType(BattleValueType.Stun) > 0)
 		{
 			NoticeSystem.Instance.Publish(new TurnStartBlockByStunNotice(this));
 			return;

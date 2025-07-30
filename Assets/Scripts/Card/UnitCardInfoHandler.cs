@@ -10,7 +10,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
 	private UnitCardSpec spec;
-	private Dictionary<ValueType, TextMeshPro> valueMap;
+	private Dictionary<BattleValueType, TextMeshPro> valueMap;
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
@@ -32,21 +32,21 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 
 		valueMap = new()
 		{
-			[ValueType.Attack] = atk,
-			[ValueType.Cost] = cost,
-			[ValueType.Hp] = hp,
-			[ValueType.TurnCount] = turnCount,
-			[ValueType.Shield] = shield,
+			[BattleValueType.Attack] = atk,
+			[BattleValueType.Cost] = cost,
+			[BattleValueType.Hp] = hp,
+			[BattleValueType.TurnCount] = turnCount,
+			[BattleValueType.Shield] = shield,
 		};
 		
 		nameText.text = spec.name;
 		desc.text = "Some Description...";
 		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
 		
-		cost.text = $"{stat.GetValueByValueType(ValueType.Cost)}";
-		atk.text = $"{stat.GetValueByValueType(ValueType.Attack)}";
-		hp.text = $"{stat.GetValueByValueType(ValueType.Hp)}";
-		turnCount.text = $"{stat.GetValueByValueType(ValueType.TurnCount)}";
+		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
+		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
+		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
+		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
 		
 		NoticeSystem.Instance.Subscribe<BattleValueChangeNotice>(OnBattleValueChange);
 	}
@@ -57,7 +57,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		switch (m.Type)
 		{
-			case ValueType.Shield:
+			case BattleValueType.Shield:
 				OnBattleShieldChange(m);
 				break;
 			

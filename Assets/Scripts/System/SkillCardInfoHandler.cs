@@ -25,7 +25,7 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		nameText.text = spec.name;
 		desc.text = "Some Description...";
-		cost.text = $"{stat.GetValueByValueType(ValueType.Cost)}";
+		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
 		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
 	}
 

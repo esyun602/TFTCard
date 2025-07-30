@@ -115,6 +115,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		TurnSystem.Dispose();
 		WaveSystem.Dispose();
 		BattleFieldSystem.Dispose();
+		SynergySystem.Dispose();
 	}
 
 	public void UpdateFrame(float dt)

@@ -10,9 +10,9 @@ public class UnitCardBattleStat : IStat
 	private IBattleObject owner;
 	private UnitCardStat originStat;
 	#region StatValue
-	public int Attack => originStat.Attack + GetValueFromBuffs(ValueType.Attack);
-	public int MaxHp => originStat.MaxHp + GetValueFromBuffs(ValueType.MaxHp);
-	public int MaxTurnCount => originStat.MaxTurnCount + GetValueFromBuffs(ValueType.MaxTurnCount);
+	public int Attack => originStat.Attack + GetValueFromBuffs(BattleValueType.Attack);
+	public int MaxHp => originStat.MaxHp + GetValueFromBuffs(BattleValueType.MaxHp);
+	public int MaxTurnCount => originStat.MaxTurnCount + GetValueFromBuffs(BattleValueType.MaxTurnCount);
 	#endregion
 	
 	#region BattleValue
@@ -24,7 +24,7 @@ public class UnitCardBattleStat : IStat
 		set
 		{
 			var clampedValue = Mathf.Clamp(value, 0, MaxHp);
-			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(ValueType.Hp, hp, clampedValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(BattleValueType.Hp, hp, clampedValue, this));
 			hp = clampedValue;
 		}
 	}
@@ -35,7 +35,7 @@ public class UnitCardBattleStat : IStat
 		set
 		{
 			var clampedValue = Mathf.Clamp(value, 0, MaxTurnCount);
-			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(ValueType.TurnCount, turnCount, clampedValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(BattleValueType.TurnCount, turnCount, clampedValue, this));
 			turnCount = clampedValue;
 		}
 	}
@@ -47,7 +47,7 @@ public class UnitCardBattleStat : IStat
 		set
 		{
 			var clampedValue = Mathf.Max(value, 0);
-			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(ValueType.Shield, shield, clampedValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(BattleValueType.Shield, shield, clampedValue, this));
 			shield = clampedValue;
 		}
 	}
@@ -116,15 +116,15 @@ public class UnitCardBattleStat : IStat
 			if (done) return;
 		}
 
-		var prevValue = this.GetValueByValueType(targetBuff.ControlValueType);
+		var prevValue = this.GetValueByValueType(targetBuff.ControlBattleValueType);
 
 		buffList.Add(targetBuff);
 		targetBuff.OnAdd(owner);
 
-		var curValue = this.GetValueByValueType(targetBuff.ControlValueType);
+		var curValue = this.GetValueByValueType(targetBuff.ControlBattleValueType);
 		if (prevValue != curValue)
 		{
-			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(targetBuff.ControlValueType, prevValue, curValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(targetBuff.ControlBattleValueType, prevValue, curValue, this));
 		}
 	}
 	
@@ -153,7 +153,7 @@ public class UnitCardBattleStat : IStat
 
 	public bool RemoveBuff(IBuff targetBuff)
 	{
-		var prevValue = this.GetValueByValueType(targetBuff.ControlValueType);
+		var prevValue = this.GetValueByValueType(targetBuff.ControlBattleValueType);
 		var removed = buffList.Remove(targetBuff);
 		if (!removed)
 		{
@@ -161,10 +161,10 @@ public class UnitCardBattleStat : IStat
 		}
 		
 		targetBuff.OnRemove();
-		var curValue = this.GetValueByValueType(targetBuff.ControlValueType);
+		var curValue = this.GetValueByValueType(targetBuff.ControlBattleValueType);
 		if (prevValue != curValue)
 		{
-			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(targetBuff.ControlValueType, prevValue, curValue, this));
+			NoticeSystem.Instance.Publish(new BattleValueChangeNotice(targetBuff.ControlBattleValueType, prevValue, curValue, this));
 		}
 
 		return true;
@@ -188,24 +188,38 @@ public class UnitCardBattleStat : IStat
 
 	public List<SynergyCategory> GetSynergyList()
 	{
-		return new(synergyList);
+		return synergyList;
+	}
+
+	public void AddSynergy(SynergyCategory target)
+	{
+		synergyList.Add(target);
+		NoticeSystem.Instance.Publish(new StatSynergyAddNotice(new List<SynergyCategory>(){ target }, owner));
+	}
+
+	public void RemoveSynergy(SynergyCategory target)
+	{
+		if (synergyList.Remove(target))
+		{
+			NoticeSystem.Instance.Publish(new StatSynergyRemoveNotice(new List<SynergyCategory>(){ target }, owner));
+		}
 	}
 	
-	public int[] GetValuesByValueType(ValueType type)
+	public int[] GetValuesByValueType(BattleValueType type)
 	{
 		switch (type)
 		{
-			case ValueType.MaxHp:
+			case BattleValueType.MaxHp:
 				return new int[]{ MaxHp };
-			case ValueType.Hp:
+			case BattleValueType.Hp:
 				return new int[] { Hp };
-			case ValueType.TurnCount:
+			case BattleValueType.TurnCount:
 				return new int[] { TurnCount };
-			case ValueType.MaxTurnCount:
+			case BattleValueType.MaxTurnCount:
 				return new int[] { MaxTurnCount };
-			case ValueType.Attack:
+			case BattleValueType.Attack:
 				return new int[] { Attack };
-			case ValueType.Shield:
+			case BattleValueType.Shield:
 				return new int[] { Shield };
 			default:
 				return new int[] { GetValueFromBuffs(type) };
@@ -213,12 +227,12 @@ public class UnitCardBattleStat : IStat
 	}
 
 	//todo: negative / positive 분류 필요할수도
-	private int GetValueFromBuffs(ValueType type)
+	private int GetValueFromBuffs(BattleValueType type)
 	{
 		var val = 0;
 		foreach (var buff in buffList)
 		{
-			if (buff.ControlValueType == type)
+			if (buff.ControlBattleValueType == type)
 			{
 				val += buff.Level;
 			}

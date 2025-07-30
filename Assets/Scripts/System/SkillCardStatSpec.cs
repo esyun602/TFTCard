@@ -1,5 +1,12 @@
 using UnityEngine;
 
+//todo: dictionary 구현 후 사용하도록 편입하기
+public enum TacticsValueType
+{
+	None = 0,
+	Exhaustion = 1,
+}
+
 //todo: dictionary 형태 인스펙터에 띄우기
 [CreateAssetMenu]
 public class SkillCardStatSpec : ScriptableObject, IStat
@@ -9,22 +16,23 @@ public class SkillCardStatSpec : ScriptableObject, IStat
 	public int attackValue;
 	public int costValue;
 	public int shieldValue;
+	public bool isExhaustion;
 
-	public int[] GetValuesByValueType(ValueType type)
+	public int[] GetValuesByValueType(BattleValueType type)
 	{
 		switch (type)
 		{
-			case ValueType.MaxHp:
-			case ValueType.Hp:
+			case BattleValueType.MaxHp:
+			case BattleValueType.Hp:
 				return new int[] { hpValue };
-			case ValueType.TurnCount:
-			case ValueType.MaxTurnCount:
+			case BattleValueType.TurnCount:
+			case BattleValueType.MaxTurnCount:
 				return new int[] { turnCountValue };
-			case ValueType.Attack:
+			case BattleValueType.Attack:
 				return new int[] { attackValue };
-			case ValueType.Cost:
+			case BattleValueType.Cost:
 				return new int[] { costValue };
-			case ValueType.Shield:
+			case BattleValueType.Shield:
 				return new int[] { shieldValue };
 			default:
 				return new int[] { };

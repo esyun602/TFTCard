@@ -8,14 +8,35 @@ using UnityEngine;
 /// </summary>
 public class SynergySystem
 {
-	private Dictionary<SynergyCategory, List<IBattleObject>> synergyBattleObjectMap;
+	private Dictionary<SynergyCategory, HashSet<IBattleObject>> synergyBattleObjectMap;
 	private Dictionary<SynergyCategory, IBattleSynergy> synergyDict;
 
 	public void Initialize()
 	{
 		synergyBattleObjectMap = new();
 		synergyDict = new();
+		
+		NoticeSystem.Instance.Subscribe<StatSynergyAddNotice>(OnSynergyAdd);
+		NoticeSystem.Instance.Subscribe<StatSynergyRemoveNotice>(OnSynergyRemove);
+		
 	}
+
+	private void OnSynergyAdd(StatSynergyAddNotice m)
+	{
+		foreach (var synergy in m.AddedSynergyList)
+		{
+			AddSynergyToObject(synergy, m.Target);
+		}
+	}
+	
+	private void OnSynergyRemove(StatSynergyRemoveNotice m)
+	{
+		foreach (var synergy in m.RemovedSynergyList)
+		{
+			RemoveSynergyFromObject(synergy, m.Target);
+		}
+	}
+
 
 	public void Register(IBattleObject targetObject)
 	{
@@ -29,65 +50,76 @@ public class SynergySystem
 
 		foreach (var synergy in targetObject.UnitCardBattleStat.GetSynergyList())
 		{
-			if (!synergyBattleObjectMap.TryGetValue(synergy, out var objList))
-			{
-				objList = new List<IBattleObject>() { targetObject };
-				synergyBattleObjectMap[synergy] = objList;
-			}
-			else
-			{
-				objList.Add(targetObject);
-			}
-
-			if (!synergyDict.TryGetValue(synergy, out var battleSynergy))
-			{
-				if (GameDataSystem.Instance.GetGameData<SynergyData>()
-				    .GetSynergySpec(synergy).TryGenerateBattleSynergyInstance(out battleSynergy))
-				{
-					synergyDict[synergy] = battleSynergy;
-				}
-			}
-			else
-			{
-				battleSynergy.Level++;
-			}
-
-			battleSynergy.AddMember(targetObject);
-
-			NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(synergy, objList.Count));
+			AddSynergyToObject(synergy, targetObject);
 		}
 	}
-
+	
 	public void UnRegister(IBattleObject targetObject)
 	{
 		foreach (var synergy in targetObject.UnitCardBattleStat.GetSynergyList())
 		{
-			if (!synergyBattleObjectMap.TryGetValue(synergy, out var objList))
-			{
-#if UNITY_EDITOR
-				throw new Exception();
-#endif
-			}
-			else
-			{
-				objList.Remove(targetObject);
-			}
-			
-			if (!synergyDict.TryGetValue(synergy, out var battleSynergy))
-			{
-#if UNITY_EDITOR
-				throw new Exception();
-#endif
-			}
-			else
-			{
-				battleSynergy.Level--;
-			}
-			
-			battleSynergy.RemoveMember(targetObject);
-
-			NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(synergy, objList.Count));
+			RemoveSynergyFromObject(synergy, targetObject);
 		}
+	}
+
+	private void AddSynergyToObject(SynergyCategory category, IBattleObject target)
+	{
+		if (!synergyBattleObjectMap.TryGetValue(category, out var objList))
+		{
+			objList = new HashSet<IBattleObject>() { target };
+			synergyBattleObjectMap[category] = objList;
+		}
+		else
+		{
+			//이미 있다면 그냥 리턴
+			if (!objList.Add(target)) return;
+		}
+
+		if (!synergyDict.TryGetValue(category, out var battleSynergy))
+		{
+			if (GameDataSystem.Instance.GetGameData<SynergyData>()
+			    .GetSynergySpec(category).TryGenerateBattleSynergyInstance(out battleSynergy))
+			{
+				synergyDict[category] = battleSynergy;
+			}
+		}
+		else
+		{
+			battleSynergy.Level++;
+		}
+
+		battleSynergy.AddMember(target);
+
+		NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(category, objList.Count));
+	}
+
+	private void RemoveSynergyFromObject(SynergyCategory category, IBattleObject target)
+	{
+		if (!synergyBattleObjectMap.TryGetValue(category, out var objList))
+		{
+#if UNITY_EDITOR
+			throw new Exception();
+#endif
+		}
+		else
+		{
+			objList.Remove(target);
+		}
+			
+		if (!synergyDict.TryGetValue(category, out var battleSynergy))
+		{
+#if UNITY_EDITOR
+			throw new Exception();
+#endif
+		}
+		else
+		{
+			battleSynergy.Level--;
+		}
+			
+		battleSynergy.RemoveMember(target);
+
+		NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(category, objList.Count));
 	}
 	
 	public void ActivateSynergies()
@@ -108,6 +140,8 @@ public class SynergySystem
 
 	public void Dispose()
 	{
+		NoticeSystem.Instance.Unsubscribe<StatSynergyAddNotice>(OnSynergyAdd);
+		NoticeSystem.Instance.Unsubscribe<StatSynergyRemoveNotice>(OnSynergyRemove);
 	}
 
 }
