@@ -102,7 +102,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	{
 		Deactivate();
 		
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard).SetOwner(null);
+		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)?.SetOwner(null);
 			
 		UnitCardBattleStat.RemoveAllBuff();
 		UnitCardBattleStat.RemoveAllOption();

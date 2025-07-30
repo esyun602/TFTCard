@@ -52,6 +52,8 @@ public class SynergySystem
 				battleSynergy.Level++;
 			}
 
+			battleSynergy.AddMember(targetObject);
+
 			NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(synergy, objList.Count));
 		}
 	}
@@ -81,6 +83,8 @@ public class SynergySystem
 			{
 				battleSynergy.Level--;
 			}
+			
+			battleSynergy.RemoveMember(targetObject);
 
 			NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(synergy, objList.Count));
 		}

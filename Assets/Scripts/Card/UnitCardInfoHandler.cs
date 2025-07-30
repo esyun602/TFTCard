@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using MessageSystem;
 using TMPro;
@@ -9,6 +10,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
 	private UnitCardSpec spec;
+	private Dictionary<ValueType, TextMeshPro> valueMap;
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
@@ -27,6 +29,15 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		this.spec = spec;
 		this.stat = stat ?? spec.statSpec;
+
+		valueMap = new()
+		{
+			[ValueType.Attack] = atk,
+			[ValueType.Cost] = cost,
+			[ValueType.Hp] = hp,
+			[ValueType.TurnCount] = turnCount,
+			[ValueType.Shield] = shield,
+		};
 		
 		nameText.text = spec.name;
 		desc.text = "Some Description...";
@@ -46,18 +57,24 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		switch (m.Type)
 		{
-			case ValueType.Hp:
-				OnBattleHpChange(m);
-				break;
-			
-			case ValueType.TurnCount:
-				OnBattleTurnCountChange(m);
-				break;
-			
 			case ValueType.Shield:
 				OnBattleShieldChange(m);
 				break;
+			
+			default:
+				JustChangeValue(m);
+				break;
 		}
+	}
+
+	private void JustChangeValue(BattleValueChangeNotice m)
+	{
+		var targetText = valueMap[m.Type];
+		DOTween.Kill(targetText);
+		targetText.text = $"{stat.GetValueByValueType(ValueType.Hp)}";
+		targetText.transform.localScale = Vector3.one * 2f;
+		targetText.transform.DOScale(Vector3.one,  0.5f);
+		
 	}
 
 	private void OnBattleShieldChange(BattleValueChangeNotice m)
@@ -70,28 +87,8 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		{
 			shield.gameObject.SetActive(true);	
 		}
-		
-		
-		DOTween.Kill(shield);
-		shield.text = $"{stat.GetValueByValueType(ValueType.Shield)}";
-		shield.transform.localScale = Vector3.one * 2f;
-		shield.transform.DOScale(Vector3.one,  0.5f);
-	}
 
-	private void OnBattleHpChange(BattleValueChangeNotice m)
-	{
-		DOTween.Kill(hp);
-		hp.text = $"{stat.GetValueByValueType(ValueType.Hp)}";
-		hp.transform.localScale = Vector3.one * 2f;
-		hp.transform.DOScale(Vector3.one,  0.5f);
-	}
-
-	private void OnBattleTurnCountChange(BattleValueChangeNotice m)
-	{
-		DOTween.Kill(turnCount);
-		turnCount.text = $"{stat.GetValueByValueType(ValueType.TurnCount)}";
-		turnCount.transform.localScale = Vector3.one * 2f;
-		turnCount.transform.DOScale(Vector3.one, 0.5f);
+		JustChangeValue(m);
 	}
 
 	//todo: callback or notice?

@@ -14,4 +14,5 @@ public class BattleValueChangeNotice : Notice
 	public int PrevValue { get; private set; }
 	public int ChangedValue { get; private set; }
 	public ValueType Type { get; private set; }
+	public int Diff => ChangedValue - PrevValue;
 }
