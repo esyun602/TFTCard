@@ -20,12 +20,12 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public Transform Transform => transformCache == null ? transformCache = transform : transformCache;
 
 	public Transform FrameTransform { get; private set; }
-	//todo: 다른 battle object 추가할 때 순환참조 해결하는게 좋을듯
-	public UnitCardBattleStat UnitCardBattleStat { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
 	private Material materialCache;
 	private Material Material => materialCache == null ? materialCache = FrameTransform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
-
+	public IBattleObjectStat UnitCardBattleStat { get; private set; }
+	public IDamagedBehaviour DamagedBehaviour { get; private set; }
+	
 	private void Awake()
 	{
 		FrameTransform = transform.Find("CardFrame").transform;
@@ -36,48 +36,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
 	}
 
-	//todo: damageinfo로 수정
-	public void Damage(IBattleObject sender, int dmg)
-	{
-		if (ProcessDodge(sender))
-		{
-			return;
-		}
-		
-		dmg = this.CalculateDamageFromStat(dmg);
-		//dmg = 0 일 때 별도 연출 처리
-		if (dmg != 0)
-		{
-			dmg = ProcessShield(dmg);
-		
-			RunHitAction();
-		}
-
-		if (dmg != 0)
-		{
-			UnitCardBattleStat.Hp = Mathf.Max(UnitCardBattleStat.Hp - dmg, 0);
-			NoticeSystem.Instance.Publish(new DamageNotice(sender, this, dmg));
-			//todo: 죽음 및 데미지 처리 관련 다듬기 필요
-			if (UnitCardBattleStat.IsDead)
-			{
-				Die(sender);
-			}
-		}
-	}
-
-	private bool ProcessDodge(IBattleObject sender)
-	{
-		if (UnitCardBattleStat.GetValueByValueType(BattleValueType.Dodge) > 0)
-		{
-			NoticeSystem.Instance.Publish(new DamageDodgeNotice(sender, this));
-			RunHitAction();
-
-			return true;
-		}
-
-		return false;
-	}
-
+	//todo: 이벤트 수신시
 	private void RunHitAction()
 	{
 		var movSeq = DOTween.Sequence();
@@ -93,25 +52,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		movSeq.Play();
 	}
 
-	private int ProcessShield(int dmg)
-	{
-		var damageAfter = Mathf.Max(0, dmg - UnitCardBattleStat.Shield);
-		UnitCardBattleStat.Shield = Mathf.Max(0,  UnitCardBattleStat.Shield - dmg);
-
-		return damageAfter;
-	}
-
-	public void Die(IBattleObject destroyer)
-	{
-		Deactivate();
-		
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)?.SetOwner(null);
-			
-		UnitCardBattleStat.RemoveAllBuff();
-		UnitCardBattleStat.RemoveAllOption();
-		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
-	}
-
 	public void UpdateBlockInput(InputBlockFlag flag)
 	{
 		blockInput = flag;
@@ -122,10 +62,21 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		}
 	}
 
-	private void Deactivate()
+	public void Destroy(IBattleObject destroyer)
 	{
 		//todo: pooling
 		ChangeState(null);
+		
+		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)?.SetOwner(null);
+		
+		DamagedBehaviour.DetachFrom(this);
+		DamagedBehaviour = null;
+		
+		//stat에서 dispose에서
+		UnitCardBattleStat.Dispose();
+		UnitCardBattleStat = null;
+		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
+		
 		gameObject.SetActive(false);
 		Destroy(this);
 	}
@@ -186,6 +137,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			.AddComponent<UnitCardInField>();
 		cardObject.targetUnitCard = targetUnitCard;
 		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
+		cardObject.DamagedBehaviour = new UnitCardDamagedBehaviour();
 
 		cardObject.objectType = objectType;
 		var unitCardBattleStat = new UnitCardBattleStat(cardObject, targetUnitCard.Stat);
@@ -223,13 +175,12 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		ChangeState(new CardObjectActionState(this, overrideTurnCount));
 	}
 
+	public int TurnCount => UnitCardBattleStat.GetValueByValueType(BattleValueType.TurnCount);
+
 	private void Update()
 	{
 		cardObjectStateMachine.UpdateFrame(Time.deltaTime);
 	}
-
-	public int TurnCount => UnitCardBattleStat.TurnCount;
-
 
 	private class CardObjectNormalInFieldState : IState, IUpdatable, IMessageReceiver
 	{
@@ -545,7 +496,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			owner.routine = new UpdatableRoutine(UpdateFrame);
 			owner.routine.Initialize();
-			owner.UnitCardBattleStat.TurnCount -= turnCount;
+			owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.TurnCount, -turnCount);
 			currentUpdateAction = UpdateTurnCount;
 			NoticeSystem.Instance.Publish(new TurnStartNotice(owner));
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
@@ -569,7 +520,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			if (timePassed > 0.5f)
 			{
 				timePassed = 0f;
-				if (owner.UnitCardBattleStat.TurnCount == 0)
+				if (owner.TurnCount == 0)
 				{
 					owner.targetUnitCard.Action.Trigger();
 					currentUpdateAction = UpdateAttack;
@@ -586,7 +537,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			owner.targetUnitCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
 			if (routineDone)
 			{
-				owner.UnitCardBattleStat.TurnCount = owner.UnitCardBattleStat.MaxTurnCount;
+				owner.UnitCardBattleStat.SetValueByValueType(BattleValueType.TurnCount, owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.MaxTurnCount));
 				currentUpdateAction = UpdateEndAttack;
 			}
 		}

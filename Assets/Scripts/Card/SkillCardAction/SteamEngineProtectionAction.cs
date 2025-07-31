@@ -30,7 +30,7 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.Shield += 2;
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, 2);
 			target.UnitCardBattleStat.AddSynergy(SynergyCategory.SteamEngine);
 			
 			routineDone = true;

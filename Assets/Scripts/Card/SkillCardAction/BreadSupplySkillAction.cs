@@ -28,7 +28,8 @@ public class BreadSupplySkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.Hp += 3;
+			//todo: heal?
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, 3);
 			routineDone = true;
 		}
 	}

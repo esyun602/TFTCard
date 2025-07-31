@@ -7,17 +7,28 @@ public interface IBattleObject
 	public Vector3 Position { get; }
 	public Transform Transform { get; }
 	public Transform FrameTransform { get; }
-	public UnitCardBattleStat UnitCardBattleStat { get; }
-	public void Damage(IBattleObject sender, int dmg);
+	
+	public void Destroy(IBattleObject destroyer);
+	
+	
+	public IBattleObjectStat UnitCardBattleStat { get; }
+	public IDamagedBehaviour DamagedBehaviour { get; }
 }
 
 public static class IBattleObjectExtensions
 {
-	//todo: 이후 기능이 많이 추가되면 데미지 관련 정책을 별도 interface로 개별적으로 분산시키는게 좋을듯
-	public static int CalculateDamageFromStat(this IBattleObject bo, int dmg)
+	public static void Damage(this IBattleObject bo, DamageInfo dmgInfo)
 	{
-		var catalyst = bo.UnitCardBattleStat.GetValueByValueType(BattleValueType.Catalyst);
-
-		return dmg + catalyst;
+		bo.DamagedBehaviour.Damage(dmgInfo);
+	}
+	
+	public static void Heal(this IBattleObject bo, HealInfo healInfo)
+	{
+		bo.DamagedBehaviour.Heal(healInfo);
+	}
+	
+	public static bool IsDead(this IBattleObject bo)
+	{
+		return bo.UnitCardBattleStat.GetValueByValueType(BattleValueType.Hp) == 0;
 	}
 }

@@ -48,7 +48,7 @@ public class SynergySystem
 			return;
 		}
 
-		foreach (var synergy in targetObject.UnitCardBattleStat.GetSynergyList())
+		foreach (var synergy in targetObject.UnitCardBattleStat.SynergyList)
 		{
 			AddSynergyToObject(synergy, targetObject);
 		}
@@ -56,7 +56,7 @@ public class SynergySystem
 	
 	public void UnRegister(IBattleObject targetObject)
 	{
-		foreach (var synergy in targetObject.UnitCardBattleStat.GetSynergyList())
+		foreach (var synergy in targetObject.UnitCardBattleStat.SynergyList)
 		{
 			RemoveSynergyFromObject(synergy, targetObject);
 		}

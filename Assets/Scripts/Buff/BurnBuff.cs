@@ -24,7 +24,10 @@ public class BurnBuff : IBuff
 	{
 		if (m.TargetObject == target)
 		{
-			target.Damage(null, burnLevel--);
+			target.Damage(new DamageInfo()
+			{
+				Dmg = burnLevel--,
+			});
 		}
 	}
 

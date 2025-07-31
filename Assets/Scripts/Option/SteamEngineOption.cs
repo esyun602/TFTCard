@@ -13,15 +13,15 @@ public class SteamEngineOption : IOption
 	public void OnAdd(IBattleObject target)
 	{
 		this.target = target;
-		NoticeSystem.Instance.Subscribe<BattleValueChangeNotice>(OnBattleValueChange);
+		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 
 	public void OnRemove()
 	{
-		NoticeSystem.Instance.Subscribe<BattleValueChangeNotice>(OnBattleValueChange);
+		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 	
-	private void OnBattleValueChange(BattleValueChangeNotice m)
+	private void OnBattleValueChange(UnitBattleValueChangeNotice m)
 	{
 		if (m.Stat == target.UnitCardBattleStat && m.Type == BattleValueType.Burn && m.Diff > 0)
 		{

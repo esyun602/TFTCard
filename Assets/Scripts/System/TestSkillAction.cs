@@ -28,7 +28,10 @@ public class TestSkillAction : SkillCardActionBase
 		if (timePassed > 0f)
 		{
 			//todo: sender 수정
-			target.Damage(null, stat.AttackValue);
+			target.Damage(new DamageInfo()
+			{
+				Dmg = stat.AttackValue
+			});
 			routineDone = true;
 		}
 	}

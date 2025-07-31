@@ -41,6 +41,11 @@ public class PlayerHand
 
 	public void AddCard(BattleCardObjectInHand card)
 	{
+		if (CardList.Count >= Constant.PlayerHandMax)
+		{
+			return;
+		}
+		
 		CardList.Add(card);
 		card.UpdateBlockInput(blockInput);
 

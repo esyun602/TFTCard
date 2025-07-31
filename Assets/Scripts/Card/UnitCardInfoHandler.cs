@@ -48,10 +48,10 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
 		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
 		
-		NoticeSystem.Instance.Subscribe<BattleValueChangeNotice>(OnBattleValueChange);
+		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 
-	private void OnBattleValueChange(BattleValueChangeNotice m)
+	private void OnBattleValueChange(UnitBattleValueChangeNotice m)
 	{
 		if (m.Stat != stat) return;
 		
@@ -67,7 +67,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		}
 	}
 
-	private void JustChangeValue(BattleValueChangeNotice m)
+	private void JustChangeValue(UnitBattleValueChangeNotice m)
 	{
 		if (!valueMap.TryGetValue(m.Type, out var targetText)) return;
 		
@@ -78,7 +78,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 	}
 
-	private void OnBattleShieldChange(BattleValueChangeNotice m)
+	private void OnBattleShieldChange(UnitBattleValueChangeNotice m)
 	{
 		if (m.ChangedValue == 0)
 		{

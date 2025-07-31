@@ -1,8 +1,8 @@
 public enum BuffType
 {
+	DefiniteNegative = -1,
 	Negative = 0,
 	Positive = 1,
-	
 }
 
 /// <summary>

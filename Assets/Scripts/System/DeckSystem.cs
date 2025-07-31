@@ -196,6 +196,11 @@ public class DeckSystem
 	//todo: 없을 때 예외 체크
 	public void DrawCard()
 	{
+		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
+		{
+			return;
+		}
+		
 		if (deck.Count == 0)
 		{
 			if (dropCardList.Count != 0)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,5 +30,18 @@ public class UnitCardStatSpec : ScriptableObject, IStat
 			default:
 				return new int[] { };
 		}
+	}
+
+	/// <summary>
+	/// 스펙에 값 씌우기는 금지
+	/// </summary>
+	/// <param name="type"></param>
+	/// <param name="newValues"></param>
+	/// <exception cref="ArgumentException"></exception>
+	public void SetValuesByValueType(BattleValueType type, int[] newValues)
+	{
+#if UNITY_EDITOR
+		throw new ArgumentException();
+#endif
 	}
 }

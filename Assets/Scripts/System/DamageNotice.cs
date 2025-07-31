@@ -2,14 +2,12 @@ using MessageSystem;
 
 public class DamageNotice : ContextNotice
 {
-	public IBattleObject Sender { get; }
+	public DamageInfo DamageInfo { get; }
 	public IBattleObject Target { get; }
-	public int Damage { get; }
 	
-	public DamageNotice(IBattleObject sender, IBattleObject target, int damage)
+	public DamageNotice(DamageInfo info, IBattleObject target)
 	{
-		Sender = sender;
+		DamageInfo = info;
 		Target = target;
-		Damage = damage;
 	}
 }

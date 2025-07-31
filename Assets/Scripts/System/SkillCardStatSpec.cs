@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 //todo: dictionary 구현 후 사용하도록 편입하기
@@ -37,5 +38,17 @@ public class SkillCardStatSpec : ScriptableObject, IStat
 			default:
 				return new int[] { };
 		}
+	}
+
+	/// <summary>
+	/// 스펙에 값을 덮어씌우는 건 막기
+	/// </summary>
+	/// <param name="type"></param>
+	/// <param name="newValues"></param>
+	public void SetValuesByValueType(BattleValueType type, int[] newValues)
+	{
+#if UNITY_EDITOR
+		throw new ArgumentException();
+#endif
 	}
 }

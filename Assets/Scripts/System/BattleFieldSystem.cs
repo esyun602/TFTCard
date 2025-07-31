@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 
 public class BattleFieldSystem
 {
 	private Dictionary<ObjectType, List<IBattleObject>> battleObjectDict;
-	
+
 	public void Initialize()
 	{
 		battleObjectDict = new();
@@ -30,9 +31,24 @@ public class BattleFieldSystem
 		if (battleObjectDict[targetObject.ObjectType].Count == 0)
 		{
 			NoticeSystem.Instance.Publish(new BattleObjectTypeEliminateNotice(targetObject.ObjectType, context));
-		} 
+		}
+	}
+
+	public List<IBattleObject> GetAllObjectOfType(ObjectType type)
+	{
+		return battleObjectDict.GetValueOrDefault(type);
 	}
 	
+	public List<IBattleObject> GetAllObject()
+	{
+		var merged =
+			battleObjectDict.Values
+				.SelectMany(list => list)
+				.ToList();
+		return merged;
+	}
+
+
 	private void OnDestroy(BattleObjectDestroyedNotice m)
 	{
 	}

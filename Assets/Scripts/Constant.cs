@@ -24,6 +24,8 @@ public class Constant : GameData
 
 	public readonly Vector3 HandColliderSize = new Vector3(0.7f, 1f, 0.01f);
 	public readonly Vector3 HandHoverColliderSize = new Vector3(1f, 1f, 0.01f);
+
+	public const int PlayerHandMax = 10;
 	
 	public override void Initialize()
 	{

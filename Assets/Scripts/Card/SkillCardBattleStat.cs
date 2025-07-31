@@ -68,4 +68,40 @@ public class SkillCardBattleStat : IStat
 				return new int[] { };
 		}
 	}
+
+	public void SetValuesByValueType(BattleValueType type, int[] newValues)
+	{
+		switch (type)
+		{
+			case BattleValueType.MaxHp:
+			case BattleValueType.Hp:
+				HpValue = newValues[0];
+				break;
+			case BattleValueType.TurnCount:
+			case BattleValueType.MaxTurnCount:
+				TurnCountValue = newValues[0];
+				break;
+			case BattleValueType.Attack:
+				AttackValue = newValues[0];
+				break;
+			case BattleValueType.Cost:
+				CostValue = newValues[0];
+				break;
+			case BattleValueType.Shield:
+				ShieldValue = newValues[0];
+				break;
+			case BattleValueType.Burn:
+				BurnValue = newValues[0];
+				break;
+			case BattleValueType.Catalyst:
+				CatalystValue = newValues[0];
+				break;
+			case BattleValueType.Stun:
+				StunValue = newValues[0];
+				break;
+			case BattleValueType.Dodge:
+				DodgeValue = newValues[0];
+				break;
+		}
+	}
 }

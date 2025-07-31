@@ -40,4 +40,25 @@ public class UnitCardStat : IStat
 				return new int[] { };
 		}
 	}
+
+	public void SetValuesByValueType(BattleValueType type, int[] newValues)
+	{
+		switch (type)
+		{
+			case BattleValueType.MaxHp:
+			case BattleValueType.Hp:
+				MaxHp = newValues[0];
+				break;
+			case BattleValueType.TurnCount:
+			case BattleValueType.MaxTurnCount:
+				MaxTurnCount = newValues[0];
+				break;
+			case BattleValueType.Attack:
+				Attack = newValues[0];
+				break;
+			case BattleValueType.Cost:
+				Cost = newValues[0];
+				break;
+		}
+	}
 }
