@@ -6,11 +6,6 @@ public class SteamPackAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public override bool CanUse(ITile targetTile)
-	{
-		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Ally;
-	}
-
 	public SteamPackAction(SteamPackActionSpec spec)
 	{
 	}
@@ -28,7 +23,7 @@ public class SteamPackAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Burn, 1);
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(1));
 			
 			if (target is ITurnObject to)
 			{

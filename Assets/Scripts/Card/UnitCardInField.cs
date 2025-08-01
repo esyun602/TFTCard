@@ -33,10 +33,19 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	public void CatchMessage(Message m)
 	{
+		//todo: 분리
+		if (m is DamageNotice)
+		{
+			RunHitAction();
+		}
+		else if (m is DamageDodgeNotice)
+		{
+			RunDodgeAction();
+		}
 		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
 	}
 
-	//todo: 이벤트 수신시
+	//todo: 나중에 그냥 애니메이션 셋으로 통일
 	private void RunHitAction()
 	{
 		var movSeq = DOTween.Sequence();
@@ -51,6 +60,17 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		
 		movSeq.Play();
 	}
+	
+	private void RunDodgeAction()
+	{
+		var movSeq = DOTween.Sequence();
+		movSeq.Append(FrameTransform
+			.DOLocalMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right,
+				0.15f).SetEase(Ease.InQuart));
+		movSeq.Append(FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
+		
+		movSeq.Play();
+	}
 
 	public void UpdateBlockInput(InputBlockFlag flag)
 	{
@@ -62,7 +82,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		}
 	}
 
-	public void Destroy(IBattleObject destroyer)
+	public void DestroyObject(IBattleObject destroyer)
 	{
 		//todo: pooling
 		ChangeState(null);
@@ -74,11 +94,12 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		
 		//stat에서 dispose에서
 		UnitCardBattleStat.Dispose();
-		UnitCardBattleStat = null;
+		//UnitCardBattleStat = null;
 		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
 		
 		gameObject.SetActive(false);
-		Destroy(this);
+		//todo: 수정
+		//Destroy(this);
 	}
 
 
@@ -138,6 +159,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.targetUnitCard = targetUnitCard;
 		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
 		cardObject.DamagedBehaviour = new UnitCardDamagedBehaviour();
+		cardObject.DamagedBehaviour.AttachTo(cardObject);
 
 		cardObject.objectType = objectType;
 		var unitCardBattleStat = new UnitCardBattleStat(cardObject, targetUnitCard.Stat);

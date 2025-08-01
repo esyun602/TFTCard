@@ -18,7 +18,7 @@ public class SteamEngineOption : IOption
 
 	public void OnRemove()
 	{
-		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
+		NoticeSystem.Instance.Unsubscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 	
 	private void OnBattleValueChange(UnitBattleValueChangeNotice m)

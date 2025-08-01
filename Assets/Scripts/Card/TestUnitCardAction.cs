@@ -32,6 +32,7 @@ public class TestUnitCardAction : UnitCardActionBase
 						new DamageInfo()
 						{
 							Sender = owner,
+							DamageType = DamageType.NormalAttack,
 							Dmg = owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack)
 						});
 				}

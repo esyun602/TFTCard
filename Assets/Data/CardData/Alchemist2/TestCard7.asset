@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36be9efe775f42968e68f6fe43c8f5d5, type: 3}
-  m_Name: TestCard9
+  m_Name: TestCard7
   m_EditorClassIdentifier: 
-  statSpec: {fileID: 11400000, guid: 2a4c6a4370e63b94ea66cf4f848bd86b, type: 2}
-  cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
-  actionData: {fileID: 11400000, guid: ecb6239c97d18de4da666990e319eade, type: 2}
-  targetSkillCardSpec: {fileID: 11400000, guid: 3d6a00c84ff927440a8a64293969509d, type: 2}
+  statSpec: {fileID: 11400000, guid: 6ab18c593bee9f045b695415c2638a4d, type: 2}
+  cardResource: {fileID: 21300000, guid: 8b785eb0ee07527429696791a319e9ed, type: 3}
+  actionData: {fileID: 11400000, guid: 85981251e47880d498995ce6d982a771, type: 2}
+  targetSkillCardSpec: {fileID: 11400000, guid: 93763ff3b1bd1f249872a5a08e2c7e93, type: 2}

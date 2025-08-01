@@ -15,4 +15,4 @@ MonoBehaviour:
   statSpec: {fileID: 11400000, guid: 68d4c549d7e10f54092637a744e16409, type: 2}
   cardResource: {fileID: 21300000, guid: 67883816db3d83049bc3e5dccde27d9f, type: 3}
   actionData: {fileID: 11400000, guid: 28615a9bd0e99f345a82162d0e2bba0b, type: 2}
-  targetSkillCardSpec: {fileID: 11400000, guid: 3d6a00c84ff927440a8a64293969509d, type: 2}
+  targetSkillCardSpec: {fileID: 11400000, guid: b9340dc7d7cc66643a8c764044e8520c, type: 2}

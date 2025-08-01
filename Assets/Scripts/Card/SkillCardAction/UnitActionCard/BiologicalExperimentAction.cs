@@ -24,12 +24,12 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 		if (timePassed > 0f)
 		{
 			//todo: owner가 있으면 그냥 스탯에 owner 스탯을 합쳐버리는 방향으로 수정
-			stat.Owner.UnitCardBattleStat.AddBuff(new CatalystBuff(1));
 			target.Damage(new DamageInfo()
 			{
 				Sender = stat.Owner,
 				Dmg = stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack)
 			});
+			target.UnitCardBattleStat.AddBuff(new CatalystBuff(1));
 			
 			routineDone = true;
 		}

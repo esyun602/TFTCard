@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
-using MessageSystem;
 
-//todo: 옵션, 버프도 데이터 추가하고 BattleSynergyBase로 묶기
-public class SteamEngineSynergy : IBattleSynergy
+public class AlchemistSynergy : IBattleSynergy
 {
 	private HashSet<IBattleObject> memberList;
 	private Action<IBattleObject> onMemberAdd;
 	private Action<IBattleObject> onMemberRemove;
 	//public SynergySpec Spec { get; }
 
-	public SteamEngineSynergy(SynergySpec spec)
+	public AlchemistSynergy(SynergySpec spec)
 	{
 		//Spec = spec;
 		memberList = new();
@@ -36,12 +34,12 @@ public class SteamEngineSynergy : IBattleSynergy
 
 	private void AddOptionToObject(IBattleObject obj)
 	{
-		obj.UnitCardBattleStat.AddOption(new SteamEngineOption(Level));
+		obj.UnitCardBattleStat.AddOption(new AlchemistOption(Level));
 	}
 
 	private void RemoveOptionFromObject(IBattleObject obj)
 	{
-		obj.UnitCardBattleStat.RemoveOption<SteamEngineOption>();
+		obj.UnitCardBattleStat.RemoveOption<AlchemistOption>();
 	}
 
 	public void AddMember(IBattleObject obj)

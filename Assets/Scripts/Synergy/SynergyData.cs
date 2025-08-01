@@ -7,6 +7,7 @@ using UnityEngine;
 public enum SynergyCategory
 {
 	SteamEngine,
+	Alchemist
 }
 
 [CreateAssetMenu]

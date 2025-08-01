@@ -8,7 +8,7 @@ public interface IBattleObject
 	public Transform Transform { get; }
 	public Transform FrameTransform { get; }
 	
-	public void Destroy(IBattleObject destroyer);
+	public void DestroyObject(IBattleObject destroyer);
 	
 	
 	public IBattleObjectStat UnitCardBattleStat { get; }
@@ -19,12 +19,12 @@ public static class IBattleObjectExtensions
 {
 	public static void Damage(this IBattleObject bo, DamageInfo dmgInfo)
 	{
-		bo.DamagedBehaviour.Damage(dmgInfo);
+		bo.DamagedBehaviour?.Damage(dmgInfo);
 	}
 	
 	public static void Heal(this IBattleObject bo, HealInfo healInfo)
 	{
-		bo.DamagedBehaviour.Heal(healInfo);
+		bo.DamagedBehaviour?.Heal(healInfo);
 	}
 	
 	public static bool IsDead(this IBattleObject bo)

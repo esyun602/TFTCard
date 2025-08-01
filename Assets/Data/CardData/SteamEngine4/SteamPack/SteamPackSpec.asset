@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SteamPackSpec
   m_EditorClassIdentifier: 
   statSpec: {fileID: 11400000, guid: 056a2b608d7ba2746a2a2cb5ddefc670, type: 2}
-  cardResource: {fileID: 0}
+  cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
   actionSpec: {fileID: 11400000, guid: de54f467259a1de488c56d87a373dd27, type: 2}
   cardUseType: 0

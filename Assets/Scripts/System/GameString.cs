@@ -27,7 +27,7 @@ public class GameString : GameData
 	//todo: language 대응 추가 필요
 	public string GetString(string key)
 	{
-		return korStringKeyDict.GetValueOrDefault(key);
+		return korStringKeyDict.GetValueOrDefault(key, key);
 	}
 	
 	public string Format(string key, params object[] parameters)

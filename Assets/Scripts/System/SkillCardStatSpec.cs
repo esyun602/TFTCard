@@ -17,6 +17,7 @@ public class SkillCardStatSpec : ScriptableObject, IStat
 	public int attackValue;
 	public int costValue;
 	public int shieldValue;
+	public int catalystValue;
 	public bool isExhaustion;
 
 	public int[] GetValuesByValueType(BattleValueType type)

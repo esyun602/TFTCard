@@ -1,6 +1,16 @@
+using System;
+
+[Flags]
+public enum DamageType
+{
+	SkillAttack = 0,
+	NormalAttack = 1,
+}
+
 public struct DamageInfo
 {
 	public IBattleObject Sender { get; set; }
+	public DamageType DamageType { get; set; }
 	public int Dmg { get; set; }
 }
 

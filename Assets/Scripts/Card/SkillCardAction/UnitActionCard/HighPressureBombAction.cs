@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class HighPressureBombAction : UnitSkillCardActionBase
 {
@@ -15,6 +16,7 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 	{
 	}
 
+	//todo: 데미지 약간 지연? or 타일 정렬 약간 지연?
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -29,14 +31,10 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		if (timePassed > 0f)
 		{
 			var dmg = stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack);
-			target.Damage(new DamageInfo()
-			{
-				Sender = stat.Owner,
-				Dmg = dmg
-			});
 
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap;
 
+			var targetList = new List<IBattleObject>();
 			var (row, col) = map.GetTileCoord(map.GetTileOfBattleObject(target));
 
 			for (var i = 4; i <= 7; i++)
@@ -45,13 +43,25 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 				var obj = map.GetBattleObjectOfTile(map.GetTileAt(row, i));
 				if (obj != null)
 				{
-					obj.Damage(new DamageInfo()
-					{
-						Sender = stat.Owner,
-						Dmg = dmg / 2
-					});
+					targetList.Add(obj);
 				}
 			}
+			
+			target.Damage(new DamageInfo()
+			{
+				Sender = stat.Owner,
+				Dmg = dmg
+			});
+			foreach (var obj in targetList)
+			{
+				obj.Damage(new DamageInfo()
+				{
+					Sender = stat.Owner,
+					Dmg = dmg / 2
+				});
+			}
+			
+			routineDone = true;
 		}
 	}
 

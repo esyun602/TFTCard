@@ -4,7 +4,6 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
-	private IBattleObject target;
 
 	public EquivalentExchangeAction(EquivalentExchangeActionSpec spec)
 	{
@@ -45,12 +44,6 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 	protected override void OnTrigger(object triggerInfo)
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
 	}
 
 	protected override void OnCancel()

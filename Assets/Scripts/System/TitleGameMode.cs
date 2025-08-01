@@ -15,12 +15,6 @@ public class TitleGameMode : IGameMode
 
 	private void StartGame()
 	{
-		
-		//for test
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(7)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(7)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(7)));
-		
 		//todo: 일단 바로 맵 씬으로
 		//todo: transition 추가해서 수정
 		//todo: transition 시 uimanager 동작도 체크

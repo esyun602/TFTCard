@@ -21,6 +21,7 @@ public class SkillCardStat : IStat
 		AttackValue = statSpec.attackValue;
 		CostValue = statSpec.costValue;
 		ShieldValue = statSpec.shieldValue;
+		CatalystValue = statSpec.catalystValue;
 		
 		//todo: fix
 		IsExhaustion = statSpec.isExhaustion;

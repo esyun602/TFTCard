@@ -10,7 +10,7 @@ public class CatalystBuff : IBuff
 		this.catalystLevel = catalystLevel;
 	}
 
-	public int Level { get; }
+	public int Level => catalystLevel;
 
 	public void OnAdd(IBattleObject target)
 	{

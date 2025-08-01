@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FlamethrowerSpec
   m_EditorClassIdentifier: 
   statSpec: {fileID: 11400000, guid: 0412b90e9190e074e80a5943928f0fc4, type: 2}
-  cardResource: {fileID: 0}
+  cardResource: {fileID: 21300000, guid: 2a727bb653e4fb64ba69900d91ea812b, type: 3}
   actionSpec: {fileID: 11400000, guid: b5c1c98f2064ee54fb24ef9b94e38749, type: 2}
   cardUseType: 0

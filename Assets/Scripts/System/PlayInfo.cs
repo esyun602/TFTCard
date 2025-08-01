@@ -31,7 +31,8 @@ public class PlayInfo
 	public MapNodeInfo CurrentSelectedNode { get; private set; }
 
 	//todo: to constant
-	public int MaxDeployCount { get; private set; } = 3;
+	//todo: test
+	public int MaxDeployCount { get; private set; } = 30;
 	public int DrawCount { get; private set; } = 5;
 
 	//todo: additional value

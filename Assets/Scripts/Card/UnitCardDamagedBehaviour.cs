@@ -31,6 +31,10 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 		if (dmg != 0)
 		{
 			owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, -dmg);
+			if (owner is IMessageReceiver mr)
+			{
+				NoticeSystem.Instance.Send(new DamageNotice(info, owner), mr);
+			}
 			NoticeSystem.Instance.Publish(new DamageNotice(info, owner));
 			//todo: 죽음 및 데미지 처리 관련 다듬기 필요
 			if (owner.IsDead())
@@ -50,7 +54,7 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 
 	public void Die(IBattleObject sender)
 	{
-		owner.Destroy(sender);
+		owner.DestroyObject(sender);
 	}
 
 	//todo: 이후 기능이 많이 추가되면 데미지 관련 정책을 별도 interface로 개별적으로 분산시키는게 좋을듯
@@ -65,6 +69,10 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 	{
 		if (owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Dodge) > 0)
 		{
+			if (owner is IMessageReceiver mr)
+			{
+				NoticeSystem.Instance.Send(new DamageDodgeNotice(sender, owner), mr);
+			}
 			NoticeSystem.Instance.Publish(new DamageDodgeNotice(sender, owner));
 
 			return true;
