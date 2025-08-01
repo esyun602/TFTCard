@@ -2,12 +2,12 @@ using MessageSystem;
 
 public class SynergyInfoUpdateNotice : Notice
 {
-	public SynergyInfoUpdateNotice(Synergy targetSynergy, int count)
+	public SynergyInfoUpdateNotice(SynergyCategory targetSynergyCategory, int count)
 	{
-		TargetSynergy = targetSynergy;
+		TargetSynergyCategory = targetSynergyCategory;
 		Count = count;
 	}
 
-	public Synergy TargetSynergy { get; }	
+	public SynergyCategory TargetSynergyCategory { get; }	
 	public int Count { get; }
 }

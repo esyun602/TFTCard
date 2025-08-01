@@ -8,7 +8,7 @@ public class WaveSystem
 	private int currentWaveIdx;
 	private IUpdatableRoutine spawnNextWaveRoutine;
 	private List<WaveGrid> waveData;
-	private List<BattleCardObjectInField> currentEnemyObjects;
+	private List<UnitCardInField> currentEnemyObjects;
 	private BlockInputHandler blockInputHandler = new();
 	private Transform waveParentTransform;
 	
@@ -23,7 +23,17 @@ public class WaveSystem
 		spawnNextWaveRoutine = new UpdatableRoutine(UpdateSpawn);
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
-		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
+		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);		
+		//todo: need inputsystem
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
+		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
+		NoticeSystem.Instance.Subscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
+		//
+		
 		currentWaveIdx = -1;
 		waveParentTransform = new GameObject("EnemyWave").transform;
 		waveParentTransform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
@@ -66,9 +76,9 @@ public class WaveSystem
 		}
 		var gridInfoList = waveData[++currentWaveIdx];
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		foreach (var cellInfo in gridInfoList.cells)
+		foreach (var cellInfo in gridInfoList.CellList)
 		{
-			var card = BattleCardObjectInField.Instantiate(cellInfo.cardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
+			var card = UnitCardInField.Instantiate(cellInfo.unitCardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
 				ObjectType.Enemy);
 			card.transform.SetParent(waveParentTransform);
 			currentEnemyObjects.Add(card);
@@ -89,5 +99,57 @@ public class WaveSystem
 	{
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
+		
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 	}
+	
+	private void OnHandCardSelect(SkillHandCardSelectNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnHandCardSelectCancel(SkillHandCardSelectCancelNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnCardStartUse(SkillHandCardStartUseNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnCardEndUse(SkillHandCardEndUseNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+	
+	private void OnPlayerFieldCardMove(PlayerFieldCardMoveNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.Target);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnFieldCardSelect(FieldCardSelectNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+	private void OnFieldCardSelectCancel(FieldCardSelectCancelNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		PropagateBlockInputInfo();
+	}
+
+
 }

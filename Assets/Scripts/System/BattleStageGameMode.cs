@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using MessageSystem;
+using UnityEngine;
 
 public class BattleStageGameMode : StageGameMode, IUpdatable
 {
@@ -14,9 +15,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	public WaveSystem WaveSystem { get; }
 	public BattleFieldSystem BattleFieldSystem { get; }
 	public SynergySystem SynergySystem { get; }
-
+	public BattleStage BattleStage { get; }
 	private SimpleStateMachine battleStageStateMachine = new();
-
 	//todo: map gamemode 넣는게 맞나?
 	public BattleStageGameMode(List<WaveGrid> waveData, IStage targetStage) : base(targetStage)
 	{
@@ -25,6 +25,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem = new();
 		WaveSystem = new(waveData);
 		SynergySystem = new();
+		BattleStage =  (BattleStage)targetStage;
 	}
 
 	protected override void OnInitialize()
@@ -34,10 +35,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			InputHandler = this.DeckSystem.BlockInputHandler
 		});
 		
-		NoticeSystem.Instance.Subscribe<TurnObjectGeneratedNotice>(OnTurnObjectGenerate);
 		NoticeSystem.Instance.Subscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);
 		NoticeSystem.Instance.Subscribe<BattleObjectDestroyedNotice>(OnBattleObjectDestroy);
-		NoticeSystem.Instance.Subscribe<TurnObjectDestroyNotice>(OnTurnObjectDestroy);
 		NoticeSystem.Instance.Subscribe<BattleObjectTypeEliminateNotice>(OnBattleObjectEliminate);
 		DeckSystem.Initialize();
 		TurnSystem.Initialize();
@@ -49,6 +48,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	protected override void OnStageStart()
 	{
 		//todo: fix
+		DeckSystem.SpawnAllyUnits();
+		SynergySystem.ActivateSynergies();
 		if (WaveSystem.TrySpawnNextWave(out var initialRoutine))
 		{
 			battleStageStateMachine.ChangeState(new BattleStageInitState(this, initialRoutine));
@@ -57,11 +58,6 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		{
 			throw new ArgumentException();
 		}
-	}
-
-	private void OnTurnObjectGenerate(TurnObjectGeneratedNotice m)
-	{
-		TurnSystem.RegisterNewObject(m.Target, m.StartGauge);
 	}
 
 	private void OnBattleObjectGenerate(BattleObjectGeneratedNotice m)
@@ -74,47 +70,52 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 	}
 	
-	private void OnTurnObjectDestroy(TurnObjectDestroyNotice m)
-	{
-		TurnSystem.UnregisterObject(m.Target);
-	}
-
 	private void OnBattleObjectDestroy(BattleObjectDestroyedNotice m)
 	{
 		GetCurrentStage().Map.RemoveFromTile(m.Target);
 		BattleFieldSystem.UnRegister(m.Target, m.Context);
 		if (m.Target.ObjectType == ObjectType.Ally)
 		{
-			SynergySystem.Register(m.Target);
+			SynergySystem.UnRegister(m.Target);
+			if (m.Target is UnitCardInField bco)
+			{
+				DeckSystem.PlayerField.RemoveFromField(bco);
+			}
 		}
 		
 	}
 
 	private void OnBattleObjectEliminate(BattleObjectTypeEliminateNotice m)
 	{
-		if (m.Type != ObjectType.Enemy) return;
-		if (WaveSystem.TrySpawnNextWave(out var routine))
+		if (m.Type == ObjectType.Ally)
 		{
-			m.Context.AddChain(routine);
+			GameOver();
+			battleStageStateMachine.ChangeState(new BattleStageGameOverState(this));
 		}
-		else
+		else if (m.Type == ObjectType.Enemy)
 		{
-			ClearStage();
-			battleStageStateMachine.ChangeState(new BattleStageGameEndState(this));
+			if (WaveSystem.TrySpawnNextWave(out var routine))
+			{
+				m.Context.AddChain(routine);
+			}
+			else
+			{
+				ClearStage();
+				battleStageStateMachine.ChangeState(new BattleStageGameClearState(this));
+			}
 		}
 	}
 
 	protected override void OnDispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnObjectGeneratedNotice>(OnTurnObjectGenerate);
 		NoticeSystem.Instance.Unsubscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);
 		NoticeSystem.Instance.Unsubscribe<BattleObjectDestroyedNotice>(OnBattleObjectDestroy);
-		NoticeSystem.Instance.Unsubscribe<TurnObjectDestroyNotice>(OnTurnObjectDestroy);
 		NoticeSystem.Instance.Unsubscribe<BattleObjectTypeEliminateNotice>(OnBattleObjectEliminate);
 		DeckSystem.Dispose();
 		TurnSystem.Dispose();
 		WaveSystem.Dispose();
 		BattleFieldSystem.Dispose();
+		SynergySystem.Dispose();
 	}
 
 	public void UpdateFrame(float dt)
@@ -176,11 +177,11 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 	}
 
-	private class BattleStageGameEndState : IState, IUpdatable
+	private class BattleStageGameClearState : IState, IUpdatable
 	{
 		private BattleStageGameMode owner;
 		
-		public BattleStageGameEndState(BattleStageGameMode owner)
+		public BattleStageGameClearState(BattleStageGameMode owner)
 		{
 			this.owner = owner;
 		}
@@ -195,6 +196,36 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		
 		//todo: 고도화(캐시 사용)
 		private void ReturnToMapGameMode()
+		{
+			Game.Instance.ChangeGameMode(new MapGameMode());
+		}
+
+		public void Exit(IState nextState)
+		{
+			
+		}
+
+		public void UpdateFrame(float dt)
+		{
+			
+		}
+	}
+	
+	private class BattleStageGameOverState : IState, IUpdatable
+	{
+		private BattleStageGameMode owner;
+		
+		public BattleStageGameOverState(BattleStageGameMode owner)
+		{
+			this.owner = owner;
+		}
+		public void Enter(IState prevState)
+		{
+			Game.Instance.UIManager.GenerateUI<GameOverPanel>();
+		}
+		
+		//todo: 고도화(캐시 사용)
+		private void ReturnToTitleGameMode()
 		{
 			Game.Instance.ChangeGameMode(new MapGameMode());
 		}

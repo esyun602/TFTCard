@@ -4,8 +4,16 @@ using UnityEngine;
 public class PooledUnityObject : MonoBehaviour, IDisposable
 {
 	private Action<PooledUnityObject> disposeCallbacks;
+	private Action lateUpdateCallbacks;
 	public float? DisposeTime { get; set; }
 	private float timePassed;
+
+	//todo: 분리?
+	//todo: follow flag 추가
+	private Transform followTarget;
+	private Vector3 localPos;
+	private Vector3 localScale;
+	private Quaternion localRotation;
 
 	public void Initialize()
 	{
@@ -15,6 +23,9 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 
 	public void Dispose()
 	{
+		if (gameObject == null)
+			return;
+		
 		if (gameObject.activeSelf == false)
 		{
 			Debug.LogError("Object has already been disposed: " + gameObject.name);
@@ -40,5 +51,46 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 				Dispose();
 			}
 		}
+	}
+
+	//todo: set execution order
+	private void LateUpdate()
+	{
+		lateUpdateCallbacks?.Invoke();
+	}
+
+	public void SetFollowTarget(Transform followTarget)
+	{
+		if (followTarget != null)
+		{
+			this.followTarget = followTarget;       
+			localPos = followTarget.InverseTransformPoint(transform.position);
+			localRotation = Quaternion.Inverse(followTarget.rotation) * transform.rotation;
+			Vector3 parentLossy = followTarget.lossyScale;
+			Vector3 myLossy     = transform.lossyScale;
+			localScale = new Vector3(
+				myLossy.x / parentLossy.x,
+				myLossy.y / parentLossy.y,
+				myLossy.z / parentLossy.z
+			);
+
+			lateUpdateCallbacks += FollowTarget;
+			AddDisposeCallback(_ => lateUpdateCallbacks -= FollowTarget);
+		}
+	}
+
+	public void FollowTarget()
+	{
+		if (followTarget == null) return;
+
+		transform.position = followTarget.TransformPoint(localPos);
+		transform.rotation = followTarget.rotation * localRotation;
+
+		Vector3 parentLossy = followTarget.lossyScale;
+		transform.localScale = new Vector3(
+			localScale.x * parentLossy.x,
+			localScale.y * parentLossy.y,
+			localScale.z * parentLossy.z
+		);
 	}
 }

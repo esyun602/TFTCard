@@ -40,24 +40,27 @@ public class UnityObjectPool : MonoBehaviour
 		return poolMap[presetFullName] = pool;
 	}
 
-	public PooledUnityObject Instantiate(Vector3? position = null)
+	public PooledUnityObject Instantiate(Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null, Transform followTarget = null)
 	{
 		PooledUnityObject ret;
 		if (AvailableQueue.Count != 0)
 		{
 			ret = AvailableQueue.Dequeue();
-			ret.transform.position = position ?? ret.transform.position;
-			ret.Initialize();
-			return ret;
+		}
+		else
+		{
+			var go = Object.Instantiate<GameObject>(prefab, transform, false);
+			ret = go.AddComponent<PooledUnityObject>();
+			ret.DisposeTime = disposeTime;
+			ret.AddDisposeCallback(CollectDisposedObject);
 		}
 
-		var go = Object.Instantiate<GameObject>(prefab, transform, false);
-		var pooledGo = go.AddComponent<PooledUnityObject>();
-		pooledGo.DisposeTime = disposeTime;
-		pooledGo.AddDisposeCallback(CollectDisposedObject);
-		pooledGo.transform.position = position ?? pooledGo.transform.position;
-		pooledGo.Initialize();
-		return pooledGo;
+		ret.transform.position = position ?? (followTarget != null ? followTarget.position : ret.transform.position);
+		ret.transform.rotation = rotation ?? (followTarget != null ? followTarget.rotation : ret.transform.rotation);
+		ret.transform.localScale = scale ?? (followTarget != null ? followTarget.lossyScale : ret.transform.localScale);
+		ret.SetFollowTarget(followTarget);
+		ret.Initialize();
+		return ret;
 	}
 
 	private void CollectDisposedObject(PooledUnityObject disposedObject)

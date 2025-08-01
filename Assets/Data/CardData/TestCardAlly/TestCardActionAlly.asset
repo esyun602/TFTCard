@@ -12,58 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df047addd77947dc99f5e793c1008e9f, type: 3}
   m_Name: TestCardActionAlly
   m_EditorClassIdentifier: 
-  actionDuration: 1
+  actionDuration: 0.5
   fxPrefab: {fileID: 4075397547705564689, guid: 92c7d2f99a71f01458e72ffd12edd8b2, type: 3}
   actionRange:
-    rows: 11
-    columns: 11
-    isAbsolute: 1
-    selectedCells:
-    - row: -1
-      col: 1
-    - row: 1
-      col: 1
-    - row: 0
-      col: 1
-    - row: 1
-      col: 0
-    - row: 1
-      col: -1
-    - row: 0
-      col: -1
-    - row: -1
-      col: -1
-    - row: -1
-      col: 0
-    - row: 2
-      col: 0
-    - row: 0
-      col: -2
-    - row: 0
-      col: 2
-    - row: 5
-      col: 0
-    - row: 4
-      col: 0
-    - row: 3
-      col: 0
-    - row: 0
-      col: -5
-    - row: 0
-      col: -4
-    - row: 0
-      col: -3
-    - row: -2
-      col: 0
-    - row: -3
-      col: 0
-    - row: -4
-      col: 0
-    - row: -5
-      col: 0
-    - row: 0
-      col: 3
-    - row: 0
-      col: 4
-    - row: 0
-      col: 5
+    isEnemyView: 1
+    rows: 3
+    columns: 4
+    swapView: 0
+    triggerCellList: 01000000
+    attackCellList: 03000000020000000100000000000000

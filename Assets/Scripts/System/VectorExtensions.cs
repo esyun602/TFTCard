@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -75,6 +76,47 @@ public static class VectorExtensions
 	public static Vector2Int ToRoundedVector2IntXZ(this Vector3 vector)
 	{
 		return Vector2Int.RoundToInt(ToVector2XZ(vector));
+	}
+	
+	public static (int, int) ToRowCol(this Vector3 vector, List<float> rowPosList, List<float> colPosList)
+	{
+		var minDist = float.MaxValue;
+		int col = -1;
+		int row = -1;
+		for (var i = 0; i < colPosList.Count; i++)
+		{
+			var colPos = colPosList[i];
+			if (minDist <= Mathf.Abs(colPos - vector.x))
+			{
+				col = i - 1;
+				break;
+			}
+			else if (i == colPosList.Count - 1)
+			{
+				col = i;
+			}
+
+			minDist = Mathf.Abs(colPos - vector.x);
+		}
+		minDist = float.MaxValue;
+		
+		for (var i = 0; i < rowPosList.Count; i++)
+		{
+			var rowPos = rowPosList[i];
+			if (minDist <= Mathf.Abs(rowPos - vector.z))
+			{
+				row = i - 1;
+				break;
+			}
+			else if (i == rowPosList.Count - 1)
+			{
+				row = i;
+			}
+
+			minDist = Mathf.Abs(rowPos - vector.z);
+		}
+
+		return (row, col);
 	}
 }
 

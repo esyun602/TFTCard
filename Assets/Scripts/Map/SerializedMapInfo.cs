@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -32,12 +33,12 @@ public class SerializedMapInfo
 	public (int, int) GetGridInfoOfLayer(string layerName, out HashSet<(int,int)> layerTiles)
 	{
 		layerTiles = new();
-		var row = 0;
-		var col = 0;
 
-		var xSet = new HashSet<int>();
-		var ySet = new HashSet<int>();
+		var colPosList = new List<float>();
+		var rowPosList = new List<float>();
 
+		var (xMin, yMin) = (int.MaxValue, int.MaxValue);
+		
 		layerName = !layerName.EndsWith("Layer")
 			? layerName + "Layer"
 			: layerName;
@@ -46,27 +47,74 @@ public class SerializedMapInfo
 		{
 			if (!l.name.Contains("Enemy") && !l.name.Contains("Ally"))
 				continue;
+			
 			foreach (var tile in l.tileInfos)
 			{
-				if (xSet.Add(tile.position.ToRoundedVector2IntXZ().x))
+				var pos = tile.position;
+
+				if (colPosList.Count == 0)
 				{
-					col++;
+					colPosList.Add(pos.x);	
+				}
+				else
+				{
+					for (var i = 0; i < colPosList.Count; i++)
+					{
+						if (colPosList[i].IsAlmostCloseTo(pos.x))
+						{
+							break;
+						}
+						else if(colPosList[i] > pos.x)
+						{
+							colPosList.Insert(i, pos.x);
+							break;
+						}
+						else if (i == colPosList.Count - 1)
+						{
+							colPosList.Add(pos.x);
+						}
+					}
 				}
 
-				if (ySet.Add(tile.position.ToRoundedVector2IntXZ().y))
-				{
-					row++;
-				}
 
-				if (l.name == layerName)
+				if (rowPosList.Count == 0)
 				{
-					var pos = new Vector2Int(Mathf.RoundToInt(tile.position.x) / (int)tile.scale.x, Mathf.RoundToInt(tile.position.z) / (int)tile.scale.z);
-					layerTiles.Add((pos.y, pos.x));
+					rowPosList.Add(pos.z);
+				}
+				else
+				{
+					for (var i = 0; i < rowPosList.Count; i++)
+					{
+						if (rowPosList[i].IsAlmostCloseTo(pos.z))
+						{
+							break;
+						}
+						else if (rowPosList[i] > pos.z)
+						{
+							rowPosList.Insert(i, pos.z);
+							break;
+						}
+						else if (i == rowPosList.Count - 1)
+						{
+							rowPosList.Add(pos.z);
+						}
+					}
 				}
 			}
 		}
 
-		return (row, col);
+		foreach (var l in layer)
+		{
+			if (l.name == layerName)
+			{
+				foreach (var tile in l.tileInfos)
+				{
+					layerTiles.Add(tile.position.ToRowCol(rowPosList, colPosList));
+				}
+			}
+		}
+
+		return (rowPosList.Count, colPosList.Count);
 	}
 
 	public GameObject DeSerializeForMapEditor()

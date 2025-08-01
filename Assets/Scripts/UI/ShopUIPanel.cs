@@ -16,8 +16,8 @@ public class ShopUIPanel : UIInstance
 	public override UIType UIType => UIType.SceneUI;
 	private int rollCount;
 	private Action cancelAction;
-	
-	private List<CardSpec> cardDataList;
+
+	private List<ICardSpec> cardDataList;
 	[SerializeField] private List<Image> cardImageList;
 	[SerializeField] private TextMeshProUGUI rollCountUI;
 
@@ -25,7 +25,7 @@ public class ShopUIPanel : UIInstance
 	{
 		rollCount = ((ShopUIPanelGenState)param).rollCount;
 		cancelAction = ((ShopUIPanelGenState)param).doneAction;
-		
+
 		UpdateRollCountText();
 		RenewCandidates();
 	}
@@ -36,13 +36,14 @@ public class ShopUIPanel : UIInstance
 		//todo: constant
 		for (int i = 0; i < 5; i++)
 		{
-			cardDataList.Add(GameDataSystem.Instance.GetGameData<CardData>().GetRandomSpec());
+			//todo: fix
+			cardDataList.Add(GameDataSystem.Instance.GetGameData<CardData>().GetRandomUnitCardSpec());
 		}
 
 		for (int i = 0; i < 5; i++)
 		{
 			cardImageList[i].gameObject.SetActive(true);
-			cardImageList[i].sprite = cardDataList[i].cardResource;
+			cardImageList[i].sprite = cardDataList[i].CardResource;
 		}
 	}
 
@@ -65,10 +66,10 @@ public class ShopUIPanel : UIInstance
 		rollCountUI.text = $"Roll\nCount\n{rollCount}";
 	}
 
-public void OnCardClick(int idx)
+	public void OnCardClick(int idx)
 	{
-		Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new Card(cardDataList[idx]));
-		cardImageList[idx].gameObject.SetActive(false);
+		//todo: 어케하지
+		//Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(cardDataList[idx]));
+		//cardImageList[idx].gameObject.SetActive(false);
 	}
-
 }

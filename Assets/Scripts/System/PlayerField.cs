@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerField
 {
-	private List<BattleCardObjectInField> cardObjectInFields;
+	private List<UnitCardInField> cardObjectInFields;
 	private InputBlockFlag blockInput;
 	private Transform fieldParent;
 
@@ -26,14 +26,14 @@ public class PlayerField
 		}
 	}
 
-	public void AddToField(BattleCardObjectInField target)
+	public void AddToField(UnitCardInField target)
 	{
 		cardObjectInFields.Add(target);
 		target.transform.SetParent(fieldParent);
 		target.UpdateBlockInput(blockInput);
 	}
 	
-	public void RemoveFromField(BattleCardObjectInField target)
+	public void RemoveFromField(UnitCardInField target)
 	{
 		cardObjectInFields.Remove(target);
 	}

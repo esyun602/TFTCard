@@ -62,10 +62,10 @@ public class UIManager
 		//Tool.ToolBox.Instance.LateUpdateCallback += LateUpdate;
 	}
 
-	public T GenerateUI<T>(object param = null) where T : UIInstance
+	public T GenerateUI<T>(object param = null, Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null, Transform followTarget = null) where T : UIInstance
 	{
 		var instance =
-			UIInstance.Instantiate<T>(param, (instance) => GetTargetCanvasByType(instance.UIType).transform);
+			UIInstance.Instantiate<T>(param, position, rotation, scale, followTarget, (instance) => GetTargetCanvasByType(instance.UIType).transform);
 		uiInstanceList.Add(instance);
 		return instance;
 	}
@@ -87,7 +87,10 @@ public class UIManager
 	{
 		var go = new GameObject(type.ToString() + "Canvas");
 		var canvas = go.AddComponent<Canvas>();
-		go.AddComponent<CanvasScaler>();
+		var scalar = go.AddComponent<CanvasScaler>();
+		//todo: 분리 필요?
+		scalar.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+		scalar.referenceResolution = new Vector2(1920, 1080);
 		go.AddComponent<GraphicRaycaster>();
 		canvas.renderMode = GetRenderModeFromType(type);
 		return canvas;

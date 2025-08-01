@@ -3,14 +3,40 @@ using System.Collections.Generic;
 using MessageSystem;
 using UnityEngine;
 
+/// <summary>
+/// todo: 배틀 중간중간 시너지 변동되는 것 반영하도록 수정 필요
+/// </summary>
 public class SynergySystem
 {
-	private Dictionary<Synergy, List<IBattleObject>> synergyBattleObjectMap;
+	private Dictionary<SynergyCategory, HashSet<IBattleObject>> synergyBattleObjectMap;
+	private Dictionary<SynergyCategory, IBattleSynergy> synergyDict;
 
 	public void Initialize()
 	{
 		synergyBattleObjectMap = new();
+		synergyDict = new();
+		
+		NoticeSystem.Instance.Subscribe<StatSynergyAddNotice>(OnSynergyAdd);
+		NoticeSystem.Instance.Subscribe<StatSynergyRemoveNotice>(OnSynergyRemove);
+		
 	}
+
+	private void OnSynergyAdd(StatSynergyAddNotice m)
+	{
+		foreach (var synergy in m.AddedSynergyList)
+		{
+			AddSynergyToObject(synergy, m.Target);
+		}
+	}
+	
+	private void OnSynergyRemove(StatSynergyRemoveNotice m)
+	{
+		foreach (var synergy in m.RemovedSynergyList)
+		{
+			RemoveSynergyFromObject(synergy, m.Target);
+		}
+	}
+
 
 	public void Register(IBattleObject targetObject)
 	{
@@ -22,42 +48,100 @@ public class SynergySystem
 			return;
 		}
 
-		foreach (var synergy in targetObject.BattleStat.GetSynergyList())
+		foreach (var synergy in targetObject.UnitCardBattleStat.SynergyList)
 		{
-			if (!synergyBattleObjectMap.TryGetValue(synergy, out var objList))
-			{
-				objList = new List<IBattleObject>() { targetObject };
-				synergyBattleObjectMap[synergy] = objList;
-			}
-			else
-			{
-				objList.Add(targetObject);
-			}
-
-			NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(synergy, objList.Count));
+			AddSynergyToObject(synergy, targetObject);
+		}
+	}
+	
+	public void UnRegister(IBattleObject targetObject)
+	{
+		foreach (var synergy in targetObject.UnitCardBattleStat.SynergyList)
+		{
+			RemoveSynergyFromObject(synergy, targetObject);
 		}
 	}
 
-	public void UnRegister(IBattleObject targetObject)
+	private void AddSynergyToObject(SynergyCategory category, IBattleObject target)
 	{
-		foreach (var synergy in targetObject.BattleStat.GetSynergyList())
+		if (!synergyBattleObjectMap.TryGetValue(category, out var objList))
 		{
-			if (!synergyBattleObjectMap.TryGetValue(synergy, out var objList))
-			{
-#if UNITY_EDITOR
-				throw new Exception();
-#endif
-			}
-			else
-			{
-				objList.Remove(targetObject);
-			}
+			objList = new HashSet<IBattleObject>() { target };
+			synergyBattleObjectMap[category] = objList;
+		}
+		else
+		{
+			//이미 있다면 그냥 리턴
+			if (!objList.Add(target)) return;
+		}
 
-			NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(synergy, objList.Count));
+		if (!synergyDict.TryGetValue(category, out var battleSynergy))
+		{
+			if (GameDataSystem.Instance.GetGameData<SynergyData>()
+			    .GetSynergySpec(category).TryGenerateBattleSynergyInstance(out battleSynergy))
+			{
+				synergyDict[category] = battleSynergy;
+			}
+		}
+		else
+		{
+			battleSynergy.Level++;
+		}
+
+		battleSynergy.AddMember(target);
+
+		NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(category, objList.Count));
+	}
+
+	private void RemoveSynergyFromObject(SynergyCategory category, IBattleObject target)
+	{
+		if (!synergyBattleObjectMap.TryGetValue(category, out var objList))
+		{
+#if UNITY_EDITOR
+			throw new Exception();
+#endif
+		}
+		else
+		{
+			objList.Remove(target);
+		}
+			
+		if (!synergyDict.TryGetValue(category, out var battleSynergy))
+		{
+#if UNITY_EDITOR
+			throw new Exception();
+#endif
+		}
+		else
+		{
+			battleSynergy.Level--;
+		}
+			
+		battleSynergy.RemoveMember(target);
+
+		NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(category, objList.Count));
+	}
+	
+	public void ActivateSynergies()
+	{
+		foreach (var kvp in synergyDict)
+		{
+			kvp.Value.Activate();
+		}	
+	}
+
+	public void DeactivateSynergies()
+	{
+		foreach (var kvp in synergyDict)
+		{
+			kvp.Value.Deactivate();
 		}
 	}
 
 	public void Dispose()
 	{
+		NoticeSystem.Instance.Unsubscribe<StatSynergyAddNotice>(OnSynergyAdd);
+		NoticeSystem.Instance.Unsubscribe<StatSynergyRemoveNotice>(OnSynergyRemove);
 	}
+
 }

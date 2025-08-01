@@ -2,9 +2,9 @@ using MessageSystem;
 
 public class FieldCardSelectCancelNotice : Notice
 {
-	public BattleCardObjectInField SelectedCard { get; }
+	public UnitCardInField SelectedCard { get; }
 	
-	public FieldCardSelectCancelNotice(BattleCardObjectInField target)
+	public FieldCardSelectCancelNotice(UnitCardInField target)
 	{
 		this.SelectedCard = target;
 	}

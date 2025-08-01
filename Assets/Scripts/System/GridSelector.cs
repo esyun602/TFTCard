@@ -5,23 +5,14 @@ using UnityEngine;
 [Serializable]
 public class GridSelector
 {
-	public int rows = 5;
+#if UNITY_EDITOR
+	public bool isEnemyView = false;
+#endif
+	public int rows = 1;
 	public int columns = 5;
-	public bool isAbsolute;
-    
+	public bool swapView;
+
 	// 선택된 셀 좌표 (row, col)를 저장하는 리스트
-	public List<GridCell> selectedCells = new List<GridCell>();
-}
-
-[Serializable]
-public struct GridCell
-{
-	public int row;
-	public int col;
-
-	public GridCell(int row, int col)
-	{
-		this.row = row;
-		this.col = col;
-	}
+	public List<int> triggerCellList = new();
+	public List<int> attackCellList = new();
 }

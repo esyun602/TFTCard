@@ -33,10 +33,11 @@ public abstract class UIInstance : MonoBehaviour
 		}
 	}
 
-	internal static T Instantiate<T>(object param, System.Func<UIInstance, Transform> GetParent) where T : UIInstance
+	internal static T Instantiate<T>(object param, Vector3? position, Quaternion? rotation, Vector3? scale,
+		Transform followTarget, System.Func<UIInstance, Transform> GetParent) where T : UIInstance
 	{
 		var pool = UnityObjectPool.GetOrCreateUIPool(typeof(T).Name);
-		var pooledObject = pool.Instantiate();
+		var pooledObject = pool.Instantiate(position, rotation, scale, followTarget);
 		var instance = pooledObject.GetComponent<T>();
 		instance.id = unchecked(++lastAllocatedId);
 		instance.Init(param);

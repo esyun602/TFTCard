@@ -46,6 +46,14 @@ public class Game : MonoBehaviour
 		currentGameMode.Initialize();
 	}
 
+	public void ResetProgressInfo()
+	{
+		//todo: 수정 필요
+		player = new();
+		player.Initialize();
+		ChangeGameMode(new TitleGameMode());
+	}
+
 	public T GetGameMode<T>() where T : class, IGameMode
 	{
 		return currentGameMode as T;

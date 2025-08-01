@@ -1,0 +1,32 @@
+using MessageSystem;
+
+public class StunBuff : IBuff
+{
+	private IBattleObject target;
+	public BuffType BuffType => BuffType.Negative;
+	public BattleValueType ControlBattleValueType => BattleValueType.Stun;
+	public int Level => 1;
+	public void OnAdd(IBattleObject target)
+	{	
+		this.target = target;
+		NoticeSystem.Instance.Subscribe<TurnStartBlockByStunNotice>(OnTurnStart);
+	}
+
+	public void OnRemove()
+	{
+		NoticeSystem.Instance.Unsubscribe<TurnStartBlockByStunNotice>(OnTurnStart);
+	}
+
+	private void OnTurnStart(TurnStartBlockByStunNotice m)
+	{
+		if (m.TargetObject == target)
+		{
+			target.UnitCardBattleStat.RemoveBuff(this);
+		}
+	}
+
+	public bool TryStack(IBuff buff)
+	{
+		return true;
+	}
+}

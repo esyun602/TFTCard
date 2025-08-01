@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class SynergyLabel : MonoBehaviour
 {
-	private SynergySpec targetSpec;
+	private SynergySpec targetCategorySpec;
 
 	private int synergyCount;
 
@@ -23,16 +23,14 @@ public class SynergyLabel : MonoBehaviour
 		}
 	}
 
-	[SerializeField] private Image synergyImage;
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
 	[SerializeField] private TextMeshProUGUI synergyCountText;
 
-	public void Initialize(Synergy targetSynergy)
+	public void Initialize(SynergyCategory targetSynergyCategory)
 	{
-		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergy);
-		targetSpec = spec;
-		synergyImage.sprite = spec.targetSprite;
+		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
+		targetCategorySpec = spec;
 		synergyName.text = spec.synergyName;
 	}
 
@@ -49,22 +47,22 @@ public class SynergyLabel : MonoBehaviour
 		strBuilder.Append("<color=\"grey\">");
 		bool found = false;
 		
-		for (var i = 0; i < targetSpec.synergyCountList.Count; i++)
+		for (var i = 0; i < targetCategorySpec.synergyCountList.Count; i++)
 		{
 			if (i != 0)
 			{
-				strBuilder.Append($"> ");
+				strBuilder.Append($"/ ");
 			}
 			
-			if (found || synergyCount < targetSpec.synergyCountList[i])
+			if (found || synergyCount < targetCategorySpec.synergyCountList[i])
 			{
-				strBuilder.Append($"{targetSpec.synergyCountList[i]} ");
+				strBuilder.Append($"{targetCategorySpec.synergyCountList[i]} ");
 			}
-			else if (targetSpec.synergyCountList[i] <= synergyCount &&
-			         (i + 1 >= targetSpec.synergyCountList.Count || targetSpec.synergyCountList[i + 1] > synergyCount))
+			else if (targetCategorySpec.synergyCountList[i] <= synergyCount &&
+			         (i + 1 >= targetCategorySpec.synergyCountList.Count || targetCategorySpec.synergyCountList[i + 1] > synergyCount))
 			{
 				found = true;
-				strBuilder.Append($"<color=\"white\">{targetSpec.synergyCountList[i]}</color> ");
+				strBuilder.Append($"<color=\"white\">{targetCategorySpec.synergyCountList[i]}</color> ");
 				
 			}
 		}

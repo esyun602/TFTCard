@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36be9efe775f42968e68f6fe43c8f5d5, type: 3}
+  m_Name: TestCard7
+  m_EditorClassIdentifier: 
+  statSpec: {fileID: 11400000, guid: 6ab18c593bee9f045b695415c2638a4d, type: 2}
+  cardResource: {fileID: 21300000, guid: 8b785eb0ee07527429696791a319e9ed, type: 3}
+  actionData: {fileID: 11400000, guid: 85981251e47880d498995ce6d982a771, type: 2}
+  targetSkillCardSpec: {fileID: 11400000, guid: 93763ff3b1bd1f249872a5a08e2c7e93, type: 2}
