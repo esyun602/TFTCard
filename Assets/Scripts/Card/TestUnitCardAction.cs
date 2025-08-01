@@ -12,6 +12,8 @@ public class TestUnitCardAction : UnitCardActionBase
 
 	//public override GridSelector AttackRangeInfo => gridInfo;
 
+	public override object[] DescParams { get; }
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		routineDone = false;

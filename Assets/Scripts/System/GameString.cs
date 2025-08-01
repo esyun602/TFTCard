@@ -32,6 +32,12 @@ public class GameString : GameData
 	
 	public string Format(string key, params object[] parameters)
 	{
-		return String.Format(GetString(key), parameters);
+		var targetString = GetString(key);
+		if (parameters == null)
+		{
+			return targetString;
+		}
+        
+		return String.IsNullOrEmpty(targetString) ? "" : String.Format(targetString, parameters);
 	}
 }

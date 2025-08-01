@@ -20,6 +20,6 @@ public class SkillCardSpec : ScriptableObject, ICardSpec
 	
 	
 	public Sprite CardResource => cardResource;
-	public string Name => GameDataSystem.Instance.GetGameData<GameString>().GetString(nameKey);
-	public string Desc => GameDataSystem.Instance.GetGameData<GameString>().GetString(descKey);
+	public string NameKey => nameKey;
+	public string DescKey => descKey;
 }

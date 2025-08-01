@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c00cfc037040cdae545ebec912f10b, type: 3}
   m_Name: QuickMotionSpec
   m_EditorClassIdentifier: 
+  nameKey: skill_quick_motion
+  descKey: skill_quick_motion_desc
   statSpec: {fileID: 11400000, guid: c174b06b787a0724fae055789d345d8e, type: 2}
   cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
   actionSpec: {fileID: 11400000, guid: bca0610d376e0a849969f03c4ccdd7d1, type: 2}

@@ -14,7 +14,9 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-	
+
+	public override object[] DescParams => new object[] { stat.Owner == null ? 0 : stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack) };
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)

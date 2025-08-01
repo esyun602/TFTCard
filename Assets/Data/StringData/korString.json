@@ -1,94 +1,226 @@
 [
   {
-    "StringKey": "someTestText_1",
-    "KorString": "test_1"
+    "StringKey": "unit_alle",
+    "KorString": "알레"
   },
   {
-    "StringKey": "someTestText_2",
-    "KorString": "test_2"
+    "StringKey": "unit_alle_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_3",
-    "KorString": "test_3"
+    "StringKey": "unit_bella",
+    "KorString": "벨라"
   },
   {
-    "StringKey": "someTestText_4",
-    "KorString": "test_4"
+    "StringKey": "unit_bella_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_5",
-    "KorString": "test_5"
+    "StringKey": "unit_cowl",
+    "KorString": "코울"
   },
   {
-    "StringKey": "someTestText_6",
-    "KorString": "test_6"
+    "StringKey": "unit_cowl_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_7",
-    "KorString": "test_7"
+    "StringKey": "unit_dacane",
+    "KorString": "다케인"
   },
   {
-    "StringKey": "someTestText_8",
-    "KorString": "test_8"
+    "StringKey": "unit_dacane_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_9",
-    "KorString": "test_9"
+    "StringKey": "unit_equinox",
+    "KorString": "에퀴녹스"
   },
   {
-    "StringKey": "someTestText_10",
-    "KorString": "test_10"
+    "StringKey": "unit_equinox_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_11",
-    "KorString": "test_11"
+    "StringKey": "unit_firebat",
+    "KorString": "파이어뱃"
   },
   {
-    "StringKey": "someTestText_12",
-    "KorString": "test_12"
+    "StringKey": "unit_firebat_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_13",
-    "KorString": "test_13"
+    "StringKey": "unit_guttie",
+    "KorString": "거티"
   },
   {
-    "StringKey": "someTestText_14",
-    "KorString": "test_14"
+    "StringKey": "unit_guttie_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_15",
-    "KorString": "test_15"
+    "StringKey": "unit_pana",
+    "KorString": "파나"
   },
   {
-    "StringKey": "someTestText_16",
-    "KorString": "test_16"
+    "StringKey": "unit_pana_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_17",
-    "KorString": "test_17"
+    "StringKey": "unit_posi",
+    "KorString": "포지"
   },
   {
-    "StringKey": "someTestText_18",
-    "KorString": "test_18"
+    "StringKey": "unit_posi_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_19",
-    "KorString": "test_19"
+    "StringKey": "unit_walter",
+    "KorString": "월터"
   },
   {
-    "StringKey": "someTestText_20",
-    "KorString": "test_20"
+    "StringKey": "unit_walter_desc",
+    "KorString": ""
   },
   {
-    "StringKey": "someTestText_21",
-    "KorString": "test_21"
+    "StringKey": "act_skill_biological_experiment",
+    "KorString": "생체실험"
   },
   {
-    "StringKey": "someTestText_22",
-    "KorString": "test_22"
+    "StringKey": "act_skill_biological_experiment_desc",
+    "KorString": "적에게 {0}의 피해를 주고 촉매를 1 부여합니다."
   },
   {
-    "StringKey": "someTestText_23",
-    "KorString": "test_23"
+    "StringKey": "act_skill_steampack",
+    "KorString": "스팀팩"
+  },
+  {
+    "StringKey": "act_skill_steampack_desc",
+    "KorString": "대상에게 화상을 1 부여하고 턴 카운트를 2 감소시킵니다."
+  },
+  {
+    "StringKey": "act_skill_high_pressure_bomb",
+    "KorString": "고압 포탄"
+  },
+  {
+    "StringKey": "act_skill_high_pressure_bomb_desc",
+    "KorString": "적에게 {0}의 피해를 같은 행의 나머지 적 모두에게 {1}의 폭발 피해를 줍니다."
+  },
+  {
+    "StringKey": "act_skill_chain_reaction",
+    "KorString": "연쇄반응"
+  },
+  {
+    "StringKey": "act_skill_chain_reaction_desc",
+    "KorString": "촉매가 부여된 모든 적에게 1의 폭발 피해를 줍니다."
+  },
+  {
+    "StringKey": "act_skill_equivalent_exchange",
+    "KorString": "등가교환"
+  },
+  {
+    "StringKey": "act_skill_equivalent_exchange_desc",
+    "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 체력을 잃습니다."
+  },
+  {
+    "StringKey": "act_skill_flamethrower",
+    "KorString": "화염 방사"
+  },
+  {
+    "StringKey": "act_skill_flamethrower_desc",
+    "KorString": "적에게 화상을 {0} 부여합니다."
+  },
+  {
+    "StringKey": "act_skill_automail",
+    "KorString": "오토메일"
+  },
+  {
+    "StringKey": "act_skill_automail_desc",
+    "KorString": "선택한 아군의 현재 체력과 최대 체력을 3 감소시키고 방어구를 {0} 부여합니다."
+  },
+  {
+    "StringKey": "act_skill_panacea",
+    "KorString": "만병통치약"
+  },
+  {
+    "StringKey": "act_skill_panacea_desc",
+    "KorString": "선택한 아군을 최대 체력으로 회복시키고 ‘치유 불가’를 적용합니다."
+  },
+  {
+    "StringKey": "act_skill_positive_feedback",
+    "KorString": "양성 피드백"
+  },
+  {
+    "StringKey": "act_skill_positive_feedback_desc",
+    "KorString": "적에게 촉매를 1 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 1 증가합니다."
+  },
+  {
+    "StringKey": "act_skill_overheat_propulsion",
+    "KorString": "과열 추진기"
+  },
+  {
+    "StringKey": "act_skill_overheat_propulsion_desc",
+    "KorString": "자신에게 화상을 2 부여하고 적에게 피해를 {0} 줍니다."
+  },
+  {
+    "StringKey": "skill_bread_supply",
+    "KorString": "빵 보급"
+  },
+  {
+    "StringKey": "skill_bread_supply_desc",
+    "KorString": "아군을 3 회복합니다."
+  },
+  {
+    "StringKey": "skill_steamengine_protection",
+    "KorString": "증기동력 보호구"
+  },
+  {
+    "StringKey": "skill_steamengine_protection_desc",
+    "KorString": "소진. 선택한 아군에게 방어구 2를 부여합니다. 해당 유닛은 증기동력 시너지에 포함됩니다."
+  },
+  {
+    "StringKey": "skill_quick_motion",
+    "KorString": "빠른동작"
+  },
+  {
+    "StringKey": "skill_quick_motion_desc",
+    "KorString": "아군의 턴 카운트를 1 감소시킵니다."
+  },
+  {
+    "StringKey": "skill_repose",
+    "KorString": "재배치"
+  },
+  {
+    "StringKey": "skill_repose_desc",
+    "KorString": "아군 하나를 빈 자리로 이동시킵니다."
+  },
+  {
+    "StringKey": "skill_fire_arrow",
+    "KorString": "불화살"
+  },
+  {
+    "StringKey": "skill_fire_arrow_desc",
+    "KorString": "대상에게 화상을 2 부여합니다."
+  },
+  {
+    "StringKey": "skill_stock",
+    "KorString": "재고"
+  },
+  {
+    "StringKey": "skill_stock_desc",
+    "KorString": "카드 2장을 뽑습니다."
+  },
+  {
+    "StringKey": "skill_damage",
+    "KorString": "대충데미지카드"
+  },
+  {
+    "StringKey": "skill_damage_desc",
+    "KorString": "적에게 피해를 3 줍니다."
+  },
+  {
+    "StringKey": "skill_shield",
+    "KorString": "대충쉴드카드"
+  },
+  {
+    "StringKey": "skill_shield_desc",
+    "KorString": "방어도를 2 부여합니다."
   }
 ]

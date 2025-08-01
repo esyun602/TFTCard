@@ -13,6 +13,8 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		return base.CanUse(targetTile) && targetObject.ObjectType == ObjectType.Ally;
 	}
 
+	public override object[] DescParams { get; }
+
 	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec)
 	{
 	}

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c00cfc037040cdae545ebec912f10b, type: 3}
   m_Name: SteamEngineProtectionSpec
   m_EditorClassIdentifier: 
+  nameKey: skill_steamengine_protection
+  descKey: skill_steamengine_protection_desc
   statSpec: {fileID: 11400000, guid: 712f28ebda4d9ea4298c65c51a67ef8e, type: 2}
   cardResource: {fileID: 21300000, guid: 2a727bb653e4fb64ba69900d91ea812b, type: 3}
   actionSpec: {fileID: 11400000, guid: 9289ae5dcbc5b9c4194774777b17582f, type: 2}

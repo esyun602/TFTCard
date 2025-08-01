@@ -69,9 +69,20 @@ public class CsvToJsonWindow : EditorWindow
             if (string.IsNullOrWhiteSpace(lines[i])) continue;
             string[] cells = lines[i].Split(',');
 
+            if (cells.Length > 2)
+            {
+                var mergedStr = "";
+                for (var j = 1; j < cells.Length; j++)
+                {
+                    mergedStr += cells[j];
+                }
+
+                cells = new[] { cells[0], mergedStr.Trim('\"') };
+            }
+
             var obj = new Dictionary<string, string>();
             for (int c = 0; c < headers.Length && c < cells.Length; c++)
-                obj[headers[c]] = cells[c];
+                obj[headers[c]] = cells[c]; 
 
             rows.Add(obj);
         }

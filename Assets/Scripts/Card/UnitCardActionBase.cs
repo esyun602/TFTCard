@@ -26,6 +26,8 @@ public abstract class UnitCardActionBase : IAction
 		OnCancel();
 	}
 
+	public abstract object[] DescParams { get; }
+
 	public virtual void SetBattleOwner(IBattleObject owner)
 	{
 		this.owner = owner;

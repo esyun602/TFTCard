@@ -32,6 +32,8 @@ public abstract class SkillCardActionBase : IAction
 		OnCancel();
 	}
 
+	public abstract object[] DescParams { get; }
+
 	public virtual void SetCardBattleStat(SkillCardBattleStat stat)
 	{
 		this.stat = stat;

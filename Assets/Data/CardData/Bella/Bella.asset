@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36be9efe775f42968e68f6fe43c8f5d5, type: 3}
+  m_Name: Bella
+  m_EditorClassIdentifier: 
+  nameKey: unit_bella
+  descKey: unit_bella_desc
+  statSpec: {fileID: 11400000, guid: 68d4c549d7e10f54092637a744e16409, type: 2}
+  cardResource: {fileID: 21300000, guid: 67883816db3d83049bc3e5dccde27d9f, type: 3}
+  actionData: {fileID: 11400000, guid: 28615a9bd0e99f345a82162d0e2bba0b, type: 2}
+  targetSkillCardSpec: {fileID: 11400000, guid: b9340dc7d7cc66643a8c764044e8520c, type: 2}

@@ -13,4 +13,8 @@ public class SkillCard : ICard
 	}
 
 	public ICardSpec CardStaticSpec => SkillCardStaticSpec;
+	public string Name => GameDataSystem.Instance.GetGameData<GameString>().GetString(CardStaticSpec.NameKey);
+	//todo: 설명은 액션으로 ?
+	public string Desc => GameDataSystem.Instance.GetGameData<GameString>()
+		.Format(CardStaticSpec.DescKey, Action.DescParams);
 }

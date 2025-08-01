@@ -9,6 +9,8 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 	{
 	}
 
+	public override object[] DescParams { get; }
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)

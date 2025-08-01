@@ -17,4 +17,8 @@ public class UnitCard : ICard
 	}
 
 	public ICardSpec CardStaticSpec => UnitCardStaticSpec;
+	public string Name => GameDataSystem.Instance.GetGameData<GameString>().GetString(CardStaticSpec.NameKey);
+	//todo: 설명은 액션으로 ?
+	public string Desc => GameDataSystem.Instance.GetGameData<GameString>()
+		.Format(CardStaticSpec.DescKey, Action.DescParams);
 }

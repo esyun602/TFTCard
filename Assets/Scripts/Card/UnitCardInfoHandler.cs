@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
-	private UnitCardSpec spec;
+	private ICard targetCard;
 	private Dictionary<BattleValueType, TextMeshPro> valueMap;
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private TextMeshPro atk;
@@ -20,15 +20,12 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private TextMeshPro shield;
 	
-	public void Initialize(ICardSpec cardSpec, IStat stat = null)
+	public void Initialize(ICard card, IStat stat = null)
 	{
-		if (cardSpec is not UnitCardSpec spec)
+		if (card is not UnitCard)
 		{
 			throw new ArgumentException();
 		}
-		
-		this.spec = spec;
-		this.stat = stat ?? spec.statSpec;
 
 		valueMap = new()
 		{
@@ -38,10 +35,11 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			[BattleValueType.TurnCount] = turnCount,
 			[BattleValueType.Shield] = shield,
 		};
-		
-		nameText.text = spec.name;
-		desc.text = "Some Description...";
-		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
+
+		targetCard = card;
+		nameText.text = card.Name;
+		desc.text = card.Desc;
+		TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
 		
 		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
@@ -75,7 +73,8 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		targetText.text = $"{stat.GetValueByValueType(m.Type)}";
 		targetText.transform.localScale = Vector3.one * 2f;
 		targetText.transform.DOScale(Vector3.one,  0.5f);
-		
+
+		desc.text = targetCard.Desc;
 	}
 
 	private void OnBattleShieldChange(UnitBattleValueChangeNotice m)

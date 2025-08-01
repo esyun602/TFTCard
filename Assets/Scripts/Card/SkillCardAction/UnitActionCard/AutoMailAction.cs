@@ -11,6 +11,8 @@ public class AutoMailAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Ally;
 	}
 
+	public override object[] DescParams => new object[] { stat.Owner == null ? 0 : stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack) };
+
 	public AutoMailAction(AutoMailActionSpec spec)
 	{
 	}

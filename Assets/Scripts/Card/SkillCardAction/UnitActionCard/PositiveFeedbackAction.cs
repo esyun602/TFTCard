@@ -11,6 +11,8 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Enemy;
 	}
 
+	public override object[] DescParams { get; }
+
 	public PositiveFeedbackAction(PositiveFeedbackActionSpec spec)
 	{
 	}

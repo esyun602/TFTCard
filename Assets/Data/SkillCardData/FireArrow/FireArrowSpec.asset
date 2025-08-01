@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c00cfc037040cdae545ebec912f10b, type: 3}
   m_Name: FireArrowSpec
   m_EditorClassIdentifier: 
+  nameKey: skill_fire_arrow
+  descKey: skill_fire_arrow_desc
   statSpec: {fileID: 11400000, guid: a5e53f3893f3ae747836dd24552b9b5a, type: 2}
   cardResource: {fileID: 21300000, guid: 9214f3ece60ca6943ad1485a87860ded, type: 3}
   actionSpec: {fileID: 11400000, guid: d863aaa87f35d7e4c8a997f2a2414d0e, type: 2}
