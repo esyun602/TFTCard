@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "BreadSupply",
+    "ClassName": "BreadSupplySkillAction"
+  },
+  {
+    "Name": "Damage",
+    "ClassName": "TestSkillAction"
+  },
+  {
+    "Name": "FireArrow",
+    "ClassName": "FireArrowSkillAction"
+  },
+  {
+    "Name": "QuickMotion",
+    "ClassName": "QuickMotionAction"
+  },
+  {
+    "Name": "Repose",
+    "ClassName": "ReposeSkillAction"
+  },
+  {
+    "Name": "Shield",
+    "ClassName": "AddShieldSkillAction"
+  },
+  {
+    "Name": "SteamEngineProtection",
+    "ClassName": "SteamEngineProtectionAction"
+  },
+  {
+    "Name": "Stock",
+    "ClassName": "StockSkillAction"
+  },
+  {
+    "Name": "BiologicalExperiment",
+    "ClassName": "BiologicalExperimentAction"
+  },
+  {
+    "Name": "SteamPack",
+    "ClassName": "SteamPackAction"
+  },
+  {
+    "Name": "HighPressureBomb",
+    "ClassName": "HighPressureBombAction"
+  },
+  {
+    "Name": "ChainReaction",
+    "ClassName": "ChainReactionAction"
+  },
+  {
+    "Name": "EquivalentExchange",
+    "ClassName": "EquivalentExchangeAction"
+  },
+  {
+    "Name": "Flamethrower",
+    "ClassName": "FlamethrowerAction"
+  },
+  {
+    "Name": "AutoMail",
+    "ClassName": "AutoMailAction"
+  },
+  {
+    "Name": "Panacea",
+    "ClassName": "PanaceaAction"
+  },
+  {
+    "Name": "PositiveFeedback",
+    "ClassName": "PositiveFeedbackAction"
+  },
+  {
+    "Name": "OverheatPropulsion",
+    "ClassName": "OverheatPropulsionAction"
+  }
+]

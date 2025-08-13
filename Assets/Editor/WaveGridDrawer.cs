@@ -1,3 +1,4 @@
+/*
 using System;
 using UnityEngine;
 using UnityEditor;
@@ -77,7 +78,7 @@ public class WaveGridDrawer : PropertyDrawer
                 {
                     EditorGUI.DrawRect(cellRect, Color.gray);
                 }
-*/
+#1#
                 if (layerTiles?.Contains((row, col)) != true) continue;
                 // 각 셀에 오브젝트 필드를 오버레이로 표시합니다.
                 EditorGUI.BeginChangeCheck();
@@ -173,3 +174,4 @@ public class WaveGridDrawer : PropertyDrawer
         return rows * (cellSize + padding + referenceCellSize) - padding + 20f;
     }
 }
+*/

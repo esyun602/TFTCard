@@ -6,10 +6,8 @@ using WaitForSeconds = Coroutine.WaitForSeconds;
 
 public class TestStage : BattleStage
 {
-	private UnitCardSpec unitCardSpec;
-	public TestStage(UnitCardSpec unitCardSpec, StageSpec stageSpec) : base(stageSpec)
+	public TestStage(StageSpec stageSpec) : base(stageSpec)
 	{
-		this.unitCardSpec = unitCardSpec;
 	}
 	
 	protected override void OnLoad()

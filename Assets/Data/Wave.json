@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "test_wave_0",
+    "CellList": [
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "Alle"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "Alle"
+      },
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "Alle"
+      }
+    ]
+  }
+]

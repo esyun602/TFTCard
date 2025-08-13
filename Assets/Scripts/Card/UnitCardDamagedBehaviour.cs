@@ -21,16 +21,16 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 			return;
 		}
 		
-		var dmg = this.CalculateDamageFromStat(info.Dmg);
+		this.CalculateDamageFromStat(ref info);
 		//dmg = 0 일 때 별도 연출 처리
-		if (dmg != 0)
+		if (info.Dmg != 0)
 		{
-			dmg = ProcessShield(dmg);
+			ProcessShield(ref info);
 		}
 
-		if (dmg != 0)
+		if (info.Dmg != 0)
 		{
-			owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, -dmg);
+			owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, -info.Dmg);
 			if (owner is IMessageReceiver mr)
 			{
 				NoticeSystem.Instance.Send(new DamageNotice(info, owner), mr);
@@ -58,11 +58,10 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 	}
 
 	//todo: 이후 기능이 많이 추가되면 데미지 관련 정책을 별도 interface로 개별적으로 분산시키는게 좋을듯
-	private int CalculateDamageFromStat(int dmg)
+	private void CalculateDamageFromStat(ref DamageInfo info)
 	{
 		var catalyst = owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Catalyst);
-
-		return dmg + catalyst;
+		info.Dmg += catalyst;
 	}
 
 	private bool ProcessDodge(IBattleObject sender)
@@ -82,13 +81,14 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 	}
 
 
-	private int ProcessShield(int dmg)
+	private void ProcessShield(ref DamageInfo info)
 	{
 		var shield = owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Shield);
-		var damageAfter = Mathf.Max(0, dmg - shield);
-		owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, -dmg);
+		var damageAfter = Mathf.Max(0, info.Dmg - shield);
+		var shieldDmg = info.Dmg - damageAfter;
+		owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, -shieldDmg);
 
-		return damageAfter;
+		info.Dmg = damageAfter;
 	}
 
 

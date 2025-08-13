@@ -18,7 +18,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	public BattleStage BattleStage { get; }
 	private SimpleStateMachine battleStageStateMachine = new();
 	//todo: map gamemode 넣는게 맞나?
-	public BattleStageGameMode(List<WaveGrid> waveData, IStage targetStage) : base(targetStage)
+	public BattleStageGameMode(List<WaveSpec> waveData, IStage targetStage) : base(targetStage)
 	{
 		DeckSystem = new();
 		TurnSystem = new();

@@ -1,0 +1,164 @@
+[
+  {
+    "Name": "BreadSupply",
+    "NameKey": "skill_bread_supply",
+    "DescKey": "skill_bread_supply_desc",
+    "StatSpecName": "BreadSupplyStat",
+    "CardResource": "bread_supply_default",
+    "ActionSpecName": "BreadSupply",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "Damage",
+    "NameKey": "skill_damage",
+    "DescKey": "skill_damage_desc",
+    "StatSpecName": "DamageStat",
+    "CardResource": "damage_default",
+    "ActionSpecName": "Damage",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "FireArrow",
+    "NameKey": "skill_fire_arrow",
+    "DescKey": "skill_fire_arrow_desc",
+    "StatSpecName": "FireArrowStat",
+    "CardResource": "fire_arrow_default",
+    "ActionSpecName": "FireArrow",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "QuickMotion",
+    "NameKey": "skill_quick_motion",
+    "DescKey": "skill_quick_motion_desc",
+    "StatSpecName": "QuickMotionStat",
+    "CardResource": "quick_motion_default",
+    "ActionSpecName": "QuickMotion",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "Repose",
+    "NameKey": "skill_repose",
+    "DescKey": "skill_repose_desc",
+    "StatSpecName": "ReposeStat",
+    "CardResource": "repose_default",
+    "ActionSpecName": "Repose",
+    "CardUseType": "Global"
+  },
+  {
+    "Name": "Shield",
+    "NameKey": "skill_shield",
+    "DescKey": "skill_shield_desc",
+    "StatSpecName": "ShieldStat",
+    "CardResource": "shield_default",
+    "ActionSpecName": "Shield",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "SteamEngineProtection",
+    "NameKey": "skill_damage",
+    "DescKey": "skill_damage_desc",
+    "StatSpecName": "SteamEngineProtectionStat",
+    "CardResource": "damage_default",
+    "ActionSpecName": "SteamEngineProtection",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "Stock",
+    "NameKey": "skill_stock",
+    "DescKey": "skill_stock_desc",
+    "StatSpecName": "StockStat",
+    "CardResource": "stock_default",
+    "ActionSpecName": "Stock",
+    "CardUseType": "Global"
+  },
+  {
+    "Name": "BiologicalExperiment",
+    "NameKey": "act_skill_biological_experiment",
+    "DescKey": "act_skill_biological_experiment_desc",
+    "StatSpecName": "BiologicalExperimentStat",
+    "CardResource": "skill_biological_experiment_default",
+    "ActionSpecName": "BiologicalExperiment",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "SteamPack",
+    "NameKey": "act_skill_steampack",
+    "DescKey": "act_skill_steampack_desc",
+    "StatSpecName": "SteamPackStat",
+    "CardResource": "skill_steampack_default",
+    "ActionSpecName": "SteamPack",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "HighPressureBomb",
+    "NameKey": "act_skill_high_pressure_bomb",
+    "DescKey": "act_skill_high_pressure_bomb_desc",
+    "StatSpecName": "HighPressureBombStat",
+    "CardResource": "skill_high_pressure_bomb_default",
+    "ActionSpecName": "HighPressureBomb",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "ChainReaction",
+    "NameKey": "act_skill_chain_reaction",
+    "DescKey": "act_skill_chain_reaction_desc",
+    "StatSpecName": "ChainReactionStat",
+    "CardResource": "skill_chain_reaction_default",
+    "ActionSpecName": "ChainReaction",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "EquivalentExchange",
+    "NameKey": "act_skill_equivalent_exchange",
+    "DescKey": "act_skill_equivalent_exchange_desc",
+    "StatSpecName": "EquivalentExchangeStat",
+    "CardResource": "skill_equivalent_exchange_default",
+    "ActionSpecName": "EquivalentExchange",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "Flamethrower",
+    "NameKey": "act_skill_flamethrower",
+    "DescKey": "act_skill_flamethrower_desc",
+    "StatSpecName": "FlamethrowerStat",
+    "CardResource": "skill_flamethrower_default",
+    "ActionSpecName": "Flamethrower",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "AutoMail",
+    "NameKey": "act_skill_automail",
+    "DescKey": "act_skill_automail_desc",
+    "StatSpecName": "AutoMailStat",
+    "CardResource": "skill_automail_default",
+    "ActionSpecName": "AutoMail",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "Panacea",
+    "NameKey": "act_skill_panacea",
+    "DescKey": "act_skill_panacea_desc",
+    "StatSpecName": "PanaceaStat",
+    "CardResource": "skill_panacea_default",
+    "ActionSpecName": "Panacea",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "PositiveFeedback",
+    "NameKey": "act_skill_positive_feedback",
+    "DescKey": "act_skill_positive_feedback_desc",
+    "StatSpecName": "PositiveFeedbackStat",
+    "CardResource": "skill_positive_feedback_default",
+    "ActionSpecName": "PositiveFeedback",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Name": "OverheatPropulsion",
+    "NameKey": "act_skill_overheat_propulsion",
+    "DescKey": "act_skill_overheat_propulsion_desc",
+    "StatSpecName": "OverheatPropulsionStat",
+    "CardResource": "skill_overheat_propulsion_default",
+    "ActionSpecName": "OverheatPropulsion",
+    "CardUseType": "Targeting"
+  }
+]

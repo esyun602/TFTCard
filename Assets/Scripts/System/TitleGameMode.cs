@@ -18,13 +18,13 @@ public class TitleGameMode : IGameMode
 		//todo: 일단 바로 맵 씬으로
 		//todo: transition 추가해서 수정
 		//todo: transition 시 uimanager 동작도 체크
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(1)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(1)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(5)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(5)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(2)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(3)));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecById(4)));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Damage")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Damage")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Shield")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Shield")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("QuickMotion")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Repose")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("FireArrow")));
 		
 
 		Game.Instance.ChangeGameMode(new DraftGameMode());

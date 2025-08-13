@@ -6,7 +6,7 @@ public class StartDraft : UIInstance
 {
 	[SerializeField] private int cardPerDraft;
 	[SerializeField] private int draftCount;
-	[SerializeField] private UnitCardSpec[] draftCandidates;
+	[SerializeField] private string[] draftCandidatesStrings;
 	[SerializeField] private GameObject endButton;
 	private int currentDraftCount;
 	private UnityObjectPool cardPool;
@@ -59,11 +59,11 @@ public class StartDraft : UIInstance
 		currentDraftCount++;
 		for (var i = 1; i <= cardPerDraft; i++)
 		{
-			var randomCard = draftCandidates[Random.Range(0, draftCandidates.Length)];
+			var randomCard = draftCandidatesStrings[Random.Range(0, draftCandidatesStrings.Length)];
 			var pos = candidatePosList[i];
 			var instance = cardPool.Instantiate(pos);
 			currentCardList.Add(instance);
-			instance.GetComponent<DraftUICard>().Initialize(randomCard);
+			instance.GetComponent<DraftUICard>().Initialize(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(randomCard));
 		}
 	}
 

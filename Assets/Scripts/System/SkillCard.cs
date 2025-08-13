@@ -8,8 +8,11 @@ public class SkillCard : ICard
 	public SkillCard(SkillCardSpec spec)
 	{
 		SkillCardStaticSpec = spec;
-		Action = spec.actionSpec.CreateCardAction();
-		Stat = new SkillCardStat(spec.statSpec);
+		
+		var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetSkillActionByName(spec.ActionSpecName);
+		Action = actionSpec.CreateCardAction();
+		var statSpec = GameDataSystem.Instance.GetGameData<StatData>().GetSkillStatByName(spec.StatSpecName);
+		Stat = new SkillCardStat(statSpec);
 	}
 
 	public ICardSpec CardStaticSpec => SkillCardStaticSpec;
