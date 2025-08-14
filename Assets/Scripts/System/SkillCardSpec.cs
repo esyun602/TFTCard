@@ -18,7 +18,7 @@ public class SkillCardSpec : ICardSpec
 	public Sprite CardResource{ get; private set; }
 	public string ActionSpecName{ get; private set; }
 	public UseType CardUseType{ get; private set; }
-	
+	public bool IsUnitAction { get; private set; }
 
 	private SkillCardSpec()
 	{
@@ -37,7 +37,8 @@ public class SkillCardSpec : ICardSpec
 		spec.CardResource = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(CardResource)));
 		spec.ActionSpecName = param.GetString(nameof(ActionSpecName));
 		spec.CardUseType = Enum.TryParse(param.GetString(nameof(CardUseType)), out UseType result) ? result : UseType.Global;
-
+		spec.IsUnitAction = param.GetBool(nameof(IsUnitAction));
+		
 		return spec;
 	}
 }

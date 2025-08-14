@@ -6,7 +6,8 @@
     "StatSpecName": "BreadSupplyStat",
     "CardResource": "bread_supply_default",
     "ActionSpecName": "BreadSupply",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": false
   },
   {
     "Name": "Damage",
@@ -15,7 +16,8 @@
     "StatSpecName": "DamageStat",
     "CardResource": "damage_default",
     "ActionSpecName": "Damage",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": false
   },
   {
     "Name": "FireArrow",
@@ -24,7 +26,8 @@
     "StatSpecName": "FireArrowStat",
     "CardResource": "fire_arrow_default",
     "ActionSpecName": "FireArrow",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": false
   },
   {
     "Name": "QuickMotion",
@@ -33,7 +36,8 @@
     "StatSpecName": "QuickMotionStat",
     "CardResource": "quick_motion_default",
     "ActionSpecName": "QuickMotion",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": false
   },
   {
     "Name": "Repose",
@@ -42,7 +46,8 @@
     "StatSpecName": "ReposeStat",
     "CardResource": "repose_default",
     "ActionSpecName": "Repose",
-    "CardUseType": "Global"
+    "CardUseType": "Global",
+    "IsUnitAction": false
   },
   {
     "Name": "Shield",
@@ -51,7 +56,8 @@
     "StatSpecName": "ShieldStat",
     "CardResource": "shield_default",
     "ActionSpecName": "Shield",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": false
   },
   {
     "Name": "SteamEngineProtection",
@@ -60,7 +66,8 @@
     "StatSpecName": "SteamEngineProtectionStat",
     "CardResource": "damage_default",
     "ActionSpecName": "SteamEngineProtection",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": false
   },
   {
     "Name": "Stock",
@@ -69,7 +76,8 @@
     "StatSpecName": "StockStat",
     "CardResource": "stock_default",
     "ActionSpecName": "Stock",
-    "CardUseType": "Global"
+    "CardUseType": "Global",
+    "IsUnitAction": false
   },
   {
     "Name": "BiologicalExperiment",
@@ -78,7 +86,8 @@
     "StatSpecName": "BiologicalExperimentStat",
     "CardResource": "skill_biological_experiment_default",
     "ActionSpecName": "BiologicalExperiment",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "SteamPack",
@@ -87,7 +96,8 @@
     "StatSpecName": "SteamPackStat",
     "CardResource": "skill_steampack_default",
     "ActionSpecName": "SteamPack",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "HighPressureBomb",
@@ -96,7 +106,8 @@
     "StatSpecName": "HighPressureBombStat",
     "CardResource": "skill_high_pressure_bomb_default",
     "ActionSpecName": "HighPressureBomb",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "ChainReaction",
@@ -105,7 +116,8 @@
     "StatSpecName": "ChainReactionStat",
     "CardResource": "skill_chain_reaction_default",
     "ActionSpecName": "ChainReaction",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "EquivalentExchange",
@@ -114,7 +126,8 @@
     "StatSpecName": "EquivalentExchangeStat",
     "CardResource": "skill_equivalent_exchange_default",
     "ActionSpecName": "EquivalentExchange",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "Flamethrower",
@@ -123,7 +136,8 @@
     "StatSpecName": "FlamethrowerStat",
     "CardResource": "skill_flamethrower_default",
     "ActionSpecName": "Flamethrower",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "AutoMail",
@@ -132,7 +146,8 @@
     "StatSpecName": "AutoMailStat",
     "CardResource": "skill_automail_default",
     "ActionSpecName": "AutoMail",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "Panacea",
@@ -141,7 +156,8 @@
     "StatSpecName": "PanaceaStat",
     "CardResource": "skill_panacea_default",
     "ActionSpecName": "Panacea",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "PositiveFeedback",
@@ -150,7 +166,8 @@
     "StatSpecName": "PositiveFeedbackStat",
     "CardResource": "skill_positive_feedback_default",
     "ActionSpecName": "PositiveFeedback",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   },
   {
     "Name": "OverheatPropulsion",
@@ -159,6 +176,7 @@
     "StatSpecName": "OverheatPropulsionStat",
     "CardResource": "skill_overheat_propulsion_default",
     "ActionSpecName": "OverheatPropulsion",
-    "CardUseType": "Targeting"
+    "CardUseType": "Targeting",
+    "IsUnitAction": true
   }
 ]

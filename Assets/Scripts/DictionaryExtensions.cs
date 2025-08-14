@@ -17,6 +17,10 @@ public static class DictionaryExtensions
 	{
 		return dict.TryGetValue(key, out var value) ? (value is string strValue ? strValue : default) : default;
 	}
+	public static bool GetBool(this Dictionary<string, object> dict, string key)
+	{
+		return dict.TryGetValue(key, out var value) ? (value is bool boolValue ? boolValue : default) : default;
+	}
 	
 	public static Dictionary<string, object> GetObject(this Dictionary<string, object> dict, string key)
 	{

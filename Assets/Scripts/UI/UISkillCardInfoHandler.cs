@@ -7,6 +7,7 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI desc;
+    [SerializeField] private TextMeshProUGUI cost;
     [SerializeField] private Image img;
 	
     public void Initialize(ICard card, IStat stat)
@@ -18,6 +19,7 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
         nameText.text = card.Name;
         desc.text = card.Desc;
+        cost.text = stat.GetValueByValueType(BattleValueType.Cost).ToString();
         if (card.CardStaticSpec.CardResource != null)
         {
             img.sprite = card.CardStaticSpec.CardResource;
