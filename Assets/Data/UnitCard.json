@@ -111,7 +111,7 @@
     "Name": "GuardAutomaton",
     "NameKey": "unit_enemy_guardautomaton",
     "DescKey": "",
-    "StatSpecName": "EnemyGuradAutomatonStat",
+    "StatSpecName": "EnemyGuardAutomatonStat",
     "CardResource": "enemy_guardautomaton_default",
     "ActionSpecName": "DefaultAction",
     "TargetSkillCardSpecName": ""
