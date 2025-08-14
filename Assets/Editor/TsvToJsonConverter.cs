@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using DG.DemiEditor;
 using Newtonsoft.Json;
 
 public class TsvToJsonWindow : EditorWindow
@@ -180,7 +181,8 @@ public class TsvToJsonWindow : EditorWindow
                 for (int c = 0; c < headers.Length && c < cells.Length; c++)
                 {
                     if (headers[c].StartsWith("#")) continue;
-
+                    if (headers[c].IsNullOrEmpty()) continue;
+                    
                     obj[headers[c]] = Cast(cells[c], typeStrings[c]);
                 }
 

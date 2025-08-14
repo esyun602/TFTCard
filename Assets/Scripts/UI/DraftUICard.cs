@@ -5,25 +5,25 @@ using UnityEngine.UI;
 
 public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-	public UnitCardSpec TargetCard { get; private set; }
-	private Image image;
+	public UnitCard TargetCard { get; private set; }
+	private UIUnitCardInfoHandler infoHandler;
 	private SimpleStateMachine stateMachine;
 
 	public static InputBlockFlag BlockInput { get; set; }
 
 	private void Awake()
 	{
-		image = GetComponentsInChildren<Image>()[1];
+		infoHandler = GetComponentInChildren<UIUnitCardInfoHandler>();
 	}
 	
 	public void Initialize(UnitCardSpec targetCard)
 	{
-		TargetCard = targetCard;
+		TargetCard = new UnitCard(targetCard);
 
 		stateMachine = new SimpleStateMachine();
 		ChangeState(new DraftUICardNormalState(this));
 
-		SetImage();
+		SetInfo();
 	}
 
 	private void ChangeState(IState nextState)
@@ -31,9 +31,9 @@ public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 		stateMachine.ChangeState(nextState);
 	}
 
-	private void SetImage()
+	private void SetInfo()
 	{
-		image.sprite = TargetCard.CardResource;
+		infoHandler.Initialize(TargetCard, TargetCard.Stat);
 	}
 
 
