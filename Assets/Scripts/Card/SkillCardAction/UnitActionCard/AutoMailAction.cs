@@ -11,7 +11,7 @@ public class AutoMailAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Ally;
 	}
 
-	public override object[] DescParams => new object[] { stat.Owner == null ? 0 : stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack) };
 
 	public AutoMailAction(AutoMailActionSpec spec)
 	{
@@ -30,7 +30,7 @@ public class AutoMailAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack));
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Attack));
 			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(1));
 			
 			routineDone = true;

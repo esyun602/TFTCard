@@ -16,7 +16,7 @@ public class QuickMotionAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams { get; }
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.TurnCount) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -33,7 +33,7 @@ public class QuickMotionAction : SkillCardActionBase
 			//임시
 			if (target is ITurnObject to)
 			{
-				to.StartTurn(stat.GetValueByValueType(BattleValueType.TurnCount));
+				to.StartTurn(battleStat.GetValueByValueType(BattleValueType.TurnCount));
 				routine.AddChain(to.UpdatableRoutine);
 			}
 			
