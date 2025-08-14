@@ -96,7 +96,7 @@
     "StatSpecName": "EnemyPatrolMachineStat",
     "CardResource": "enemy_patrolmachine_default",
     "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "OverheatPropulsion"
   },
   {
     "Name": "HiredGangster",
@@ -105,7 +105,7 @@
     "StatSpecName": "EnemyHiredGangsterStat",
     "CardResource": "enemy_hiredgangster_default",
     "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "OverheatPropulsion"
   },
   {
     "Name": "GuardAutomaton",
@@ -114,7 +114,7 @@
     "StatSpecName": "EnemyGuardAutomatonStat",
     "CardResource": "enemy_guardautomaton_default",
     "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "OverheatPropulsion"
   },
   {
     "Name": "RepairMachine",
@@ -123,6 +123,6 @@
     "StatSpecName": "EnemyRepairMachineStat",
     "CardResource": "enemy_repairmachine_default",
     "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "OverheatPropulsion"
   }
 ]
