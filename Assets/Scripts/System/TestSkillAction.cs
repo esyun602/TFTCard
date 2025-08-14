@@ -15,7 +15,7 @@ public class TestSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams { get; }
+	public override object[] DescParams => new object[] { stat.GetValueByValueType(BattleValueType.Attack) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{

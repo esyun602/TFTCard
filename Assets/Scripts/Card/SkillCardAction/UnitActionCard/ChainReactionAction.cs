@@ -33,7 +33,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 			{
 				bo.Damage(new DamageInfo()
 				{
-					Sender = stat.Owner,
+					Sender = battleStat.Owner,
 					Dmg = 1,
 				});
 			}

@@ -13,6 +13,7 @@ public enum BattleValueType
 	Stun,
 	Dodge,
 	HealBan,
+	Draw
 }
 
 public interface IStat

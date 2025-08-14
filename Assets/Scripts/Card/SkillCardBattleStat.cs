@@ -21,11 +21,45 @@ public class SkillCardBattleStat : IStat
 	
 	public int[] GetValuesByValueType(BattleValueType type)
 	{
-		return valueDict.GetValueOrDefault(type, new int[]{});
+		if (Owner == null) return valueDict.GetValueOrDefault(type, new int[]{});
+		
+		var ownerValues = Owner.UnitCardBattleStat.GetValuesByValueType(type);
+		var ownValues = valueDict.GetValueOrDefault(type, new int[] { });
+		
+		var newArray = new int[Mathf.Max(ownerValues.Length, ownValues.Length)];
+
+		for (var i = 0; i < newArray.Length; i++)
+		{
+			var val = 0;
+			if (ownerValues.Length > i)
+			{
+				val += ownerValues[i];
+			}
+
+			if (ownValues.Length > i)
+			{
+				val += ownValues[i];
+			}
+
+			newArray[i] = val;
+		}
+
+		return newArray;
 	}
 
 	public void SetValuesByValueType(BattleValueType type, int[] newValues)
 	{
-		valueDict[type] = newValues;
+		if(Owner == null) valueDict[type] = newValues;
+		else
+		{
+			var ownerValues = Owner.UnitCardBattleStat.GetValuesByValueType(type);
+
+			for (var i = 0; i < newValues.Length; i++)
+			{
+				newValues[i] -= ownerValues[i];
+			}
+			
+			valueDict[type] = newValues;
+		}
 	}
 }

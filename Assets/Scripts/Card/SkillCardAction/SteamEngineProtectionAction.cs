@@ -13,7 +13,7 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		return base.CanUse(targetTile) && targetObject.ObjectType == ObjectType.Ally;
 	}
 
-	public override object[] DescParams { get; }
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Shield) };
 
 	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec)
 	{
@@ -32,7 +32,7 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, 2);
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Shield));
 			target.UnitCardBattleStat.AddSynergy(SynergyCategory.SteamEngine);
 			
 			routineDone = true;

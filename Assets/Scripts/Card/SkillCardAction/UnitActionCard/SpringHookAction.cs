@@ -10,7 +10,7 @@ public class SpringHookAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams { get; }
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -28,8 +28,8 @@ public class SpringHookAction : UnitSkillCardActionBase
 			//todo: owner가 있으면 그냥 스탯에 owner 스탯을 합쳐버리는 방향으로 수정
 			target.Damage(new DamageInfo()
 			{
-				Sender = stat.Owner, 
-				Dmg = stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack)
+				Sender = battleStat.Owner, 
+				Dmg = battleStat.GetValueByValueType(BattleValueType.Attack)
 			});
 			Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap.GrabObject(target);
 			
