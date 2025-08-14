@@ -1,4 +1,4 @@
 public interface ICardInfoHandler
 {
-	public void Initialize(ICard spec, IStat stat);
+	public void Initialize(ICard card, IStat stat);
 }

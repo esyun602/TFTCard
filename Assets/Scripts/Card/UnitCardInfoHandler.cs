@@ -11,7 +11,6 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	private IStat stat;
 	private ICard targetCard;
 	private Dictionary<BattleValueType, TextMeshPro> valueMap;
-	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
 	[SerializeField] private TextMeshPro turnCount;
@@ -30,7 +29,6 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		valueMap = new()
 		{
 			[BattleValueType.Attack] = atk,
-			[BattleValueType.Cost] = cost,
 			[BattleValueType.Hp] = hp,
 			[BattleValueType.TurnCount] = turnCount,
 			[BattleValueType.Shield] = shield,
@@ -46,11 +44,12 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
 		}
 		
-		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
 		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
 		
+		//todo: important
+		//todo: dispose
 		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 
