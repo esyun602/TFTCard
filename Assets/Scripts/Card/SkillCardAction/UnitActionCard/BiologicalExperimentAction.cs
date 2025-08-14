@@ -10,7 +10,7 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams  => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack) };
+	public override object[] DescParams  => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack), StatFallback.GetValueByValueType(BattleValueType.Catalyst) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -29,9 +29,9 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 			target.Damage(new DamageInfo()
 			{
 				Sender = battleStat.Owner,
-				Dmg = StatFallback.GetValueByValueType(BattleValueType.Attack)
+				Dmg = battleStat.GetValueByValueType(BattleValueType.Attack)
 			});
-			target.UnitCardBattleStat.AddBuff(new CatalystBuff(1));
+			target.UnitCardBattleStat.AddBuff(new CatalystBuff(battleStat.GetValueByValueType(BattleValueType.Catalyst)));
 			
 			routineDone = true;
 		}
