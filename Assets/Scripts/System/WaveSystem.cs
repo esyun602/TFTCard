@@ -7,12 +7,12 @@ public class WaveSystem
 {
 	private int currentWaveIdx;
 	private IUpdatableRoutine spawnNextWaveRoutine;
-	private List<WaveGrid> waveData;
+	private List<WaveSpec> waveData;
 	private List<UnitCardInField> currentEnemyObjects;
 	private BlockInputHandler blockInputHandler = new();
 	private Transform waveParentTransform;
 	
-	public WaveSystem(List<WaveGrid> waveData)
+	public WaveSystem(List<WaveSpec> waveData)
 	{
 		this.waveData = waveData;
 	}
@@ -78,7 +78,8 @@ public class WaveSystem
 		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 		foreach (var cellInfo in gridInfoList.CellList)
 		{
-			var card = UnitCardInField.Instantiate(cellInfo.unitCardObject, map.GetTileAt(cellInfo.row, cellInfo.col),
+			var cardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(cellInfo.UnitCardName);
+			var card = UnitCardInField.Instantiate(cardSpec, map.GetTileAt(cellInfo.Row, cellInfo.Col),
 				ObjectType.Enemy);
 			card.transform.SetParent(waveParentTransform);
 			currentEnemyObjects.Add(card);

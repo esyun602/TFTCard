@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[CreateAssetMenu]
 public class SteamEngineSynergySpec : SynergySpec
 {
 	public override bool TryGenerateGlobalSynergyInstance(out IGlobalSynergy globalSynergy)

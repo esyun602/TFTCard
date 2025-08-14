@@ -29,7 +29,7 @@ public class AddShieldSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, stat.ShieldValue);
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, stat.GetValueByValueType(BattleValueType.Shield));
 			routineDone = true;
 		}
 	}

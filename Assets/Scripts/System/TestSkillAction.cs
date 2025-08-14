@@ -32,7 +32,7 @@ public class TestSkillAction : SkillCardActionBase
 			//todo: sender 수정
 			target.Damage(new DamageInfo()
 			{
-				Dmg = stat.AttackValue
+				Dmg = stat.GetValueByValueType(BattleValueType.Attack)
 			});
 			routineDone = true;
 		}

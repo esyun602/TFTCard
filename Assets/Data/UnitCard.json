@@ -1,0 +1,92 @@
+[
+  {
+    "Name": "Alle",
+    "NameKey": "unit_alle",
+    "DescKey": "",
+    "StatSpecName": "AlleStat",
+    "CardResource": "alle_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "BiologicalExperiment"
+  },
+  {
+    "Name": "Bella",
+    "NameKey": "unit_bella",
+    "DescKey": "",
+    "StatSpecName": "BellaStat",
+    "CardResource": "bella_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "Flamethrower"
+  },
+  {
+    "Name": "Cowl",
+    "NameKey": "unit_cowl",
+    "DescKey": "",
+    "StatSpecName": "CowlStat",
+    "CardResource": "cowl_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "HighPressureBomb"
+  },
+  {
+    "Name": "Dacane",
+    "NameKey": "unit_dacane",
+    "DescKey": "",
+    "StatSpecName": "DacaneStat",
+    "CardResource": "dacane_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "ChainReaction"
+  },
+  {
+    "Name": "Equinox",
+    "NameKey": "unit_equinox",
+    "DescKey": "",
+    "StatSpecName": "EquinoxStat",
+    "CardResource": "equinox_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "EquivalentExchange"
+  },
+  {
+    "Name": "Firebat",
+    "NameKey": "unit_firebat",
+    "DescKey": "",
+    "StatSpecName": "FirebatStat",
+    "CardResource": "firebat_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "Flamethrower"
+  },
+  {
+    "Name": "Guttie",
+    "NameKey": "unit_guttie",
+    "DescKey": "",
+    "StatSpecName": "GuttieStat",
+    "CardResource": "guttie_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "AutoMail"
+  },
+  {
+    "Name": "Pana",
+    "NameKey": "unit_pana",
+    "DescKey": "",
+    "StatSpecName": "PanaStat",
+    "CardResource": "pana_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "Panacea"
+  },
+  {
+    "Name": "Posi",
+    "NameKey": "unit_posi",
+    "DescKey": "",
+    "StatSpecName": "PosiStat",
+    "CardResource": "posi_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "PositiveFeedback"
+  },
+  {
+    "Name": "Walter",
+    "NameKey": "unit_walter",
+    "DescKey": "",
+    "StatSpecName": "WalterStat",
+    "CardResource": "walter_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "OverheatPropulsion"
+  }
+]

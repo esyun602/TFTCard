@@ -1,0 +1,74 @@
+[
+  {
+    "Name": "BreadSupplyStat",
+    "Cost": 1
+  },
+  {
+    "Name": "DamageStat",
+    "Cost": 1
+  },
+  {
+    "Name": "FireArrowStat",
+    "Cost": 1
+  },
+  {
+    "Name": "QuickMotionStat",
+    "Cost": 1
+  },
+  {
+    "Name": "ReposeStat",
+    "Cost": 1
+  },
+  {
+    "Name": "ShieldStat",
+    "Cost": 1
+  },
+  {
+    "Name": "SteamEngineProtectionStat",
+    "Cost": 1
+  },
+  {
+    "Name": "StockStat",
+    "Cost": 1
+  },
+  {
+    "Name": "BiologicalExperimentStat",
+    "Cost": 1
+  },
+  {
+    "Name": "SteamPackStat",
+    "Cost": 1
+  },
+  {
+    "Name": "HighPressureBombStat",
+    "Cost": 1
+  },
+  {
+    "Name": "ChainReactionStat",
+    "Cost": 1
+  },
+  {
+    "Name": "EquivalentExchangeStat",
+    "Cost": 1
+  },
+  {
+    "Name": "FlamethrowerStat",
+    "Cost": 1
+  },
+  {
+    "Name": "AutoMailStat",
+    "Cost": 1
+  },
+  {
+    "Name": "PanaceaStat",
+    "Cost": 1
+  },
+  {
+    "Name": "PositiveFeedbackStat",
+    "Cost": 1
+  },
+  {
+    "Name": "OverheatPropulsionStat",
+    "Cost": 1
+  }
+]

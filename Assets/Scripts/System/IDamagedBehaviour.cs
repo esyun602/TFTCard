@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Flags]
 public enum DamageType
@@ -11,7 +12,13 @@ public struct DamageInfo
 {
 	public IBattleObject Sender { get; set; }
 	public DamageType DamageType { get; set; }
-	public int Dmg { get; set; }
+	private int dmg;
+
+	public int Dmg
+	{
+		get => dmg;
+		set => dmg = Mathf.Max(0, value);
+	}
 }
 
 public struct HealInfo

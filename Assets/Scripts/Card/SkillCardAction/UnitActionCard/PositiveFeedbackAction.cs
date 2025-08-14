@@ -30,7 +30,8 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new CatalystBuff(stat.CatalystValue++));
+			target.UnitCardBattleStat.AddBuff(new CatalystBuff(stat.GetValueByValueType(BattleValueType.Catalyst)));
+			stat.AddValueByValueType(BattleValueType.Catalyst, 1);
 			
 			routineDone = true;
 		}

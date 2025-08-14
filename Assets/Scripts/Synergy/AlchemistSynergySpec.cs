@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[CreateAssetMenu]
 public class AlchemistSynergySpec : SynergySpec
 {
 	public override bool TryGenerateGlobalSynergyInstance(out IGlobalSynergy globalSynergy)

@@ -27,7 +27,11 @@ public class TestUnitCardAction : UnitCardActionBase
 			if (targetTile != null)
 			{
 				var target = map.GetBattleObjectOfTile(targetTile);
-				Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
+				if (fxPrefab != null)
+				{
+					Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
+				}
+				
 				if (target?.ObjectType.IsHostile(owner.ObjectType) == true)
 				{
 					map.GetBattleObjectOfTile(targetTile).Damage(
@@ -73,10 +77,10 @@ public class TestUnitCardAction : UnitCardActionBase
 		throw new System.NotImplementedException();
 	}
 
-	public TestUnitCardAction(TestUnitCardActionData actionData)
+	public TestUnitCardAction(TestUnitCardActionSpec actionSpec)
 	{
-		actionDuration = actionData.actionDuration;
-		fxPrefab = actionData.fxPrefab;
+		actionDuration = actionSpec.actionDuration;
+		fxPrefab = actionSpec.fxPrefab;
 		//gridInfo = actionData.actionRange;
 	}
 }

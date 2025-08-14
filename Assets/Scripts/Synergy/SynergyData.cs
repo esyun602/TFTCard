@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,18 +11,21 @@ public enum SynergyCategory
 	Alchemist
 }
 
-[CreateAssetMenu]
 public class SynergyData : GameData
 {
-	[SerializeField] private List<SynergySpec> synergySpecList;
+	private List<SynergySpec> synergySpecList;
 	private Dictionary<SynergyCategory, SynergySpec> synergyMap;
 
 	public override void Initialize()
 	{
+		synergySpecList = new();
+		var data = GameDataSystem.Instance.GameDataParams["SynergyData"];
+		
 		synergyMap = new();
-		foreach (var synergySpec in synergySpecList)
+		foreach (var spec in data)
 		{
-			synergyMap[synergySpec.synergyCategory] = synergySpec;
+			var synergySpec = SynergySpec.Create(spec);
+			synergyMap[synergySpec.SynergyCategory] = synergySpec;
 		}
 	}
 

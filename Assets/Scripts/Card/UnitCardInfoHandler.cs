@@ -20,7 +20,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private TextMeshPro shield;
 	
-	public void Initialize(ICard card, IStat stat = null)
+	public void Initialize(ICard card, IStat stat)
 	{
 		if (card is not UnitCard)
 		{
@@ -36,10 +36,15 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			[BattleValueType.Shield] = shield,
 		};
 
+		this.stat = stat;
+
 		targetCard = card;
 		nameText.text = card.Name;
 		desc.text = card.Desc;
-		TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
+		if (card.CardStaticSpec.CardResource != null)
+		{
+			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
+		}
 		
 		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";

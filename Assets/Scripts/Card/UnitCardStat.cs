@@ -1,23 +1,22 @@
 
 using System.Collections.Generic;
 
+//todo: 우선은 정적 스탯 값은 아래 4가지만 가진다 가정
 public class UnitCardStat : IStat
 {
 	public int MaxTurnCount { get; set; }
 	public int MaxHp { get; set; }
 	public int Attack { get; set; }
-	public int Cost { get; set; }
 	public List<SynergyCategory> synergyList = new();
-	private UnitCardStatSpec staticStatSpec;
+	private UnitStatSpec staticStatSpec;
 
-	public UnitCardStat(UnitCardStatSpec statSpec)
+	public UnitCardStat(UnitStatSpec statSpec)
 	{
 		staticStatSpec = statSpec;
-		MaxTurnCount = statSpec.turnCount;
-		MaxHp = statSpec.hp;
-		Attack = statSpec.attack;
-		Cost = statSpec.cost;
-		synergyList = new(statSpec.synergy);
+		MaxTurnCount = statSpec.GetValueByValueType(BattleValueType.MaxTurnCount);
+		MaxHp = statSpec.GetValueByValueType(BattleValueType.MaxHp);
+		Attack = statSpec.GetValueByValueType(BattleValueType.Attack);
+		synergyList = new(statSpec.SynergyList);
 	}
 
 	public int[] GetValuesByValueType(BattleValueType type)
@@ -25,17 +24,13 @@ public class UnitCardStat : IStat
 		switch (type)
 		{
 			case BattleValueType.MaxHp:
-				return new int[]{ MaxHp };
 			case BattleValueType.Hp:
 				return new int[] { MaxHp };
 			case BattleValueType.TurnCount:
-				return new int[] { MaxTurnCount };
 			case BattleValueType.MaxTurnCount:
 				return new int[] { MaxTurnCount };
 			case BattleValueType.Attack:
 				return new int[] { Attack };
-			case BattleValueType.Cost:
-				return new int[] { Cost };
 			default:
 				return new int[] { };
 		}
@@ -55,9 +50,6 @@ public class UnitCardStat : IStat
 				break;
 			case BattleValueType.Attack:
 				Attack = newValues[0];
-				break;
-			case BattleValueType.Cost:
-				Cost = newValues[0];
 				break;
 		}
 	}

@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class BreadSupplySkillActionSpec : SkillCardActionSpec
 {
 	public float actionDuration;
@@ -8,5 +8,10 @@ public class BreadSupplySkillActionSpec : SkillCardActionSpec
 	public override SkillCardActionBase CreateCardAction()
 	{
 		return new BreadSupplySkillAction(this);
+	}
+
+	public override void Initialize(Dictionary<string, object> param)
+	{
+		
 	}
 }

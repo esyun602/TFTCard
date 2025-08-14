@@ -1,21 +1,28 @@
-
+using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class StageData : GameData
 {
-	[SerializeField] private List<StageSpec> stageSpecList;
-	
+	private Dictionary<string, StageSpec> stageSpecDict;
+
 	//todo: fix
 
 	public TestStageSpec GetTestStageSpec()
 	{
-		return (TestStageSpec)stageSpecList.Find((m) => m is TestStageSpec);
+		return (TestStageSpec)stageSpecDict["TestStage"];
 	}
-	
+
 	public override void Initialize()
 	{
+		stageSpecDict = new();
+		var stageParams = GameDataSystem.Instance.GameDataParams["StageData"];
+		foreach (var param in stageParams)
+		{
+			var spec = StageSpec.Create(param);
+			stageSpecDict[spec.StageName] = spec;
+		}
 	}
 
 	public override void Dispose()

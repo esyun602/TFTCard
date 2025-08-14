@@ -33,7 +33,7 @@ public class QuickMotionAction : SkillCardActionBase
 			//임시
 			if (target is ITurnObject to)
 			{
-				to.StartTurn(stat.TurnCountValue);
+				to.StartTurn(stat.GetValueByValueType(BattleValueType.TurnCount));
 				routine.AddChain(to.UpdatableRoutine);
 			}
 			

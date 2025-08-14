@@ -26,7 +26,7 @@ public static class IStatExtensions
 	public static int GetValueByValueType(this IStat stat, BattleValueType type)
 	{
 		var values = stat.GetValuesByValueType(type);
-		return values == null || values.Length == 0 ? -1 : values[0];
+		return values == null || values.Length == 0 ? 0 : values[0];
 	}
 
 	public static void SetValueByValueType(this IStat stat, BattleValueType type, int value)

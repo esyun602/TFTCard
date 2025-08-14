@@ -14,19 +14,25 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	
-	public void Initialize(ICard card, IStat stat = null)
+	public void Initialize(ICard card, IStat stat)
 	{
 		if (card is not SkillCard)
 		{
 			throw new ArgumentException();
 		}
 
+		this.stat = stat;
+
 		targetCard = card;
 		nameText.text = card.Name;
 		//todo: desc 변화 반영되게
 		desc.text = card.Desc;
 		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
-		TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
+		if (card.CardStaticSpec.CardResource != null)
+		{
+			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
+		}
+
 	}
 
 	//todo: callback or notice?

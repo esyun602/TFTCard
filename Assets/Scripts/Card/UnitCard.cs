@@ -11,9 +11,12 @@ public class UnitCard : ICard
 	public UnitCard(UnitCardSpec spec)
 	{
 		UnitCardStaticSpec = spec;
-		UnitSkillCard = new SkillCard(UnitCardStaticSpec.targetSkillCardSpec);
-		Action = spec.actionData.CreateCardAction();
-		Stat = new UnitCardStat(spec.statSpec);
+		var targetSkillSpec = GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName(spec.TargetSkillCardSpecName);
+		UnitSkillCard = new SkillCard(targetSkillSpec);
+		var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetUnitActionByName(spec.ActionSpecName);
+		Action = actionSpec.CreateCardAction();
+		var statSpec = GameDataSystem.Instance.GetGameData<StatData>().GetUnitStatByName(spec.StatSpecName);
+		Stat = new UnitCardStat(statSpec);
 	}
 
 	public ICardSpec CardStaticSpec => UnitCardStaticSpec;

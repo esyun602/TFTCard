@@ -24,7 +24,10 @@ public class MapGameMode : IGameMode
 	private void StartTestStage(MapNodeSelectNotice notice)
 	{
 		var stage = notice.TargetInfo.TargetStageSpec.InstantiateStage();
-		Game.Instance.ChangeGameMode(new BattleStageGameMode(((TestStageSpec)notice.TargetInfo.TargetStageSpec).WaveData, stage));
+		//todo: fix
+		var waveSpecList = GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((TestStageSpec)notice.TargetInfo.TargetStageSpec).WaveGridList);
+		
+		Game.Instance.ChangeGameMode(new BattleStageGameMode(waveSpecList, stage));
 	}
 
 	public void Dispose()
