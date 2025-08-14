@@ -87,7 +87,7 @@
     ],
     "Attack": 4,
     "MaxTurnCount": 4,
-    "MaxHp": 1
+    "MaxHp": 8
   },
   {
     "Name": "EnemyPatrolMachineStat",
