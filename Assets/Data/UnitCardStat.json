@@ -4,18 +4,18 @@
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 4,
+    "MaxHp": 6,
+    "MaxTurnCount": 4
   },
   {
     "Name": "BellaStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxHp": 4,
+    "MaxTurnCount": 4
   },
   {
     "Name": "CowlStat",
@@ -23,26 +23,26 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxHp": 10,
+    "MaxTurnCount": 6
   },
   {
     "Name": "DacaneStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxHp": 8,
+    "MaxTurnCount": 5
   },
   {
     "Name": "EquinoxStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxHp": 13,
+    "MaxTurnCount": 4
   },
   {
     "Name": "FirebatStat",
@@ -50,26 +50,26 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxHp": 11,
+    "MaxTurnCount": 5
   },
   {
     "Name": "GuttieStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 5,
+    "MaxHp": 6,
+    "MaxTurnCount": 4
   },
   {
     "Name": "PanaStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxHp": 4,
+    "MaxTurnCount": 4
   },
   {
     "Name": "PosiStat",
@@ -77,16 +77,16 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxHp": 5,
+    "MaxTurnCount": 4
   },
   {
     "Name": "WalterStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 4,
+    "MaxHp": 1,
+    "MaxTurnCount": 4
   }
 ]
