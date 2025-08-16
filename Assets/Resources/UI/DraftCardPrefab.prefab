@@ -963,4 +963,4 @@ MonoBehaviour:
   turnCount: {fileID: 2089788734202196652}
   nameText: {fileID: 258329510716837465}
   desc: {fileID: 4782119200755502428}
-  TextureRenderer: {fileID: 5809538749275059103}
+  img: {fileID: 5809538749275059103}

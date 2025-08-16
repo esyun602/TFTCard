@@ -88,5 +88,41 @@
     "CardResource": "walter_default",
     "ActionSpecName": "DefaultAction",
     "TargetSkillCardSpecName": "OverheatPropulsion"
+  },
+  {
+    "Name": "PatrolMachine",
+    "NameKey": "unit_enemy_patrolmachine",
+    "DescKey": "",
+    "StatSpecName": "EnemyPatrolMachineStat",
+    "CardResource": "enemy_patrolmachine_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "OverheatPropulsion"
+  },
+  {
+    "Name": "HiredGangster",
+    "NameKey": "unit_enemy_hiredgangster",
+    "DescKey": "",
+    "StatSpecName": "EnemyHiredGangsterStat",
+    "CardResource": "enemy_hiredgangster_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "OverheatPropulsion"
+  },
+  {
+    "Name": "GuardAutomaton",
+    "NameKey": "unit_enemy_guardautomaton",
+    "DescKey": "",
+    "StatSpecName": "EnemyGuardAutomatonStat",
+    "CardResource": "enemy_guardautomaton_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "OverheatPropulsion"
+  },
+  {
+    "Name": "RepairMachine",
+    "NameKey": "unit_enemy_repairmachine",
+    "DescKey": "",
+    "StatSpecName": "EnemyRepairMachineStat",
+    "CardResource": "enemy_repairmachine_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "OverheatPropulsion"
   }
 ]

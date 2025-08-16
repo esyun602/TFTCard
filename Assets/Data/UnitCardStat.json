@@ -4,18 +4,18 @@
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 4,
+    "MaxTurnCount": 4,
+    "MaxHp": 6
   },
   {
     "Name": "BellaStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxTurnCount": 4,
+    "MaxHp": 4
   },
   {
     "Name": "CowlStat",
@@ -23,26 +23,26 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxTurnCount": 6,
+    "MaxHp": 10
   },
   {
     "Name": "DacaneStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxTurnCount": 5,
+    "MaxHp": 8
   },
   {
     "Name": "EquinoxStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxTurnCount": 4,
+    "MaxHp": 13
   },
   {
     "Name": "FirebatStat",
@@ -50,26 +50,26 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxTurnCount": 5,
+    "MaxHp": 11
   },
   {
     "Name": "GuttieStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 5,
+    "MaxTurnCount": 4,
+    "MaxHp": 6
   },
   {
     "Name": "PanaStat",
     "SynergyList": [
       "SteamEngine"
     ],
-    "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "Attack": 2,
+    "MaxTurnCount": 4,
+    "MaxHp": 4
   },
   {
     "Name": "PosiStat",
@@ -77,16 +77,52 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxTurnCount": 4,
+    "MaxHp": 5
   },
   {
     "Name": "WalterStat",
     "SynergyList": [
       "SteamEngine"
     ],
+    "Attack": 4,
+    "MaxTurnCount": 4,
+    "MaxHp": 8
+  },
+  {
+    "Name": "EnemyPatrolMachineStat",
+    "SynergyList": [
+      ""
+    ],
     "Attack": 3,
-    "MaxHp": 3,
-    "MaxTurnCount": 3
+    "MaxTurnCount": 3,
+    "MaxHp": 4
+  },
+  {
+    "Name": "EnemyHiredGangsterStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 6,
+    "MaxTurnCount": 5,
+    "MaxHp": 8
+  },
+  {
+    "Name": "EnemyGuardAutomatonStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 1,
+    "MaxTurnCount": 2,
+    "MaxHp": 5
+  },
+  {
+    "Name": "EnemyRepairMachineStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 2,
+    "MaxTurnCount": 3,
+    "MaxHp": 3
   }
 ]

@@ -45,7 +45,7 @@ public class UnitStatSpec : IStat
 			}
 			else
 			{
-				throw new InvalidOperationException();
+				// throw new InvalidOperationException();
 			}
 		}
 
