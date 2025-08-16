@@ -128,9 +128,11 @@ public class PlayInfo
 			if (kvp.Value == 0)
 			{
 				synergyNumDict.Remove(kvp.Key);
-				var synergy = activatedByDeploySynergyDict[kvp.Key];
-				synergy.Dispose();
-				activatedByDeploySynergyDict.Remove(kvp.Key);
+				if (activatedByDeploySynergyDict.TryGetValue(kvp.Key, out var synergy))
+				{
+					synergy.Dispose();
+					activatedByDeploySynergyDict.Remove(kvp.Key);
+				}
 			}
 			else
 			{

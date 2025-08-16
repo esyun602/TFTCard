@@ -51,6 +51,7 @@ public class BagUnitCard : BagUICard
 
     private class BagUnitCardSelectedState : IState, IUpdatable
     {
+        private Transform originParent;
         private BagUnitCard owner;
         private Vector3 targetPos;
         private Quaternion targetRotation;
@@ -81,6 +82,9 @@ public class BagUnitCard : BagUICard
             mouseScreenPos.z = 0f;
             targetPos = mouseScreenPos;
             owner.transform.position = targetPos;
+            
+            originParent = this.owner.transform.parent;
+            owner.transform.SetParent(UnityObjectPool.GetOrCreateUIPool("BagUnitCard").transform);
 
             BlockInput = InputBlockFlag.All;
         }
@@ -113,6 +117,7 @@ public class BagUnitCard : BagUICard
 
         private void OnCancelSelectCard(InputAction.CallbackContext obj)
         {
+            owner.transform.SetParent(originParent);
             NoticeSystem.Instance.PublishSync(new BagUICardSelectCancelNotice(owner));
             owner.ChangeState(new BagUICardNormalState(owner));
         }
