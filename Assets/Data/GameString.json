@@ -85,7 +85,7 @@
   },
   {
     "StringKey": "act_skill_biological_experiment_desc",
-    "KorString": "적에게 {0}의 피해를 주고, 촉매를 1 부여합니다."
+    "KorString": "적에게 {0}의 피해를 주고, 촉매를 {1} 부여합니다."
   },
   {
     "StringKey": "act_skill_steampack",
@@ -93,7 +93,7 @@
   },
   {
     "StringKey": "act_skill_steampack_desc",
-    "KorString": "대상에게 화상을 1 부여하고, 턴 카운트를 2 감소시킵니다."
+    "KorString": "대상에게 화상을 {0} 부여하고, 턴 카운트를 {1} 감소시킵니다."
   },
   {
     "StringKey": "act_skill_high_pressure_bomb",
@@ -149,7 +149,7 @@
   },
   {
     "StringKey": "act_skill_positive_feedback_desc",
-    "KorString": "적에게 촉매를 1 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 1 증가합니다."
+    "KorString": "적에게 촉매를 {0} 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 1 증가합니다."
   },
   {
     "StringKey": "act_skill_overheat_propulsion",
@@ -157,7 +157,7 @@
   },
   {
     "StringKey": "act_skill_overheat_propulsion_desc",
-    "KorString": "자신에게 화상을 2 부여하고, 적에게 피해를 {0} 줍니다."
+    "KorString": "자신에게 화상을 {0} 부여하고, 적에게 피해를 {1} 줍니다."
   },
   {
     "StringKey": "skill_bread_supply",
@@ -165,7 +165,7 @@
   },
   {
     "StringKey": "skill_bread_supply_desc",
-    "KorString": "아군을 3 회복합니다."
+    "KorString": "아군을 {0} 회복합니다."
   },
   {
     "StringKey": "skill_steamengine_protection",
@@ -173,7 +173,7 @@
   },
   {
     "StringKey": "skill_steamengine_protection_desc",
-    "KorString": "소진. 선택한 아군에게 방어구 2를 부여합니다. 해당 유닛은 증기동력 시너지에 포함됩니다."
+    "KorString": "소진. 선택한 아군에게 방어구 {0}를 부여합니다. 해당 유닛은 증기동력 시너지에 포함됩니다."
   },
   {
     "StringKey": "skill_quick_motion",
@@ -181,7 +181,7 @@
   },
   {
     "StringKey": "skill_quick_motion_desc",
-    "KorString": "아군의 턴 카운트를 1 감소시킵니다."
+    "KorString": "아군의 턴 카운트를 {0} 감소시킵니다."
   },
   {
     "StringKey": "skill_repose",
@@ -197,7 +197,7 @@
   },
   {
     "StringKey": "skill_fire_arrow_desc",
-    "KorString": "대상에게 화상을 2 부여합니다."
+    "KorString": "대상에게 화상을 {0} 부여합니다."
   },
   {
     "StringKey": "skill_stock",
@@ -205,7 +205,7 @@
   },
   {
     "StringKey": "skill_stock_desc",
-    "KorString": "카드 2장을 뽑습니다."
+    "KorString": "카드 {0}장을 뽑습니다."
   },
   {
     "StringKey": "skill_damage",
@@ -213,7 +213,7 @@
   },
   {
     "StringKey": "skill_damage_desc",
-    "KorString": "적에게 피해를 3 줍니다."
+    "KorString": "적에게 피해를 {0} 줍니다."
   },
   {
     "StringKey": "skill_shield",
@@ -221,7 +221,7 @@
   },
   {
     "StringKey": "skill_shield_desc",
-    "KorString": "방어도를 2 부여합니다."
+    "KorString": "방어도를 {0} 부여합니다."
   },
   {
     "StringKey": "unit_enemy_patrolmachine",
