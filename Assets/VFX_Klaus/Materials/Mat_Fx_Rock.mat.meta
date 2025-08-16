@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5b49a9d1416f23845a31afefc086e57a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213183
+  packageName: Stylized Earth Skills
+  packageVersion: 1.2
+  assetPath: Assets/VFX_Klaus/Materials/Mat_Fx_Rock.mat
+  uploadId: 559543

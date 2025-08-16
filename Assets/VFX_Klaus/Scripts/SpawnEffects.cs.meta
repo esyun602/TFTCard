@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 64b75f8e21c4a9049a346440e0f999b6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 213183
+  packageName: Stylized Earth Skills
+  packageVersion: 1.2
+  assetPath: Assets/VFX_Klaus/Scripts/SpawnEffects.cs
+  uploadId: 559543
