@@ -10,7 +10,7 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 	IMessageReceiver
 {
 	public abstract ICard TargetCard { get; }
-	private Image image;
+	protected ICardInfoHandler infoHandler;
 	protected BagCardPosInfo cardPosInfo;
 	protected SimpleStateMachine stateMachine;
 
@@ -18,7 +18,7 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 
 	private void Awake()
 	{
-		image = GetComponentsInChildren<Image>()[1];
+		infoHandler = GetComponentInChildren<ICardInfoHandler>();
 	}
 
 	protected void InitializeRoutine()
@@ -26,7 +26,7 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 		stateMachine = new SimpleStateMachine();
 		stateMachine.ChangeState(new BagUICardNormalState(this));
 
-		SetImage();
+		InitializeInfo();
 	}
 
 	protected void ChangeState(IState nextState)
@@ -34,10 +34,7 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 		stateMachine.ChangeState(nextState);
 	}
 
-	private void SetImage()
-	{
-		image.sprite = TargetCard.CardStaticSpec.CardResource;
-	}
+	protected abstract void InitializeInfo();
 
 
 	public void OnPointerClick(PointerEventData eventData)

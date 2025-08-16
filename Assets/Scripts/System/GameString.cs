@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class GameString : GameData
 {
-	[SerializeField]
-	private TextAsset korJson;
-
 	private Dictionary<string, string> korStringKeyDict;
 	public override void Initialize()
 	{
 		korStringKeyDict = new();
-		var deserializedObject = JsonConvert.DeserializeObject<List<Dictionary<string, string>>>(korJson.text);
+		var deserializedObject = GameDataSystem.Instance.GameDataParams["GameStringData"];
 		foreach (var dict in deserializedObject)
 		{
-			korStringKeyDict[dict["StringKey"]] = dict["KorString"];
+			korStringKeyDict[dict.GetString("StringKey")] = dict.GetString("KorString");
 		}
 	}
 
@@ -32,6 +28,12 @@ public class GameString : GameData
 	
 	public string Format(string key, params object[] parameters)
 	{
-		return String.Format(GetString(key), parameters);
+		var targetString = GetString(key);
+		if (parameters == null)
+		{
+			return targetString;
+		}
+        
+		return String.IsNullOrEmpty(targetString) ? "" : String.Format(targetString, parameters);
 	}
 }

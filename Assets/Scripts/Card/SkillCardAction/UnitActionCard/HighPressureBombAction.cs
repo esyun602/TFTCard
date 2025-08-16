@@ -12,6 +12,8 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Enemy;
 	}
 
+	public override object[] DescParams => new object[]{StatFallback.GetValueByValueType(BattleValueType.Attack), StatFallback.GetValueByValueType(BattleValueType.Attack) / 2};
+
 	public HighPressureBombAction(HighPressureBombActionSpec spec)
 	{
 	}
@@ -30,7 +32,7 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			var dmg = stat.Owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack);
+			var dmg = battleStat.GetValueByValueType(BattleValueType.Attack);
 
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap;
 
@@ -49,14 +51,14 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 			
 			target.Damage(new DamageInfo()
 			{
-				Sender = stat.Owner,
+				Sender = battleStat.Owner,
 				Dmg = dmg
 			});
 			foreach (var obj in targetList)
 			{
 				obj.Damage(new DamageInfo()
 				{
-					Sender = stat.Owner,
+					Sender = battleStat.Owner,
 					Dmg = dmg / 2
 				});
 			}

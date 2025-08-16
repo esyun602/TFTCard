@@ -192,12 +192,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50253058b5e641cda43cf87a43e25715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDataList:
-  - {fileID: 11400000, guid: 5982b0bfadabe04429d5d8dc38b88724, type: 2}
-  - {fileID: 11400000, guid: b05a41d199fae0b4abd011293f7ed19d, type: 2}
-  - {fileID: 11400000, guid: fd42fbf0856e930429cc2172d28b3eb7, type: 2}
-  - {fileID: 11400000, guid: 5a77ff186f26d9242b35f4184619336c, type: 2}
-  - {fileID: 11400000, guid: cb14f4e09874f9d4bae5c2b25658d216, type: 2}
+  constantData:
+    CardReturnAnimationCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.4786352
+        value: 0.8991686
+        inSlope: 0.6712849
+        outSlope: 0.6712849
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    CardFollowingSpeedCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.5047302
+        inSlope: 0.11877145
+        outSlope: 0.11877145
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.26969707
+        value: 0.53676254
+        inSlope: 0.29366612
+        outSlope: 0.29366612
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.23547707
+      - serializedVersion: 3
+        time: 0.62076676
+        value: 0.9605076
+        inSlope: 0.39753008
+        outSlope: 0.39753008
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.68241256
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0.10413757
+        outSlope: 0.10413757
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    HandCardVerticalOffsetCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -4.5
+        value: -1
+        inSlope: 0
+        outSlope: 0.43343034
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.18868385
+      - serializedVersion: 3
+        time: -2.9558985
+        value: -0.4202575
+        inSlope: 0.25881606
+        outSlope: 0.25881606
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.0026938587
+        outSlope: 0.012671977
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.2247097
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 0
+      m_RotationOrder: 4
+  gameDataParamList:
+  - {fileID: 4900000, guid: e6cd57c8bf9437543a1c73ebfa569f83, type: 3}
+  - {fileID: 4900000, guid: 28a9d65cb801eab44baa9829e280070a, type: 3}
+  - {fileID: 4900000, guid: 3d01ee944bf915740b0fda84e1692ec5, type: 3}
+  - {fileID: 4900000, guid: dbdbdda88d3bf5a4290de050569cb18c, type: 3}
+  - {fileID: 4900000, guid: a32835ef972d02f4d9691661a98ce6ca, type: 3}
+  - {fileID: 4900000, guid: fdbee65006458694e9319b5a32e65a30, type: 3}
+  - {fileID: 4900000, guid: 645f69ea36bf7154f8aee18e650d9c0f, type: 3}
+  - {fileID: 4900000, guid: 5120ae541f17a7a44852b9d4cfcca373, type: 3}
+  - {fileID: 4900000, guid: fe9de88881561c74986d09bbc514267f, type: 3}
+  - {fileID: 4900000, guid: fa53ff8f661a3054e9073f5b5a402c72, type: 3}
 --- !u!4 &671050016
 Transform:
   m_ObjectHideFlags: 0
@@ -242,7 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cb8e4d3d744ba589464666a1d48a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testStage: {fileID: 11400000, guid: 55d8dd6dda9d01b429c2ee41a51e4cc9, type: 2}
 --- !u!4 &1198081696
 Transform:
   m_ObjectHideFlags: 0

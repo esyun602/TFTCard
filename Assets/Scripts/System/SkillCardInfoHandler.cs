@@ -7,30 +7,38 @@ using UnityEngine.Serialization;
 
 public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
+	private ICard targetCard;
 	private IStat stat;
-	private SkillCardSpec spec;
 	[SerializeField] private TextMeshPro nameText;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	
-	public void Initialize(ICardSpec cardSpec, IStat stat = null)
+	public void Initialize(ICard card, IStat stat)
 	{
-		if (cardSpec is not SkillCardSpec spec)
+		if (card is not SkillCard)
 		{
 			throw new ArgumentException();
 		}
-		this.spec = spec;
-		this.stat = stat ?? spec.statSpec;
-		
-		nameText.text = spec.name;
-		desc.text = "Some Description...";
+
+		this.stat = stat;
+
+		targetCard = card;
+		nameText.text = card.Name;
+		//todo: desc 변화 반영되게
+		desc.text = card.Desc;
 		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
-		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
+		if (card.CardStaticSpec.CardResource != null)
+		{
+			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
+		}
+
 	}
 
 	//todo: callback or notice?
 	private void Update()
 	{
+		//todo: test
+		desc.text = targetCard.Desc;
 	}
 }

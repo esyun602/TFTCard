@@ -15,6 +15,8 @@ public class FireArrowSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Burn) };
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -28,7 +30,7 @@ public class FireArrowSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(2));
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(battleStat.GetValueByValueType(BattleValueType.Burn)));
 			routineDone = true;
 		}
 	}

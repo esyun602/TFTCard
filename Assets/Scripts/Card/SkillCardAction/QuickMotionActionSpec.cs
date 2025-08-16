@@ -1,7 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-//todo: 스크립트 생성 자동화
-[CreateAssetMenu]
 public class QuickMotionActionSpec : SkillCardActionSpec
 {
 	public float actionDuration;
@@ -10,5 +9,10 @@ public class QuickMotionActionSpec : SkillCardActionSpec
 	public override SkillCardActionBase CreateCardAction()
 	{
 		return new QuickMotionAction(this);
+	}
+
+	public override void Initialize(Dictionary<string, object> param)
+	{
+		
 	}
 }

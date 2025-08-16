@@ -1,0 +1,11 @@
+[
+  {
+    "StageName": "TestStage",
+    "ClassName": "TestStage",
+    "MapData": "TestMap",
+    "CamSize": 8.0,
+    "WaveGridList": [
+      "test_wave_1"
+    ]
+  }
+]

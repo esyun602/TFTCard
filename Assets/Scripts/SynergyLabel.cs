@@ -31,7 +31,7 @@ public class SynergyLabel : MonoBehaviour
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 		targetCategorySpec = spec;
-		synergyName.text = spec.synergyName;
+		synergyName.text = spec.SynergyNameKey;
 	}
 
 	private string GetSynergyCountString()
@@ -47,22 +47,22 @@ public class SynergyLabel : MonoBehaviour
 		strBuilder.Append("<color=\"grey\">");
 		bool found = false;
 		
-		for (var i = 0; i < targetCategorySpec.synergyCountList.Count; i++)
+		for (var i = 0; i < targetCategorySpec.SynergyCountList.Length; i++)
 		{
 			if (i != 0)
 			{
 				strBuilder.Append($"/ ");
 			}
 			
-			if (found || synergyCount < targetCategorySpec.synergyCountList[i])
+			if (found || synergyCount < targetCategorySpec.SynergyCountList[i])
 			{
-				strBuilder.Append($"{targetCategorySpec.synergyCountList[i]} ");
+				strBuilder.Append($"{targetCategorySpec.SynergyCountList[i]} ");
 			}
-			else if (targetCategorySpec.synergyCountList[i] <= synergyCount &&
-			         (i + 1 >= targetCategorySpec.synergyCountList.Count || targetCategorySpec.synergyCountList[i + 1] > synergyCount))
+			else if (targetCategorySpec.SynergyCountList[i] <= synergyCount &&
+			         (i + 1 >= targetCategorySpec.SynergyCountList.Length || targetCategorySpec.SynergyCountList[i + 1] > synergyCount))
 			{
 				found = true;
-				strBuilder.Append($"<color=\"white\">{targetCategorySpec.synergyCountList[i]}</color> ");
+				strBuilder.Append($"<color=\"white\">{targetCategorySpec.SynergyCountList[i]}</color> ");
 				
 			}
 		}

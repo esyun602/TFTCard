@@ -9,9 +9,8 @@ using UnityEngine.Serialization;
 public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
-	private UnitCardSpec spec;
+	private ICard targetCard;
 	private Dictionary<BattleValueType, TextMeshPro> valueMap;
-	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
 	[SerializeField] private TextMeshPro turnCount;
@@ -20,34 +19,37 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private TextMeshPro shield;
 	
-	public void Initialize(ICardSpec cardSpec, IStat stat = null)
+	public void Initialize(ICard card, IStat stat)
 	{
-		if (cardSpec is not UnitCardSpec spec)
+		if (card is not UnitCard)
 		{
 			throw new ArgumentException();
 		}
-		
-		this.spec = spec;
-		this.stat = stat ?? spec.statSpec;
 
 		valueMap = new()
 		{
 			[BattleValueType.Attack] = atk,
-			[BattleValueType.Cost] = cost,
 			[BattleValueType.Hp] = hp,
 			[BattleValueType.TurnCount] = turnCount,
 			[BattleValueType.Shield] = shield,
 		};
+
+		this.stat = stat;
+
+		targetCard = card;
+		nameText.text = card.Name;
+		desc.text = card.Desc;
+		if (card.CardStaticSpec.CardResource != null)
+		{
+			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
+		}
 		
-		nameText.text = spec.name;
-		desc.text = "Some Description...";
-		TextureRenderer.material.SetTexture("_BaseMap", spec.cardResource.texture);
-		
-		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
 		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
 		
+		//todo: important
+		//todo: dispose
 		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 
@@ -75,7 +77,8 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		targetText.text = $"{stat.GetValueByValueType(m.Type)}";
 		targetText.transform.localScale = Vector3.one * 2f;
 		targetText.transform.DOScale(Vector3.one,  0.5f);
-		
+
+		desc.text = targetCard.Desc;
 	}
 
 	private void OnBattleShieldChange(UnitBattleValueChangeNotice m)

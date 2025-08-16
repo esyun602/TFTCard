@@ -99,13 +99,23 @@ public class PlayerBagPanel : UIInstance
 
 	private void InitializeDeckCards()
 	{
-		var bagPool = UnityObjectPool.GetOrCreateUIPool("BagSkillCard");
-		bagPool.transform.SetParent(transform);
+		var skillPool = UnityObjectPool.GetOrCreateUIPool("BagSkillCard");
+		var unitActionPool = UnityObjectPool.GetOrCreateUIPool("BagUnitActionCard");
+		skillPool.transform.SetParent(transform);
+		unitActionPool.transform.SetParent(transform);
 		var cardList = Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList;
 		for (int i = 0; i < cardList.Count; i++)
 		{
 			var pos = CalculateDeckCardPositionWithIndex(i);
-			var bagUICard = bagPool.Instantiate(pos).GetComponent<BagSkillCard>();
+			BagSkillCard bagUICard;
+			if (cardList[i].SkillCardStaticSpec.IsUnitAction)
+			{
+				bagUICard = unitActionPool.Instantiate(pos).GetComponent<BagSkillCard>();
+			}
+			else
+			{
+				bagUICard = skillPool.Instantiate(pos).GetComponent<BagSkillCard>();
+			}
 			bagUICard.Initialize(cardList[i], pos);
 			cardDictionary.Add(cardList[i], bagUICard);
 		}
@@ -199,7 +209,7 @@ public class PlayerBagPanel : UIInstance
 			if (!cardDictionary.ContainsKey(deckCards[i]))
 			{
 				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
-				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagSkillCard")
+				var bagUICard = UnityObjectPool.GetOrCreateUIPool(deckCards[i].SkillCardStaticSpec.IsUnitAction ? "BagUnitActionCard" : "BagSkillCard")
 					.Instantiate(pos).GetComponent<BagSkillCard>();
 				bagUICard.Initialize(deckCards[i], pos);
 				cardDictionary.Add(deckCards[i], bagUICard);

@@ -8,8 +8,9 @@ using UnityEngine.InputSystem;
 //todo: 네이밍 수정 및 이동 관련 분리
 public class SkillCardInHand : BattleCardObjectInHand
 {
-	public bool IsTargeting => targetCard.SkillCardStaticSpec.cardUseType == UseType.Targeting;
+	public bool IsTargeting => targetCard.SkillCardStaticSpec.CardUseType == UseType.Targeting;
 	private const string cardPrefabPath = "Card/SkillCardPrefab";
+	private const string unitActCardPrefabPath = "Card/UnitActSkillCardPrefab";
 	private SkillCard targetCard;
 	private SkillCardBattleStat battleStat;
 	protected override ICard TargetCard => targetCard;
@@ -17,7 +18,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 	public static SkillCardInHand Instantiate(SkillCard targetSkillCard, SkillCardBattleStat skillCardStat)
 	{
-		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<SkillCardInHand>();
+		var cardObject = GameObject.Instantiate(Resources.Load(targetSkillCard.SkillCardStaticSpec.IsUnitAction ? unitActCardPrefabPath : cardPrefabPath)).AddComponent<SkillCardInHand>();
 		cardObject.gameObject.SetActive(false);
 		cardObject.targetCard = targetSkillCard;
 		cardObject.battleStat = skillCardStat;
@@ -43,7 +44,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 	private void OnUseComplete()
 	{
-		if (battleStat.IsExhaustion)
+		if (battleStat.TacticsValueType.Contains(TacticsValueType.Exhaustion))
 		{
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveCard(this);
 					
@@ -129,7 +130,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			if (owner.CanUse(currentTile))
 			{
 				//todo: 사용함수를 분리?
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.battleStat.CostValue;
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.battleStat.GetValueByValueType(BattleValueType.Cost);
 				owner.ChangeState(new TargetingCardObjectUsedInHandState(owner, currentTile));
 			}
 		}
@@ -220,7 +221,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 				throw new Exception();
 			}
 
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.battleStat.CostValue;
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.battleStat.GetValueByValueType(BattleValueType.Cost);
 			owner.ChangeState(new GlobalCardObjectUsedInHandState(owner));
 		}
 

@@ -15,6 +15,8 @@ public class StockSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Draw) };
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -28,8 +30,10 @@ public class StockSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
+			for (var i = 0; i < battleStat.GetValueByValueType(BattleValueType.Draw); i++)
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
+			}
 			routineDone = true;
 		}
 	}

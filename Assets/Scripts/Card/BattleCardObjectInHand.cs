@@ -38,7 +38,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 	protected virtual bool CanSelect()
 	{
 		//todo: access fix?
-		if (Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy < Stat.GetValuesByValueType(BattleValueType.Cost)[0])
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy < Stat.GetValueByValueType(BattleValueType.Cost))
 		{
 			return false;
 		}
@@ -59,7 +59,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;
 		ChangeState(new CardObjectNormalInHandState(this));
-		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard.CardStaticSpec, Stat);
+		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard, Stat);
 		OnActivate();
 	}
 

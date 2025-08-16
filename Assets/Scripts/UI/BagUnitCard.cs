@@ -7,135 +7,142 @@ using UnityEngine.InputSystem;
 
 public class BagUnitCard : BagUICard
 {
-	public override ICard TargetCard => TargetUnitCard;
-	public UnitCard TargetUnitCard { get; private set; }
-	protected override void OnLeftClick()
-	{
-		if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true })
-		{
-			NoticeSystem.Instance.PublishSync(new BagUICardSelectedNotice(this));
-			ChangeState(new BagUnitCardSelectedState(this));
-		}
-	}
+    public override ICard TargetCard => TargetUnitCard;
+    public UnitCard TargetUnitCard { get; private set; }
 
-	protected override void OnRightClick()
-	{
-		if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true } 
-		    && cardPosInfo.Tile != null)
-		{
-			NoticeSystem.Instance.PublishSync(new BagUICardUnPlaceNotice(this, cardPosInfo.Tile));
-		}
-	}
-	
-	public void Initialize(UnitCard targetCard, BagUITile tile)
-	{
-		this.cardPosInfo = new BagCardPosInfo(tile.GetPosition(), tile);
-		this.TargetUnitCard = targetCard;
+    protected override void InitializeInfo()
+    {
+        infoHandler.Initialize(TargetUnitCard, TargetUnitCard.Stat);
+    }
 
-		InitializeRoutine();
-	}
-	
-	public void Initialize(UnitCard targetCard, Vector3 targetPos)
-	{
-		this.cardPosInfo = new BagCardPosInfo(targetPos, null);
-		this.TargetUnitCard = targetCard;
+    protected override void OnLeftClick()
+    {
+        if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true })
+        {
+            NoticeSystem.Instance.PublishSync(new BagUICardSelectedNotice(this));
+            ChangeState(new BagUnitCardSelectedState(this));
+        }
+    }
 
-		InitializeRoutine();
-	}
+    protected override void OnRightClick()
+    {
+        if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true }
+            && cardPosInfo.Tile != null)
+        {
+            NoticeSystem.Instance.PublishSync(new BagUICardUnPlaceNotice(this, cardPosInfo.Tile));
+        }
+    }
 
-	private class BagUnitCardSelectedState : IState, IUpdatable
-	{
-		private BagUnitCard owner;
-		private Vector3 targetPos;
-		private Quaternion targetRotation;
-		private const float followSpeed = 8000f;
-		private AnimationCurve followAnimationCurve;
-		private float timePassed = 0f;
+    public void Initialize(UnitCard targetCard, BagUITile tile)
+    {
+        this.cardPosInfo = new BagCardPosInfo(tile.GetPosition(), tile);
+        this.TargetUnitCard = targetCard;
 
-		private BagUITile currentTile;
-		private bool canPlace => currentTile != null;
+        InitializeRoutine();
+    }
 
-		public BagUnitCardSelectedState(BagUnitCard owner)
-		{
-			this.owner = owner;
-		}
+    public void Initialize(UnitCard targetCard, Vector3 targetPos)
+    {
+        this.cardPosInfo = new BagCardPosInfo(targetPos, null);
+        this.TargetUnitCard = targetCard;
 
-		public void Enter(IState prevState)
-		{
-			//todo: 액션 분리
-			InputManager.Instance.InputActions.Player.UseHandCard.Enable();
-			InputManager.Instance.InputActions.Player.CancelHandCard.Enable();
-			InputManager.Instance.InputActions.Player.UseHandCard.performed += OnTryPlaceCard;
-			InputManager.Instance.InputActions.Player.CancelHandCard.performed += OnCancelSelectCard;
-			//
-			
-			followAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardFollowingSpeedCurve;
+        InitializeRoutine();
+    }
 
-			var mouseScreenPos = Input.mousePosition;
-			mouseScreenPos.z = 0f;
-			targetPos = mouseScreenPos;
-			owner.transform.position = targetPos;
+    private class BagUnitCardSelectedState : IState, IUpdatable
+    {
+        private BagUnitCard owner;
+        private Vector3 targetPos;
+        private Quaternion targetRotation;
+        private const float followSpeed = 8000f;
+        private AnimationCurve followAnimationCurve;
+        private float timePassed = 0f;
 
-			BlockInput = InputBlockFlag.All;
-		}
+        private BagUITile currentTile;
+        private bool canPlace => currentTile != null;
 
-		private void OnTryPlaceCard(InputAction.CallbackContext obj)
-		{
-			if (canPlace)
-			{
-				if (owner.cardPosInfo.Tile != null)
-				{
-					NoticeSystem.Instance.PublishSync(new BagUICardPlaceNotice(owner, currentTile));
-				}
-				NoticeSystem.Instance.PublishSync(new BagUICardPlaceNotice(owner, currentTile));
-				owner.ChangeState(new BagUICardNormalState(owner));
-			}
-		}
+        public BagUnitCardSelectedState(BagUnitCard owner)
+        {
+            this.owner = owner;
+        }
 
-		public void Exit(IState nextState)
-		{
-			owner.transform.rotation = quaternion.identity;
-			
-			InputManager.Instance.InputActions.Player.UseHandCard.Disable();
-			InputManager.Instance.InputActions.Player.CancelHandCard.Disable();
-			InputManager.Instance.InputActions.Player.UseHandCard.performed -= OnTryPlaceCard;
-			InputManager.Instance.InputActions.Player.CancelHandCard.performed -= OnCancelSelectCard;
-			
-			BlockInput = InputBlockFlag.None;
-		}
+        public void Enter(IState prevState)
+        {
+            //todo: 액션 분리
+            InputManager.Instance.InputActions.Player.UseHandCard.Enable();
+            InputManager.Instance.InputActions.Player.CancelHandCard.Enable();
+            InputManager.Instance.InputActions.Player.UseHandCard.performed += OnTryPlaceCard;
+            InputManager.Instance.InputActions.Player.CancelHandCard.performed += OnCancelSelectCard;
+            //
 
-		private void OnCancelSelectCard(InputAction.CallbackContext obj)
-		{
-			NoticeSystem.Instance.PublishSync(new BagUICardSelectCancelNotice(owner));
-			owner.ChangeState(new BagUICardNormalState(owner));
-		}
+            followAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardFollowingSpeedCurve;
 
-		public void UpdateFrame(float dt)
-		{
-			//todo: optimize and fix - new input mouse pos not working
-			var mouseScreenPos = Input.mousePosition;
-			mouseScreenPos.z = 0f;
+            var mouseScreenPos = Input.mousePosition;
+            mouseScreenPos.z = 0f;
+            targetPos = mouseScreenPos;
+            owner.transform.position = targetPos;
 
-			currentTile = PlayerBagPanel.Instance.CurrentHoverBagUITile;
-				
-			targetPos = canPlace ? currentTile.GetPosition() : mouseScreenPos;
+            BlockInput = InputBlockFlag.All;
+        }
 
-			if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
-			{
-				timePassed = 0f;
-			}
+        private void OnTryPlaceCard(InputAction.CallbackContext obj)
+        {
+            if (canPlace)
+            {
+                if (owner.cardPosInfo.Tile != null)
+                {
+                    NoticeSystem.Instance.PublishSync(new BagUICardPlaceNotice(owner, currentTile));
+                }
 
-			timePassed += dt;
+                NoticeSystem.Instance.PublishSync(new BagUICardPlaceNotice(owner, currentTile));
+                owner.ChangeState(new BagUICardNormalState(owner));
+            }
+        }
 
-			var realSpeed = followAnimationCurve.Evaluate(timePassed) * followSpeed;
-			var totalTime = Vector3.Distance(targetPos, owner.transform.position) / realSpeed;
-			owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
-			owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
-					                                Vector3.Distance(targetPos, owner.transform.position) * 50f *
-					                                (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
-				                                Vector3.Cross(Camera.main.transform.forward,
-					                                (targetPos - owner.transform.position).normalized)) *
-			                                Camera.main.transform.localRotation;
-		}
-	}
+        public void Exit(IState nextState)
+        {
+            owner.transform.rotation = quaternion.identity;
+
+            InputManager.Instance.InputActions.Player.UseHandCard.Disable();
+            InputManager.Instance.InputActions.Player.CancelHandCard.Disable();
+            InputManager.Instance.InputActions.Player.UseHandCard.performed -= OnTryPlaceCard;
+            InputManager.Instance.InputActions.Player.CancelHandCard.performed -= OnCancelSelectCard;
+
+            BlockInput = InputBlockFlag.None;
+        }
+
+        private void OnCancelSelectCard(InputAction.CallbackContext obj)
+        {
+            NoticeSystem.Instance.PublishSync(new BagUICardSelectCancelNotice(owner));
+            owner.ChangeState(new BagUICardNormalState(owner));
+        }
+
+        public void UpdateFrame(float dt)
+        {
+            //todo: optimize and fix - new input mouse pos not working
+            var mouseScreenPos = Input.mousePosition;
+            mouseScreenPos.z = 0f;
+
+            currentTile = PlayerBagPanel.Instance.CurrentHoverBagUITile;
+
+            targetPos = canPlace ? currentTile.GetPosition() : mouseScreenPos;
+
+            if (Vector3.Distance(targetPos, owner.transform.position) < 0.01f)
+            {
+                timePassed = 0f;
+            }
+
+            timePassed += dt;
+
+            var realSpeed = followAnimationCurve.Evaluate(timePassed) * followSpeed;
+            var totalTime = Vector3.Distance(targetPos, owner.transform.position) / realSpeed;
+            owner.transform.position = Vector3.Lerp(owner.transform.position, targetPos, dt / totalTime);
+            owner.transform.localRotation = Quaternion.AngleAxis(Mathf.Clamp(
+                                                    Vector3.Distance(targetPos, owner.transform.position) * 50f *
+                                                    (targetPos.x > owner.transform.position.x ? -1f : 1f), -45f, 45f),
+                                                Vector3.Cross(Camera.main.transform.forward,
+                                                    (targetPos - owner.transform.position).normalized)) *
+                                            Camera.main.transform.localRotation;
+        }
+    }
 }

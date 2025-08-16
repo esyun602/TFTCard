@@ -10,6 +10,8 @@ public class ChainReactionAction : UnitSkillCardActionBase
 	{
 	}
 
+	public override object[] DescParams { get; }
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -31,7 +33,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 			{
 				bo.Damage(new DamageInfo()
 				{
-					Sender = stat.Owner,
+					Sender = battleStat.Owner,
 					Dmg = 1,
 				});
 			}

@@ -15,6 +15,8 @@ public class BreadSupplySkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Hp) };
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -29,7 +31,7 @@ public class BreadSupplySkillAction : SkillCardActionBase
 		if (timePassed > 0f)
 		{
 			//todo: heal?
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, 3);
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, battleStat.GetValueByValueType(BattleValueType.Hp));
 			routineDone = true;
 		}
 	}

@@ -14,7 +14,9 @@ public class AddShieldSkillAction : SkillCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-	
+
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Shield) };
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -27,7 +29,7 @@ public class AddShieldSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, stat.ShieldValue);
+			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Shield));
 			routineDone = true;
 		}
 	}

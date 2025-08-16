@@ -14,7 +14,9 @@ public class TestSkillAction : SkillCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-	
+
+	public override object[] DescParams => new object[] { stat.GetValueByValueType(BattleValueType.Attack) };
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -30,7 +32,7 @@ public class TestSkillAction : SkillCardActionBase
 			//todo: sender 수정
 			target.Damage(new DamageInfo()
 			{
-				Dmg = stat.AttackValue
+				Dmg = stat.GetValueByValueType(BattleValueType.Attack)
 			});
 			routineDone = true;
 		}

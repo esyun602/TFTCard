@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
 public class TestSkillActionSpec : SkillCardActionSpec
 {
 	public float actionDuration;
@@ -9,5 +9,10 @@ public class TestSkillActionSpec : SkillCardActionSpec
 	public override SkillCardActionBase CreateCardAction()
 	{
 		return new TestSkillAction(this);
+	}
+
+	public override void Initialize(Dictionary<string, object> param)
+	{
+		
 	}
 }

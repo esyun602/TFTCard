@@ -8,9 +8,17 @@ public class SkillCard : ICard
 	public SkillCard(SkillCardSpec spec)
 	{
 		SkillCardStaticSpec = spec;
-		Action = spec.actionSpec.CreateCardAction();
-		Stat = new SkillCardStat(spec.statSpec);
+		
+		var statSpec = GameDataSystem.Instance.GetGameData<StatData>().GetSkillStatByName(spec.StatSpecName);
+		Stat = new SkillCardStat(statSpec);
+		var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetSkillActionByName(spec.ActionSpecName);
+		Action = actionSpec.CreateCardAction();
+		Action.SetCardStat(Stat);
 	}
 
 	public ICardSpec CardStaticSpec => SkillCardStaticSpec;
+	public string Name => GameDataSystem.Instance.GetGameData<GameString>().GetString(CardStaticSpec.NameKey);
+	//todo: 설명은 액션으로 ?
+	public string Desc => GameDataSystem.Instance.GetGameData<GameString>()
+		.Format(CardStaticSpec.DescKey, Action.DescParams);
 }
