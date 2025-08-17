@@ -5,7 +5,7 @@
     "DescKey": "",
     "StatSpecName": "AlleStat",
     "CardResource": "alle_default",
-    "ActionSpecName": "DefaultAction",
+    "ActionSpecName": "AlchemistAction",
     "TargetSkillCardSpecName": "BiologicalExperiment"
   },
   {
@@ -32,7 +32,7 @@
     "DescKey": "",
     "StatSpecName": "DacaneStat",
     "CardResource": "dacane_default",
-    "ActionSpecName": "DefaultAction",
+    "ActionSpecName": "AlchemistAction",
     "TargetSkillCardSpecName": "ChainReaction"
   },
   {
@@ -41,7 +41,7 @@
     "DescKey": "",
     "StatSpecName": "EquinoxStat",
     "CardResource": "equinox_default",
-    "ActionSpecName": "DefaultAction",
+    "ActionSpecName": "AlchemistAction",
     "TargetSkillCardSpecName": "EquivalentExchange"
   },
   {
@@ -68,7 +68,7 @@
     "DescKey": "",
     "StatSpecName": "PanaStat",
     "CardResource": "pana_default",
-    "ActionSpecName": "DefaultAction",
+    "ActionSpecName": "AlchemistAction",
     "TargetSkillCardSpecName": "Panacea"
   },
   {
@@ -77,7 +77,7 @@
     "DescKey": "",
     "StatSpecName": "PosiStat",
     "CardResource": "posi_default",
-    "ActionSpecName": "DefaultAction",
+    "ActionSpecName": "AlchemistAction",
     "TargetSkillCardSpecName": "PositiveFeedback"
   },
   {
@@ -95,8 +95,8 @@
     "DescKey": "",
     "StatSpecName": "EnemyPatrolMachineStat",
     "CardResource": "enemy_patrolmachine_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "OverheatPropulsion"
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
   },
   {
     "Name": "HiredGangster",
@@ -104,8 +104,8 @@
     "DescKey": "",
     "StatSpecName": "EnemyHiredGangsterStat",
     "CardResource": "enemy_hiredgangster_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "OverheatPropulsion"
+    "ActionSpecName": "EnemyAction2",
+    "TargetSkillCardSpecName": ""
   },
   {
     "Name": "GuardAutomaton",
@@ -113,8 +113,8 @@
     "DescKey": "",
     "StatSpecName": "EnemyGuardAutomatonStat",
     "CardResource": "enemy_guardautomaton_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "OverheatPropulsion"
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
   },
   {
     "Name": "RepairMachine",
@@ -122,7 +122,7 @@
     "DescKey": "",
     "StatSpecName": "EnemyRepairMachineStat",
     "CardResource": "enemy_repairmachine_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "OverheatPropulsion"
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
   }
 ]
