@@ -40,7 +40,8 @@ public class UnityObjectPool : MonoBehaviour
 		return poolMap[presetFullName] = pool;
 	}
 
-	public PooledUnityObject Instantiate(Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null, Transform followTarget = null)
+	public PooledUnityObject Instantiate(Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null,
+		Transform followTarget = null, Transform parent = null, bool useLocalPos = false)
 	{
 		PooledUnityObject ret;
 		if (AvailableQueue.Count != 0)
@@ -55,11 +56,24 @@ public class UnityObjectPool : MonoBehaviour
 			ret.AddDisposeCallback(CollectDisposedObject);
 		}
 
-		ret.transform.position = position ?? (followTarget != null ? followTarget.position : ret.transform.position);
+		if (parent != null)
+		{
+			ret.transform.SetParent(parent);
+		}
+		
+		if (useLocalPos)
+		{
+			ret.transform.localPosition = position ?? (followTarget != null ? followTarget.position : ret.transform.position);
+		}
+		else
+		{
+			ret.transform.position = position ?? (followTarget != null ? followTarget.position : ret.transform.position);
+		}
 		ret.transform.rotation = rotation ?? (followTarget != null ? followTarget.rotation : ret.transform.rotation);
 		ret.transform.localScale = scale ?? (followTarget != null ? followTarget.lossyScale : ret.transform.localScale);
 		ret.SetFollowTarget(followTarget);
-		ret.Initialize();
+		
+		ret.Initialize(transform);
 		return ret;
 	}
 

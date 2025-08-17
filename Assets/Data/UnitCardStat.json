@@ -2,7 +2,7 @@
   {
     "Name": "AlleStat",
     "SynergyList": [
-      "SteamEngine"
+      "Alchemist"
     ],
     "Attack": 4,
     "MaxTurnCount": 4,
@@ -29,7 +29,7 @@
   {
     "Name": "DacaneStat",
     "SynergyList": [
-      "SteamEngine"
+      "Alchemist"
     ],
     "Attack": 2,
     "MaxTurnCount": 5,
@@ -38,7 +38,7 @@
   {
     "Name": "EquinoxStat",
     "SynergyList": [
-      "SteamEngine"
+      "Alchemist"
     ],
     "Attack": 2,
     "MaxTurnCount": 4,
@@ -65,7 +65,7 @@
   {
     "Name": "PanaStat",
     "SynergyList": [
-      "SteamEngine"
+      "Alchemist"
     ],
     "Attack": 2,
     "MaxTurnCount": 4,
@@ -74,7 +74,7 @@
   {
     "Name": "PosiStat",
     "SynergyList": [
-      "SteamEngine"
+      "Alchemist"
     ],
     "Attack": 3,
     "MaxTurnCount": 4,

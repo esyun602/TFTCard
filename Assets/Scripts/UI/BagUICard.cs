@@ -165,8 +165,17 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 		{
 			timePassed += dt;
 			var progress = returnAnimationCurve.Evaluate(timePassed / returnTime);
-			owner.transform.position =
-				Vector3.Lerp(startPos, owner.cardPosInfo.TargetPos, progress);
+			if (owner.cardPosInfo.Tile == null)
+			{
+				owner.transform.localPosition =
+					Vector3.Lerp(startPos, owner.cardPosInfo.TargetPos, progress);
+			}
+			else
+			{
+				//일단 타일의 경우 global position 사용
+				//todo: 수정
+				owner.transform.position = Vector3.Lerp(startPos, owner.cardPosInfo.TargetPos, progress);
+			}
 		}
 
 		private void UpdateScale(float dt)
@@ -187,7 +196,16 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 		private void Restart()
 		{
 			timePassed = 0f;
-			startPos = owner.transform.position;
+			if (owner.cardPosInfo.Tile == null)
+			{
+				startPos = owner.transform.localPosition;
+			}
+			else
+			{
+				//일단 타일의 경우 global position 사용
+				//todo: 수정
+				startPos = owner.transform.position;
+			}
 		}
 
 		private void RestartHover()

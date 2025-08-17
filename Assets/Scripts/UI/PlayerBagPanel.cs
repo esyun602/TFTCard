@@ -33,11 +33,11 @@ public class PlayerBagPanel : UIInstance
 		(Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count - 1) / cardCountPerRow + 1;
 
 	public Dictionary<ICard, BagUICard> cardDictionary;
-	
+
 	protected override void Init(object param)
 	{
 		instance = this;
-		
+
 		cardDictionary = new();
 		NoticeSystem.Instance.Subscribe<BagUITileHoverNotice>(OnTileHover);
 		NoticeSystem.Instance.Subscribe<BagUICardPlaceNotice>(OnCardDeploy);
@@ -91,7 +91,7 @@ public class PlayerBagPanel : UIInstance
 		for (int i = 0; i < cardList.Count; i++)
 		{
 			var pos = CalculateBagUnitCardPositionWithIndex(i);
-			var bagUICard = bagPool.Instantiate(pos).GetComponent<BagUnitCard>();
+			var bagUICard = bagPool.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagUnitCard>();
 			bagUICard.Initialize(cardList[i], pos);
 			cardDictionary.Add(cardList[i], bagUICard);
 		}
@@ -110,12 +110,13 @@ public class PlayerBagPanel : UIInstance
 			BagSkillCard bagUICard;
 			if (cardList[i].SkillCardStaticSpec.IsUnitAction)
 			{
-				bagUICard = unitActionPool.Instantiate(pos).GetComponent<BagSkillCard>();
+				bagUICard = unitActionPool.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagSkillCard>();
 			}
 			else
 			{
-				bagUICard = skillPool.Instantiate(pos).GetComponent<BagSkillCard>();
+				bagUICard = skillPool.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagSkillCard>();
 			}
+
 			bagUICard.Initialize(cardList[i], pos);
 			cardDictionary.Add(cardList[i], bagUICard);
 		}
@@ -132,55 +133,63 @@ public class PlayerBagPanel : UIInstance
 			CurrentHoverBagUITile = null;
 		}
 	}
-	
+
 	private void OnCardDeploy(BagUICardPlaceNotice m)
 	{
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		
+
 		var locationInfos = playInfo.FieldDeployLocationInfo;
 
-		
+
 		/*
-		 
+
 		var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
 		var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagSkillCard")
 			.Instantiate(pos).GetComponent<BagSkillCard>();
 		bagUICard.Initialize(unitSkillCard, pos);
 		cardDictionary.Add(unitSkillCard, bagUICard);
-		
+
 		*/
-		
+
 		/*
-		 
+
 		var info = locationInfos.Find(info => info.TargetCard == m.TargetCard.TargetCard);
 		BagUITile.GetTargetTile(info.Row, info.Col).IsOccupied = false;
 		m.TargetTile.IsOccupied = true;
-		
+
 		*/
 
 
 		playInfo.DeployCard(m.TargetTile.Row, m.TargetTile.Col, m.TargetCard.TargetUnitCard);
-		
+		m.TargetCard.transform.SetParent(UnityObjectPool.GetOrCreateUIPool("BagUnitCard").transform);
 		SyncCardUIToPlayInfo();
-		
+
 		UpdateAndPropagateTargetPos();
+		SyncScroll();
 	}
 
 
 	private void OnCardUnDeploy(BagUICardUnPlaceNotice m)
 	{
 		//m.TargetTile.IsOccupied = false;
-		
+
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
 
 		playInfo.UndeployCard(m.TargetCard.TargetUnitCard);
 		//todo: pooledObj를 보유하고 있는게 나을수도
 		/*cardDictionary[unitSkillCard].GetComponent<PooledUnityObject>().Dispose();
 		cardDictionary.Remove(unitSkillCard);*/
-		
+
+		m.TargetCard.transform.SetParent(DeckCardArea);
+
 		SyncCardUIToPlayInfo();
-		
+
 		UpdateAndPropagateTargetPos();
+		SyncScroll();
+	}
+
+	private void SyncScroll()
+	{
 	}
 
 	//성능에 문제가 있으면 reflect 말고 메세지 받아서 하는게 나을수도
@@ -198,19 +207,21 @@ public class PlayerBagPanel : UIInstance
 			{
 				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
 				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagUnitCard")
-					.Instantiate(pos).GetComponent<BagUnitCard>();
+					.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagUnitCard>();
 				bagUICard.Initialize(bagUnitCards[i], pos);
 				cardDictionary.Add(bagUnitCards[i], bagUICard);
 			}
 		}
-		
+
 		for (var i = 0; i < deckCards.Count; i++)
 		{
 			if (!cardDictionary.ContainsKey(deckCards[i]))
 			{
 				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
-				var bagUICard = UnityObjectPool.GetOrCreateUIPool(deckCards[i].SkillCardStaticSpec.IsUnitAction ? "BagUnitActionCard" : "BagSkillCard")
-					.Instantiate(pos).GetComponent<BagSkillCard>();
+				var bagUICard = UnityObjectPool.GetOrCreateUIPool(deckCards[i].SkillCardStaticSpec.IsUnitAction
+						? "BagUnitActionCard"
+						: "BagSkillCard")
+					.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagSkillCard>();
 				bagUICard.Initialize(deckCards[i], pos);
 				cardDictionary.Add(deckCards[i], bagUICard);
 			}
@@ -227,11 +238,11 @@ public class PlayerBagPanel : UIInstance
 				cardDictionary.Add(info.TargetCard, bagUICard);
 			}
 		}
-		
-		
+
+
 		//데이터에 없는데 있는거 없애기
 		//todo: hashset 써서 효율 개선
-		
+
 		var toRemove = new List<ICard>();
 		foreach (var key in cardDictionary.Keys)
 		{
@@ -268,7 +279,7 @@ public class PlayerBagPanel : UIInstance
 			var pos = CalculateBagUnitCardPositionWithIndex(i);
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
 		}
-		
+
 		for (var i = 0; i < deckCards.Count; i++)
 		{
 			//todo : exception check?
@@ -293,9 +304,9 @@ public class PlayerBagPanel : UIInstance
 
 	private Vector3 CalculateBagUnitCardPositionWithIndex(int idx)
 	{
-		return DeckCardArea.position + LeftTopOffset
-		                             + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
-		                             + Vector3.down * ((idx / cardCountPerRow) * verticalSpace);
+		return LeftTopOffset
+		       + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
+		       + Vector3.down * ((idx / cardCountPerRow) * verticalSpace);
 	}
 
 
@@ -307,8 +318,8 @@ public class PlayerBagPanel : UIInstance
 
 	private Vector3 CalculateDeckCardPositionWithIndex(int idx)
 	{
-		return DeckCardArea.position + LeftTopOffset
-		                + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
-						+ Vector3.down * ((idx / cardCountPerRow + DeckCardStartRow) * verticalSpace);
+		return LeftTopOffset
+		       + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
+		       + Vector3.down * ((idx / cardCountPerRow + DeckCardStartRow) * verticalSpace);
 	}
 }

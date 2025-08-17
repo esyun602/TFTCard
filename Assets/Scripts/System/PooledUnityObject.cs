@@ -10,13 +10,15 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 
 	//todo: 분리?
 	//todo: follow flag 추가
+	private Transform poolTransform;
 	private Transform followTarget;
 	private Vector3 localPos;
 	private Vector3 localScale;
 	private Quaternion localRotation;
 
-	public void Initialize()
+	public void Initialize(Transform tr)
 	{
+		poolTransform = tr;
 		gameObject.SetActive(true);
 		timePassed = 0;
 	}
@@ -32,6 +34,7 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 			return;
 		}
 
+		SetParentToPool();
 		gameObject.SetActive(false);
 		disposeCallbacks?.Invoke(this);
 	}
@@ -92,5 +95,10 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 			localScale.y * parentLossy.y,
 			localScale.z * parentLossy.z
 		);
+	}
+
+	public void SetParentToPool()
+	{
+		transform.SetParent(poolTransform);
 	}
 }
