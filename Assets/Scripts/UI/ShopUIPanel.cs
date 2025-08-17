@@ -42,11 +42,8 @@ public class ShopUIPanel : UIInstance
 	{
 		cardDataList = new();
 		//todo: constant
-		for (int i = 0; i < 3; i++)
-		{
-			//todo: fix - 중복 제거
-			cardDataList.Add(GameDataSystem.Instance.GetGameData<CardData>().GetRandomSkillCardSpec());
-		}
+		
+		cardDataList = GameDataSystem.Instance.GetGameData<CardData>().GetRandomSkillCardSpecs(3);
 
 		for (int i = 0; i < 3; i++)
 		{
