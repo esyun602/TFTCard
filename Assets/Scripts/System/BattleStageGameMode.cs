@@ -187,11 +187,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 		public void Enter(IState prevState)
 		{
-			Game.Instance.UIManager.GenerateUI<ShopUIPanel>(new ShopUIPanelGenState()
-			{
-				rollCount = 5,
-				doneAction = ReturnToMapGameMode
-			});
+			Game.Instance.UIManager.GenerateUI<VictoryPanel>(new VictoryPanelGenState(ReturnToMapGameMode));
 		}
 		
 		//todo: 고도화(캐시 사용)

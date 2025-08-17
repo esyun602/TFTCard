@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1211374169765491414}
   - component: {fileID: 1458999693332169406}
   - component: {fileID: 6739349190665011461}
-  - component: {fileID: 3563585511020310662}
+  - component: {fileID: -3001668542322034938}
   m_Layer: 5
   m_Name: VictoryPanel
   m_TagString: Untagged
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.62352943}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3563585511020310662
+--- !u!114 &-3001668542322034938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1101033088916145152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e82a92e973547f9888cc710e0998a2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f16e986922b470d8dd5749edb41ee9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4121396029199578196
@@ -285,8 +285,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3563585511020310662}
-        m_TargetAssemblyTypeName: GameOverPanel, Assembly-CSharp
+      - m_Target: {fileID: -3001668542322034938}
+        m_TargetAssemblyTypeName: VictoryPanel, Assembly-CSharp
         m_MethodName: OnCloseClick
         m_Mode: 1
         m_Arguments:
