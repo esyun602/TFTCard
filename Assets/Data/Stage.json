@@ -11,5 +11,14 @@
   {
     "StageName": "Scout",
     "ClassName": "UnitScoutStage"
+  },
+  {
+    "StageName": "TestStage2",
+    "ClassName": "TestStage",
+    "MapData": "TestMap",
+    "CamSize": 8.0,
+    "WaveGridList": [
+      "test_wave_1"
+    ]
   }
 ]
