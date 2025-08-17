@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,6 +14,7 @@ public abstract class SynergySpec
 	public string CommonDescKey { get; private set; }
 	public int[] SynergyCountList { get; private set; }
 	public string[] DescKey { get; private set; }
+	public Color SymbolColor { get; private set; }
 
 	public abstract bool TryGenerateGlobalSynergyInstance(out IGlobalSynergy globalSynergy);
 	public abstract bool TryGenerateBattleSynergyInstance(out IBattleSynergy battleSynergy);
@@ -31,6 +33,10 @@ public abstract class SynergySpec
 		spec.CommonDescKey = param.GetString(nameof(CommonDescKey));
 		spec.SynergyCountList = param.GetIntArray(nameof(SynergyCountList));
 		spec.DescKey = param.GetStringArray(nameof(DescKey));
+		if (ColorUtility.TryParseHtmlString(param.GetString(nameof(SymbolColor)), out var color))
+		{
+			spec.SymbolColor = color;
+		}
 
 		return spec;
 	}

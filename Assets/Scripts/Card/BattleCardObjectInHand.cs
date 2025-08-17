@@ -175,7 +175,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		{
 			isHovered = true;
 			hoverTarget = originalScale * 1.8f;
-			owner.collider.size = GameDataSystem.Instance.GetGameData<Constant>().HandHoverColliderSize;
+			owner.collider.size = Constant.HandHoverColliderSize;
 			targetRotationOverride = Camera.main.transform.localRotation;
 			RestartHover();
 			//todo: 애니메이션 빼면 순간적으로 마우스 탈출하는 문제
@@ -187,7 +187,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			isHovered = false;
 			hoverTarget = originalScale;
 			targetRotationOverride = null;
-			owner.collider.size = GameDataSystem.Instance.GetGameData<Constant>().HandColliderSize;
+			owner.collider.size = Constant.HandColliderSize;
 			RestartHover();
 		}
 

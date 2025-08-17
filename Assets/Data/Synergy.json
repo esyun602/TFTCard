@@ -13,7 +13,8 @@
       "todo",
       "todo",
       "todo"
-    ]
+    ],
+    "SymbolColor": "#F1EDAD"
   },
   {
     "SynergyCategory": "SteamEngine",
@@ -29,6 +30,7 @@
       "todo",
       "todo",
       "todo"
-    ]
+    ],
+    "SymbolColor": "#F1BFAD"
   }
 ]

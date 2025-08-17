@@ -18,10 +18,11 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private TextMeshPro shield;
+	[SerializeField] private MeshRenderer backGround;
 	
 	public void Initialize(ICard card, IStat stat)
 	{
-		if (card is not UnitCard)
+		if (card is not UnitCard unitCard)
 		{
 			throw new ArgumentException();
 		}
@@ -43,6 +44,12 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		{
 			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
 		}
+		
+		//todo:fix
+		var synergySpec = GameDataSystem.Instance.GetGameData<SynergyData>()
+			.GetSynergySpec(unitCard.Stat.synergyList[0]);
+		backGround.material.SetColor("_BaseColor", synergySpec.SymbolColor);
+		
 		
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";

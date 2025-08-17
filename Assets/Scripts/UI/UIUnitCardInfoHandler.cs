@@ -14,10 +14,11 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshProUGUI nameText;
 	[SerializeField] private TextMeshProUGUI desc;
 	[SerializeField] private Image img;
+	[SerializeField] private Image bgImg;
 	
 	public void Initialize(ICard card, IStat stat)
 	{
-		if (card is not UnitCard)
+		if (card is not UnitCard unitCard)
 		{
 			throw new ArgumentException();
 		}
@@ -28,6 +29,11 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		{
 			img.sprite = card.CardStaticSpec.CardResource;
 		}
+		
+		//todo:fix
+		var synergySpec = GameDataSystem.Instance.GetGameData<SynergyData>()
+			.GetSynergySpec(unitCard.Stat.synergyList[0]);
+		bgImg.color = synergySpec.SymbolColor;
 		
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
