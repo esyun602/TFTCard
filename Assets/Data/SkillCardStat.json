@@ -7,7 +7,7 @@
   {
     "Name": "DamageStat",
     "Cost": 1,
-    "Attack": 3
+    "Attack": 2
   },
   {
     "Name": "FireArrowStat",
@@ -21,12 +21,12 @@
   },
   {
     "Name": "ReposeStat",
-    "Cost": 1
+    "Cost": 0
   },
   {
     "Name": "ShieldStat",
     "Cost": 1,
-    "Shield": 3
+    "Shield": 2
   },
   {
     "Name": "SteamEngineProtectionStat",

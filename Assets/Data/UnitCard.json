@@ -151,5 +151,32 @@
     "CardResource": "enemy_workshopsupervisor_default",
     "ActionSpecName": "EnemyAction1",
     "TargetSkillCardSpecName": ""
+  },
+  {
+    "Name": "ScrapMonster",
+    "NameKey": "unit_enemy_scrapmonster",
+    "DescKey": "",
+    "StatSpecName": "EnemyScrapMonsterStat",
+    "CardResource": "enemy_scrapmonster_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
+  },
+  {
+    "Name": "BrassMonster",
+    "NameKey": "unit_enemy_brassmonster",
+    "DescKey": "",
+    "StatSpecName": "EnemyBrassMonsterStat",
+    "CardResource": "enemy_brassmonster_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
+  },
+  {
+    "Name": "VacuumTubeLump",
+    "NameKey": "unit_enemy_vacuumtubelump",
+    "DescKey": "",
+    "StatSpecName": "EnemyVacuumTubeLumpStat",
+    "CardResource": "enemy_vacuumtubelump_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
   }
 ]

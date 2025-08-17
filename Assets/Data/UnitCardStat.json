@@ -151,5 +151,32 @@
     "Attack": 7,
     "MaxTurnCount": 4,
     "MaxHp": 8
+  },
+  {
+    "Name": "EnemyScrapMonsterStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 6,
+    "MaxTurnCount": 5,
+    "MaxHp": 15
+  },
+  {
+    "Name": "EnemyBrassMonsterStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 4,
+    "MaxTurnCount": 3,
+    "MaxHp": 20
+  },
+  {
+    "Name": "EnemyVacuumTubeLumpStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 10,
+    "MaxTurnCount": 2,
+    "MaxHp": 3
   }
 ]
