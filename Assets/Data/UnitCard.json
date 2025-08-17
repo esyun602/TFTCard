@@ -15,7 +15,7 @@
     "StatSpecName": "BellaStat",
     "CardResource": "bella_default",
     "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "Flamethrower"
+    "TargetSkillCardSpecName": "SteamPack"
   },
   {
     "Name": "Cowl",
