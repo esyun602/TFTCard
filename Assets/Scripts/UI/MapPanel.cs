@@ -40,7 +40,14 @@ public class MapPanel : UIInstance
 		{
 			tailNode.AddChild(tailNode = new MapNodeInfo());
 			//todo: fix
-			tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
+			if (i % 2 == 1)
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec("Scout");
+			}
+			else
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
+			}
 		}
 		
 		mapInfo.AddStartNode(root);

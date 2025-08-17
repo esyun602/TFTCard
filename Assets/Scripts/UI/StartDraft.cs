@@ -2,6 +2,13 @@ using System.Collections.Generic;
 using MessageSystem;
 using UnityEngine;
 
+public class StartDraftGenState
+{
+	public int CardPerDraft { get; set; }
+	public int DraftCount { get; set; }
+	
+}
+
 public class StartDraft : UIInstance
 {
 	[SerializeField] private int cardPerDraft;
@@ -17,6 +24,11 @@ public class StartDraft : UIInstance
 
 	protected override void Init(object param)
 	{
+		if (param is StartDraftGenState state)
+		{
+			draftCount = state.DraftCount;
+			cardPerDraft = state.CardPerDraft;
+		}
 		var rectTransform = GetComponent<RectTransform>();
 		currentDraftCount = 0;
 		cardPool = UnityObjectPool.GetOrCreateUIPool("DraftCardPrefab");

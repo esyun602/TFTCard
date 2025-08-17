@@ -1,5 +1,6 @@
 
 using MessageSystem;
+using UnityEngine;
 
 public class MapGameMode : IGameMode
 {
@@ -24,10 +25,15 @@ public class MapGameMode : IGameMode
 	private void StartTestStage(MapNodeSelectNotice notice)
 	{
 		var stage = notice.TargetInfo.TargetStageSpec.InstantiateStage();
-		//todo: fix
-		var waveSpecList = GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((TestStageSpec)notice.TargetInfo.TargetStageSpec).WaveGridList);
-		
-		Game.Instance.ChangeGameMode(new BattleStageGameMode(waveSpecList, stage));
+		//todo:fix
+		if (stage is BattleStage)
+		{
+			Game.Instance.ChangeGameMode(new BattleStageGameMode(stage));
+		}
+		else
+		{
+			Game.Instance.ChangeGameMode(new UnitScoutStageGameMode(stage));
+		}
 	}
 
 	public void Dispose()

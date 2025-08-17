@@ -4,10 +4,11 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 
+//todo: 배틀 관련된 것 제거
 public abstract class StageBase : IStage
 {
 	//game -> subsystem -> stagemanager 
-	protected StageSpec StageSpec;
+	public StageSpec StageSpec { get; protected set; }
 	protected MapData mapData;
 	protected IMap map;
 	public GameObject StageGameObject => stageGo;

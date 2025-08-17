@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+//배틀 관련된 내용 삭제
 public abstract class StageSpec
 {
 	public string StageName { get; private set; }
