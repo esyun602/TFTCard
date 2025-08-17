@@ -21,6 +21,22 @@ public class PlayInfo
 {
 	public List<UnitCard> BagUnitCardList { get; } = new();
 
+	public IEnumerable<UnitCard> TotalUnitCards
+	{
+		get
+		{
+			foreach (var card in BagUnitCardList)
+			{
+				yield return card;
+			}
+
+			foreach (var info in FieldDeployLocationInfo)
+			{
+				yield return info.TargetCard;
+			}
+		}
+	}
+
 	//todo: fix?
 	public List<SkillCard> DeckCardList { get; } = new();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class StartDraft : UIInstance
 {
 	[SerializeField] private int cardPerDraft;
 	[SerializeField] private int draftCount;
-	[SerializeField] private string[] draftCandidatesStrings;
+	[SerializeField] private List<string> draftCandidatesStrings;
 	[SerializeField] private GameObject endButton;
 	private int currentDraftCount;
 	private UnityObjectPool cardPool;
@@ -48,7 +49,7 @@ public class StartDraft : UIInstance
 
 	private void OnSelected(DraftUICardSelectedNotice m)
 	{
-		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Add(m.SelectedCard.TargetCard);
+		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Add((UnitCard)m.SelectedCard.TargetCard);
 		for (var i = currentCardList.Count - 1; i >= 0; i--)
 		{
 			currentCardList[i].Dispose();
@@ -71,11 +72,17 @@ public class StartDraft : UIInstance
 		currentDraftCount++;
 		for (var i = 1; i <= cardPerDraft; i++)
 		{
-			var randomCard = draftCandidatesStrings[Random.Range(0, draftCandidatesStrings.Length)];
+			//todo: fix
+			var randomCard = GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(draftCandidatesStrings[Random.Range(0, draftCandidatesStrings.Count)]);
+			while (Game.Instance.GetPlayer().CurrentPlayInfo.TotalUnitCards.Select(x => x.UnitCardStaticSpec).Any(x => x == randomCard))
+			{
+				randomCard = GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(draftCandidatesStrings[Random.Range(0, draftCandidatesStrings.Count)]);
+			}
+			draftCandidatesStrings.Remove(randomCard.Name);
 			var pos = candidatePosList[i];
 			var instance = cardPool.Instantiate(pos);
 			currentCardList.Add(instance);
-			instance.GetComponent<DraftUICard>().Initialize(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(randomCard));
+			instance.GetComponent<DraftUIUnitCard>().Initialize(randomCard);
 		}
 	}
 

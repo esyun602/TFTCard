@@ -34,6 +34,33 @@ public class CardData : GameData
 		return unitCardSpecList[Random.Range(0, unitCardSpecList.Count)];
 	}
 	
+
+	public SkillCardSpec GetRandomSkillCardSpec(bool includeUnitAction = false)
+	{
+		var randomIdx = Random.Range(0, skillCardSpecList.Count);
+		while (skillCardSpecList[randomIdx].IsUnitAction)
+		{
+			randomIdx = Random.Range(0, skillCardSpecList.Count);
+		}
+		return skillCardSpecList[randomIdx];
+	}
+	
+	public List<SkillCardSpec> GetRandomSkillCardSpecs(int count, bool includeUnitAction = false)
+	{
+		var ret = new List<SkillCardSpec>();
+		for (var i = 0; i < count; i++)
+		{
+			var randomIdx = Random.Range(0, skillCardSpecList.Count);
+			while (skillCardSpecList[randomIdx].IsUnitAction || ret.Contains(skillCardSpecList[randomIdx]))
+			{
+				randomIdx = Random.Range(0, skillCardSpecList.Count);
+			}
+			
+			ret.Add(skillCardSpecList[randomIdx]);
+		}
+		return ret;
+	}
+	
 	//todo: fix?
 	public ICardSpec GetSpecById(int id)
 	{
