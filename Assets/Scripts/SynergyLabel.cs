@@ -19,13 +19,11 @@ public class SynergyLabel : MonoBehaviour
 		{
 			synergyCount = value;
 			synergyCountInfo.text = GetSynergyCountString();
-			synergyCountText.text = $"{synergyCount}";
 		}
 	}
 
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
-	[SerializeField] private TextMeshProUGUI synergyCountText;
 
 	public void Initialize(SynergyCategory targetSynergyCategory)
 	{
