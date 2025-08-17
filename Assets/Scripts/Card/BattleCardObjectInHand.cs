@@ -174,7 +174,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		public void SetHover()
 		{
 			isHovered = true;
-			hoverTarget = originalScale * 1.8f;
+			hoverTarget = originalScale * 1.1f;
 			owner.collider.size = Constant.HandHoverColliderSize;
 			targetRotationOverride = Camera.main.transform.localRotation;
 			RestartHover();

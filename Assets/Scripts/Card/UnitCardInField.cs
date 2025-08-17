@@ -234,7 +234,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		public void SetHover()
 		{
 			isHovered = true;
-			hoverTarget = originalScale * 1.8f;
+			hoverTarget = originalScale * 1.5f;
 			RestartHover();
 		}
 

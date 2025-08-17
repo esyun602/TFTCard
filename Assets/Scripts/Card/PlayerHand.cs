@@ -14,7 +14,7 @@ public class PlayerHand
 	private Vector3 handCenter =>
 		(Camera.main.transform.position + (Constant.HandCenterZOffset - Camera.main.orthographicSize) * Camera.main.transform.up).GetX0z(Constant.HandCenterYPos);
 
-	private float cardDistance = 1.3f;
+	private float cardDistance = 1.5f;
 	private float cardRotationAngle = 5f;
 
 	private InputBlockFlag blockInput;
