@@ -254,5 +254,37 @@
   {
     "StringKey": "unit_enemy_repairmachine_desc",
     "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_patrolmachine",
+    "KorString": "정찰 기계"
+  },
+  {
+    "StringKey": "unit_enemy_patrolmachine_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_hiredgangster",
+    "KorString": "고용된 깡패"
+  },
+  {
+    "StringKey": "unit_enemy_hiredgangster_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_guardautomaton",
+    "KorString": "경비 오토마톤"
+  },
+  {
+    "StringKey": "unit_enemy_guardautomaton_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "synergy_alchemist",
+    "KorString": "연금술사"
+  },
+  {
+    "StringKey": "synergy_steamengine",
+    "KorString": "증기기관"
   }
 ]

@@ -31,7 +31,7 @@ public class SynergyLabel : MonoBehaviour
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 		targetCategorySpec = spec;
-		synergyName.text = spec.SynergyNameKey;
+		synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
 	}
 
 	private string GetSynergyCountString()
