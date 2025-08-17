@@ -20,5 +20,14 @@
     "WaveGridList": [
       "test_wave_1"
     ]
+  },
+  {
+    "StageName": "TestStage3",
+    "ClassName": "TestStage",
+    "MapData": "TestMap",
+    "CamSize": 8.0,
+    "WaveGridList": [
+      "test_wave_1"
+    ]
   }
 ]

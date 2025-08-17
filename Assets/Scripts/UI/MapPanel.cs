@@ -47,6 +47,10 @@ public class MapPanel : UIInstance
 			{
 				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec("TestStage2");
 			}
+			else if (i == 4)
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec("TestStage3");
+			}
 			else
 			{
 				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
