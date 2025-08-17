@@ -209,7 +209,7 @@
   },
   {
     "StringKey": "skill_damage",
-    "KorString": "대충데미지카드"
+    "KorString": "지원 사격"
   },
   {
     "StringKey": "skill_damage_desc",
@@ -217,7 +217,7 @@
   },
   {
     "StringKey": "skill_shield",
-    "KorString": "대충쉴드카드"
+    "KorString": "방어구 보급"
   },
   {
     "StringKey": "skill_shield_desc",
