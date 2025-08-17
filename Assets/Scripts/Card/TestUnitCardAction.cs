@@ -29,7 +29,7 @@ public class TestUnitCardAction : UnitCardActionBase
 				var target = map.GetBattleObjectOfTile(targetTile);
 				if (fxPrefab != null)
 				{
-					Object.Instantiate(fxPrefab, targetTile.GetPosition(), Quaternion.identity);
+					Object.Instantiate(fxPrefab, targetTile.GetPosition() + Vector3.up, Quaternion.identity);
 				}
 				
 				if (target?.ObjectType.IsHostile(owner.ObjectType) == true)

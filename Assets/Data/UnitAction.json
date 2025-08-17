@@ -2,12 +2,12 @@
   {
     "Name": "DefaultAction",
     "ClassName": "TestUnitCardAction",
-    "FxName": "FX_splash_explosion_floor"
+    "FxName": "FX_hit_02"
   },
   {
     "Name": "AlchemistAction",
     "ClassName": "TestUnitCardAction",
-    "FxName": "FX_splash_energy_01_floor"
+    "FxName": "FX_splash_magic_01_air"
   },
   {
     "Name": "EnemyAction1",
