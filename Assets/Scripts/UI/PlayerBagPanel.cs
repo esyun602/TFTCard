@@ -24,16 +24,30 @@ public class PlayerBagPanel : UIInstance
 
 	[SerializeField] private List<BagUITile> bagUITileList;
 
+	[SerializeField] private GameObject skillCardDivider;
+
+	[SerializeField] private float skillCardDividerHeight;
+
+	[SerializeField] private float bottomOffsetHeight;
+
+	[SerializeField] private float originHeight;
+
 	public Vector3 LeftTopOffset;
 	public float horizontalSpace;
 	public float verticalSpace;
 	public int cardCountPerRow;
 
-	private int DeckCardStartRow =>
-		(Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count - 1) / cardCountPerRow + 1;
-
 	public Dictionary<ICard, BagUICard> cardDictionary;
-
+	private int BagUnitCardRowCount => 
+		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count == 0 
+		? 0 
+		: (Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count - 1) / cardCountPerRow + 1;
+	private int BagSkillCardRowCount => 
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Count == 0 
+			? 0
+			: (Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Count - 1) / cardCountPerRow + 1;
+	
+	
 	protected override void Init(object param)
 	{
 		instance = this;
@@ -45,6 +59,9 @@ public class PlayerBagPanel : UIInstance
 		InitializeBagUnitCards();
 		InitializeDeckCards();
 		InitializeField();
+		
+		skillCardDivider.transform.localPosition = GetSkillCardDividerPos();
+		ExpandBagArea();
 	}
 
 	public void OnClose()
@@ -280,6 +297,8 @@ public class PlayerBagPanel : UIInstance
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
 		}
 
+		skillCardDivider.transform.localPosition = GetSkillCardDividerPos();
+
 		for (var i = 0; i < deckCards.Count; i++)
 		{
 			//todo : exception check?
@@ -287,6 +306,8 @@ public class PlayerBagPanel : UIInstance
 			var pos = CalculateDeckCardPositionWithIndex(i);
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
 		}
+
+		ExpandBagArea();
 
 		foreach (var tile in bagUITileList)
 		{
@@ -320,6 +341,19 @@ public class PlayerBagPanel : UIInstance
 	{
 		return LeftTopOffset
 		       + Vector3.right * ((idx % cardCountPerRow) * horizontalSpace)
-		       + Vector3.down * ((idx / cardCountPerRow + DeckCardStartRow) * verticalSpace);
+		       + Vector3.down * ((idx / cardCountPerRow + BagUnitCardRowCount) * verticalSpace + skillCardDividerHeight);
+	}
+
+	private Vector3 GetSkillCardDividerPos()
+	{
+		return skillCardDivider.transform.localPosition.GetX0z(
+			-BagUnitCardRowCount * verticalSpace + LeftTopOffset.y);
+	}
+
+	private void ExpandBagArea()
+	{
+		//todo: fix
+		DeckCardArea.offsetMin = new Vector2(960f, Mathf.Min(0,
+			-(BagUnitCardRowCount + BagSkillCardRowCount) * verticalSpace - skillCardDividerHeight + LeftTopOffset.y + originHeight - bottomOffsetHeight));
 	}
 }

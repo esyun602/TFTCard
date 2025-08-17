@@ -7,7 +7,23 @@ using UnityEngine.EventSystems;
 public class BagUITile : MonoBehaviour
 {
 	private bool hasMouse;
-	public bool IsOccupied { get; set; }
+
+	private bool isOccupied;
+	public bool IsOccupied
+	{
+		get=>isOccupied;
+		set
+		{
+			if (value && hasMouse)
+			{
+				NoticeSystem.Instance.Publish(new BagUITileHoverNotice(this, HoverType.Exit));
+				hasMouse = false;
+			}
+
+			isOccupied = value;
+		}
+	}
+
 	[SerializeField] private int row;
 	public int Row => row;
 	[SerializeField] private int col;

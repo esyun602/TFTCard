@@ -60,7 +60,7 @@ public class BagUnitCard : BagUICard
         private float timePassed = 0f;
 
         private BagUITile currentTile;
-        private bool canPlace => currentTile != null;
+        private bool canPlace => currentTile != null && !currentTile.IsOccupied;
 
         public BagUnitCardSelectedState(BagUnitCard owner)
         {

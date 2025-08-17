@@ -46,9 +46,12 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		}
 		
 		//todo:fix
-		var synergySpec = GameDataSystem.Instance.GetGameData<SynergyData>()
-			.GetSynergySpec(unitCard.Stat.synergyList[0]);
-		backGround.material.SetColor("_BaseColor", synergySpec.SymbolColor);
+		if (unitCard.Stat.synergyList.Count > 0)
+		{
+			var synergySpec = GameDataSystem.Instance.GetGameData<SynergyData>()
+				.GetSynergySpec(unitCard.Stat.synergyList[0]);
+			backGround.material.SetColor("_BaseColor", synergySpec.SymbolColor);
+		}
 		
 		
 		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
