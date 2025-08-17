@@ -46,7 +46,7 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 
 	public void Heal(HealInfo healInfo)
 	{
-		if (owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.HealBan) != 0)
+		if (owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.HealBan) == 0)
 		{
 			owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, healInfo.HealAmount);
 		}
