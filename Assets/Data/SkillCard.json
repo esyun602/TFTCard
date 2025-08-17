@@ -4,7 +4,7 @@
     "NameKey": "skill_bread_supply",
     "DescKey": "skill_bread_supply_desc",
     "StatSpecName": "BreadSupplyStat",
-    "CardResource": "bread_supply_default",
+    "CardResource": "breadsupply_default",
     "ActionSpecName": "BreadSupply",
     "CardUseType": "Targeting",
     "IsUnitAction": false
@@ -24,7 +24,7 @@
     "NameKey": "skill_fire_arrow",
     "DescKey": "skill_fire_arrow_desc",
     "StatSpecName": "FireArrowStat",
-    "CardResource": "fire_arrow_default",
+    "CardResource": "firearrow_default",
     "ActionSpecName": "FireArrow",
     "CardUseType": "Targeting",
     "IsUnitAction": false
@@ -34,7 +34,7 @@
     "NameKey": "skill_quick_motion",
     "DescKey": "skill_quick_motion_desc",
     "StatSpecName": "QuickMotionStat",
-    "CardResource": "quick_motion_default",
+    "CardResource": "quickmotion_default",
     "ActionSpecName": "QuickMotion",
     "CardUseType": "Targeting",
     "IsUnitAction": false
@@ -64,7 +64,7 @@
     "NameKey": "skill_damage",
     "DescKey": "skill_damage_desc",
     "StatSpecName": "SteamEngineProtectionStat",
-    "CardResource": "damage_default",
+    "CardResource": "steamengineprotection_default",
     "ActionSpecName": "SteamEngineProtection",
     "CardUseType": "Targeting",
     "IsUnitAction": false
@@ -84,7 +84,7 @@
     "NameKey": "act_skill_biological_experiment",
     "DescKey": "act_skill_biological_experiment_desc",
     "StatSpecName": "BiologicalExperimentStat",
-    "CardResource": "skill_biological_experiment_default",
+    "CardResource": "skill_biologicalexperiment_default",
     "ActionSpecName": "BiologicalExperiment",
     "CardUseType": "Targeting",
     "IsUnitAction": true
@@ -104,7 +104,7 @@
     "NameKey": "act_skill_high_pressure_bomb",
     "DescKey": "act_skill_high_pressure_bomb_desc",
     "StatSpecName": "HighPressureBombStat",
-    "CardResource": "skill_high_pressure_bomb_default",
+    "CardResource": "skill_highpressurebomb_default",
     "ActionSpecName": "HighPressureBomb",
     "CardUseType": "Targeting",
     "IsUnitAction": true
@@ -114,7 +114,7 @@
     "NameKey": "act_skill_chain_reaction",
     "DescKey": "act_skill_chain_reaction_desc",
     "StatSpecName": "ChainReactionStat",
-    "CardResource": "skill_chain_reaction_default",
+    "CardResource": "skill_chainreaction_default",
     "ActionSpecName": "ChainReaction",
     "CardUseType": "Targeting",
     "IsUnitAction": true
@@ -124,7 +124,7 @@
     "NameKey": "act_skill_equivalent_exchange",
     "DescKey": "act_skill_equivalent_exchange_desc",
     "StatSpecName": "EquivalentExchangeStat",
-    "CardResource": "skill_equivalent_exchange_default",
+    "CardResource": "skill_equivalentexchange_default",
     "ActionSpecName": "EquivalentExchange",
     "CardUseType": "Targeting",
     "IsUnitAction": true
@@ -164,7 +164,7 @@
     "NameKey": "act_skill_positive_feedback",
     "DescKey": "act_skill_positive_feedback_desc",
     "StatSpecName": "PositiveFeedbackStat",
-    "CardResource": "skill_positive_feedback_default",
+    "CardResource": "skill_positivefeedback_default",
     "ActionSpecName": "PositiveFeedback",
     "CardUseType": "Targeting",
     "IsUnitAction": true
@@ -174,7 +174,7 @@
     "NameKey": "act_skill_overheat_propulsion",
     "DescKey": "act_skill_overheat_propulsion_desc",
     "StatSpecName": "OverheatPropulsionStat",
-    "CardResource": "skill_overheat_propulsion_default",
+    "CardResource": "skill_overheatpropulsion_default",
     "ActionSpecName": "OverheatPropulsion",
     "CardUseType": "Targeting",
     "IsUnitAction": true

@@ -13,10 +13,11 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private TextMeshPro cost;
 	[SerializeField] private MeshRenderer TextureRenderer;
+	[SerializeField] private MeshRenderer BackGround;
 	
 	public void Initialize(ICard card, IStat stat)
 	{
-		if (card is not SkillCard)
+		if (card is not SkillCard skillCard)
 		{
 			throw new ArgumentException();
 		}
@@ -33,6 +34,13 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
 		}
 
+		//todo: fix
+		if (skillCard.Owner != null)
+		{
+			var spec = GameDataSystem.Instance.GetGameData<SynergyData>()
+				.GetSynergySpec(skillCard.Owner.Stat.synergyList[0]);
+			BackGround.material.SetColor("_BaseColor", spec.SymbolColor);
+		}
 	}
 
 	//todo: callback or notice?
