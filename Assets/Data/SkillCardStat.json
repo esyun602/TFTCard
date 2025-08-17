@@ -16,7 +16,7 @@
   },
   {
     "Name": "QuickMotionStat",
-    "Cost": 1,
+    "Cost": 0,
     "TurnCount": 1
   },
   {
@@ -40,15 +40,18 @@
   },
   {
     "Name": "BiologicalExperimentStat",
-    "Cost": 1
+    "Cost": 1,
+    "Catalyst": 1
   },
   {
     "Name": "SteamPackStat",
-    "Cost": 1
+    "Cost": 1,
+    "Burn": 1,
+    "TurnCount": 2
   },
   {
     "Name": "HighPressureBombStat",
-    "Cost": 1
+    "Cost": 2
   },
   {
     "Name": "ChainReactionStat",
@@ -56,11 +59,11 @@
   },
   {
     "Name": "EquivalentExchangeStat",
-    "Cost": 1
+    "Cost": 0
   },
   {
     "Name": "FlamethrowerStat",
-    "Cost": 1
+    "Cost": 2
   },
   {
     "Name": "AutoMailStat",
@@ -68,14 +71,16 @@
   },
   {
     "Name": "PanaceaStat",
-    "Cost": 1
+    "Cost": 3
   },
   {
     "Name": "PositiveFeedbackStat",
-    "Cost": 1
+    "Cost": 1,
+    "Catalyst": 1
   },
   {
     "Name": "OverheatPropulsionStat",
-    "Cost": 1
+    "Cost": 0,
+    "Burn": 2
   }
 ]

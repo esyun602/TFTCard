@@ -124,5 +124,32 @@
     "CardResource": "enemy_repairmachine_default",
     "ActionSpecName": "EnemyAction1",
     "TargetSkillCardSpecName": ""
+  },
+  {
+    "Name": "MechanizedSlave",
+    "NameKey": "unit_enemy_mechanizedslave",
+    "DescKey": "",
+    "StatSpecName": "EnemyMechanizedSlaveStat",
+    "CardResource": "enemy_mechanizedslave_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
+  },
+  {
+    "Name": "SlaveGuard",
+    "NameKey": "unit_enemy_slaveguard",
+    "DescKey": "",
+    "StatSpecName": "EnemySlaveGuardStat",
+    "CardResource": "enemy_slaveguard_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
+  },
+  {
+    "Name": "WorkshopSupervisor",
+    "NameKey": "unit_enemy_workshopsupervisor",
+    "DescKey": "",
+    "StatSpecName": "EnemyWorkshopSupervisorStat",
+    "CardResource": "enemy_workshopsupervisor_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": ""
   }
 ]

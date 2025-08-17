@@ -256,28 +256,16 @@
     "KorString": ""
   },
   {
-    "StringKey": "unit_enemy_patrolmachine",
-    "KorString": "정찰 기계"
+    "StringKey": "unit_enemy_mechanizedslave",
+    "KorString": "기계화된 노예"
   },
   {
-    "StringKey": "unit_enemy_patrolmachine_desc",
-    "KorString": ""
+    "StringKey": "unit_enemy_slaveguard",
+    "KorString": "노예 간수"
   },
   {
-    "StringKey": "unit_enemy_hiredgangster",
-    "KorString": "고용된 깡패"
-  },
-  {
-    "StringKey": "unit_enemy_hiredgangster_desc",
-    "KorString": ""
-  },
-  {
-    "StringKey": "unit_enemy_guardautomaton",
-    "KorString": "경비 오토마톤"
-  },
-  {
-    "StringKey": "unit_enemy_guardautomaton_desc",
-    "KorString": ""
+    "StringKey": "unit_enemy_workshopsupervisor",
+    "KorString": "작업장 총감독관"
   },
   {
     "StringKey": "synergy_alchemist",
