@@ -1,3 +1,4 @@
+using DG.Tweening;
 using MessageSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
+	[SerializeField] private Image tint;
 	public UnitCard TargetCard { get; private set; }
 	private UIUnitCardInfoHandler infoHandler;
 	private SimpleStateMachine stateMachine;
@@ -95,7 +97,9 @@ public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 		public void SetHover()
 		{
 			isHovered = true;
-			hoverTarget = originalScale * 1.8f;
+			hoverTarget = originalScale * 1.3f;
+			owner.tint.DOKill();
+			owner.tint.DOFade(0, 0.2f);
 			RestartHover();
 		}
 
@@ -103,11 +107,14 @@ public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 		{
 			isHovered = false;
 			hoverTarget = originalScale;
+			owner.tint.DOKill();
+			owner.tint.DOFade(0.5f, 0.2f);
 			RestartHover();
 		}
 
 		public void Enter(IState prevState)
 		{
+			owner.tint.color = new Color(owner.tint.color.r, owner.tint.color.g, owner.tint.color.b, 0.5f); 
 			RestartHover();
 			//todo: 임시
 			returnAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardReturnAnimationCurve;

@@ -124,8 +124,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.57899857, y: -0.97999954}
-  m_SizeDelta: {x: -99.7, y: -99.7}
+  m_AnchoredPosition: {x: 0.5790024, y: -0.97999954}
+  m_SizeDelta: {x: 0.29999924, y: -99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2852911151163398309
 MeshRenderer:
@@ -566,8 +566,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.61999893, y: 1.1500015}
-  m_SizeDelta: {x: -99.7, y: -99.7}
+  m_AnchoredPosition: {x: 0.62000275, y: 1.1500015}
+  m_SizeDelta: {x: 0.29999924, y: -99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5569222678971841125
 MeshRenderer:
@@ -743,7 +743,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -1.1299973}
-  m_SizeDelta: {x: -99.7, y: -99.7}
+  m_SizeDelta: {x: 0.30000305, y: -99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7018151409484268277
 MeshRenderer:
@@ -1094,8 +1094,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.57300186, y: -0.97999954}
-  m_SizeDelta: {x: -99.7, y: -99.7}
+  m_AnchoredPosition: {x: -0.57299805, y: -0.97999954}
+  m_SizeDelta: {x: 0.29999924, y: -99.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6136950557133812520
 MeshRenderer:

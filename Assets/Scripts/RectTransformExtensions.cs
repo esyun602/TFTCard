@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class RectTransformExtensions
 {
-	public static Vector3[] GetHorizontalDivisions(this RectTransform panel, int divisions)
+	public static Vector3[] GetHorizontalDivisions(this RectTransform panel, int divisions, float yVal = 0f)
 	{
 		if (panel == null) throw new ArgumentNullException(nameof(panel));
 		if (divisions < 2) throw new ArgumentOutOfRangeException(nameof(divisions), "divisions must be ≥ 2");
@@ -16,7 +16,7 @@ public static class RectTransformExtensions
 
 		for (int i = 0; i < divisions; ++i)
 		{
-			Vector3 localPos = new Vector3(-halfWidth + step * i, 0f, 0f);
+			Vector3 localPos = new Vector3(-halfWidth + step * i, yVal, 0f);
 			result[i] = panel.TransformPoint(localPos);
 		}
 
