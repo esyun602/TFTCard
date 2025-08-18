@@ -61,8 +61,8 @@
   },
   {
     "Name": "SteamEngineProtection",
-    "NameKey": "skill_damage",
-    "DescKey": "skill_damage_desc",
+    "NameKey": "skill_steamengine_protection",
+    "DescKey": "skill_steamengine_protection_desc",
     "StatSpecName": "SteamEngineProtectionStat",
     "CardResource": "steamengineprotection_default",
     "ActionSpecName": "SteamEngineProtection",

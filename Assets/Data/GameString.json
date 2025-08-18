@@ -117,7 +117,7 @@
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
-    "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 체력을 잃습니다."
+    "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 피해를 입습니다."
   },
   {
     "StringKey": "act_skill_flamethrower",
