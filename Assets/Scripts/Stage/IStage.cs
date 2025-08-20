@@ -1,6 +1,7 @@
 
 using UnityEngine;
 
+//배틀 관련된 것 제거
 public interface IStage
 {
 	public GameObject StageGameObject { get; }

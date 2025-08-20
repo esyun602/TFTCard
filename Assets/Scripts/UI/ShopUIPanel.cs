@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using MessageSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +18,8 @@ public class ShopUIPanel : UIInstance
 	private int rollCount;
 	private Action cancelAction;
 
-	private List<ICardSpec> cardDataList;
-	[SerializeField] private List<Image> cardImageList;
+	private List<SkillCardSpec> cardDataList;
+	[SerializeField] private List<DraftUISkillCard> cardist;
 	[SerializeField] private TextMeshProUGUI rollCountUI;
 
 	protected override void Init(object param)
@@ -28,29 +29,32 @@ public class ShopUIPanel : UIInstance
 
 		UpdateRollCountText();
 		RenewCandidates();
+		
+		NoticeSystem.Instance.Subscribe<DraftUICardSelectedNotice>(OnCardClick);
+	}
+
+	protected override void OnRemove()
+	{
+		NoticeSystem.Instance.Unsubscribe<DraftUICardSelectedNotice>(OnCardClick);
 	}
 
 	private void RenewCandidates()
 	{
 		cardDataList = new();
 		//todo: constant
-		for (int i = 0; i < 5; i++)
-		{
-			//todo: fix
-			cardDataList.Add(GameDataSystem.Instance.GetGameData<CardData>().GetRandomUnitCardSpec());
-		}
+		
+		cardDataList = GameDataSystem.Instance.GetGameData<CardData>().GetRandomSkillCardSpecs(3);
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 3; i++)
 		{
-			cardImageList[i].gameObject.SetActive(true);
-			cardImageList[i].sprite = cardDataList[i].CardResource;
+			cardist[i].gameObject.SetActive(true);
+			cardist[i].Initialize(cardDataList[i]);
 		}
 	}
 
 	public void OnCloseClick()
 	{
-		cancelAction?.Invoke();
-		Hide();
+		OnEnd();
 	}
 
 	public void OnRollClick()
@@ -66,10 +70,16 @@ public class ShopUIPanel : UIInstance
 		rollCountUI.text = $"Roll\nCount\n{rollCount}";
 	}
 
-	public void OnCardClick(int idx)
+	public void OnCardClick(DraftUICardSelectedNotice notice)
 	{
 		//todo: 어케하지
-		//Game.Instance.GetPlayer().CurrentPlayInfo.CardList.Add(new UnitCard(cardDataList[idx]));
-		//cardImageList[idx].gameObject.SetActive(false);
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add((SkillCard)notice.SelectedCard.TargetCard);
+		OnEnd();
+	}
+
+	private void OnEnd()
+	{
+		cancelAction?.Invoke();
+		Game.Instance.UIManager.RemoveUI(Id);
 	}
 }

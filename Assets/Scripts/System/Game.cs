@@ -1,9 +1,4 @@
-using System;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -30,6 +25,9 @@ public class Game : MonoBehaviour
 
 	private void Start()
 	{
+		//todo:fix
+		Screen.SetResolution(1920, 1080, true);
+		
 		SceneHandler = new();
 		UIManager = new();
 		player = new();

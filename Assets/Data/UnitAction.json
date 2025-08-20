@@ -1,6 +1,22 @@
 [
   {
     "Name": "DefaultAction",
-    "ClassName": "TestUnitCardAction"
+    "ClassName": "TestUnitCardAction",
+    "FxName": "FX_hit_02"
+  },
+  {
+    "Name": "AlchemistAction",
+    "ClassName": "TestUnitCardAction",
+    "FxName": "FX_splash_magic_01_air"
+  },
+  {
+    "Name": "EnemyAction1",
+    "ClassName": "TestUnitCardAction",
+    "FxName": "FX_splash_electric_floor"
+  },
+  {
+    "Name": "EnemyAction2",
+    "ClassName": "TestUnitCardAction",
+    "FxName": "FX_hit_07"
   }
 ]

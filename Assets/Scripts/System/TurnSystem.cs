@@ -13,14 +13,30 @@ public class TurnSystem
 		{
 			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
 			int[] cols = { 4, 5, 6, 7, 3, 2, 1, 0 };
-			for (int row = 2; row >=0; row--)
+			var done = false;
+			var doneList = new List<ITurnObject>();
+			
+			while (!done)
 			{
-				foreach (var col in cols)
+				done = true;
+				
+				for (int row = 2; row >=0; row--)
 				{
-					var bo = map.GetBattleObjectAt(row, col);
-					if(bo is ITurnObject to)
+					foreach (var col in cols)
 					{
-						yield return to;
+						var bo = map.GetBattleObjectAt(row, col);
+						if(bo is ITurnObject to && !doneList.Contains(to))
+						{
+							doneList.Add(to);
+							yield return to;
+							done = false;
+							break;
+						}
+					}
+
+					if (!done)
+					{
+						break;
 					}
 				}
 			}

@@ -19,19 +19,17 @@ public class SynergyLabel : MonoBehaviour
 		{
 			synergyCount = value;
 			synergyCountInfo.text = GetSynergyCountString();
-			synergyCountText.text = $"{synergyCount}";
 		}
 	}
 
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
-	[SerializeField] private TextMeshProUGUI synergyCountText;
 
 	public void Initialize(SynergyCategory targetSynergyCategory)
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 		targetCategorySpec = spec;
-		synergyName.text = spec.SynergyNameKey;
+		synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
 	}
 
 	private string GetSynergyCountString()
@@ -44,7 +42,7 @@ public class SynergyLabel : MonoBehaviour
 #endif
 
 		var strBuilder = new StringBuilder();
-		strBuilder.Append("<color=\"grey\">");
+		strBuilder.Append("<color=#5E999E>");
 		bool found = false;
 		
 		for (var i = 0; i < targetCategorySpec.SynergyCountList.Length; i++)
@@ -62,8 +60,12 @@ public class SynergyLabel : MonoBehaviour
 			         (i + 1 >= targetCategorySpec.SynergyCountList.Length || targetCategorySpec.SynergyCountList[i + 1] > synergyCount))
 			{
 				found = true;
-				strBuilder.Append($"<color=\"white\">{targetCategorySpec.SynergyCountList[i]}</color> ");
+				strBuilder.Append($"<color=#335764>{targetCategorySpec.SynergyCountList[i]}</color> ");
 				
+			}
+			else
+			{
+				strBuilder.Append($"<color=#335764>{targetCategorySpec.SynergyCountList[i]}</color> ");
 			}
 		}
 

@@ -10,7 +10,7 @@ public class SteamPackAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Burn), StatFallback.GetValueByValueType(BattleValueType.TurnCount) };
+	public override object[] DescParams => new object[] { 1, 2 };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -25,11 +25,11 @@ public class SteamPackAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(battleStat.GetValueByValueType(BattleValueType.Burn)));
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(1));
 			
 			if (target is ITurnObject to)
 			{
-				to.StartTurn(battleStat.GetValueByValueType(BattleValueType.TurnCount));
+				to.StartTurn(2);
 				routine.AddChain(to.UpdatableRoutine);
 			}
 			

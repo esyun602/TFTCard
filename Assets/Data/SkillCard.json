@@ -61,8 +61,8 @@
   },
   {
     "Name": "SteamEngineProtection",
-    "NameKey": "skill_damage",
-    "DescKey": "skill_damage_desc",
+    "NameKey": "skill_steamengine_protection",
+    "DescKey": "skill_steamengine_protection_desc",
     "StatSpecName": "SteamEngineProtectionStat",
     "CardResource": "steamengineprotection_default",
     "ActionSpecName": "SteamEngineProtection",
@@ -116,7 +116,7 @@
     "StatSpecName": "ChainReactionStat",
     "CardResource": "skill_chainreaction_default",
     "ActionSpecName": "ChainReaction",
-    "CardUseType": "Targeting",
+    "CardUseType": "Global",
     "IsUnitAction": true
   },
   {
@@ -126,7 +126,7 @@
     "StatSpecName": "EquivalentExchangeStat",
     "CardResource": "skill_equivalentexchange_default",
     "ActionSpecName": "EquivalentExchange",
-    "CardUseType": "Targeting",
+    "CardUseType": "Global",
     "IsUnitAction": true
   },
   {

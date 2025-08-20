@@ -13,7 +13,7 @@ public class TestUnitCardActionSpec : UnitCardActionSpec
 
 	public override void Initialize(Dictionary<string, object> param)
 	{
-		
+		fxPrefab = Resources.Load<GameObject>("Fx/" + param.GetString("FxName"));
 	}
 	//todo: 추후 툴 개발
 }

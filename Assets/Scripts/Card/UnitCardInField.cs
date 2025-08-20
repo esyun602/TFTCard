@@ -234,7 +234,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		public void SetHover()
 		{
 			isHovered = true;
-			hoverTarget = originalScale * 1.8f;
+			hoverTarget = originalScale * 1.5f;
 			RestartHover();
 		}
 
@@ -578,6 +578,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			owner.Transform.localScale = Vector3.one;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldYPos);
+			currentUpdateAction = null;
 			//todo: end 날리는 타이밍을 chain 루틴이 다 끝나고 날려야 되는지 고민 필요
 			NoticeSystem.Instance.Publish(new TurnEndNotice(owner));
 		}

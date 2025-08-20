@@ -2,7 +2,7 @@
   {
     "SynergyCategory": "Alchemist",
     "TargetSprite": "alchemist_symbol",
-    "SynergyNameKey": "todo",
+    "SynergyNameKey": "synergy_alchemist",
     "CommonDescKey": "todo",
     "SynergyCountList": [
       1,
@@ -19,7 +19,7 @@
   {
     "SynergyCategory": "SteamEngine",
     "TargetSprite": "steamengine_symbol",
-    "SynergyNameKey": "todo",
+    "SynergyNameKey": "synergy_steamengine",
     "CommonDescKey": "todo",
     "SynergyCountList": [
       1,
@@ -31,6 +31,6 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#F1BFAD"
+    "SymbolColor": "#B4A0D6"
   }
 ]

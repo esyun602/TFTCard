@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 //todo: 파일 삭제되었을 때 디버그 폴더 clear  하는 기능 개발
+#if UNITY_EDITOR
 public class MapEditHelper : MonoBehaviour
 {
 	public MapData TargetMapData;
@@ -40,7 +41,7 @@ public class MapEditHelper : MonoBehaviour
 
 		File.WriteAllText(jsonPath, json);
 	}
-
+	
 	private SerializedMapInfo SerializeMap(Transform map)
 	{
 		var mapInfo = new SerializedMapInfo();
@@ -138,4 +139,4 @@ public class MapEditHelper : MonoBehaviour
 		UpdateBytesFromJson();
 	}
 }
-
+#endif

@@ -22,7 +22,7 @@ public class TitleGameMode : IGameMode
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Damage")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Shield")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Shield")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("QuickMotion")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Repose")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Repose")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("FireArrow")));
 		

@@ -21,7 +21,6 @@ public class MapPanel : UIInstance
 		InstantiateNodes();
 	}
 
-#if UNITY_EDITOR
 	private void GenerateNodeForTest()
 	{
 		if (Game.Instance.GetPlayer().CurrentPlayInfo.CurrentMapInfo != null)
@@ -40,12 +39,26 @@ public class MapPanel : UIInstance
 		{
 			tailNode.AddChild(tailNode = new MapNodeInfo());
 			//todo: fix
-			tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
+			if (i % 2 == 1)
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec("Scout");
+			}
+			else if (i == 2)
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec("TestStage2");
+			}
+			else if (i == 4)
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec("TestStage3");
+			}
+			else
+			{
+				tailNode.TargetStageSpec = GameDataSystem.Instance.GetGameData<StageData>().GetTestStageSpec();
+			}
 		}
 		
 		mapInfo.AddStartNode(root);
 	}
-#endif
 
 	private void InstantiateNodes()
 	{

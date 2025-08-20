@@ -18,14 +18,14 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	public BattleStage BattleStage { get; }
 	private SimpleStateMachine battleStageStateMachine = new();
 	//todo: map gamemode 넣는게 맞나?
-	public BattleStageGameMode(List<WaveSpec> waveData, IStage targetStage) : base(targetStage)
+	public BattleStageGameMode(IStage targetStage) : base(targetStage)
 	{
+		BattleStage =  (BattleStage)targetStage;
 		DeckSystem = new();
 		TurnSystem = new();
 		BattleFieldSystem = new();
-		WaveSystem = new(waveData);
+		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((TestStageSpec)BattleStage.StageSpec).WaveGridList));
 		SynergySystem = new();
-		BattleStage =  (BattleStage)targetStage;
 	}
 
 	protected override void OnInitialize()
@@ -187,11 +187,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 		public void Enter(IState prevState)
 		{
-			Game.Instance.UIManager.GenerateUI<ShopUIPanel>(new ShopUIPanelGenState()
-			{
-				rollCount = 5,
-				doneAction = ReturnToMapGameMode
-			});
+			Game.Instance.UIManager.GenerateUI<VictoryPanel>(new VictoryPanelGenState(ReturnToMapGameMode));
 		}
 		
 		//todo: 고도화(캐시 사용)

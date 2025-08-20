@@ -1,42 +1,38 @@
+using DG.Tweening;
 using MessageSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-	public UnitCard TargetCard { get; private set; }
-	private UIUnitCardInfoHandler infoHandler;
+	[SerializeField] private Image tint;
+	public ICard TargetCard { get; protected set; }
+	protected ICardInfoHandler infoHandler;
 	private SimpleStateMachine stateMachine;
 
 	public static InputBlockFlag BlockInput { get; set; }
 
 	private void Awake()
 	{
-		infoHandler = GetComponentInChildren<UIUnitCardInfoHandler>();
+		infoHandler = GetComponentInChildren<ICardInfoHandler>();
 	}
 	
-	public void Initialize(UnitCardSpec targetCard)
+	public void Initialize(ICardSpec targetCard)
 	{
-		TargetCard = new UnitCard(targetCard);
-
 		stateMachine = new SimpleStateMachine();
 		ChangeState(new DraftUICardNormalState(this));
-
-		SetInfo();
+		
+		OnInitialize(targetCard);
 	}
-
+	
+	public abstract void OnInitialize(ICardSpec targetCard);
+	
 	private void ChangeState(IState nextState)
 	{
 		stateMachine.ChangeState(nextState);
 	}
-
-	private void SetInfo()
-	{
-		infoHandler.Initialize(TargetCard, TargetCard.Stat);
-	}
-
-
+	
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		if ((BlockInput & InputBlockFlag.Select) != InputBlockFlag.None) return;
@@ -95,7 +91,9 @@ public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 		public void SetHover()
 		{
 			isHovered = true;
-			hoverTarget = originalScale * 1.8f;
+			hoverTarget = originalScale * 1.3f;
+			owner.tint.DOKill();
+			owner.tint.DOFade(0, 0.2f);
 			RestartHover();
 		}
 
@@ -103,11 +101,14 @@ public class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 		{
 			isHovered = false;
 			hoverTarget = originalScale;
+			owner.tint.DOKill();
+			owner.tint.DOFade(0.5f, 0.2f);
 			RestartHover();
 		}
 
 		public void Enter(IState prevState)
 		{
+			owner.tint.color = new Color(owner.tint.color.r, owner.tint.color.g, owner.tint.color.b, 0.5f); 
 			RestartHover();
 			//todo: 임시
 			returnAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardReturnAnimationCurve;

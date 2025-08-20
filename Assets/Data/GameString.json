@@ -117,7 +117,7 @@
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
-    "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 체력을 잃습니다."
+    "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 피해를 입습니다."
   },
   {
     "StringKey": "act_skill_flamethrower",
@@ -141,7 +141,7 @@
   },
   {
     "StringKey": "act_skill_panacea_desc",
-    "KorString": "선택한 아군을 최대 체력으로 회복시키고, ‘치유 불가’를 적용합니다."
+    "KorString": "선택한 아군을 최대 체력으로 회복시킵니다."
   },
   {
     "StringKey": "act_skill_positive_feedback",
@@ -209,7 +209,7 @@
   },
   {
     "StringKey": "skill_damage",
-    "KorString": "대충데미지카드"
+    "KorString": "지원 사격"
   },
   {
     "StringKey": "skill_damage_desc",
@@ -217,7 +217,7 @@
   },
   {
     "StringKey": "skill_shield",
-    "KorString": "대충쉴드카드"
+    "KorString": "방어구 보급"
   },
   {
     "StringKey": "skill_shield_desc",
@@ -253,6 +253,62 @@
   },
   {
     "StringKey": "unit_enemy_repairmachine_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_mechanizedslave",
+    "KorString": "기계화된 노예"
+  },
+  {
+    "StringKey": "unit_enemy_mechanizedslave_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_slaveguard",
+    "KorString": "노예 간수"
+  },
+  {
+    "StringKey": "unit_enemy_slaveguard_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_workshopsupervisor",
+    "KorString": "작업장 총감독관"
+  },
+  {
+    "StringKey": "unit_enemy_workshopsupervisor_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "synergy_alchemist",
+    "KorString": "연금술사"
+  },
+  {
+    "StringKey": "synergy_steamengine",
+    "KorString": "증기기관"
+  },
+  {
+    "StringKey": "unit_enemy_scrapmonster",
+    "KorString": "고철 괴물"
+  },
+  {
+    "StringKey": "unit_enemy_scrapmonster_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_brassmonster",
+    "KorString": "황동 괴물"
+  },
+  {
+    "StringKey": "unit_enemy_brassmonster_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_vacuumtubelump",
+    "KorString": "진공관 덩어리"
+  },
+  {
+    "StringKey": "unit_enemy_vacuumtubelump_desc",
     "KorString": ""
   }
 ]

@@ -108,7 +108,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			InputManager.Instance.InputActions.Player.CancelHandCard.performed += OnCancelHandCard;
 			owner.transform.up = Camera.main.transform.up;
 			//todo: fix
-			owner.transform.localScale = Vector3.one * 1.8f;
+			owner.transform.localScale = Vector3.one * 1.1f;
 			owner.transform.position = owner.hoverTargetPos;
 			followAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardFollowingSpeedCurve;
 
@@ -203,7 +203,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			InputManager.Instance.InputActions.Player.CancelHandCard.performed += OnCancelHandCard;
 			owner.transform.up = Camera.main.transform.up;
 			//todo: fix
-			owner.transform.localScale = Vector3.one * 1.8f;
+			owner.transform.localScale = Vector3.one * 1.1f;
 			owner.transform.position = owner.hoverTargetPos;
 			followAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardFollowingSpeedCurve;
 

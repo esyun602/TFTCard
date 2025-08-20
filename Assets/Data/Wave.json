@@ -28,14 +28,94 @@
         "UnitCardName": "PatrolMachine"
       },
       {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "HiredGangster"
+      },
+      {
         "Row": 1,
         "Col": 4,
+        "UnitCardName": "PatrolMachine"
+      },
+      {
+        "Row": 1,
+        "Col": 5,
         "UnitCardName": "HiredGangster"
       },
       {
         "Row": 0,
         "Col": 4,
         "UnitCardName": "GuardAutomaton"
+      }
+    ]
+  },
+  {
+    "Name": "test_wave_2",
+    "CellList": [
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      },
+      {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "SlaveGuard"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      },
+      {
+        "Row": 1,
+        "Col": 5,
+        "UnitCardName": "SlaveGuard"
+      },
+      {
+        "Row": 1,
+        "Col": 7,
+        "UnitCardName": "WorkshopSupervisor"
+      },
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      },
+      {
+        "Row": 0,
+        "Col": 5,
+        "UnitCardName": "SlaveGuard"
+      }
+    ]
+  },
+  {
+    "Name": "test_wave_3",
+    "CellList": [
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "ScrapMonster"
+      },
+      {
+        "Row": 2,
+        "Col": 6,
+        "UnitCardName": "VacuumTubeLump"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "BrassMonster"
+      },
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "ScrapMonster"
+      },
+      {
+        "Row": 0,
+        "Col": 6,
+        "UnitCardName": "VacuumTubeLump"
       }
     ]
   }

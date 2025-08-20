@@ -17,10 +17,10 @@ public class BurnBuff : IBuff
 	public void OnAdd(IBattleObject target)
 	{
 		this.target = target;
-		NoticeSystem.Instance.Subscribe<TurnEndNotice>(OnTurnEnd);
+		NoticeSystem.Instance.Subscribe<TurnStartNotice>(OnTurnStart);
 	}
 
-	private void OnTurnEnd(TurnEndNotice m)
+	private void OnTurnStart(TurnStartNotice m)
 	{
 		if (m.TargetObject == target)
 		{
@@ -33,7 +33,7 @@ public class BurnBuff : IBuff
 
 	public void OnRemove()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnEndNotice>(OnTurnEnd);
+		NoticeSystem.Instance.Unsubscribe<TurnStartNotice>(OnTurnStart);
 	}
 
 	public bool TryStack(IBuff buff)

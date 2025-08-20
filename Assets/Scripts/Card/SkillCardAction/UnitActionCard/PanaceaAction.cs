@@ -32,6 +32,8 @@ public class PanaceaAction : UnitSkillCardActionBase
 					HealAmount =
 						target.UnitCardBattleStat.GetValueByValueType(BattleValueType.MaxHp)
 				});
+			
+			routineDone = true;
 		}
 	}
 

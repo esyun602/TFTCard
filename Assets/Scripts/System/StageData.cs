@@ -13,6 +13,11 @@ public class StageData : GameData
 	{
 		return (TestStageSpec)stageSpecDict["TestStage"];
 	}
+	
+	public StageSpec GetStageSpec(string name)
+	{
+		return stageSpecDict[name];
+	}
 
 	public override void Initialize()
 	{
