@@ -8,7 +8,7 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 
 	public override bool CanUse(ITile targetTile)
 	{
-		var targetObject = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+		var targetObject = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 			.GetBattleObjectOfTile(targetTile);
 		return base.CanUse(targetTile) && targetObject.ObjectType == ObjectType.Ally;
 	}

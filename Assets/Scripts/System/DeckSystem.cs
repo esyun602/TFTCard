@@ -238,7 +238,7 @@ public class DeckSystem
 	public void SpawnAllyUnits()
 	{
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 		var deployInfos = playInfo.FieldDeployLocationInfo;
 		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
 		

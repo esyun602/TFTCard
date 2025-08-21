@@ -107,7 +107,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private bool CanMove(ITile target)
 	{
 		return target is { TileType: ObjectType.Ally } &&
-		       (target == Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+		       (target == Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 			        .GetTileOfBattleObject(this) ||
 		        Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.CardMoveCount > 0);
 	}
@@ -228,7 +228,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		public CardObjectNormalInFieldState(UnitCardInField owner)
 		{
 			this.owner = owner;
-			map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+			map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 			hoverTarget = originalScale;
 		}
 
@@ -376,7 +376,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			if (!owner.CanMove(currentTile)) return;
 			
-			if (currentTile == Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+			if (currentTile == Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 				    .GetTileOfBattleObject(owner))
 			{
 				CancelMove();
@@ -394,7 +394,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			InputManager.Instance.InputActions.Player.UseHandCard.performed -= OnTryMoveCard;
 			InputManager.Instance.InputActions.Player.CancelHandCard.performed -= OnCancelMoveCard;
 
-			if (currentTile != null && Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+			if (currentTile != null && Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 					    .GetBattleObjectOfTile(currentTile)
 				    is IMessageReceiver receiver)
 			{
@@ -420,10 +420,10 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			mouseScreenPos.z = 10f;
 			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos).GetX0z(Constant.SelectYPos);
 
-			var mouseTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
+			var mouseTile = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map.GetTileAt(mousePos);
 			if (currentTile != mouseTile)
 			{
-				if (currentTile != null && Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+				if (currentTile != null && Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 						    .GetBattleObjectOfTile(currentTile)
 					    is IMessageReceiver receiver)
 				{
@@ -436,12 +436,12 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			targetPos = mousePos;
 			if (owner.CanMove(currentTile))
 			{
-				var bo = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+				var bo = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 					.GetBattleObjectOfTile(currentTile);
 				if (bo is IMessageReceiver messageReceiver)
 				{
 					NoticeSystem.Instance.Send(
-						new BattleObjectSwitchActNotice(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+						new BattleObjectSwitchActNotice(Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 							.GetTileOfBattleObject(owner)), messageReceiver);
 				}
 
@@ -480,7 +480,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 		public void Enter(IState prevState)
 		{
-			var map = Game.Instance.GetGameMode<BattleStageGameMode>().GetCurrentStage().Map;
+			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.CardMoveCount -= 1;
 			owner.transform.position = targetTile.GetPosition();
 			owner.Transform.up = Camera.main.transform.up;

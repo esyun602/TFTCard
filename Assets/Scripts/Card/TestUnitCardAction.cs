@@ -21,7 +21,7 @@ public class TestUnitCardAction : UnitCardActionBase
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
-			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 			
 			var targetTile = map.GetAttackTargetTile(owner);
 			if (targetTile != null)

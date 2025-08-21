@@ -75,7 +75,7 @@ public class WaveSystem
 			return false;
 		}
 		var gridInfoList = waveData[++currentWaveIdx];
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 		foreach (var cellInfo in gridInfoList.CellList)
 		{
 			var cardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(cellInfo.UnitCardName);

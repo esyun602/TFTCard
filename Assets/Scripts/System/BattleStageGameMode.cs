@@ -62,7 +62,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 	private void OnBattleObjectGenerate(BattleObjectGeneratedNotice m)
 	{
-		GetCurrentStage().Map.SetTile(m.TargetTile, m.TargetObject);
+		BattleStage.Map.SetTile(m.TargetTile, m.TargetObject);
 		BattleFieldSystem.Register(m.TargetObject);
 		
 		if (m.TargetObject.ObjectType == ObjectType.Ally)
@@ -78,7 +78,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	
 	private void OnBattleObjectDestroy(BattleObjectDestroyedNotice m)
 	{
-		GetCurrentStage().Map.RemoveFromTile(m.Target);
+		BattleStage.Map.RemoveFromTile(m.Target);
 		BattleFieldSystem.UnRegister(m.Target, m.Context);
 		if (m.Target.ObjectType == ObjectType.Ally)
 		{

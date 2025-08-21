@@ -19,7 +19,7 @@ public static class ITileExtensions
 {
 	public static bool HasSameRow(this ITile tile, ITile target)
 	{
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 		var (row1, _) = map.GetTileCoord(tile);
 		var (row2, _) = map.GetTileCoord(target);
 

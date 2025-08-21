@@ -9,25 +9,20 @@ public abstract class StageBase : IStage
 {
 	//game -> subsystem -> stagemanager 
 	public StageSpec StageSpec { get; protected set; }
-	protected MapData mapData;
-	protected IMap map;
+	public abstract StageType StageType { get; }
 	public GameObject StageGameObject => stageGo;
 	private GameObject stageGo;
-	public IMap Map => map;
 	protected StageCamera stageCamera;
 	//라이팅 어떻게? -> 맵에 포함?
 
 	protected StageBase(StageSpec stageSpec)
 	{
 		this.StageSpec = stageSpec;
-		mapData = stageSpec.MapData;
 	}
 	
 	public void Load()
 	{
 		stageGo = new GameObject(StageSpec.StageName);
-		map = mapData.InstantiateMap();
-		map.Load();
 		stageCamera = SpawnStageCamera();
 		//stage default UI load
 		OnLoad();
