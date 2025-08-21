@@ -17,23 +17,20 @@ public class BurnBuff : IBuff
 	public void OnAdd(IBattleObject target)
 	{
 		this.target = target;
-		NoticeSystem.Instance.Subscribe<TurnStartNotice>(OnTurnStart);
+		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
-	private void OnTurnStart(TurnStartNotice m)
+	private void OnTurnEnd(PlayerTurnEndNotice m)
 	{
-		if (m.TargetObject == target)
+		target.Damage(new DamageInfo()
 		{
-			target.Damage(new DamageInfo()
-			{
-				Dmg = burnLevel--,
-			});
-		}
+			Dmg = burnLevel--,
+		});
 	}
 
 	public void OnRemove()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnStartNotice>(OnTurnStart);
+		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
 	public bool TryStack(IBuff buff)
