@@ -7,7 +7,17 @@ public class DraftGameMode : IGameMode
 
 	private void OnTransitionDone()
 	{
-		Game.Instance.UIManager.GenerateUI<StartDraft>();
+		Game.Instance.UIManager.GenerateUI<StartDraft>(new StartDraftGenState()
+		{
+			DraftCount = 3,
+			CardPerDraft = 2,
+			DoneAction = ReturnToMap
+		});
+	}
+
+	public void ReturnToMap()
+	{
+		Game.Instance.ChangeGameMode(new MapGameMode());
 	}
 	
 	public void Dispose()
