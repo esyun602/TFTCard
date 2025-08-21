@@ -12,6 +12,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 {
 	private ObjectType objectType;
 	private UnitCard targetUnitCard;
+	public UnitCard TargetUnitCard => targetUnitCard;
 	private const string cardPrefabPath = "Card/CardPrefab";
 
 	public ObjectType ObjectType => objectType;

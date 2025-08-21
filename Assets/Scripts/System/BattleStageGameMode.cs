@@ -64,9 +64,15 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	{
 		GetCurrentStage().Map.SetTile(m.TargetTile, m.TargetObject);
 		BattleFieldSystem.Register(m.TargetObject);
+		
 		if (m.TargetObject.ObjectType == ObjectType.Ally)
 		{
 			SynergySystem.Register(m.TargetObject);
+		}
+		//todo: fix
+		else if(m.TargetObject.ObjectType == ObjectType.Enemy && m.TargetObject is UnitCardInField unitCard)
+		{
+			DeckSystem.OnEnemyAdd(unitCard);
 		}
 	}
 	
@@ -81,6 +87,11 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			{
 				DeckSystem.PlayerField.RemoveFromField(bco);
 			}
+		}
+		//todo: fix
+		else if(m.Target.ObjectType == ObjectType.Enemy && m.Target is UnitCardInField unitCard)
+		{
+			DeckSystem.OnEnemyRemove(unitCard);
 		}
 		
 	}

@@ -49,7 +49,9 @@ public class PlayInfo
 	//todo: to constant
 	//todo: test
 	public int MaxDeployCount { get; private set; } = 30;
-	public int DrawCount { get; private set; } = 5;
+	public int DeckDrawCount { get; private set; } = 5;
+	public int EnemyDrawCount { get; private set; } = 3;
+	
 
 	//todo: additional value
 	public int MaxEnergy => Constant.DefaultEnergy;

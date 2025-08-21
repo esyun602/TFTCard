@@ -21,7 +21,7 @@ public class BattleUI : UIInstance
 
 	[SerializeField] 
 	private Transform synergyContentTransform;
-	public override UIType UIType => UIType.SceneUI;
+	public override UIType UIType => UIType.SceneCameraUI;
 
 	[SerializeField] private ArrowDrawer arrowDrawer;
 
@@ -92,7 +92,7 @@ public class BattleUI : UIInstance
 
 	public void OnTurnEndClick()
 	{
-		if (inputHandler.IsBlocked(InputBlockFlag.Select))
+		if (inputHandler.IsBlocked(InputBlockFlag.TurnEnd))
 			return;
 		
 		NoticeSystem.Instance.Publish(new TurnEndClickNotice());

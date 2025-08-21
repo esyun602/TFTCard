@@ -69,6 +69,9 @@ public abstract class StageBase : IStage
 		camera.tag = "MainCamera";
 		camera.transform.rotation = Quaternion.Euler(90, 0, 0);
 		camera.transform.position = new Vector3(9f, 100f, 5f);
+
+		Game.Instance.UIManager.CurrentUICamera = camComponent;
+		
 		return camera.AddComponent<StageCamera>();
 	}
 

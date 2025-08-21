@@ -14,7 +14,8 @@ public enum InputBlockFlag
 	None = 0,
 	Hover = 1 << 0,
 	Select = 1 << 1,
-	All = Hover | Select
+	TurnEnd = 1 << 2,
+	All = Hover | Select | TurnEnd
 }
 
 //todo: transform cache?

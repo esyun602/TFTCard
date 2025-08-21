@@ -70,5 +70,15 @@
   {
     "Name": "OverheatPropulsion",
     "ClassName": "OverheatPropulsionAction"
+  },
+  {
+    "Name": "EnemyAction1Adapter",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction1"
+  },
+  {
+    "Name": "EnemyAction2Adapter",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2"
   }
 ]

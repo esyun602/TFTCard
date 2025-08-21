@@ -1,8 +1,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -23,7 +25,39 @@ public class DeckSystem
 	public PlayerHand PlayerHand { get; } = new();
 	public PlayerField PlayerField { get; } = new();
 
-	private List<BattleCardObjectInHand> totalList;
+	private IEnumerable<BattleCardObjectInHand> totalList
+	{
+		get
+		{
+			foreach (var cardInstance in deck)
+			{
+				yield return cardInstance;
+			}
+
+			foreach (var cardInstance in dropCardList)
+			{
+				yield return cardInstance;
+			}
+
+			foreach (var cardInstance in PlayerHand.CardList)
+			{
+				yield return cardInstance;
+			}
+
+			foreach (var cardInstance in enemyCardPool)
+			{
+				yield return cardInstance;
+			}
+			
+			foreach (var cardInstance in enemyDropCardList)
+			{
+				yield return cardInstance;
+			}
+		}
+	}
+
+	private List<BattleCardObjectInHand> enemyCardPool = new();
+	private List<BattleCardObjectInHand> enemyDropCardList = new();
 	private List<BattleCardObjectInHand> deck = new();
 	private List<BattleCardObjectInHand> dropCardList = new();
 
@@ -59,20 +93,30 @@ public class DeckSystem
 		BattleCardObjectInHand cardObject;
 		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList)
 		{
-			cardObject = card switch
-			{
-				SkillCard skillCard => SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat))
-			};
-
-			cardObject.transform.SetParent(deckObject.transform);
-			deck.Add(cardObject);
+			GenerateSkillCardInstance(card);
 		}
 		
-		totalList = new(deck);
 		ShuffleDeck();
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+	}
+
+	private SkillCardInHand GenerateSkillCardInstance(SkillCard skillCard, bool addToEnemyPool = false)
+	{
+		var obj = SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat));
+
+		obj.transform.SetParent(deckObject.transform);
+		if (addToEnemyPool)
+		{
+			enemyCardPool.Add(obj);
+		}
+		else
+		{
+			deck.Add(obj);
+		}
+
+		return obj;
 	}
 
 	private void OnPlayerFieldCardMove(PlayerFieldCardMoveNotice m)
@@ -133,9 +177,19 @@ public class DeckSystem
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 
 		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
-		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.DrawCount; i++)
+		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.DeckDrawCount; i++)
 		{
-			DrawCard();
+			DrawPlayerCard();
+		}
+		
+		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.EnemyDrawCount; i++)
+		{
+			DrawEnemyCard();
+		}
+
+		if (PlayerHand.HasEnemyCard)
+		{
+			blockInputHandler.BlockInputs(InputBlockFlag.TurnEnd, this);
 		}
 	}
 
@@ -171,6 +225,12 @@ public class DeckSystem
 	private void OnCardEndUse(SkillHandCardEndUseNotice m)
 	{
 		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+
+		if (!PlayerHand.HasEnemyCard)
+		{
+			blockInputHandler.RestoreInputs(InputBlockFlag.TurnEnd, this);
+		}
+		
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
@@ -194,7 +254,7 @@ public class DeckSystem
 	}
 	
 	//todo: 없을 때 예외 체크
-	public void DrawCard()
+	public void DrawPlayerCard()
 	{
 		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
 		{
@@ -219,6 +279,32 @@ public class DeckSystem
 		PlayerHand.AddCard(targetCard);
 	}
 
+	//todo: 핸드를 구분할 건지 정해야함
+	public void DrawEnemyCard()
+	{
+		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
+		{
+			return;
+		}
+		
+		if (enemyCardPool.Count == 0)
+		{
+			if (enemyDropCardList.Count != 0)
+			{
+				(enemyCardPool, enemyDropCardList) = (enemyDropCardList, enemyCardPool);
+				ShuffleEnemyDeck();
+			}
+			else
+			{
+				return;
+			}
+		}
+		var targetCard = enemyCardPool[^1];
+		targetCard.Activate();
+		enemyCardPool.RemoveAt(enemyCardPool.Count - 1);
+		PlayerHand.AddCard(targetCard);
+	}
+
 	public void DropCard(BattleCardObjectInHand target)
 	{
 		if (PlayerHand.CardList.Count == 0)
@@ -227,7 +313,14 @@ public class DeckSystem
 		}
 		
 		PlayerHand.RemoveCard(target);
-		dropCardList.Add(target);
+		if (((SkillCardBattleStat)(target.Stat)).Owner?.ObjectType == ObjectType.Enemy)
+		{
+			enemyDropCardList.Add(target);
+		}
+		else
+		{
+			dropCardList.Add(target);
+		}
 		target.Deactivate();
 	}
 
@@ -235,11 +328,20 @@ public class DeckSystem
 	{
 		PlayerHand.RemoveCard(target);
 		target.Deactivate();
+		
+		//todo:fix
+		deck.Remove(target);
+		enemyCardPool.Remove(target);
 	}
 
 	public void ShuffleDeck()
 	{
 		deck.Shuffle();
+	}
+
+	public void ShuffleEnemyDeck()
+	{
+		enemyCardPool.Shuffle();
 	}
 	
 	public void DropAllCards()
@@ -250,8 +352,20 @@ public class DeckSystem
 		}
 	}
 
+	public void OnEnemyAdd(UnitCardInField enemy)
+	{
+		GenerateSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard, true);
+		ShuffleEnemyDeck();
+	}
+
+	public void OnEnemyRemove(UnitCardInField enemy)
+	{
+		RemoveCard(GetSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard));
+		ShuffleEnemyDeck();
+	}
+
 	public SkillCardInHand GetSkillCardInstance(SkillCard skillCard)
 	{
-		return (SkillCardInHand)totalList.Find(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard));
+		return totalList.Where(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard)).Select(x => (SkillCardInHand)x).First();
 	}
 }

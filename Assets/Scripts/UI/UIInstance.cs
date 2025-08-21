@@ -7,6 +7,7 @@ public enum UIType
 	testType = 1 << 2 | RenderMode.ScreenSpaceOverlay,
 	DontDestroyUI = 2 << 2 | RenderMode.ScreenSpaceOverlay,
 	SceneUI = 3 << 2 | RenderMode.ScreenSpaceOverlay,
+	SceneCameraUI = 3 << 2 | RenderMode.ScreenSpaceCamera,
 	Popup = 4 << 2 | RenderMode.ScreenSpaceOverlay,
 }
 

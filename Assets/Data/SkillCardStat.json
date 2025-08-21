@@ -82,5 +82,45 @@
     "Name": "OverheatPropulsionStat",
     "Cost": 0,
     "Burn": 2
+  },
+  {
+    "Name": "PatrolMachineActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "HiredGangsterActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "GuardAutomatonActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "RepairMachineActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "MechanizedSlaveActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "SlaveGuardActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "WorkshopSupervisorActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "ScrapMonsterActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "BrassMonsterActionStat",
+    "Cost": -2
+  },
+  {
+    "Name": "VacuumTubeLumpActionStat",
+    "Cost": -2
   }
 ]

@@ -19,6 +19,9 @@ public class PlayerHand
 
 	private InputBlockFlag blockInput;
 
+	//todo: fix
+	public bool HasEnemyCard => CardList.Find(x => ((SkillCardBattleStat)x.Stat).Owner?.ObjectType == ObjectType.Enemy) != null;
+	
 	public void Initialize()
 	{
 		blockInput = InputBlockFlag.All;

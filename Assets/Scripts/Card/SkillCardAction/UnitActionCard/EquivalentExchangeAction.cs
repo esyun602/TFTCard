@@ -30,7 +30,7 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 
 			for (var i = 0; i < toDraw; i++)
 			{
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
 			}
 
 			battleStat.Owner.Damage(new DamageInfo()

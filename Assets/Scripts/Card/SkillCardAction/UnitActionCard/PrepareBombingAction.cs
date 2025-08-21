@@ -25,7 +25,7 @@ public class PrepareBombingAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
 			//todo: 비행선
 		}
 	}
