@@ -57,7 +57,7 @@ public abstract class UIInstance : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		OnRemove();
+		Game.Instance.UIManager.RemoveUI(Id);
 	}
 
 	protected virtual void OnRemove()

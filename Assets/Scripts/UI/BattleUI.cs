@@ -113,7 +113,5 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
-
-		Game.Instance.UIManager.RemoveUI(arrowDrawer.Id);
 	}
 }

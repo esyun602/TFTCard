@@ -80,6 +80,5 @@ public class ShopUIPanel : UIInstance
 	private void OnEnd()
 	{
 		cancelAction?.Invoke();
-		Game.Instance.UIManager.RemoveUI(Id);
 	}
 }

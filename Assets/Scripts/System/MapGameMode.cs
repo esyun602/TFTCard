@@ -41,6 +41,5 @@ public class MapGameMode : IGameMode
 		NoticeSystem.Instance.Unsubscribe<MapNodeSelectNotice>(StartTestStage);
 		//todo: remove?
 		Game.Instance.UIManager.HideUI<MapPanel>();
-		Game.Instance.UIManager.RemoveUI<InGameInteraction>();
 	}
 }
