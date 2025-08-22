@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4465601878933925213}
   - component: {fileID: 8475190210933656302}
   m_Layer: 0
-  m_Name: Node
+  m_Name: FlowNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

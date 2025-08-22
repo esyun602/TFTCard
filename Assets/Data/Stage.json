@@ -10,6 +10,7 @@
   },
   {
     "StageName": "Scout",
+    "CamSize": 8.0,
     "ClassName": "UnitScoutStage"
   },
   {
