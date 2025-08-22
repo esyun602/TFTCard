@@ -4,16 +4,16 @@ using MessageSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapNode : MonoBehaviour
+public class FlowNode : MonoBehaviour
 {
 	//todo: fix
-	public MapNodeInfo targetInfo { get; set; }
+	public FlowNodeInfo TargetInfo { get; set; }
 
 	
 	public void OpenNode()
 	{
 		//todo:fix
-		targetInfo.OpenNode();
+		TargetInfo.OpenNode();
 		GetComponentInChildren<Image>().color = Color.red;
 	}
 
@@ -21,7 +21,7 @@ public class MapNode : MonoBehaviour
 	{
 		//todo:fix
 		//todo: 아예 클릭이 안되게
-		targetInfo.SelectNode();
+		TargetInfo.SelectNode();
 		GetComponentInChildren<Image>().color = Color.yellow;
 		
 	}
@@ -29,7 +29,7 @@ public class MapNode : MonoBehaviour
 	public void ClearNode()
 	{
 		//todo:fix
-		targetInfo.ClearNode();
+		TargetInfo.ClearNode();
 		GetComponentInChildren<Image>().color = Color.blue;
 		
 	}
@@ -37,18 +37,18 @@ public class MapNode : MonoBehaviour
 	//todo : fix
 	public void UpdateNodeColor()
 	{
-		switch (targetInfo.NodeState)
+		switch (TargetInfo.NodeState)
 		{
-			case MapNodeState.Closed:
+			case FlowNodeState.Closed:
 				GetComponentInChildren<Image>().color = Color.black;
 				break;
-			case MapNodeState.Opened:
+			case FlowNodeState.Opened:
 				GetComponentInChildren<Image>().color = Color.red;
 				break;
-			case MapNodeState.Cleared:
+			case FlowNodeState.Cleared:
 				GetComponentInChildren<Image>().color = Color.blue;
 				break;
-			case MapNodeState.Selected:
+			case FlowNodeState.Selected:
 				GetComponentInChildren<Image>().color = Color.yellow;
 				break;
 		}

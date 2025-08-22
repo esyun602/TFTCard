@@ -9,7 +9,7 @@ public abstract class StageBase : IStage
 {
 	//game -> subsystem -> stagemanager 
 	public StageSpec StageSpec { get; protected set; }
-	public abstract StageType StageType { get; }
+	public StageType StageType => StageSpec.StageType;
 	public GameObject StageGameObject => stageGo;
 	private GameObject stageGo;
 	protected StageCamera stageCamera;

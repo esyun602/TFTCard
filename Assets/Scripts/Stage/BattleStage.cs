@@ -7,12 +7,10 @@ public class BattleStage : StageBase
 	protected IMap map;
 	public IMap Map => map;
 	public BattleMap BattleMap { get; private set; }
-	public BattleStage(StageSpec stageSpec) : base(stageSpec)
+	public BattleStage(BattleStageSpec stageSpec) : base(stageSpec)
 	{
 		mapData = stageSpec.MapData;
 	}
-
-	public override StageType StageType => StageType.BattleStage;	
 
 	protected override void OnLoad()
 	{

@@ -7,9 +7,9 @@ using UnityEngine;
 public abstract class StageSpec
 {
 	public string StageName { get; private set; }
-	public MapData MapData { get; private set; }
 	public float CamSize { get; private set; }
 	public abstract IStage InstantiateStage();
+	public abstract StageType StageType { get; }
 
 	protected StageSpec()
 	{
@@ -22,9 +22,6 @@ public abstract class StageSpec
 		var spec = (StageSpec)Activator.CreateInstance(type ?? throw new InvalidOperationException());
 		
 		spec.StageName = param.GetString(nameof(StageName));
-		
-		var mapName = param.GetString(nameof(MapData));
-		spec.MapData = Resources.Load<MapData>("Map/" + mapName);
 		
 		spec.CamSize = param.GetFloat(nameof(CamSize));
 		spec.Initialize(param);

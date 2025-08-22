@@ -1,13 +1,10 @@
 using MessageSystem;
 using UnityEngine;
 //todo; 임시구현
-public class UnitScoutStage : IStage
+public class UnitScoutStage : StageBase
 {
-    public StageType StageType => StageType.EventStage;
-    public GameObject StageGameObject { get; private set; }
-    public void Load()
+    protected override void OnLoad()
     {
-        StageGameObject = new GameObject("ScoutStage");
         Game.Instance.UIManager.GenerateUI<StartDraft>(new StartDraftGenState()
         {
             DraftCount = 1,
@@ -15,22 +12,14 @@ public class UnitScoutStage : IStage
             DoneAction = StageDone
         });
     }
-
-    public void Start()
-    {
-    }
-
-    public void End()
-    {
-    }
-
-    public void StageDone()
+    
+    private void StageDone()
     {
         NoticeSystem.Instance.Publish(new StageClearNotice());
-        Game.Instance.ChangeGameMode(new MapGameMode());
+        Game.Instance.ChangeGameMode(new FlowGameMode());
     }
-    
-    public void UnLoad()
+
+    public UnitScoutStage(StageSpec stageSpec) : base(stageSpec)
     {
     }
 }

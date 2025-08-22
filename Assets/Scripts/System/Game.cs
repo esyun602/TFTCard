@@ -6,7 +6,7 @@ public class Game : MonoBehaviour
 	public static Game Instance { get; private set; }
 	private IGameMode currentGameMode;
 	[SerializeField]
-	private TestStageSpec testStage;
+	private BattleStageSpec battleStage;
 	private Player player;
 	public UIManager UIManager { get; private set; }
 	public SceneHandler SceneHandler { get; private set; }

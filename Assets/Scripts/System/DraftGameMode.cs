@@ -17,7 +17,7 @@ public class DraftGameMode : IGameMode
 
 	public void ReturnToMap()
 	{
-		Game.Instance.ChangeGameMode(new MapGameMode());
+		Game.Instance.ChangeGameMode(new FlowGameMode());
 	}
 	
 	public void Dispose()

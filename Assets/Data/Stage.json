@@ -1,7 +1,7 @@
 [
   {
     "StageName": "TestStage",
-    "ClassName": "TestStage",
+    "ClassName": "BattleStage",
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
@@ -14,7 +14,7 @@
   },
   {
     "StageName": "TestStage2",
-    "ClassName": "TestStage",
+    "ClassName": "BattleStage",
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
@@ -23,7 +23,7 @@
   },
   {
     "StageName": "TestStage3",
-    "ClassName": "TestStage",
+    "ClassName": "BattleStage",
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [

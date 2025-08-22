@@ -24,7 +24,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		DeckSystem = new();
 		TurnSystem = new();
 		BattleFieldSystem = new();
-		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((TestStageSpec)BattleStage.StageSpec).WaveGridList));
+		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((BattleStageSpec)BattleStage.StageSpec).WaveGridList));
 		SynergySystem = new();
 	}
 
@@ -204,7 +204,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		//todo: 고도화(캐시 사용)
 		private void ReturnToMapGameMode()
 		{
-			Game.Instance.ChangeGameMode(new MapGameMode());
+			Game.Instance.ChangeGameMode(new FlowGameMode());
 		}
 
 		public void Exit(IState nextState)
@@ -234,7 +234,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		//todo: 고도화(캐시 사용)
 		private void ReturnToTitleGameMode()
 		{
-			Game.Instance.ChangeGameMode(new MapGameMode());
+			Game.Instance.ChangeGameMode(new FlowGameMode());
 		}
 
 		public void Exit(IState nextState)
