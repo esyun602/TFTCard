@@ -34,10 +34,10 @@ public class TsvToJsonWindow : EditorWindow
 
     string tsvPath = "";
     bool useJsonLine = false;
+    bool useSingleObject = false;
 
     void OnGUI()
-    {
-        GUILayout.Label("TSV → JSON 변환기", EditorStyles.boldLabel);
+    {GUILayout.Label("TSV → JSON 변환기", EditorStyles.boldLabel);
 
         EditorGUILayout.BeginHorizontal();
         tsvPath = EditorGUILayout.TextField("TSV 파일", tsvPath);
@@ -47,7 +47,21 @@ public class TsvToJsonWindow : EditorWindow
 
         GUILayout.Space(5);
 
-        useJsonLine = EditorGUILayout.Toggle("JsonLine 모드 사용", useJsonLine);
+// 토글 1
+        bool newJsonLine = EditorGUILayout.Toggle("JsonLine 모드 사용", useJsonLine);
+        if (newJsonLine != useJsonLine)
+        {
+            useJsonLine = newJsonLine;
+            if (useJsonLine) useSingleObject = false; // 동시에 선택 불가
+        }
+
+// 토글 2
+        bool newAnotherMode = EditorGUILayout.Toggle("Single Object 모드 사용", useSingleObject);
+        if (newAnotherMode != useSingleObject)
+        {
+            useSingleObject = newAnotherMode;
+            if (useSingleObject) useJsonLine = false; // 동시에 선택 불가
+        }
 
         GUILayout.Space(10);
 
@@ -55,6 +69,7 @@ public class TsvToJsonWindow : EditorWindow
         if (GUILayout.Button("JSON으로 저장", GUILayout.Height(30)))
             ConvertAndSave(tsvPath);
         GUI.enabled = true;
+
     }
 
     void ConvertAndSave(string path)
@@ -70,7 +85,9 @@ public class TsvToJsonWindow : EditorWindow
 
             string json = useJsonLine
                 ? TsvToJsonline(lines)
-                : TsvToJsonDefault(lines);
+                : useSingleObject 
+                    ? TsvToSingleJson(lines) 
+                    : TsvToJsonDefault(lines);
 
             File.WriteAllText(savePath, json);
             EditorUtility.DisplayDialog("완료", "JSON 파일 저장이 완료되었습니다.", "OK");
@@ -152,6 +169,11 @@ public class TsvToJsonWindow : EditorWindow
         return JsonConvert.SerializeObject(StringArrayToDictionaryJsonline(lines), Formatting.Indented);
     }
 
+    string TsvToSingleJson(string[] lines)
+    {
+        return JsonConvert.SerializeObject(new List<Dictionary<string, object>>(){ StringArrayToSingleDictionary(lines) }, Formatting.Indented);
+    }
+    
     List<Dictionary<string, object>> StringArrayToDictionaryJsonline(string[] lines)
     {
         if (lines.Length < 3) return new List<Dictionary<string, object>>();
@@ -190,5 +212,46 @@ public class TsvToJsonWindow : EditorWindow
             }
         }
         return rows;
+    }
+    
+    Dictionary<string, object> StringArrayToSingleDictionary(string[] lines)
+    {
+        if (lines[0].Length < 3) return new Dictionary<string, object>();
+
+        string[] headers = lines[0].Split('\t');
+
+        var obj = new Dictionary<string, object>();
+        for (int i = 1; i < lines.Length; i++)
+        {
+            if (string.IsNullOrWhiteSpace(lines[i])) continue;
+            string[] cells = lines[i].Split('\t');
+
+            string key = "";
+            string type = "";
+            string value = "";
+            
+            
+            for (int c = 0; c < headers.Length && c < cells.Length; c++)
+            {
+                if (headers[c].StartsWith("#")) continue;
+
+                if (headers[c].Contains("Key"))
+                {
+                    key = cells[c];
+                }
+                else if (headers[c].Contains("Type"))
+                {
+                    type = cells[c];
+                }
+                else if (headers[c].Contains("Value"))
+                {
+                    value = cells[c];
+                }
+            }
+            
+            obj[key] = Cast(value, type);
+        }
+
+        return obj;
     }
 }

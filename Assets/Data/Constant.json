@@ -1,0 +1,7 @@
+[
+  {
+    "AllyCardDefaultFrameName": "SomeValue",
+    "EnemyCardDefaultFrameName": "SomeValue", 
+    "BossCardDefaultFrameName": "SomeValue"
+  }
+]

@@ -27,9 +27,17 @@ public class Constant : GameData
 	public static readonly Vector3 HandHoverColliderSize = new Vector3(1f, 1f, 0.01f);
 
 	public const int PlayerHandMax = 10;
+	public static string AllyCardDefaultFrameName { get; private set; }
+	public static string EnemyCardDefaultFrameName { get; private set; }
+	public static string BossCardDefaultFrameName { get; private set; }
 	
 	public override void Initialize()
 	{
+		var param = GameDataSystem.Instance.GameDataParams["ConstantData"][0];
+
+		AllyCardDefaultFrameName = param.GetString(nameof(AllyCardDefaultFrameName));
+		EnemyCardDefaultFrameName = param.GetString(nameof(EnemyCardDefaultFrameName));
+		BossCardDefaultFrameName = param.GetString(nameof(BossCardDefaultFrameName));
 	}
 
 	public override void Dispose()
