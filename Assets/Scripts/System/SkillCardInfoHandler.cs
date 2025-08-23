@@ -35,7 +35,7 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		}
 
 		//todo: fix
-		if (skillCard.Owner != null)
+		if (skillCard.Owner != null && skillCard.Owner.Stat.synergyList.Count > 0)
 		{
 			var spec = GameDataSystem.Instance.GetGameData<SynergyData>()
 				.GetSynergySpec(skillCard.Owner.Stat.synergyList[0]);

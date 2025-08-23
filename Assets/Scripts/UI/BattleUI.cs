@@ -21,9 +21,9 @@ public class BattleUI : UIInstance
 
 	[SerializeField] 
 	private Transform synergyContentTransform;
-	public override UIType UIType => UIType.SceneUI;
+	public override UIType UIType => UIType.SceneCameraUI;
 
-	[SerializeField] private ArrowDrawer arrowDrawer;
+	private ArrowDrawer arrowDrawer;
 
 	private Vector2 currentSelectedCardStartPosition;
 	
@@ -37,6 +37,9 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Subscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
 		
 		inputHandler = ((BattleUIGenState)param).InputHandler;
+		
+		//todo: child 구현하면 수정
+		arrowDrawer = Game.Instance.UIManager.GenerateUI<ArrowDrawer>();
 	}
 
 	private void OnTargetingUpdate(SkillHandCardTargetingUpdateNotice m)
@@ -92,7 +95,7 @@ public class BattleUI : UIInstance
 
 	public void OnTurnEndClick()
 	{
-		if (inputHandler.IsBlocked(InputBlockFlag.Select))
+		if (inputHandler.IsBlocked(InputBlockFlag.TurnEnd))
 			return;
 		
 		NoticeSystem.Instance.Publish(new TurnEndClickNotice());

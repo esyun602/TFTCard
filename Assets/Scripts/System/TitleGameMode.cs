@@ -15,9 +15,7 @@ public class TitleGameMode : IGameMode
 
 	private void StartGame()
 	{
-		//todo: 일단 바로 맵 씬으로
-		//todo: transition 추가해서 수정
-		//todo: transition 시 uimanager 동작도 체크
+		//todo: 카드 추가 관련 위치 수정
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Damage")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Damage")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Shield")));
@@ -25,7 +23,14 @@ public class TitleGameMode : IGameMode
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Repose")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("Repose")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add(new SkillCard(GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName("FireArrow")));
+
+		var info =	GameDataSystem.Instance.GetGameData<FlowGenData>().GetFlowSpec("EnemyFlow").GenerateFlow();
+		foreach (var head in info.GetHeads())
+		{
+			head.OpenNode();
+		}
 		
+		Game.Instance.GetPlayer().CurrentPlayInfo.CurrentFlowInfo = info;
 
 		Game.Instance.ChangeGameMode(new DraftGameMode());
 	}

@@ -11,4 +11,18 @@ public static class ListExtensions
 			(list[i], list[j]) = (list[j], list[i]);
 		}
 	}
+
+	public static T GetRandomElement<T>(this List<T> list)
+	{
+		if (list.Count == 0) return default;
+		return list[Random.Range(0, list.Count)];
+	}
+	public static T GetAndRemoveRandomElement<T>(this List<T> list)
+	{
+		if (list.Count == 0) return default;
+		var rand = Random.Range(0, list.Count);
+		var ret = list[rand];
+		list.RemoveAt(rand);
+		return ret;
+	}
 }

@@ -24,7 +24,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		DeckSystem = new();
 		TurnSystem = new();
 		BattleFieldSystem = new();
-		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((TestStageSpec)BattleStage.StageSpec).WaveGridList));
+		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((BattleStageSpec)BattleStage.StageSpec).WaveGridList));
 		SynergySystem = new();
 	}
 
@@ -62,17 +62,23 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 
 	private void OnBattleObjectGenerate(BattleObjectGeneratedNotice m)
 	{
-		GetCurrentStage().Map.SetTile(m.TargetTile, m.TargetObject);
+		BattleStage.Map.SetTile(m.TargetTile, m.TargetObject);
 		BattleFieldSystem.Register(m.TargetObject);
+		
 		if (m.TargetObject.ObjectType == ObjectType.Ally)
 		{
 			SynergySystem.Register(m.TargetObject);
+		}
+		//todo: fix
+		else if(m.TargetObject.ObjectType == ObjectType.Enemy && m.TargetObject is UnitCardInField unitCard)
+		{
+			DeckSystem.OnEnemyAdd(unitCard);
 		}
 	}
 	
 	private void OnBattleObjectDestroy(BattleObjectDestroyedNotice m)
 	{
-		GetCurrentStage().Map.RemoveFromTile(m.Target);
+		BattleStage.Map.RemoveFromTile(m.Target);
 		BattleFieldSystem.UnRegister(m.Target, m.Context);
 		if (m.Target.ObjectType == ObjectType.Ally)
 		{
@@ -81,6 +87,11 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			{
 				DeckSystem.PlayerField.RemoveFromField(bco);
 			}
+		}
+		//todo: fix
+		else if(m.Target.ObjectType == ObjectType.Enemy && m.Target is UnitCardInField unitCard)
+		{
+			DeckSystem.OnEnemyRemove(unitCard);
 		}
 		
 	}
@@ -193,7 +204,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		//todo: 고도화(캐시 사용)
 		private void ReturnToMapGameMode()
 		{
-			Game.Instance.ChangeGameMode(new MapGameMode());
+			Game.Instance.ChangeGameMode(new FlowGameMode());
 		}
 
 		public void Exit(IState nextState)
@@ -223,7 +234,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		//todo: 고도화(캐시 사용)
 		private void ReturnToTitleGameMode()
 		{
-			Game.Instance.ChangeGameMode(new MapGameMode());
+			Game.Instance.ChangeGameMode(new FlowGameMode());
 		}
 
 		public void Exit(IState nextState)

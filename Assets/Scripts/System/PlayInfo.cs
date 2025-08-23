@@ -42,14 +42,16 @@ public class PlayInfo
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	private Dictionary<SynergyCategory, int> synergyNumDict = new();
 	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
-	public MapInfo CurrentMapInfo { get; set; }
+	public FlowInfo CurrentFlowInfo { get; set; }
 
-	public MapNodeInfo CurrentSelectedNode { get; private set; }
+	public FlowNodeInfo CurrentSelectedNode { get; private set; }
 
 	//todo: to constant
 	//todo: test
 	public int MaxDeployCount { get; private set; } = 30;
-	public int DrawCount { get; private set; } = 5;
+	public int DeckDrawCount { get; private set; } = 5;
+	public int EnemyDrawCount { get; private set; } = 3;
+	
 
 	//todo: additional value
 	public int MaxEnergy => Constant.DefaultEnergy;
@@ -192,18 +194,22 @@ public class PlayInfo
 
 	public void Initialize()
 	{
-		NoticeSystem.Instance.Subscribe<MapNodeSelectNotice>(OnMapNodeSelect);
+		NoticeSystem.Instance.Subscribe<FlowNodeSelectNotice>(OnMapNodeSelect);
 		NoticeSystem.Instance.Subscribe<StageClearNotice>(OnStageClear);
 	}
 
-	private void OnMapNodeSelect(MapNodeSelectNotice m)
+	private void OnMapNodeSelect(FlowNodeSelectNotice m)
 	{
 		CurrentSelectedNode = m.TargetInfo;
+		foreach (var node in CurrentFlowInfo.GetCousins(CurrentSelectedNode))
+		{
+			node.CloseNode();
+		}
 	}
 
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<MapNodeSelectNotice>(OnMapNodeSelect);
+		NoticeSystem.Instance.Unsubscribe<FlowNodeSelectNotice>(OnMapNodeSelect);
 		NoticeSystem.Instance.Unsubscribe<StageClearNotice>(OnStageClear);
 	}
 

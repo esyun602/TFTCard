@@ -156,7 +156,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 			mouseScreenPos.z = 10f;
 			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos).GetX0z(Constant.SelectYPos);
 
-			currentTile = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map.GetTileAt(mousePos);
+			currentTile = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map.GetTileAt(mousePos);
 			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos;
 			NoticeSystem.Instance.Publish(
 				new SkillHandCardTargetingUpdateNotice(Camera.main.WorldToScreenPoint(targetPos)));
@@ -276,7 +276,7 @@ public class SkillCardInHand : BattleCardObjectInHand
 
 		public TargetingCardObjectUsedInHandState(SkillCardInHand owner, ITile targetTile)
 		{
-			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 			this.owner = owner;
 			this.targetObject = map.GetBattleObjectOfTile(targetTile);
 		}

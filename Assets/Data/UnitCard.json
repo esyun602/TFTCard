@@ -96,7 +96,7 @@
     "StatSpecName": "EnemyPatrolMachineStat",
     "CardResource": "enemy_patrolmachine_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "PatrolMachineAction"
   },
   {
     "Name": "HiredGangster",
@@ -105,7 +105,7 @@
     "StatSpecName": "EnemyHiredGangsterStat",
     "CardResource": "enemy_hiredgangster_default",
     "ActionSpecName": "EnemyAction2",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "HiredGangsterAction"
   },
   {
     "Name": "GuardAutomaton",
@@ -114,7 +114,7 @@
     "StatSpecName": "EnemyGuardAutomatonStat",
     "CardResource": "enemy_guardautomaton_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "GuardAutomatonAction"
   },
   {
     "Name": "RepairMachine",
@@ -123,7 +123,7 @@
     "StatSpecName": "EnemyRepairMachineStat",
     "CardResource": "enemy_repairmachine_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "RepairMachineAction"
   },
   {
     "Name": "MechanizedSlave",
@@ -132,7 +132,7 @@
     "StatSpecName": "EnemyMechanizedSlaveStat",
     "CardResource": "enemy_mechanizedslave_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "MechanizedSlaveAction"
   },
   {
     "Name": "SlaveGuard",
@@ -141,7 +141,7 @@
     "StatSpecName": "EnemySlaveGuardStat",
     "CardResource": "enemy_slaveguard_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "SlaveGuardAction"
   },
   {
     "Name": "WorkshopSupervisor",
@@ -150,7 +150,7 @@
     "StatSpecName": "EnemyWorkshopSupervisorStat",
     "CardResource": "enemy_workshopsupervisor_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "WorkshopSupervisorAction"
   },
   {
     "Name": "ScrapMonster",
@@ -159,7 +159,7 @@
     "StatSpecName": "EnemyScrapMonsterStat",
     "CardResource": "enemy_scrapmonster_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "ScrapMonsterAction"
   },
   {
     "Name": "BrassMonster",
@@ -168,7 +168,7 @@
     "StatSpecName": "EnemyBrassMonsterStat",
     "CardResource": "enemy_brassmonster_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "BrassMonsterAction"
   },
   {
     "Name": "VacuumTubeLump",
@@ -177,6 +177,6 @@
     "StatSpecName": "EnemyVacuumTubeLumpStat",
     "CardResource": "enemy_vacuumtubelump_default",
     "ActionSpecName": "EnemyAction1",
-    "TargetSkillCardSpecName": ""
+    "TargetSkillCardSpecName": "VacuumTubeLumpAction"
   }
 ]

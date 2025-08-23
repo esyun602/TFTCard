@@ -32,7 +32,7 @@ public class StockSkillAction : SkillCardActionBase
 		{
 			for (var i = 0; i < battleStat.GetValueByValueType(BattleValueType.Draw); i++)
 			{
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawCard();
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
 			}
 			routineDone = true;
 		}

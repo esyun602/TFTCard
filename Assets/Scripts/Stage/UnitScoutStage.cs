@@ -1,30 +1,25 @@
 using MessageSystem;
 using UnityEngine;
 //todo; 임시구현
-public class UnitScoutStage : IStage
+public class UnitScoutStage : StageBase
 {
-    public GameObject StageGameObject { get; private set; }
-    public IMap Map { get; }
-    public void Load()
+    protected override void OnLoad()
     {
-        StageGameObject = new GameObject("ScoutStage");
         Game.Instance.UIManager.GenerateUI<StartDraft>(new StartDraftGenState()
         {
             DraftCount = 1,
-            CardPerDraft = 3
+            CardPerDraft = 3,
+            DoneAction = StageDone
         });
     }
-
-    public void Start()
-    {
-    }
-
-    public void End()
-    {
-    }
-
-    public void UnLoad()
+    
+    private void StageDone()
     {
         NoticeSystem.Instance.Publish(new StageClearNotice());
+        Game.Instance.ChangeGameMode(new FlowGameMode());
+    }
+
+    public UnitScoutStage(StageSpec stageSpec) : base(stageSpec)
+    {
     }
 }

@@ -2,27 +2,30 @@
 using MessageSystem;
 using UnityEngine;
 
-public class MapGameMode : IGameMode
+public class FlowGameMode : IGameMode
 {
 	public void Initialize()
 	{
 		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
-		NoticeSystem.Instance.Subscribe<MapNodeSelectNotice>(StartTestStage);
+		NoticeSystem.Instance.Subscribe<FlowNodeSelectNotice>(StartTestStage);
 	}
 
 	private void OnTransitionDone()
 	{
-		Game.Instance.UIManager.GenerateUI<MapPanel>();
+		Game.Instance.UIManager.GenerateUI<FlowPanel>(new FlowPanelGenState()
+		{
+			FlowInfo = Game.Instance.GetPlayer().CurrentPlayInfo.CurrentFlowInfo
+		});
 		Game.Instance.UIManager.GenerateUI<InGameInteraction>();
 		var curNode = Game.Instance.GetPlayer().CurrentPlayInfo.CurrentSelectedNode;
-		if (curNode?.NodeState == MapNodeState.Cleared)
+		if (curNode?.NodeState == FlowNodeState.Cleared)
 		{
 			//클리어 루틴?
 		}
 	}
 
 	//todo: 메서드 type을 이렇게 나눌 필요가 있나?
-	private void StartTestStage(MapNodeSelectNotice notice)
+	private void StartTestStage(FlowNodeSelectNotice notice)
 	{
 		var stage = notice.TargetInfo.TargetStageSpec.InstantiateStage();
 		//todo:fix
@@ -38,9 +41,8 @@ public class MapGameMode : IGameMode
 
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<MapNodeSelectNotice>(StartTestStage);
+		NoticeSystem.Instance.Unsubscribe<FlowNodeSelectNotice>(StartTestStage);
 		//todo: remove?
-		Game.Instance.UIManager.HideUI<MapPanel>();
-		Game.Instance.UIManager.RemoveUI<InGameInteraction>();
+		Game.Instance.UIManager.HideUI<FlowPanel>();
 	}
 }

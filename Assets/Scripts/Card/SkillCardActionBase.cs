@@ -9,7 +9,7 @@ public abstract class SkillCardActionBase : IAction
 
 	public virtual bool CanUse(ITile targetTile)
 	{
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 
 		var bo = map.GetBattleObjectOfTile(targetTile);
 		return bo != null;

@@ -6,7 +6,7 @@ using WaitForSeconds = Coroutine.WaitForSeconds;
 
 public class TestStage : BattleStage
 {
-	public TestStage(StageSpec stageSpec) : base(stageSpec)
+	public TestStage(BattleStageSpec stageSpec) : base(stageSpec)
 	{
 	}
 	

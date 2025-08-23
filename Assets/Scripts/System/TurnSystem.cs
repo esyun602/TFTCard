@@ -5,55 +5,11 @@ using MessageSystem;
 
 public class TurnSystem
 {
-	//todo: to balanced bst?
-	private class TurnOrderHandler
-	{
-		//todo: fix tmp values
-		public IEnumerator GetEnumerator()
-		{
-			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-			int[] cols = { 4, 5, 6, 7, 3, 2, 1, 0 };
-			var done = false;
-			var doneList = new List<ITurnObject>();
-			
-			while (!done)
-			{
-				done = true;
-				
-				for (int row = 2; row >=0; row--)
-				{
-					foreach (var col in cols)
-					{
-						var bo = map.GetBattleObjectAt(row, col);
-						if(bo is ITurnObject to && !doneList.Contains(to))
-						{
-							doneList.Add(to);
-							yield return to;
-							done = false;
-							break;
-						}
-					}
-
-					if (!done)
-					{
-						break;
-					}
-				}
-			}
-		}
-	}
-
-
-	private const float MaxTurnGauge = 100;
-	private TurnOrderHandler turnOrderHandler;
-
 	private ITurnObject currentObject;
 
-	//todo: 타이 해결
 	private Queue<ITurnObject> candidates;
 	private Action<float> currentUpdateRoutine;
 	private IUpdatableRoutine priorityRoutine;
-	private IEnumerator currentTurnEnumerator;
 	private PlayerTurn playerTurn;
 
 	public void Initialize()
@@ -61,7 +17,6 @@ public class TurnSystem
 		//todo: fix subscribe once
 		NoticeSystem.Instance.Subscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
 
-		turnOrderHandler = new();
 		candidates = new();
 
 		playerTurn = new PlayerTurn();
@@ -77,9 +32,7 @@ public class TurnSystem
 
 	public void StartAutoTurn()
 	{
-		// ReSharper disable once NotDisposedResource : No Dispose Needed
-		currentTurnEnumerator = turnOrderHandler.GetEnumerator();
-		if (!currentTurnEnumerator.MoveNext())
+		if (candidates.Count == 0)
 		{
 			//todo: fix
 			playerTurn.StartTurn();
@@ -87,14 +40,13 @@ public class TurnSystem
 			return;
 		}
 
-		currentObject = (ITurnObject)currentTurnEnumerator.Current;
+		currentObject = candidates.Dequeue();
 		currentObject.StartTurn();
 		currentUpdateRoutine = UpdateAutoTurn;
 	}
 
 	public void Dispose()
 	{
-		(currentTurnEnumerator as IDisposable)?.Dispose();
 		playerTurn.Dispose();
 		NoticeSystem.Instance.Unsubscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
 	}
@@ -130,21 +82,24 @@ public class TurnSystem
 		currentObject.UpdatableRoutine.UpdateFrame(dt, out var routineDone);
 		if (routineDone)
 		{
-			if (currentTurnEnumerator.MoveNext())
+			if (candidates.Count > 0)
 			{
-				currentObject = (ITurnObject)currentTurnEnumerator.Current;
+				currentObject = candidates.Dequeue();
 				currentObject.StartTurn();
 			}
 			else
 			{
-				(currentTurnEnumerator as IDisposable)?.Dispose();
 				playerTurn.StartTurn();
 				currentUpdateRoutine = UpdatePlayerTurn;
 			}
 		}
 	}
 
-//todo: fix?
+	public void Register(ITurnObject obj)
+	{
+		candidates.Enqueue(obj);
+	}
+
 	public void RegisterPriorityRoutine(IUpdatableRoutine routine)
 	{
 		priorityRoutine = routine;

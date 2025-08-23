@@ -2,8 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowDrawer : MonoBehaviour
+public class ArrowDrawer : UIInstance
 {
+
+	public override UIType UIType => UIType.SceneUI;
+	protected override void Init(object param)
+	{
+		Deactivate();
+	}
 	private List<float> bezierPoints = new();
 	[SerializeField] private GameObject arrowHead;
 	private List<PooledUnityObject> arrowDotList = new();
