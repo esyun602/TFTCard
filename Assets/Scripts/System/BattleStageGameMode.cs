@@ -48,7 +48,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	protected override void OnStageStart()
 	{
 		//todo: fix
-		DeckSystem.SpawnAllyUnits();
+		SpawnAllyUnits();
 		SynergySystem.ActivateSynergies();
 		if (WaveSystem.TrySpawnNextWave(out var initialRoutine))
 		{
@@ -57,6 +57,20 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		else
 		{
 			throw new ArgumentException();
+		}
+	}
+	private void SpawnAllyUnits()
+	{
+		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+		var deployInfos = playInfo.FieldDeployLocationInfo;
+		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
+		
+		foreach (var info in deployInfos)
+		{
+			var card = UnitCardInField.Instantiate(info.TargetCard, map.GetTileAt(info.Row, info.Col), ObjectType.Ally);
+			
+			card.UpdateBlockInput(DeckSystem.BlockInputHandler.BlockInput);
 		}
 	}
 
@@ -68,6 +82,10 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		if (m.TargetObject.ObjectType == ObjectType.Ally)
 		{
 			SynergySystem.Register(m.TargetObject);
+			if (m.TargetObject is UnitCardInField unitCardInField)
+			{
+				DeckSystem.OnAllyAdd(unitCardInField);
+			}
 		}
 		//todo: fix
 		else if(m.TargetObject.ObjectType == ObjectType.Enemy && m.TargetObject is UnitCardInField unitCard)
@@ -85,7 +103,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 			SynergySystem.UnRegister(m.Target);
 			if (m.Target is UnitCardInField bco)
 			{
-				DeckSystem.PlayerField.RemoveFromField(bco);
+				DeckSystem.OnAllyRemove(bco);
 			}
 		}
 		//todo: fix

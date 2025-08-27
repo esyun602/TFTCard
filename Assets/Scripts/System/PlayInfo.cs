@@ -46,6 +46,8 @@ public class PlayInfo
 				yield return card;
 			}
 
+			
+			//todo: 가방 고칠 때 수정
 			foreach (var card in UnitSkillCardList)
 			{
 				yield return card;
@@ -53,11 +55,14 @@ public class PlayInfo
 		}
 	}
 
-	public int TotalDeckCardsCount => TacticsCardList.Count + UnitSkillCardList.Count;
+	//todo: 가방 고칠 때 수정
+	public int TotalDeckCardsCount => TacticsCardList.Count + UnitSkillCardList.Count;	
 
 	//todo: fix?
 	public List<TacticsCard> TacticsCardList { get; } = new();
-	public List<UnitSkillCard> UnitSkillCardList { get; } = new();
+
+	//todo: 가방 고칠 때 수정
+	public List<UnitSkillCard> UnitSkillCardList => FieldDeployLocationInfo.Select(x => x.TargetCard.UnitSkillCard).ToList();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	private Dictionary<SynergyCategory, int> synergyNumDict = new();
 	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
@@ -119,7 +124,7 @@ public class PlayInfo
 		var isInBag = BagUnitCardList.Remove(targetCard);
 		if (isInBag)
 		{
-			var unitSkillCard = targetCard.UnitSkillCard;
+			//var unitSkillCard = targetCard.UnitSkillCard;
 			foreach (var synergy in targetCard.Stat.synergyList)
 			{
 				if (!synergyNumDict.TryAdd(synergy, 1))
@@ -128,7 +133,7 @@ public class PlayInfo
 				}
 			}
 
-			UnitSkillCardList.Add(unitSkillCard);
+			//UnitSkillCardList.Add(unitSkillCard);
 			RefreshSynergyList();
 		}
 
@@ -145,8 +150,8 @@ public class PlayInfo
 	{
 		FieldDeployLocationInfo.RemoveAll(info => info.TargetCard == targetCard);
 		BagUnitCardList.Add(targetCard);
-		var unitSkillCard = targetCard.UnitSkillCard;
-		UnitSkillCardList.Remove(unitSkillCard);
+		//var unitSkillCard = targetCard.UnitSkillCard;
+		//UnitSkillCardList.Remove(unitSkillCard);
 
 		foreach (var synergy in targetCard.Stat.synergyList)
 		{

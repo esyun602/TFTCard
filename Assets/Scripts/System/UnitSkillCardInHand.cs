@@ -20,7 +20,18 @@ public class UnitSkillCardInHand : BattleCardObjectInHand
 		
 	}
 
-	public static UnitSkillCardInHand Instantiate(UnitSkillCard targetSkillCard, UnitSkillCardBattleStat skillCardStat)
+	public static UnitSkillCardInHand InstantiateForAlly(UnitSkillCard targetSkillCard, UnitSkillCardBattleStat skillCardStat)
+	{
+		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<UnitSkillCardInHand>();
+		cardObject.gameObject.SetActive(false);
+		cardObject.unitSkillCard = targetSkillCard;
+		cardObject.battleStat = skillCardStat;
+		cardObject.unitSkillCard.Action.SetCardBattleStat(skillCardStat);
+
+		return cardObject;
+	}
+	
+	public static UnitSkillCardInHand InstantiateForEnemy(UnitSkillCard targetSkillCard, UnitSkillCardBattleStat skillCardStat)
 	{
 		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<UnitSkillCardInHand>();
 		cardObject.gameObject.SetActive(false);

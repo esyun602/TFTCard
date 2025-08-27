@@ -88,8 +88,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		//todo: pooling
 		ChangeState(null);
 
-		((UnitSkillCardInHand)Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)).SetOwner(null);
-		
 		DamagedBehaviour.DetachFrom(this);
 		DamagedBehaviour = null;
 		
@@ -176,8 +174,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 
-		((UnitSkillCardInHand)Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)).SetOwner(cardObject);
-		
 		return cardObject;
 	}
 

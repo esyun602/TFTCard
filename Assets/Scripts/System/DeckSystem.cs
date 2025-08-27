@@ -95,11 +95,6 @@ public class DeckSystem
 			GenerateTacticsCardInstance(card);
 		}
 		
-		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.UnitSkillCardList)
-		{
-			GenerateUnitSkillCardInstance(card);
-		}
-		
 		ShuffleDeck();
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
@@ -123,17 +118,21 @@ public class DeckSystem
 		return obj;
 	}
 	
-	private BattleCardObjectInHand GenerateUnitSkillCardInstance(UnitSkillCard skillCard, bool addToEnemyPool = false)
+	private UnitSkillCardInHand GenerateUnitSkillCardInstance(UnitSkillCard skillCard, bool addToEnemyPool = false)
 	{
-		var obj = UnitSkillCardInHand.Instantiate(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
-
-		obj.transform.SetParent(deckObject.transform);
+		UnitSkillCardInHand obj;
 		if (addToEnemyPool)
 		{
+			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
+			
+			obj.transform.SetParent(deckObject.transform);
 			enemyCardPool.Add(obj);
 		}
 		else
 		{
+			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
+
+			obj.transform.SetParent(deckObject.transform);
 			deck.Add(obj);
 		}
 
@@ -256,24 +255,6 @@ public class DeckSystem
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 	
-	public void SpawnAllyUnits()
-	{
-		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
-		var deployInfos = playInfo.FieldDeployLocationInfo;
-		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
-		
-		//todo: 소환순서..
-		foreach (var info in deployInfos)
-		{
-			var card = UnitCardInField.Instantiate(info.TargetCard, map.GetTileAt(info.Row, info.Col), ObjectType.Ally);
-				
-			PlayerField.AddToField(card);
-			
-			card.UpdateBlockInput(blockInputHandler.BlockInput);
-		}
-	}
-	
 	//todo: 없을 때 예외 체크
 	public void DrawPlayerCard()
 	{
@@ -373,15 +354,42 @@ public class DeckSystem
 		}
 	}
 
+	public void OnAllyAdd(UnitCardInField ally)
+	{
+		var obj = GenerateUnitSkillCardInstance(ally.TargetUnitCard.UnitSkillCard);
+		obj.SetOwner(ally);
+		ShuffleDeck();
+		
+		PlayerField.AddToField(ally);
+	}
+
+	public void OnAllyRemove(UnitCardInField ally)
+	{
+		PlayerField.RemoveFromField(ally);
+		
+		var obj = GetSkillCardInstance(ally.TargetUnitCard.UnitSkillCard) as UnitSkillCardInHand;
+		
+		if (obj == null) return;
+		
+		obj.SetOwner(null);
+		ShuffleDeck();
+	}
+	
 	public void OnEnemyAdd(UnitCardInField enemy)
 	{
-		GenerateUnitSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard, true);
+		var obj = GenerateUnitSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard, true);
+		obj.SetOwner(enemy);
 		ShuffleEnemyDeck();
 	}
 
 	public void OnEnemyRemove(UnitCardInField enemy)
 	{
-		RemoveCard(GetSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard));
+		var obj = GetSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard) as UnitSkillCardInHand;
+		
+		if (obj == null) return;
+		
+		obj.SetOwner(null);
+		RemoveCard(obj);
 		ShuffleEnemyDeck();
 	}
 
