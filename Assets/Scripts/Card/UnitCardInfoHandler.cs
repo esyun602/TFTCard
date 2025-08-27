@@ -10,10 +10,9 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	private IStat stat;
 	private ICard targetCard;
-	private Dictionary<BattleValueType, TextMeshPro> valueMap;
+	private Dictionary<UnitValueType, TextMeshPro> valueMap;
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
-	[SerializeField] private TextMeshPro turnCount;
 	[SerializeField] private TextMeshPro nameText;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private MeshRenderer TextureRenderer;
@@ -29,10 +28,9 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 
 		valueMap = new()
 		{
-			[BattleValueType.Attack] = atk,
-			[BattleValueType.Hp] = hp,
-			[BattleValueType.TurnCount] = turnCount,
-			[BattleValueType.Shield] = shield,
+			[UnitValueType.Attack] = atk,
+			[UnitValueType.Hp] = hp,
+			[UnitValueType.Shield] = shield,
 		};
 
 		this.stat = stat;
@@ -54,9 +52,8 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		}
 		
 		
-		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
-		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
-		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
+		atk.text = $"{stat.GetValueByValueType(UnitValueType.Attack)}";
+		hp.text = $"{stat.GetValueByValueType(UnitValueType.Hp)}";
 		
 		//todo: important
 		//todo: dispose
@@ -66,16 +63,14 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	private void OnBattleValueChange(UnitBattleValueChangeNotice m)
 	{
 		if (m.Stat != stat) return;
-		
-		switch (m.Type)
+
+		if (m.Type == UnitValueType.Shield)
 		{
-			case BattleValueType.Shield:
-				OnBattleShieldChange(m);
-				break;
-			
-			default:
-				JustChangeValue(m);
-				break;
+			OnBattleShieldChange(m);
+		}
+		else
+		{
+			JustChangeValue(m);
 		}
 	}
 

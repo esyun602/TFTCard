@@ -90,10 +90,14 @@ public class DeckSystem
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
-		BattleCardObjectInHand cardObject;
-		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList)
+		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList)
 		{
-			GenerateSkillCardInstance(card);
+			GenerateTacticsCardInstance(card);
+		}
+		
+		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.UnitSkillCardList)
+		{
+			GenerateUnitSkillCardInstance(card);
 		}
 		
 		ShuffleDeck();
@@ -102,9 +106,26 @@ public class DeckSystem
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 
-	private SkillCardInHand GenerateSkillCardInstance(SkillCard skillCard, bool addToEnemyPool = false)
+	private BattleCardObjectInHand GenerateTacticsCardInstance(TacticsCard skillCard, bool addToEnemyPool = false)
 	{
-		var obj = SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat));
+		var obj = TacticsCardInHand.Instantiate(skillCard, new TacticsCardBattleStat(skillCard.Stat));
+
+		obj.transform.SetParent(deckObject.transform);
+		if (addToEnemyPool)
+		{
+			enemyCardPool.Add(obj);
+		}
+		else
+		{
+			deck.Add(obj);
+		}
+
+		return obj;
+	}
+	
+	private BattleCardObjectInHand GenerateUnitSkillCardInstance(UnitSkillCard skillCard, bool addToEnemyPool = false)
+	{
+		var obj = UnitSkillCardInHand.Instantiate(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
 
 		obj.transform.SetParent(deckObject.transform);
 		if (addToEnemyPool)
@@ -313,7 +334,7 @@ public class DeckSystem
 		}
 		
 		PlayerHand.RemoveCard(target);
-		if (((SkillCardBattleStat)(target.Stat)).Owner?.ObjectType == ObjectType.Enemy)
+		if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
 		{
 			enemyDropCardList.Add(target);
 		}
@@ -354,7 +375,7 @@ public class DeckSystem
 
 	public void OnEnemyAdd(UnitCardInField enemy)
 	{
-		GenerateSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard, true);
+		GenerateUnitSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard, true);
 		ShuffleEnemyDeck();
 	}
 
@@ -364,8 +385,8 @@ public class DeckSystem
 		ShuffleEnemyDeck();
 	}
 
-	public SkillCardInHand GetSkillCardInstance(SkillCard skillCard)
+	public BattleCardObjectInHand GetSkillCardInstance(SkillCardBase skillCard)
 	{
-		return totalList.Where(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard)).Select(x => (SkillCardInHand)x).First();
+		return totalList.First(x => x.IsInstanceOf(skillCard));
 	}
 }

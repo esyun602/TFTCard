@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BreadSupplySkillAction : SkillCardActionBase
+public class BreadSupplySkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -15,7 +15,7 @@ public class BreadSupplySkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Hp) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.Heal) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -31,7 +31,7 @@ public class BreadSupplySkillAction : SkillCardActionBase
 		if (timePassed > 0f)
 		{
 			//todo: heal?
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Hp, battleStat.GetValueByValueType(BattleValueType.Hp));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Hp, BattleStat.GetValueByValueType(CommonValueType.Heal));
 			routineDone = true;
 		}
 	}

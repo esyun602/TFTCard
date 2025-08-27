@@ -33,9 +33,9 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
 			}
 
-			battleStat.Owner.Damage(new DamageInfo()
+			BattleStat.Owner.Damage(new DamageInfo()
 			{
-				Sender = battleStat.Owner,
+				Sender = BattleStat.Owner,
 				Dmg = toDraw
 			});
 			

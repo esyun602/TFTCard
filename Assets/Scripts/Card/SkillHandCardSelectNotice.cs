@@ -2,9 +2,9 @@ using MessageSystem;
 
 public class SkillHandCardSelectNotice : Notice
 {
-	public SkillCardInHand SelectedCard { get; }
+	public BattleCardObjectInHand SelectedCard { get; }
 
-	public SkillHandCardSelectNotice(SkillCardInHand card)
+	public SkillHandCardSelectNotice(BattleCardObjectInHand card)
 	{
 		SelectedCard = card;
 	}

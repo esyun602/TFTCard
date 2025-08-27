@@ -1,10 +1,8 @@
-
 using System.Collections.Generic;
 
-//todo: 우선은 정적 스탯 값은 아래 4가지만 가진다 가정
+//todo: 우선은 정적 스탯 값은 아래 2가지만 가진다 가정
 public class UnitCardStat : IStat
 {
-	public int MaxTurnCount { get; set; }
 	public int MaxHp { get; set; }
 	public int Attack { get; set; }
 	public List<SynergyCategory> synergyList = new();
@@ -13,44 +11,34 @@ public class UnitCardStat : IStat
 	public UnitCardStat(UnitStatSpec statSpec)
 	{
 		staticStatSpec = statSpec;
-		MaxTurnCount = statSpec.GetValueByValueType(BattleValueType.MaxTurnCount);
-		MaxHp = statSpec.GetValueByValueType(BattleValueType.MaxHp);
-		Attack = statSpec.GetValueByValueType(BattleValueType.Attack);
+		MaxHp = statSpec.GetValueByValueType(UnitValueType.MaxHp);
+		Attack = statSpec.GetValueByValueType(UnitValueType.Attack);
 		synergyList = new(statSpec.SynergyList);
 	}
 
-	public int[] GetValuesByValueType(BattleValueType type)
+	public int[] GetValuesByValueType(ValueType type)
 	{
-		switch (type)
+		if (type == UnitValueType.MaxHp || type == UnitValueType.Hp)
 		{
-			case BattleValueType.MaxHp:
-			case BattleValueType.Hp:
-				return new int[] { MaxHp };
-			case BattleValueType.TurnCount:
-			case BattleValueType.MaxTurnCount:
-				return new int[] { MaxTurnCount };
-			case BattleValueType.Attack:
-				return new int[] { Attack };
-			default:
-				return new int[] { };
+			return new int[] { MaxHp };
 		}
+		else if (type == UnitValueType.Attack)
+		{
+			return new int[] { Attack };
+		}
+
+		return new int[]{};
 	}
 
-	public void SetValuesByValueType(BattleValueType type, int[] newValues)
+	public void SetValuesByValueType(ValueType type, int[] newValues)
 	{
-		switch (type)
+		if (type == UnitValueType.MaxHp || type == UnitValueType.Hp)
 		{
-			case BattleValueType.MaxHp:
-			case BattleValueType.Hp:
-				MaxHp = newValues[0];
-				break;
-			case BattleValueType.TurnCount:
-			case BattleValueType.MaxTurnCount:
-				MaxTurnCount = newValues[0];
-				break;
-			case BattleValueType.Attack:
-				Attack = newValues[0];
-				break;
+			MaxHp = newValues[0];
+		}
+		else if (type == UnitValueType.Attack)
+		{
+			Attack = newValues[0];
 		}
 	}
 }

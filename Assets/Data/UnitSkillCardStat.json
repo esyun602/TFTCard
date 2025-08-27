@@ -1,52 +1,13 @@
 [
   {
-    "Name": "BreadSupplyStat",
-    "Cost": 1,
-    "Hp": 3
-  },
-  {
-    "Name": "DamageStat",
-    "Cost": 1,
-    "Attack": 2
-  },
-  {
-    "Name": "FireArrowStat",
-    "Cost": 1,
-    "Burn": 2
-  },
-  {
-    "Name": "QuickMotionStat",
-    "Cost": 0,
-    "TurnCount": 1
-  },
-  {
-    "Name": "ReposeStat",
-    "Cost": 0
-  },
-  {
-    "Name": "ShieldStat",
-    "Cost": 1,
-    "Shield": 2
-  },
-  {
-    "Name": "SteamEngineProtectionStat",
-    "Cost": 1,
-    "Shield": 3
-  },
-  {
-    "Name": "StockStat",
-    "Cost": 1,
-    "Draw": 2
-  },
-  {
     "Name": "BiologicalExperimentStat",
     "Cost": 1,
-    "Catalyst": 1
+    "CatalystAdd": 1
   },
   {
     "Name": "SteamPackStat",
     "Cost": 1,
-    "Burn": 1,
+    "BurnAdd": 1,
     "TurnCount": 2
   },
   {
@@ -55,7 +16,8 @@
   },
   {
     "Name": "ChainReactionStat",
-    "Cost": 1
+    "Cost": 1,
+    "Damage": 1
   },
   {
     "Name": "EquivalentExchangeStat",
@@ -76,12 +38,12 @@
   {
     "Name": "PositiveFeedbackStat",
     "Cost": 1,
-    "Catalyst": 1
+    "CatalystAdd": 1
   },
   {
     "Name": "OverheatPropulsionStat",
     "Cost": 0,
-    "Burn": 2
+    "BurnAdd": 2
   },
   {
     "Name": "PatrolMachineActionStat",

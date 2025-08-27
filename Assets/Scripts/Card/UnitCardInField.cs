@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
-	IBattleObject, ITurnObject, IMessageReceiver
+	IBattleObject, IMessageReceiver
 {
 	private ObjectType objectType;
 	private UnitCard targetUnitCard;
@@ -87,8 +87,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	{
 		//todo: pooling
 		ChangeState(null);
-		
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)?.SetOwner(null);
+
+		((UnitSkillCardInHand)Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)).SetOwner(null);
 		
 		DamagedBehaviour.DetachFrom(this);
 		DamagedBehaviour = null;
@@ -168,7 +168,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 		//todo: fix
 		NoticeSystem.Instance.PublishSync(new BattleObjectGeneratedNotice(cardObject, targetTile));
-		NoticeSystem.Instance.PublishSync(new TurnObjectGeneratedNotice(cardObject));
 
 		//기본적으로 선택 불가, 플레이어 카드의 경우 PlayerField의 제어를 받음
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
@@ -177,7 +176,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 
-		Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)?.SetOwner(cardObject);
+		((UnitSkillCardInHand)Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(targetUnitCard.UnitSkillCard)).SetOwner(cardObject);
 		
 		return cardObject;
 	}
@@ -189,16 +188,16 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	}
 
 	public void StartTurn(int overrideTurnCount)
-	{
-		if (UnitCardBattleStat.GetValueByValueType(BattleValueType.Stun) > 0)
+	{/*
+		if (UnitCardBattleStat.GetValueByValueType(System.ValueType.Stun) > 0)
 		{
 			NoticeSystem.Instance.Publish(new TurnStartBlockByStunNotice(this));
 			return;
-		}
+		}*/
 		ChangeState(new CardObjectActionState(this, overrideTurnCount));
 	}
 
-	public int TurnCount => UnitCardBattleStat.GetValueByValueType(BattleValueType.TurnCount);
+	public int TurnCount { get; }
 
 	private void Update()
 	{
@@ -519,7 +518,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		{
 			owner.routine = new UpdatableRoutine(UpdateFrame);
 			owner.routine.Initialize();
-			owner.UnitCardBattleStat.AddValueByValueType(BattleValueType.TurnCount, -turnCount);
 			currentUpdateAction = UpdateTurnCount;
 			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
 		}
@@ -559,7 +557,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			owner.targetUnitCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
 			if (routineDone)
 			{
-				owner.UnitCardBattleStat.SetValueByValueType(BattleValueType.TurnCount, owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.MaxTurnCount));
 				currentUpdateAction = UpdateEndAttack;
 			}
 		}

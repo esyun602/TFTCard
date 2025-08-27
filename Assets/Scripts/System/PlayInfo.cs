@@ -36,9 +36,28 @@ public class PlayInfo
 			}
 		}
 	}
+	
+	public IEnumerable<SkillCardBase> TotalDeckCards
+	{
+		get
+		{
+			foreach (var card in TacticsCardList)
+			{
+				yield return card;
+			}
+
+			foreach (var card in UnitSkillCardList)
+			{
+				yield return card;
+			}
+		}
+	}
+
+	public int TotalDeckCardsCount => TacticsCardList.Count + UnitSkillCardList.Count;
 
 	//todo: fix?
-	public List<SkillCard> DeckCardList { get; } = new();
+	public List<TacticsCard> TacticsCardList { get; } = new();
+	public List<UnitSkillCard> UnitSkillCardList { get; } = new();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	private Dictionary<SynergyCategory, int> synergyNumDict = new();
 	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
@@ -109,7 +128,7 @@ public class PlayInfo
 				}
 			}
 
-			DeckCardList.Add(unitSkillCard);
+			UnitSkillCardList.Add(unitSkillCard);
 			RefreshSynergyList();
 		}
 
@@ -127,7 +146,7 @@ public class PlayInfo
 		FieldDeployLocationInfo.RemoveAll(info => info.TargetCard == targetCard);
 		BagUnitCardList.Add(targetCard);
 		var unitSkillCard = targetCard.UnitSkillCard;
-		DeckCardList.Remove(unitSkillCard);
+		UnitSkillCardList.Remove(unitSkillCard);
 
 		foreach (var synergy in targetCard.Stat.synergyList)
 		{

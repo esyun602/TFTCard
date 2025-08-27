@@ -10,7 +10,6 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	[SerializeField] private TextMeshProUGUI atk;
 	[SerializeField] private TextMeshProUGUI hp;
-	[SerializeField] private TextMeshProUGUI turnCount;
 	[SerializeField] private TextMeshProUGUI nameText;
 	[SerializeField] private TextMeshProUGUI desc;
 	[SerializeField] private Image img;
@@ -35,9 +34,8 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			.GetSynergySpec(unitCard.Stat.synergyList[0]);
 		bgImg.color = synergySpec.SymbolColor;
 		
-		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
-		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
-		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
+		atk.text = $"{stat.GetValueByValueType(UnitValueType.Attack)}";
+		hp.text = $"{stat.GetValueByValueType(UnitValueType.Hp)}";
 	}
 	
 	//todo: callback or notice?

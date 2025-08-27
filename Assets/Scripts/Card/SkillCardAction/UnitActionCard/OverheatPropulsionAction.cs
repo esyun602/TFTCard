@@ -15,7 +15,7 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
         fxPrefab = spec.fxPrefab;
     }
 
-    public override object[] DescParams => new object[] { 2, StatFallback.GetValueByValueType(BattleValueType.Attack) };
+    public override object[] DescParams => new object[] { 2, StatFallback.GetValueByValueType(UnitValueType.Attack) };
 
     protected override void OnUpdate(float dt, out bool routineDone)
     {
@@ -30,12 +30,12 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
         timePassed += dt;
         if (timePassed > 0f)
         {
-            battleStat.Owner.UnitCardBattleStat.AddBuff(new BurnBuff(2));
+            BattleStat.Owner.UnitCardBattleStat.AddBuff(new BurnBuff(2));
             target.Damage(
                 new DamageInfo()
                 {
-                    Sender = battleStat.Owner,
-                    Dmg = StatFallback.GetValueByValueType(BattleValueType.Attack)
+                    Sender = BattleStat.Owner,
+                    Dmg = StatFallback.GetValueByValueType(UnitValueType.Attack)
                 });
 
             routineDone = true;

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ReposeSkillAction : SkillCardActionBase
+public class ReposeSkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;

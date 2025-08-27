@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class FireArrowSkillAction : SkillCardActionBase
+public class FireArrowSkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -15,7 +15,7 @@ public class FireArrowSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Burn) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.BurnAdd) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -30,7 +30,7 @@ public class FireArrowSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(battleStat.GetValueByValueType(BattleValueType.Burn)));
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(CommonValueType.BurnAdd)));
 			routineDone = true;
 		}
 	}

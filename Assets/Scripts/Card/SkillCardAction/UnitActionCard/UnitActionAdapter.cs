@@ -15,7 +15,7 @@ public class UnitActionAdapter : UnitSkillCardActionBase
 
 	protected override void OnTrigger(object triggerInfo = null)
 	{
-		unitAction.SetBattleOwner(battleStat.Owner);
+		unitAction.SetBattleOwner(BattleStat.Owner);
 		unitAction.Trigger(triggerInfo);
 	}
 

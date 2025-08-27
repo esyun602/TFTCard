@@ -1,6 +1,6 @@
 using System;
 
-public class SteamEngineProtectionAction : SkillCardActionBase
+public class SteamEngineProtectionAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -13,7 +13,7 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		return base.CanUse(targetTile) && targetObject.ObjectType == ObjectType.Ally;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Shield) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
 
 	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec)
 	{
@@ -32,7 +32,7 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Shield));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(CommonValueType.ShieldAdd));
 			target.UnitCardBattleStat.AddSynergy(SynergyCategory.SteamEngine);
 			
 			routineDone = true;

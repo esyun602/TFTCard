@@ -1,8 +1,8 @@
 public abstract class SkillCardActionBase : IAction
 {
-	protected SkillCardStat stat;
-	protected SkillCardBattleStat battleStat;
-	protected IStat StatFallback => battleStat != null ? battleStat : stat;
+	protected SkillCardStat Stat { get; private set; }
+	protected SkillCardBattleStat BattleStat { get; private set; }
+	protected IStat StatFallback => BattleStat != null ? BattleStat : Stat;
 
 	protected IUpdatableRoutine routine;
 	public IUpdatableRoutine UpdatableRoutine => routine;
@@ -38,12 +38,12 @@ public abstract class SkillCardActionBase : IAction
 
 	public virtual void SetCardBattleStat(SkillCardBattleStat stat)
 	{
-		this.battleStat = stat;
+		this.BattleStat = stat;
 	}
 	
 	public virtual void SetCardStat(SkillCardStat stat)
 	{
-		this.stat = stat;
+		this.Stat = stat;
 	}
 
 	private void UpdateFrame(float dt, out bool routineDone)
