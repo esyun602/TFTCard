@@ -8,15 +8,15 @@ public class SteamEngineSynergy : IBattleSynergy
 	private HashSet<IBattleObject> memberList;
 	private Action<IBattleObject> onMemberAdd;
 	private Action<IBattleObject> onMemberRemove;
-	//public SynergySpec Spec { get; }
+	private SynergySpec spec;
 
 	public SteamEngineSynergy(SynergySpec spec)
 	{
-		//Spec = spec;
+		this.spec = spec;
 		memberList = new();
 	}
 
-	public int Level { get; set; }
+	public int Level => spec.GetGrade(memberList.Count);
 
 	public void Activate()
 	{

@@ -131,6 +131,22 @@ public class PlayInfo
 				{
 					synergyNumDict[synergy]++;
 				}
+				
+				
+				if (activatedByDeploySynergyDict.TryGetValue(synergy, out var synergyInstance))
+				{
+					synergyInstance.AddMember(targetCard);
+				}
+				else
+				{
+					if (GameDataSystem.Instance.GetGameData<SynergyData>()
+					    .GetSynergySpec(synergy).TryGenerateGlobalSynergyInstance(out var newSynergy))
+					{
+						activatedByDeploySynergyDict[synergy] = newSynergy;
+						newSynergy.Initialize();
+						newSynergy.AddMember(targetCard);
+					}
+				}
 			}
 
 			//UnitSkillCardList.Add(unitSkillCard);
@@ -156,6 +172,11 @@ public class PlayInfo
 		foreach (var synergy in targetCard.Stat.synergyList)
 		{
 			synergyNumDict[synergy]--;
+			
+			if (activatedByDeploySynergyDict.TryGetValue(synergy, out var synergyInstance))
+			{
+				synergyInstance.RemoveMember(targetCard);
+			}
 		}
 
 		NormalizeLocationInfos();
@@ -174,22 +195,6 @@ public class PlayInfo
 				{
 					synergy.Dispose();
 					activatedByDeploySynergyDict.Remove(kvp.Key);
-				}
-			}
-			else
-			{
-				if (activatedByDeploySynergyDict.TryGetValue(kvp.Key, out var synergy))
-				{
-					synergy.Level = kvp.Value;
-				}
-				else
-				{
-					if (GameDataSystem.Instance.GetGameData<SynergyData>()
-					    .GetSynergySpec(kvp.Key).TryGenerateGlobalSynergyInstance(out var newSynergy))
-					{
-						activatedByDeploySynergyDict[kvp.Key] = newSynergy;
-						newSynergy.Initialize();
-					}
 				}
 			}
 		}
