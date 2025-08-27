@@ -18,7 +18,7 @@ public class PlayerBagArea
 	private void InitializeCards()
 	{
 		var prefab = Resources.Load<BagUICard>("BagUICard");
-		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList)
+		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.TotalDeckCards)
 		{
 			
 			var cardSprite = card.CardStaticSpec.CardResource;

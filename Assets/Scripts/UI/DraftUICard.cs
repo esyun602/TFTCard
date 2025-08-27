@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
 	[SerializeField] private Image tint;
-	public ICard TargetCard { get; protected set; }
+	public abstract ICard TargetCard { get; }
 	protected ICardInfoHandler infoHandler;
 	private SimpleStateMachine stateMachine;
 

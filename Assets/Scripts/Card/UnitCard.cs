@@ -6,15 +6,15 @@ public class UnitCard : ICard
 	public UnitCardActionBase Action { get; }
 	public UnitCardSpec UnitCardStaticSpec { get; }
 	//todo: 적 / 아군 분리
-	public SkillCard UnitSkillCard { get; }
+	public UnitSkillCard UnitSkillCard { get; }
 
 	public UnitCard(UnitCardSpec spec)
 	{
 		UnitCardStaticSpec = spec;
-		var targetSkillSpec = GameDataSystem.Instance.GetGameData<CardData>().GetSkillCardSpecByName(spec.TargetSkillCardSpecName);
+		var targetSkillSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetSkillCardSpecName);
 		if (targetSkillSpec != null)
 		{
-			UnitSkillCard = new SkillCard(targetSkillSpec, this);
+			UnitSkillCard = new UnitSkillCard(targetSkillSpec, this);
 		}
 		var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetUnitActionByName(spec.ActionSpecName);
 		Action = actionSpec.CreateCardAction();

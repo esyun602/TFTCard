@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AddShieldSkillAction : SkillCardActionBase
+public class AddShieldSkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -15,7 +15,7 @@ public class AddShieldSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Shield) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -29,7 +29,7 @@ public class AddShieldSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Shield));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(CommonValueType.ShieldAdd));
 			routineDone = true;
 		}
 	}

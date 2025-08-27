@@ -39,7 +39,7 @@ public class TestUnitCardAction : UnitCardActionBase
 						{
 							Sender = owner,
 							DamageType = DamageType.NormalAttack,
-							Dmg = owner.UnitCardBattleStat.GetValueByValueType(BattleValueType.Attack)
+							Dmg = owner.UnitCardBattleStat.GetValueByValueType(UnitValueType.Attack)
 						});
 				}
 			}

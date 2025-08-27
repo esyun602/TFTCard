@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-//todo: 타게팅 조건 추가 필요
-public class QuickMotionAction : SkillCardActionBase
+//todo: 카드 리메이크 필요
+public class QuickMotionAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -16,7 +16,7 @@ public class QuickMotionAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.TurnCount) };
+	public override object[] DescParams => new object[] {  };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -30,13 +30,6 @@ public class QuickMotionAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			//임시
-			if (target is ITurnObject to)
-			{
-				to.StartTurn(battleStat.GetValueByValueType(BattleValueType.TurnCount));
-				routine.AddChain(to.UpdatableRoutine);
-			}
-			
 			routineDone = true;
 		}
 	}

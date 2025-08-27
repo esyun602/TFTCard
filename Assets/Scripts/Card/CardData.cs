@@ -5,7 +5,8 @@ using UnityEngine;
 public class CardData : GameData
 {
 	private List<UnitCardSpec> unitCardSpecList;
-	private List<SkillCardSpec> skillCardSpecList;
+	private List<UnitSkillCardSpec> unitSkillCardSpecList;
+	private List<TacticsCardSpec> tacticsCardSpecList;
 	
 	public override void Initialize()
 	{
@@ -17,11 +18,18 @@ public class CardData : GameData
 		}
 		
 		
-		skillCardSpecList = new();
-		deserializedObject = GameDataSystem.Instance.GameDataParams["SkillCardData"];
+		unitSkillCardSpecList = new();
+		deserializedObject = GameDataSystem.Instance.GameDataParams["UnitSkillCardData"];
 		foreach (var specJson in deserializedObject)
 		{
-			skillCardSpecList.Add(SkillCardSpec.Create(specJson));
+			unitSkillCardSpecList.Add(UnitSkillCardSpec.Create(specJson));
+		}
+		
+		tacticsCardSpecList = new();
+		deserializedObject = GameDataSystem.Instance.GameDataParams["TacticsCardData"];
+		foreach (var specJson in deserializedObject)
+		{
+			tacticsCardSpecList.Add(TacticsCardSpec.Create(specJson));
 		}
 	}
 
@@ -35,28 +43,23 @@ public class CardData : GameData
 	}
 	
 
-	public SkillCardSpec GetRandomSkillCardSpec(bool includeUnitAction = false)
+	public TacticsCardSpec GetRandomTacticsCardSpec(bool includeUnitAction = false)
 	{
-		var randomIdx = Random.Range(0, skillCardSpecList.Count);
-		while (skillCardSpecList[randomIdx].IsUnitAction)
-		{
-			randomIdx = Random.Range(0, skillCardSpecList.Count);
-		}
-		return skillCardSpecList[randomIdx];
+		return tacticsCardSpecList.GetRandomElement();
 	}
 	
-	public List<SkillCardSpec> GetRandomSkillCardSpecs(int count, bool includeUnitAction = false)
+	public List<TacticsCardSpec> GetRandomTacticsCardSpecs(int count, bool includeUnitAction = false)
 	{
-		var ret = new List<SkillCardSpec>();
+		var ret = new List<TacticsCardSpec>();
 		for (var i = 0; i < count; i++)
 		{
-			var randomIdx = Random.Range(0, skillCardSpecList.Count);
-			while (skillCardSpecList[randomIdx].IsUnitAction || ret.Contains(skillCardSpecList[randomIdx]))
+			var randomIdx = Random.Range(0, tacticsCardSpecList.Count);
+			while (ret.Contains(tacticsCardSpecList[randomIdx]))
 			{
-				randomIdx = Random.Range(0, skillCardSpecList.Count);
+				randomIdx = Random.Range(0, tacticsCardSpecList.Count);
 			}
 			
-			ret.Add(skillCardSpecList[randomIdx]);
+			ret.Add(tacticsCardSpecList[randomIdx]);
 		}
 		return ret;
 	}
@@ -68,9 +71,14 @@ public class CardData : GameData
 	}
 
 	//todo: 별도로 dit 만들어서
-	public SkillCardSpec GetSkillCardSpecByName(string str)
+	public TacticsCardSpec GetTacticsCardSpecByName(string str)
 	{
-		return skillCardSpecList.Find(x => x.Name == str);
+		return tacticsCardSpecList.Find(x => x.Name == str);
+	}
+	
+	public UnitSkillCardSpec GetUnitSkillCardSpecByName(string str)
+	{
+		return unitSkillCardSpecList.Find(x => x.Name == str);
 	}
 	
 	//todo: 별도로 dit 만들어서
@@ -88,7 +96,7 @@ public class CardData : GameData
 	
 	public SkillCardSpec GetSkillCardSpecById(int id)
 	{
-		return skillCardSpecList[id];
+		return unitSkillCardSpecList[id];
 		
 	}
 }

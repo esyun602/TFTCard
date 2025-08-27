@@ -1,0 +1,84 @@
+//todo: 빌드 시 bake
+//todo: 생성자 접근 제한
+
+using System.Collections.Generic;
+
+public class ValueType
+{
+	private static Dictionary<string, ValueType> typeDict = new();
+
+	public static bool TryParse(string str, out ValueType type)
+	{
+		return typeDict.TryGetValue(str, out type);
+	}
+
+	public string Name { get; }
+
+	protected ValueType(string name)
+	{
+		Name = name;
+		typeDict.Add(name, this);
+	}
+}
+
+public sealed class CommonValueType : ValueType
+{
+	public static readonly CommonValueType MaxHpAdd = new("MaxHpAdd");
+	public static readonly CommonValueType AttackAdd = new("AttackAdd");
+	public static readonly CommonValueType ShieldAdd = new("ShieldAdd");
+	public static readonly CommonValueType BurnAdd = new("BurnAdd");
+	public static readonly CommonValueType CatalystAdd = new("CatalystAdd");
+	public static readonly CommonValueType StunAdd = new("StunAdd");
+	public static readonly CommonValueType DodgeAdd = new("DodgeAdd");
+	public static readonly CommonValueType HealBanAdd = new("HealBanAdd");
+	public static readonly CommonValueType Draw = new("Draw");
+	public static readonly CommonValueType Heal = new("Heal");
+
+	public CommonValueType(string name) : base(name)
+	{
+	}
+}
+
+public sealed class UnitValueType : ValueType
+{
+	private static Dictionary<string, UnitValueType> typeDict = new();
+
+	public static readonly UnitValueType Hp = new("Hp");
+	public static readonly UnitValueType MaxHp = new("MaxHp");
+	public static readonly UnitValueType Attack = new("Attack");
+	public static readonly UnitValueType Shield = new("Shield");
+	public static readonly UnitValueType Burn = new("Burn");
+	public static readonly UnitValueType Catalyst = new("Catalyst");
+	public static readonly UnitValueType Stun = new("Stun");
+	public static readonly UnitValueType Dodge = new("Dodge");
+	public static readonly UnitValueType HealBan = new("HealBan");
+
+	public static bool TryParse(string str, out UnitValueType type)
+	{
+		return typeDict.TryGetValue(str, out type);
+	}
+
+	public UnitValueType(string name) : base(name)
+	{
+		typeDict.Add(name, this);
+	}
+}
+
+public sealed class SkillValueType : ValueType
+{
+	private static Dictionary<string, SkillValueType> typeDict = new();
+
+	public static readonly SkillValueType Damage = new("Damage");
+	public static readonly SkillValueType Cost = new("Cost");
+	public static readonly SkillValueType Exhaustion = new("Exhaustion");
+
+	public static bool TryParse(string str, out SkillValueType type)
+	{
+		return typeDict.TryGetValue(str, out type);
+	}
+
+	public SkillValueType(string name) : base(name)
+	{
+		typeDict.Add(name, this);
+	}
+}

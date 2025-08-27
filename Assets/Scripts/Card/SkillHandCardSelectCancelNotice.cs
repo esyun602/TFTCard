@@ -3,9 +3,9 @@ using MessageSystem;
 
 public class SkillHandCardSelectCancelNotice : Notice
 {
-	public SkillCardInHand SelectedCard { get; }
+	public BattleCardObjectInHand SelectedCard { get; }
 
-	public SkillHandCardSelectCancelNotice(SkillCardInHand card)
+	public SkillHandCardSelectCancelNotice(BattleCardObjectInHand card)
 	{
 		SelectedCard = card;
 	}

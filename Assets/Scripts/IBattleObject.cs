@@ -29,6 +29,6 @@ public static class IBattleObjectExtensions
 	
 	public static bool IsDead(this IBattleObject bo)
 	{
-		return bo.UnitCardBattleStat.GetValueByValueType(BattleValueType.Hp) == 0;
+		return bo.UnitCardBattleStat.GetValueByValueType(UnitValueType.Hp) == 0;
 	}
 }

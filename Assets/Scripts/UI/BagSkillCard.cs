@@ -9,9 +9,9 @@ public class BagSkillCard : BagUICard
         infoHandler.Initialize(TargetSkillCard, TargetSkillCard.Stat);
     }
 
-    public SkillCard TargetSkillCard { get; private set; }
+    public SkillCardBase TargetSkillCard { get; private set; }
 
-    public void Initialize(SkillCard targetCard, Vector3 targetPos)
+    public void Initialize(SkillCardBase targetCard, Vector3 targetPos)
     {
         this.cardPosInfo = new BagCardPosInfo(targetPos, null);
         this.TargetSkillCard = targetCard;

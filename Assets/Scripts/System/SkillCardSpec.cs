@@ -9,36 +9,26 @@ public enum UseType
 	Global,
 }
 
-public class SkillCardSpec : ICardSpec
+public abstract class SkillCardSpec : ICardSpec
 {
-	public string Name { get; private set; }
-	public string NameKey{ get; private set; }
-	public string DescKey{ get; private set; }
-	public string StatSpecName{ get; private set; }
-	public Sprite CardResource{ get; private set; }
-	public string ActionSpecName{ get; private set; }
-	public UseType CardUseType{ get; private set; }
-	public bool IsUnitAction { get; private set; }
-
-	private SkillCardSpec()
+	public string Name { get; protected set; }
+	public string NameKey{ get; protected set; }
+	public string DescKey{ get; protected set; }
+	public string StatSpecName{ get; protected set; }
+	public Sprite CardResource{ get; protected set; }
+	public string ActionSpecName{ get; protected set; }
+	public UseType CardUseType{ get; protected set; }
+	
+	protected void Parse(Dictionary<string, object> param)
 	{
+		Name = param.GetString(nameof(Name));
+		NameKey = param.GetString(nameof(NameKey));
+		DescKey = param.GetString(nameof(DescKey));
 		
-	}
-
-	public static SkillCardSpec Create(Dictionary<string, object> param)
-	{
-		var spec = new SkillCardSpec();
-		spec.Name = param.GetString(nameof(Name));
-		spec.NameKey = param.GetString(nameof(NameKey));
-		spec.DescKey = param.GetString(nameof(DescKey));
-		
-		spec.StatSpecName = param.GetString(nameof(StatSpecName));
+		StatSpecName = param.GetString(nameof(StatSpecName));
 		//todo: fix
-		spec.CardResource = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(CardResource)));
-		spec.ActionSpecName = param.GetString(nameof(ActionSpecName));
-		spec.CardUseType = Enum.TryParse(param.GetString(nameof(CardUseType)), out UseType result) ? result : UseType.Global;
-		spec.IsUnitAction = param.GetBool(nameof(IsUnitAction));
-		
-		return spec;
+		CardResource = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(CardResource)));
+		ActionSpecName = param.GetString(nameof(ActionSpecName));
+		CardUseType = Enum.TryParse(param.GetString(nameof(CardUseType)), out UseType result) ? result : UseType.Global;
 	}
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class UnitStatSpec : IStat
 {
 	public string Name { get; private set; }
-	public Dictionary<BattleValueType, int[]> ValueDict { get; private set; }
+	public Dictionary<ValueType, int[]> ValueDict { get; private set; }
 	public List<SynergyCategory> SynergyList { get; private set; }
 
 	private UnitStatSpec()
@@ -22,7 +22,7 @@ public class UnitStatSpec : IStat
 		spec.ValueDict = new();
 		foreach (var kvp in param)
 		{
-			if (Enum.TryParse(kvp.Key, out BattleValueType type))
+			if (ValueType.TryParse(kvp.Key, out ValueType type))
 			{
 				var array = param.GetIntArray(kvp.Key);
 				if (array != null)
@@ -48,12 +48,18 @@ public class UnitStatSpec : IStat
 				// throw new InvalidOperationException();
 			}
 		}
-
-
+		
+		spec.OnInitialize(param);
+		
 		return spec;
 	}
 
-	public int[] GetValuesByValueType(BattleValueType type)
+	protected virtual void OnInitialize(Dictionary<string, object> param)
+	{
+		
+	}
+
+	public int[] GetValuesByValueType(ValueType type)
 	{
 		return ValueDict.GetValueOrDefault(type, new int[] { });
 	}
@@ -63,7 +69,7 @@ public class UnitStatSpec : IStat
 	/// </summary>
 	/// <param name="type"></param>
 	/// <param name="newValues"></param>
-	public void SetValuesByValueType(BattleValueType type, int[] newValues)
+	public void SetValuesByValueType(ValueType type, int[] newValues)
 	{
 #if UNITY_EDITOR
 		throw new ArgumentException();

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class StockSkillAction : SkillCardActionBase
+public class StockSkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -15,7 +15,7 @@ public class StockSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Draw) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.Draw) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -30,7 +30,7 @@ public class StockSkillAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			for (var i = 0; i < battleStat.GetValueByValueType(BattleValueType.Draw); i++)
+			for (var i = 0; i < BattleStat.GetValueByValueType(CommonValueType.Draw); i++)
 			{
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
 			}

@@ -6,14 +6,17 @@ using UnityEngine.UI;
 
 public class DraftUIUnitCard : DraftUICard
 {
+    public override ICard TargetCard => unitCard;
+    private UnitCard unitCard;
+    
     public override void OnInitialize(ICardSpec targetCard)
     {
-        TargetCard = new UnitCard((UnitCardSpec)targetCard);
+        unitCard = new UnitCard((UnitCardSpec)targetCard);
         SetInfo();
     }
     
     private void SetInfo()
     {
-        infoHandler.Initialize(TargetCard, ((UnitCard)TargetCard).Stat);
+        infoHandler.Initialize(TargetCard, unitCard.Stat);
     }
 }

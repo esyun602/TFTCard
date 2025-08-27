@@ -1295,7 +1295,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   atk: {fileID: 4669840507142337735}
   hp: {fileID: 2741775473223491489}
-  turnCount: {fileID: 4859768380604168746}
   nameText: {fileID: 64864127186155411}
   desc: {fileID: 2895419098678452965}
   TextureRenderer: {fileID: 1890791694346428213}

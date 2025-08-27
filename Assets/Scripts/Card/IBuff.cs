@@ -11,7 +11,7 @@ public enum BuffType
 public interface IBuff
 {
 	public BuffType BuffType { get; }
-	public BattleValueType ControlBattleValueType { get; }
+	public UnitValueType ControlUnitValueType { get; }
 	public int Level { get; }
 	public void OnAdd(IBattleObject target);
 	public void OnRemove();

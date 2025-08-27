@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TestSkillAction : SkillCardActionBase
+public class TestSkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -15,7 +15,7 @@ public class TestSkillAction : SkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { stat.GetValueByValueType(BattleValueType.Attack) };
+	public override object[] DescParams => new object[] { Stat.GetValueByValueType(SkillValueType.Damage) };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -32,7 +32,7 @@ public class TestSkillAction : SkillCardActionBase
 			//todo: sender 수정
 			target.Damage(new DamageInfo()
 			{
-				Dmg = stat.GetValueByValueType(BattleValueType.Attack)
+				Dmg = Stat.GetValueByValueType(SkillValueType.Damage)
 			});
 			routineDone = true;
 		}

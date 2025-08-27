@@ -28,9 +28,9 @@ public class PanaceaAction : UnitSkillCardActionBase
 			target.DamagedBehaviour.Heal(
 				new HealInfo()
 				{
-					Sender = battleStat.Owner,
+					Sender = BattleStat.Owner,
 					HealAmount =
-						target.UnitCardBattleStat.GetValueByValueType(BattleValueType.MaxHp)
+						target.UnitCardBattleStat.GetValueByValueType(UnitValueType.MaxHp)
 				});
 			
 			routineDone = true;

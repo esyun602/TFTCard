@@ -11,7 +11,7 @@ public class BurnBuff : IBuff
 	}
 
 	public BuffType BuffType => BuffType.Negative;
-	public BattleValueType ControlBattleValueType => BattleValueType.Burn;
+	public UnitValueType ControlUnitValueType => UnitValueType.Burn;
 	public int Level => burnLevel;
 
 	public void OnAdd(IBattleObject target)

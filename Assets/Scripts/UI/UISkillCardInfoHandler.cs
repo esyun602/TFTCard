@@ -13,23 +13,23 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	
     public void Initialize(ICard card, IStat stat)
     {
-        if (card is not SkillCard skillCard)
+        if (card is not SkillCardBase skillCard)
         {
             throw new ArgumentException();
         }
 		
         nameText.text = card.Name;
         desc.text = card.Desc;
-        cost.text = stat.GetValueByValueType(BattleValueType.Cost).ToString();
+        cost.text = stat.GetValueByValueType(SkillValueType.Cost).ToString();
         if (card.CardStaticSpec.CardResource != null)
         {
             img.sprite = card.CardStaticSpec.CardResource;
         }
         
-        if (skillCard.Owner != null)
+        if (skillCard is UnitSkillCard unitSkillCard && unitSkillCard.UnitSkillCardStat.Owner != null)
         {
             var spec = GameDataSystem.Instance.GetGameData<SynergyData>()
-                .GetSynergySpec(skillCard.Owner.Stat.synergyList[0]);
+                .GetSynergySpec(unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList[0]);
             bgImg.color = spec.SymbolColor;
         }
     }

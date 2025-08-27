@@ -27,14 +27,14 @@ public class ChainReactionAction : UnitSkillCardActionBase
 		{
 			var enumerator = Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem
 				.GetAllObjectOfType(ObjectType.Enemy).Where(x =>
-					x.UnitCardBattleStat.GetValueByValueType(BattleValueType.Catalyst) > 0);
+					x.UnitCardBattleStat.GetValueByValueType(UnitValueType.Catalyst) > 0);
 
 			foreach (var bo in enumerator)
 			{
 				bo.Damage(new DamageInfo()
 				{
-					Sender = battleStat.Owner,
-					Dmg = 1,
+					Sender = BattleStat.Owner,
+					Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage),
 				});
 			}
 			
