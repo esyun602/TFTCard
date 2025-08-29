@@ -123,14 +123,14 @@ public class DeckSystem
 		UnitSkillCardInHand obj;
 		if (addToEnemyPool)
 		{
-			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
+			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
 			
 			obj.transform.SetParent(deckObject.transform);
 			enemyCardPool.Add(obj);
 		}
 		else
 		{
-			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
+			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
 
 			obj.transform.SetParent(deckObject.transform);
 			deck.Add(obj);

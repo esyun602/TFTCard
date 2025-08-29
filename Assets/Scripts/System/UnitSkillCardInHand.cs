@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class UnitSkillCardInHand : BattleCardObjectInHand
 {
-	private const string cardPrefabPath = "Card/UnitActSkillCardPrefab";
+	private const string allyCardPrefabPath = "Card/UnitActSkillCardPrefab";
+	private const string enemyCardPrefabPath = "Card/EnemySkillCard";
 	private UnitSkillCard unitSkillCard;
 	protected override SkillCardBase TargetCard => unitSkillCard;
 	public override ObjectType CardType => battleStat.Owner.ObjectType;
@@ -22,7 +23,7 @@ public class UnitSkillCardInHand : BattleCardObjectInHand
 
 	public static UnitSkillCardInHand InstantiateForAlly(UnitSkillCard targetSkillCard, UnitSkillCardBattleStat skillCardStat)
 	{
-		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<UnitSkillCardInHand>();
+		var cardObject = GameObject.Instantiate(Resources.Load(allyCardPrefabPath)).AddComponent<UnitSkillCardInHand>();
 		cardObject.gameObject.SetActive(false);
 		cardObject.unitSkillCard = targetSkillCard;
 		cardObject.battleStat = skillCardStat;
@@ -33,7 +34,7 @@ public class UnitSkillCardInHand : BattleCardObjectInHand
 	
 	public static UnitSkillCardInHand InstantiateForEnemy(UnitSkillCard targetSkillCard, UnitSkillCardBattleStat skillCardStat)
 	{
-		var cardObject = GameObject.Instantiate(Resources.Load(cardPrefabPath)).AddComponent<UnitSkillCardInHand>();
+		var cardObject = GameObject.Instantiate(Resources.Load(enemyCardPrefabPath)).AddComponent<UnitSkillCardInHand>();
 		cardObject.gameObject.SetActive(false);
 		cardObject.unitSkillCard = targetSkillCard;
 		cardObject.battleStat = skillCardStat;

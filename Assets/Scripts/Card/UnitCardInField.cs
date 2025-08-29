@@ -13,7 +13,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private ObjectType objectType;
 	private UnitCard targetUnitCard;
 	public UnitCard TargetUnitCard => targetUnitCard;
-	private const string cardPrefabPath = "Card/CardPrefab";
+	private const string allyCardPrefabPath = "Card/CardPrefab";
+	private const string enemyCardPrefabPath = "Card/EnemyCardPrefab";
 
 	public ObjectType ObjectType => objectType;
 	public Vector3 Position => transform.position;
@@ -152,8 +153,50 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public static UnitCardInField Instantiate(UnitCard targetUnitCard, ITile targetTile, ObjectType objectType)
 	{
 		//todo: pooling
+		if (objectType == ObjectType.Enemy)
+		{
+			return InstantiateForEnemy(targetUnitCard, targetTile, objectType);
+		}
+		else if (objectType == ObjectType.Ally)
+		{
+			return InstantiateForAlly(targetUnitCard, targetTile, objectType);
+		}
+
+		//todo: fix
+		return null;
+	}
+
+	private static UnitCardInField InstantiateForAlly(UnitCard targetUnitCard, ITile targetTile, ObjectType objectType)
+	{
 		var cardObject = GameObject
-			.Instantiate(Resources.Load(cardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
+			.Instantiate(Resources.Load(allyCardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
+			.AddComponent<UnitCardInField>();
+		cardObject.targetUnitCard = targetUnitCard;
+		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
+		cardObject.DamagedBehaviour = new UnitCardDamagedBehaviour();
+		cardObject.DamagedBehaviour.AttachTo(cardObject);
+
+		cardObject.objectType = objectType;
+		var unitCardBattleStat = new UnitCardBattleStat(cardObject, targetUnitCard.Stat);
+		cardObject.UnitCardBattleStat = unitCardBattleStat;
+
+		//todo: fix
+		NoticeSystem.Instance.PublishSync(new BattleObjectGeneratedNotice(cardObject, targetTile));
+
+		//기본적으로 선택 불가, 플레이어 카드의 경우 PlayerField의 제어를 받음
+		cardObject.UpdateBlockInput(InputBlockFlag.Select);
+		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
+
+		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat);
+		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
+
+		return cardObject;
+	}
+
+	private static UnitCardInField InstantiateForEnemy(UnitCard targetUnitCard, ITile targetTile, ObjectType objectType)
+	{
+		var cardObject = GameObject
+			.Instantiate(Resources.Load(enemyCardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
 			.AddComponent<UnitCardInField>();
 		cardObject.targetUnitCard = targetUnitCard;
 		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);

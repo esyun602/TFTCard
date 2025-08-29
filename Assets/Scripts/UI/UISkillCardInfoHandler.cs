@@ -8,6 +8,9 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI desc;
     [SerializeField] private TextMeshProUGUI cost;
+    [SerializeField] private GameObject costStop;
+    [SerializeField] private GameObject costFF;
+    [SerializeField] private GameObject costRW;
     [SerializeField] private Image img;
     [SerializeField] private Image bgImg;
 	
@@ -20,7 +23,29 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
         nameText.text = card.Name;
         desc.text = card.Desc;
-        cost.text = stat.GetValueByValueType(SkillValueType.Cost).ToString();
+        var costValue = stat.GetValueByValueType(SkillValueType.Cost);
+        cost.text = $"{Mathf.Abs(costValue)}";
+        if (costValue > 0)
+        {
+            costFF.SetActive(false);
+            costRW.SetActive(true);
+            costStop.SetActive(false);
+        }
+        else if (costValue == 0)
+        {
+            costFF.SetActive(false);
+            costRW.SetActive(false);
+            costStop.SetActive(true);
+			
+        }
+        else
+        {
+            costFF.SetActive(true);
+            costRW.SetActive(false);
+            costStop.SetActive(false);
+			
+        }
+        
         if (card.CardStaticSpec.CardResource != null)
         {
             img.sprite = card.CardStaticSpec.CardResource;

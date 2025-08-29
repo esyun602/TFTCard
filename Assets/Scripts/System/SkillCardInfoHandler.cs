@@ -12,6 +12,9 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro nameText;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private TextMeshPro cost;
+	[SerializeField] private GameObject costStop;
+	[SerializeField] private GameObject costFF;
+	[SerializeField] private GameObject costRW;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private MeshRenderer BackGround;
 	
@@ -28,14 +31,37 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		nameText.text = card.Name;
 		//todo: desc 변화 반영되게
 		desc.text = card.Desc;
-		cost.text = $"{stat.GetValueByValueType(SkillValueType.Cost)}";
+		var costValue = stat.GetValueByValueType(SkillValueType.Cost);
+		cost.text = $"{Mathf.Abs(costValue)}";
+		if (costValue > 0)
+		{
+			costFF.SetActive(false);
+			costRW.SetActive(true);
+			costStop.SetActive(false);
+		}
+		else if (costValue == 0)
+		{
+			costFF.SetActive(false);
+			costRW.SetActive(false);
+			costStop.SetActive(true);
+			
+		}
+		else
+		{
+			costFF.SetActive(true);
+			costRW.SetActive(false);
+			costStop.SetActive(false);
+			
+		}
 		if (card.CardStaticSpec.CardResource != null)
 		{
 			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
 		}
 
 		//todo: fix
-		if (skillCard is UnitSkillCard unitSkillCard && unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList.Count > 0)
+		if (skillCard is UnitSkillCard unitSkillCard
+		    && unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList.Count > 0
+		    && BackGround != null)
 		{
 			var spec = GameDataSystem.Instance.GetGameData<SynergyData>()
 				.GetSynergySpec(unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList[0]);
