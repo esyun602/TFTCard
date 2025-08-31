@@ -1,33 +1,29 @@
 //todo: negative를 별도로 둘건지 결정 필요
-public class ValueAddAttackBuff : IBuff
+public class ValueAddAttackBuff : BuffBase
 {
-	private IBattleObject target;
-	public BuffType BuffType => Level > 0 ? BuffType.Positive : BuffType.Negative;
-	public UnitValueType ControlUnitValueType => UnitValueType.Attack;
-	private int attackAddValue;
-	public int Level => attackAddValue;
+	public override BuffType BuffType => Level > 0 ? BuffType.Positive : BuffType.Negative;
+	public override UnitValueType ControlUnitValueType => UnitValueType.Attack;
 	
 
 	public ValueAddAttackBuff(int attackAddValue)
 	{
-		this.attackAddValue = attackAddValue;
+		Level = attackAddValue;
 	}
 	
-	public void OnAdd(IBattleObject target)
-	{
-		this.target = target;
-	}
-
-	public void OnRemove()
+	protected override void OnAdd()
 	{
 	}
 
-	public bool TryStack(IBuff buff)
+	protected override void OnRemove()
+	{
+	}
+
+	public override bool TryStack(IBuff buff)
 	{
 		if (buff is ValueAddAttackBuff)
 		{
-			attackAddValue += buff.Level;
-			if (attackAddValue == 0)
+			Level += buff.Level;
+			if (Level == 0)
 			{
 				target.UnitCardBattleStat.RemoveBuff(this);
 			}
@@ -36,4 +32,6 @@ public class ValueAddAttackBuff : IBuff
 
 		return false;
 	}
+
+	public override string Keyword => "AttackAdded";
 }

@@ -1,18 +1,15 @@
 using MessageSystem;
 
-public class StunBuff : IBuff
+public class StunBuff : BuffBase
 {
-	private IBattleObject target;
-	public BuffType BuffType => BuffType.Negative;
-	public UnitValueType ControlUnitValueType => UnitValueType.Stun;
-	public int Level => 1;
-	public void OnAdd(IBattleObject target)
+	public override BuffType BuffType => BuffType.Negative;
+	public override UnitValueType ControlUnitValueType => UnitValueType.Stun;
+	protected override void OnAdd()
 	{	
-		this.target = target;
 		NoticeSystem.Instance.Subscribe<TurnStartBlockByStunNotice>(OnTurnStart);
 	}
 
-	public void OnRemove()
+	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<TurnStartBlockByStunNotice>(OnTurnStart);
 	}
@@ -25,8 +22,10 @@ public class StunBuff : IBuff
 		}
 	}
 
-	public bool TryStack(IBuff buff)
+	public override bool TryStack(IBuff buff)
 	{
 		return true;
 	}
+
+	public override string Keyword => "Stun";	
 }

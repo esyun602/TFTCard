@@ -13,7 +13,14 @@ public class UnitSkillCardBattleStat : SkillCardBattleStat
 	public override int[] GetValuesByValueType(ValueType type)
 	{
 		//todo: 그냥 valuetype일 때 처리
-		if (type is UnitValueType) return Owner.UnitCardBattleStat.GetValuesByValueType(type);
+		if (type is UnitValueType)
+		{
+			if (Owner == null)
+			{
+				return new[] { 0 };
+			}
+			return Owner.UnitCardBattleStat.GetValuesByValueType(type);
+		}
 
 		return base.GetValuesByValueType(type);
 	}

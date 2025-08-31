@@ -130,7 +130,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 		var prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 
 		buffList.Add(targetBuff);
-		targetBuff.OnAdd(owner);
+		targetBuff.AddTo(owner);
 
 		var curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 		if (prevValue != curValue)
@@ -159,7 +159,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 			return false;
 		}
 
-		targetBuff.OnRemove();
+		targetBuff.RemoveFromObject();
 		var curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 		if (prevValue != curValue)
 		{

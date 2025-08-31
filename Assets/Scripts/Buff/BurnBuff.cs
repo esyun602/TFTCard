@@ -1,22 +1,18 @@
 using MessageSystem;
 
-public class BurnBuff : IBuff
+public class BurnBuff : BuffBase
 {
-	private IBattleObject target;
-	private int burnLevel;
 
 	public BurnBuff(int burnLevel)
 	{
-		this.burnLevel = burnLevel;
+		Level = burnLevel;
 	}
 
-	public BuffType BuffType => BuffType.Negative;
-	public UnitValueType ControlUnitValueType => UnitValueType.Burn;
-	public int Level => burnLevel;
+	public override BuffType BuffType => BuffType.Negative;
+	public override UnitValueType ControlUnitValueType => UnitValueType.Burn;
 
-	public void OnAdd(IBattleObject target)
+	protected override void OnAdd()
 	{
-		this.target = target;
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
@@ -24,23 +20,25 @@ public class BurnBuff : IBuff
 	{
 		target.Damage(new DamageInfo()
 		{
-			Dmg = burnLevel--,
+			Dmg = Level--,
 		});
 	}
 
-	public void OnRemove()
+	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
-	public bool TryStack(IBuff buff)
+	public override bool TryStack(IBuff buff)
 	{
 		var canStack = buff is BurnBuff;
 		if (canStack)
 		{
-			burnLevel += buff.Level;
+			Level += buff.Level;
 		}
 
 		return canStack;
 	}
+
+	public override string Keyword => "Burn";
 }

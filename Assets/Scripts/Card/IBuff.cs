@@ -13,7 +13,9 @@ public interface IBuff
 	public BuffType BuffType { get; }
 	public UnitValueType ControlUnitValueType { get; }
 	public int Level { get; }
-	public void OnAdd(IBattleObject target);
-	public void OnRemove();
+	public void AddTo(IBattleObject target);
+	public void RemoveFromObject();
 	public bool TryStack(IBuff buff);
+	//todo: 버프 데이터 빼기
+	public string Keyword { get; }
 }

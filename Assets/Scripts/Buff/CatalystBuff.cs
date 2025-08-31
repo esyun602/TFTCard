@@ -1,34 +1,23 @@
-public class CatalystBuff : IBuff
+public class CatalystBuff : BuffBase
 {
-	private IBattleObject target;
-	public BuffType BuffType => BuffType.Negative;
-	public UnitValueType ControlUnitValueType => UnitValueType.Catalyst;
-	private int catalystLevel;
+	public override BuffType BuffType => BuffType.Negative;
+	public override UnitValueType ControlUnitValueType => UnitValueType.Catalyst;
 
 	public CatalystBuff(int catalystLevel)
 	{
-		this.catalystLevel = catalystLevel;
+		Level = catalystLevel;
 	}
-
-	public int Level => catalystLevel;
-
-	public void OnAdd(IBattleObject target)
-	{
-		this.target = target;
-	}
-
-	public void OnRemove()
-	{
-	}
-
-	public bool TryStack(IBuff buff)
+	
+	public override bool TryStack(IBuff buff)
 	{
 		var canStack = buff is CatalystBuff;
 		if (canStack)
 		{
-			catalystLevel += buff.Level;
+			Level += buff.Level;
 		}
 
 		return canStack;
 	}
+
+	public override string Keyword => "Catalyst";
 }
