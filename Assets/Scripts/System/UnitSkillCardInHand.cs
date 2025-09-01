@@ -16,6 +16,12 @@ public class UnitSkillCardInHand : BattleCardObjectInHand
 		battleStat.Owner = bo;
 	}
 
+	protected override bool CanSelect()
+	{
+		//todo: dead로?
+		return base.CanSelect() && (battleStat.Owner != null);
+	}
+
 	private UnitSkillCardInHand()
 	{
 		
