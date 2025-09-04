@@ -72,7 +72,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;
 		ChangeState(new CardObjectNormalInHandState(this));
-		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard, Stat);
+		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard, Stat, CanSelect);
 		OnActivate();
 	}
 
@@ -125,8 +125,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		if ((blockInput & InputBlockFlag.Select) != InputBlockFlag.None || !CanSelect()) return;
 		if (cardObjectStateMachine.CurrentState is not CardObjectNormalInHandState { IsHovered: true } ||
 		    eventData.button != PointerEventData.InputButton.Left) return;
-
-		NoticeSystem.Instance.PublishSync(new SkillHandCardSelectNotice(this));
 
 		if (IsTargeting)
 		{
@@ -216,6 +214,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		public void SetHover()
 		{
+			NoticeSystem.Instance.Publish(new SkillHandCardHoverNotice(owner));
 			isHovered = true;
 			hoverTarget = originalScale * 1.1f;
 			owner.collider.size = Constant.HandHoverColliderSize;
@@ -227,6 +226,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		public void RemoveHover()
 		{
+			NoticeSystem.Instance.Publish(new SkillHandCardRemoveHoverNotice(owner));
 			isHovered = false;
 			hoverTarget = originalScale;
 			targetRotationOverride = null;
@@ -322,6 +322,8 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
 			targetPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+		
+			NoticeSystem.Instance.Publish(new SkillHandCardSelectNotice(owner));
 			//owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);;
 		}
 
@@ -352,7 +354,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		private void OnCancelHandCard(InputAction.CallbackContext obj)
 		{
-			NoticeSystem.Instance.PublishSync(new SkillHandCardSelectCancelNotice(owner));
+			NoticeSystem.Instance.Publish(new SkillHandCardSelectCancelNotice(owner));
 			owner.ChangeState(new CardObjectNormalInHandState(owner));
 		}
 
@@ -418,6 +420,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			mouseScreenPos.z = 10f;
 			targetPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
 			owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);
+			NoticeSystem.Instance.Publish(new SkillHandCardSelectNotice(owner));
 		}
 
 		private void OnTryUseHandCard(InputAction.CallbackContext obj)
@@ -442,7 +445,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		private void OnCancelHandCard(InputAction.CallbackContext obj)
 		{
-			NoticeSystem.Instance.PublishSync(new SkillHandCardSelectCancelNotice(owner));
+			NoticeSystem.Instance.Publish(new SkillHandCardSelectCancelNotice(owner));
 			owner.ChangeState(new CardObjectNormalInHandState(owner));
 		}
 
