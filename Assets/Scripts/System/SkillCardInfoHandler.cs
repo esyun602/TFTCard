@@ -17,14 +17,18 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private GameObject costRW;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private MeshRenderer BackGround;
+	[SerializeField] private GameObject bgFx;
+	private Func<bool> isFxOn;
 	
-	public void Initialize(ICard card, IStat stat)
+	//todo : fix?
+	public void Initialize(ICard card, IStat stat, Func<bool> isFxOn)
 	{
 		if (card is not SkillCardBase skillCard)
 		{
 			throw new ArgumentException();
 		}
 
+		this.isFxOn = isFxOn;
 		this.stat = stat;
 
 		targetCard = card;
@@ -74,5 +78,6 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	{
 		//todo: test
 		desc.text = targetCard.Desc;
+		bgFx.SetActive(isFxOn?.Invoke() ?? false);
 	}
 }

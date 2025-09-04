@@ -27,6 +27,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private Material Material => materialCache == null ? materialCache = FrameTransform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
 	public IBattleObjectStat UnitCardBattleStat { get; private set; }
 	public IDamagedBehaviour DamagedBehaviour { get; private set; }
+
+	private FieldCardFxHandler fxHandler;
 	
 	private void Awake()
 	{
@@ -98,6 +100,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
 		
 		gameObject.SetActive(false);
+		fxHandler.Dispose();
+
 		//todo: 수정
 		//Destroy(this);
 	}
@@ -187,7 +191,9 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 
-		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat);
+		cardObject.fxHandler = new FieldCardFxHandler(cardObject);
+		cardObject.fxHandler.Initialize();
+		cardObject.GetComponentInChildren<ICardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat, () => cardObject.fxHandler.ActivateFx);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 
 		return cardObject;
@@ -214,7 +220,9 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 
-		cardObject.GetComponentInChildren<UnitCardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat);
+		cardObject.fxHandler = new FieldCardFxHandler(cardObject);
+		cardObject.fxHandler.Initialize();
+		cardObject.GetComponentInChildren<ICardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat, () => cardObject.fxHandler.ActivateFx);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;
 
 		return cardObject;

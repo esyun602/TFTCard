@@ -23,8 +23,10 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private Transform attackRelevantIconAnchor;
 	[SerializeField] private Transform hpRelevantIconAnchor;
 	[SerializeField] private float iconSpacing;
+	[SerializeField] private GameObject bgFx;
+	private Func<bool> isFxOn;
 	
-	public void Initialize(ICard card, IStat stat)
+	public void Initialize(ICard card, IStat stat, Func<bool> isFxOn)
 	{
 		if (card is not UnitCard unitCard)
 		{
@@ -60,6 +62,8 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		atk.text = $"{stat.GetValueByValueType(UnitValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(UnitValueType.Hp)}";
+		
+		this.isFxOn = isFxOn;
 		
 		//todo: important
 		//todo: dispose
@@ -178,6 +182,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 
 	//todo: callback or notice?
 	private void Update()
-	{
+	{	
+		bgFx.SetActive(isFxOn?.Invoke() ?? false);
 	}
 }

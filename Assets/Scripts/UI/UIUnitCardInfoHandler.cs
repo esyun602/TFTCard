@@ -15,7 +15,7 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private Image img;
 	[SerializeField] private Image bgImg;
 	
-	public void Initialize(ICard card, IStat stat)
+	public void Initialize(ICard card, IStat stat, Func<bool> isFxOn)
 	{
 		if (card is not UnitCard unitCard)
 		{

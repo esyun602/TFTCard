@@ -18,7 +18,7 @@ public class UnitSkillCardInHand : BattleCardObjectInHand
 
 	protected override bool CanSelect()
 	{
-		//todo: dead로?
+		//todo: dead로?	
 		return base.CanSelect() && (battleStat.Owner != null);
 	}
 
