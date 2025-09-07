@@ -1,7 +1,10 @@
 [
   {
     "AllyCardDefaultFrameName": "SomeValue",
-    "EnemyCardDefaultFrameName": "SomeValue", 
-    "BossCardDefaultFrameName": "SomeValue"
+    "EnemyCardDefaultFrameName": "SomeValue",
+    "BossCardDefaultFrameName": "SomeValue",
+    "DefaultEnergy": 0,
+    "DefaultMinEnergy": 0,
+    "DefaultMaxEnergy": 6
   }
 ]

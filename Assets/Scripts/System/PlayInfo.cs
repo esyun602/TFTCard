@@ -78,7 +78,9 @@ public class PlayInfo
 	
 
 	//todo: additional value
-	public int MaxEnergy => Constant.DefaultEnergy;
+	public int MaxEnergy => Constant.DefaultMaxEnergy;
+	public int MinEnergy => Constant.DefaultMinEnergy;
+	public int EnergyPerTurn => Constant.DefaultEnergy;
 
 	/// <summary>
 	/// 최대 배치 가능 갯수에 맞게 normalize

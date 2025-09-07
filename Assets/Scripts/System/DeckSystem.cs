@@ -17,8 +17,11 @@ public class DeckSystem
 		get => energy;
 		set
 		{
-			NoticeSystem.Instance.Publish(new EnergyChangeNotice(energy, value));
-			energy = value;
+			var target = Mathf.Clamp(value, Game.Instance.GetPlayer().CurrentPlayInfo.MinEnergy,
+				Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy);
+			
+			energy = target;
+			NoticeSystem.Instance.Publish(new EnergyChangeNotice(energy, target));
 		}
 	}
 	public int CardMoveCount { get; set; }
@@ -84,8 +87,8 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
 		PlayerField.Initialize();
-		
-		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
+
+		Energy = 0;
 		CardMoveCount = 0;
 		deckObject = new GameObject("Deck");
 		//todo:fix?
@@ -197,7 +200,7 @@ public class DeckSystem
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 
-		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
+		Energy += Game.Instance.GetPlayer().CurrentPlayInfo.EnergyPerTurn;
 		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.DeckDrawCount; i++)
 		{
 			DrawPlayerCard();

@@ -8,7 +8,9 @@ public class Constant : GameData
 	public AnimationCurve CardFollowingSpeedCurve;
 	public AnimationCurve HandCardVerticalOffsetCurve;
 	public const float Epsilon = 0.001f;
-	public const int DefaultEnergy = 0;
+	public static int DefaultEnergy { get; private set; }
+	public static int DefaultMinEnergy { get; private set; }
+	public static int DefaultMaxEnergy { get; private set; }
 
 	public const float FieldYPos = 0.55f;
 	public const float FieldMoveYPos = 2f;
@@ -38,6 +40,9 @@ public class Constant : GameData
 		AllyCardDefaultFrameName = param.GetString(nameof(AllyCardDefaultFrameName));
 		EnemyCardDefaultFrameName = param.GetString(nameof(EnemyCardDefaultFrameName));
 		BossCardDefaultFrameName = param.GetString(nameof(BossCardDefaultFrameName));
+		DefaultEnergy = param.GetInt(nameof(DefaultEnergy));
+		DefaultMinEnergy = param.GetInt(nameof(DefaultMinEnergy));
+		DefaultMaxEnergy = param.GetInt(nameof(DefaultMaxEnergy));
 	}
 
 	public override void Dispose()
