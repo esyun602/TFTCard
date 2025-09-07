@@ -119,6 +119,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 	public void Dispose()
 	{
+		GetComponentInChildren<ICardInfoHandler>().Dispose();
 	}
 
 	public void OnPointerClick(PointerEventData eventData)

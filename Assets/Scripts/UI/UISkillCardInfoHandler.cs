@@ -58,7 +58,11 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
             bgImg.color = spec.SymbolColor;
         }
     }
-	
+
+    public void Dispose()
+    {
+    }
+
     //todo: callback or notice?
     private void Update()
     {

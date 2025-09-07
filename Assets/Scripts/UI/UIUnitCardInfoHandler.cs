@@ -37,7 +37,12 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		atk.text = $"{stat.GetValueByValueType(UnitValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(UnitValueType.Hp)}";
 	}
-	
+
+	public void Dispose()
+	{
+		
+	}
+
 	//todo: callback or notice?
 	private void Update()
 	{

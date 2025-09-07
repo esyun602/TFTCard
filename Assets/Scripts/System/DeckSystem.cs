@@ -28,7 +28,7 @@ public class DeckSystem
 	public PlayerHand PlayerHand { get; } = new();
 	public PlayerField PlayerField { get; } = new();
 
-	private IEnumerable<BattleCardObjectInHand> totalList
+	private IEnumerable<BattleCardObjectInHand> totalList	
 	{
 		get
 		{
@@ -169,7 +169,7 @@ public class DeckSystem
 	{
 		PlayerHand.Dispose();
 		PlayerField.Dispose();
-		foreach (var cardObject in deck)
+		foreach (var cardObject in totalList)
 		{
 			cardObject.Dispose();
 		}

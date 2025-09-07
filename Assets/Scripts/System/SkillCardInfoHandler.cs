@@ -73,6 +73,11 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		}
 	}
 
+	public void Dispose()
+	{
+		isFxOn = null;
+	}
+
 	//todo: callback or notice?
 	private void Update()
 	{

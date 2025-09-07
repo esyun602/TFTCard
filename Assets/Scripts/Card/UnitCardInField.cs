@@ -629,5 +629,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	public void Dispose()
 	{
+		GetComponentInChildren<ICardInfoHandler>().Dispose();
+		fxHandler.Dispose();
 	}
 }
