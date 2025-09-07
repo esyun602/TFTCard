@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TestSkillAction : TacticsCardActionBase
@@ -17,6 +20,8 @@ public class TestSkillAction : TacticsCardActionBase
 
 	public override object[] DescParams => new object[] { Stat.GetValueByValueType(SkillValueType.Damage) };
 
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
+	
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -38,15 +43,11 @@ public class TestSkillAction : TacticsCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
 
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

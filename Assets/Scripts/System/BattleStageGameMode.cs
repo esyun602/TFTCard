@@ -16,6 +16,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	public BattleFieldSystem BattleFieldSystem { get; }
 	public SynergySystem SynergySystem { get; }
 	public BattleStage BattleStage { get; }
+	public BattleFxManager BattleFxManager { get; }
 	private SimpleStateMachine battleStageStateMachine = new();
 	//todo: map gamemode 넣는게 맞나?
 	public BattleStageGameMode(IStage targetStage) : base(targetStage)
@@ -26,6 +27,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem = new();
 		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((BattleStageSpec)BattleStage.StageSpec).WaveGridList));
 		SynergySystem = new();
+		BattleFxManager = new();
 	}
 
 	protected override void OnInitialize()
@@ -43,6 +45,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		WaveSystem.Initialize();
 		BattleFieldSystem.Initialize();
 		SynergySystem.Initialize();
+		BattleFxManager.Initialize();
 	}
 
 	protected override void OnStageStart()
@@ -145,6 +148,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		WaveSystem.Dispose();
 		BattleFieldSystem.Dispose();
 		SynergySystem.Dispose();
+		BattleFxManager.Dispose();
 	}
 
 	public void UpdateFrame(float dt)

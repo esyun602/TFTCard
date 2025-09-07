@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ReposeSkillAction : TacticsCardActionBase
@@ -16,6 +18,7 @@ public class ReposeSkillAction : TacticsCardActionBase
 	}
 
 	public override object[] DescParams { get; }
+	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -34,7 +37,7 @@ public class ReposeSkillAction : TacticsCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
 	}

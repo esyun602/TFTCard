@@ -213,4 +213,45 @@ public static class IMapExtensions
 
 		return null;
 	}
+
+	public static List<ITile> GetAllTilesInRow(this IMap map, IBattleObject obj, ObjectType type)
+	{
+		var (row, _) = map.GetTileCoordOf(obj);
+		return map.GetAllTilesInRow(row, type);
+	}
+	
+	public static List<ITile> GetAllTilesInRow(this IMap map, ITile tile, ObjectType type)
+	{
+		var (row, _) = map.GetTileCoord(tile);
+		return map.GetAllTilesInRow(row, type);
+	}
+	
+	public static List<ITile> GetAllTilesInRow(this IMap map, int row, ObjectType type)
+	{
+		var targetList = new List<ITile>();
+		if (type == ObjectType.Enemy)
+		{
+			for (var i = 4; i <= 7; i++)
+			{
+				var obj = (map.GetTileAt(row, i));
+				if (obj != null)
+				{
+					targetList.Add(obj);
+				}
+			}
+		}
+		else if(type == ObjectType.Ally)
+		{
+			for (var i = 0; i <= 3; i++)
+			{
+				var obj = (map.GetTileAt(row, i));
+				if (obj != null)
+				{
+					targetList.Add(obj);
+				}
+			}
+		}
+
+		return targetList;
+	}
 }

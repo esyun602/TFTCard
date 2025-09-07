@@ -1,11 +1,20 @@
+using System.Collections.Generic;
+
 public class UnitActionAdapter : UnitSkillCardActionBase
 {
 	private UnitCardActionBase unitAction;
 	public override object[] DescParams => unitAction.DescParams;
+	public override IEnumerable<ITile> Targets => unitAction.Targets;
 
 	public UnitActionAdapter(UnitCardActionBase unitAction)
 	{
 		this.unitAction = unitAction;
+	}
+
+	public override void SetCardBattleStat(SkillCardBattleStat stat)
+	{
+		base.SetCardBattleStat(stat);
+		unitAction.SetBattleOwner(((UnitSkillCardBattleStat)stat).Owner);
 	}
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -13,10 +22,10 @@ public class UnitActionAdapter : UnitSkillCardActionBase
 		unitAction.UpdatableRoutine.UpdateFrame(dt, out routineDone);
 	}
 
-	protected override void OnTrigger(object triggerInfo = null)
+	protected override void OnTrigger()
 	{
 		unitAction.SetBattleOwner(BattleStat.Owner);
-		unitAction.Trigger(triggerInfo);
+		unitAction.Trigger();
 	}
 
 	protected override void OnCancel()

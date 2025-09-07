@@ -118,19 +118,20 @@ public class DeckSystem
 		return obj;
 	}
 	
-	private UnitSkillCardInHand GenerateUnitSkillCardInstance(UnitSkillCard skillCard, bool addToEnemyPool = false)
+	//todo: battlestat owner set 관련된부분 살펴보기
+	private UnitSkillCardInHand GenerateUnitSkillCardInstance(IBattleObject bo, UnitSkillCard skillCard, bool addToEnemyPool = false)
 	{
 		UnitSkillCardInHand obj;
 		if (addToEnemyPool)
 		{
-			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
+			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
 			
 			obj.transform.SetParent(deckObject.transform);
 			enemyCardPool.Add(obj);
 		}
 		else
 		{
-			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat));
+			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
 
 			obj.transform.SetParent(deckObject.transform);
 			deck.Add(obj);
@@ -356,8 +357,7 @@ public class DeckSystem
 
 	public void OnAllyAdd(UnitCardInField ally)
 	{
-		var obj = GenerateUnitSkillCardInstance(ally.TargetUnitCard.UnitSkillCard);
-		obj.SetOwner(ally);
+		GenerateUnitSkillCardInstance(ally, ally.TargetUnitCard.UnitSkillCard);
 		ShuffleDeck();
 		
 		PlayerField.AddToField(ally);
@@ -371,14 +371,14 @@ public class DeckSystem
 		
 		if (obj == null) return;
 		
-		obj.SetOwner(null);
+		//todo: fix
+		obj.SetDeadState();
 		ShuffleDeck();
 	}
 	
 	public void OnEnemyAdd(UnitCardInField enemy)
 	{
-		var obj = GenerateUnitSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard, true);
-		obj.SetOwner(enemy);
+		var obj = GenerateUnitSkillCardInstance(enemy, enemy.TargetUnitCard.UnitSkillCard, true);
 		ShuffleEnemyDeck();
 	}
 
@@ -388,13 +388,13 @@ public class DeckSystem
 		
 		if (obj == null) return;
 		
-		obj.SetOwner(null);
+		obj.SetDeadState();
 		RemoveCard(obj);
 		ShuffleEnemyDeck();
 	}
 
 	public BattleCardObjectInHand GetSkillCardInstance(SkillCardBase skillCard)
 	{
-		return totalList.First(x => x.IsInstanceOf(skillCard));
+		return totalList.First(x => x.TargetCard == skillCard);
 	}
 }

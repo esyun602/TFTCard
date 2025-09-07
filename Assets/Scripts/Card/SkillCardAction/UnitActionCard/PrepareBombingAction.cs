@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class PrepareBombingAction : UnitSkillCardActionBase
 {
@@ -11,6 +12,7 @@ public class PrepareBombingAction : UnitSkillCardActionBase
 	}
 
 	public override object[] DescParams { get; }
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -30,15 +32,11 @@ public class PrepareBombingAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

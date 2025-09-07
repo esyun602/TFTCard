@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class EquivalentExchangeAction : UnitSkillCardActionBase
 {
@@ -10,6 +13,7 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 	}
 
 	public override object[] DescParams { get; }
+	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -43,7 +47,7 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
 	}

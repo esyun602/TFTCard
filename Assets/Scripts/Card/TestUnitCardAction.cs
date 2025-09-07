@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Coroutine;
 using DG.Tweening;
 using UnityEngine;
@@ -14,18 +15,25 @@ public class TestUnitCardAction : UnitCardActionBase
 
 	public override object[] DescParams { get; }
 
+	public override IEnumerable<ITile> Targets
+	{
+		get
+		{
+			yield return GetTarget();
+		}
+	}
+
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		routineDone = false;
-		
+
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
-			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
-			
-			var targetTile = map.GetAttackTargetTile(owner);
+			var targetTile = GetTarget();
 			if (targetTile != null)
 			{
+				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 				var target = map.GetBattleObjectOfTile(targetTile);
 				if (fxPrefab != null)
 				{
@@ -50,15 +58,22 @@ public class TestUnitCardAction : UnitCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo = null)
+	private ITile GetTarget()
+	{
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+
+		return map.GetAttackTargetTile(owner);
+	}
+
+	protected override void OnTrigger()
 	{
 		var rotSeq = DOTween.Sequence();
 		rotSeq.Append(owner.FrameTransform.DOLocalRotate(
 			Quaternion.AngleAxis((owner.ObjectType == ObjectType.Ally ? -1 : 1) * 20f, Vector3.forward).eulerAngles,
 			0.15f).SetEase(Ease.InQuart));
-		
+
 		rotSeq.Append(owner.FrameTransform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-		
+
 		var movSeq = DOTween.Sequence();
 		movSeq.Append(owner.FrameTransform
 			.DOLocalMove((owner.ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * owner.Transform.right,
@@ -67,7 +82,7 @@ public class TestUnitCardAction : UnitCardActionBase
 
 		movSeq.Play();
 		rotSeq.Play();
-		
+
 
 		timePassed = 0f;
 	}

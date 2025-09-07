@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OverheatPropulsionAction : UnitSkillCardActionBase
@@ -15,7 +16,9 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
         fxPrefab = spec.fxPrefab;
     }
 
-    public override object[] DescParams => new object[] { 2, StatFallback.GetValueByValueType(UnitValueType.Attack) };
+    public override object[] DescParams => new object[] { 2, StatFallback.GetValueByValueType(UnitValueType.Attack) };	
+    public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
+
 
     protected override void OnUpdate(float dt, out bool routineDone)
     {
@@ -42,15 +45,11 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
         }
     }
 
-    protected override void OnTrigger(object triggerInfo)
+
+    protected override void OnTrigger()
     {
         timePassed = 0f;
-        if (triggerInfo is not TargetingActionTriggerInfo ti)
-        {
-            throw new ArgumentException();
-        }
-
-        target = ti.Target;
+        target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
     }
 
     protected override void OnCancel()

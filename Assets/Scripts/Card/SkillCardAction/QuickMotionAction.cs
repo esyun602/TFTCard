@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 //todo: 카드 리메이크 필요
@@ -17,6 +18,7 @@ public class QuickMotionAction : TacticsCardActionBase
 	}
 
 	public override object[] DescParams => new object[] {  };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -34,15 +36,11 @@ public class QuickMotionAction : TacticsCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

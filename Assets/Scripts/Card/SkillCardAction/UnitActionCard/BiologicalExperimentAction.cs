@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class BiologicalExperimentAction : UnitSkillCardActionBase
 {
@@ -11,7 +12,8 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 	}
 
 	public override object[] DescParams  => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack), StatFallback.GetValueByValueType(CommonValueType.CatalystAdd) };
-
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
+	
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -37,15 +39,11 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

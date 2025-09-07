@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class SteamEngineProtectionAction : TacticsCardActionBase
 {
@@ -14,6 +15,7 @@ public class SteamEngineProtectionAction : TacticsCardActionBase
 	}
 
 	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec)
 	{
@@ -39,17 +41,13 @@ public class SteamEngineProtectionAction : TacticsCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
-
+	
 	protected override void OnCancel()
 	{
 		canceled = true;

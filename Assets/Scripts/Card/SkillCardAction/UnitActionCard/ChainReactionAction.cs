@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class ChainReactionAction : UnitSkillCardActionBase
 {
@@ -11,6 +14,17 @@ public class ChainReactionAction : UnitSkillCardActionBase
 	}
 
 	public override object[] DescParams { get; }
+
+	public override IEnumerable<ITile> Targets
+	{
+		get
+		{
+			var gameMode = Game.Instance.GetGameMode<BattleStageGameMode>();
+			return gameMode.BattleFieldSystem
+				.GetAllObjectOfType(ObjectType.Enemy).Where(x =>
+					x.UnitCardBattleStat.GetValueByValueType(UnitValueType.Catalyst) > 0).Select(x => gameMode.BattleStage.BattleMap.GetTileOfBattleObject(x));
+		}
+	}
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -42,7 +56,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
 	}

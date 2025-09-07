@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AddShieldSkillAction : TacticsCardActionBase
@@ -16,6 +18,7 @@ public class AddShieldSkillAction : TacticsCardActionBase
 	}
 
 	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -34,15 +37,10 @@ public class AddShieldSkillAction : TacticsCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

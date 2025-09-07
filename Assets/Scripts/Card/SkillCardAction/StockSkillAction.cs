@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StockSkillAction : TacticsCardActionBase
@@ -16,6 +18,7 @@ public class StockSkillAction : TacticsCardActionBase
 	}
 
 	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.Draw) };
+	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -38,7 +41,7 @@ public class StockSkillAction : TacticsCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
 	}

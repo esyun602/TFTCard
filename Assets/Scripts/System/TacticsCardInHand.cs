@@ -4,7 +4,7 @@ using UnityEngine;
 public class TacticsCardInHand : BattleCardObjectInHand
 {
 	private const string cardPrefabPath = "Card/SkillCardPrefab";
-	protected override SkillCardBase TargetCard => targetCard;
+	public override SkillCardBase TargetCard => targetCard;
 	private TacticsCard targetCard;
 	public override ObjectType CardType => ObjectType.Ally;
 	public override IStat Stat => battleStat;

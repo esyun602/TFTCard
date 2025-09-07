@@ -14,6 +14,15 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 
 	public override object[] DescParams => new object[]{StatFallback.GetValueByValueType(UnitValueType.Attack), StatFallback.GetValueByValueType(UnitValueType.Attack) / 2};
 
+	public override IEnumerable<ITile> Targets
+	{
+		get
+		{
+			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap;
+			return map.GetAllTilesInRow(ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo), ObjectType.Enemy);
+		}
+	}
+
 	public HighPressureBombAction(HighPressureBombActionSpec spec)
 	{
 	}
@@ -67,15 +76,10 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

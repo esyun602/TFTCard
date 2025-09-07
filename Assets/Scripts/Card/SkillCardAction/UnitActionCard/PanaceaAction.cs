@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class PanaceaAction : UnitSkillCardActionBase
 {
@@ -11,6 +12,8 @@ public class PanaceaAction : UnitSkillCardActionBase
 	}
 
 	public override object[] DescParams { get; }
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
+
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -37,15 +40,11 @@ public class PanaceaAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

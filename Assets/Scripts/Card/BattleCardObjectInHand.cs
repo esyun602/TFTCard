@@ -24,7 +24,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 {
 	public bool IsTargeting => TargetCard.SkillCardStaticSpec.CardUseType == UseType.Targeting;
 	//todo: fix how?
-	protected abstract SkillCardBase TargetCard { get; }
+	public abstract SkillCardBase TargetCard { get; }
 	protected SimpleStateMachine cardObjectStateMachine = new();
 	private new BoxCollider collider;
 
@@ -179,11 +179,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		}
 	}
 
-	public bool IsInstanceOf(SkillCardBase skillCard)
-	{
-		return skillCard == TargetCard;
-	}
-
 	protected class CardObjectNormalInHandState : IState, IUpdatable, IMessageReceiver
 	{
 		public bool IsMoving => owner.handTargetPos != owner.transform.position;
@@ -301,6 +296,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		private AnimationCurve followAnimationCurve;
 		private float timePassed = 0f;
 		private ITile currentTile;
+		private TargetingActionTriggerInfo currentTriggerInfo;
 
 		public TargetingSkillCardSelectedInHandState(BattleCardObjectInHand owner)
 		{
@@ -356,6 +352,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		{
 			NoticeSystem.Instance.Publish(new SkillHandCardSelectCancelNotice(owner));
 			owner.ChangeState(new CardObjectNormalInHandState(owner));
+			owner.TargetCard.Action.SetTriggerParam(null);
 		}
 
 		public void UpdateFrame(float dt)
@@ -365,8 +362,32 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			mouseScreenPos.z = 10f;
 			var mousePos = Camera.main.ScreenToWorldPoint(mouseScreenPos).GetX0z(Constant.SelectYPos);
 
+			var prevTile = currentTile;
 			currentTile = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map.GetTileAt(mousePos);
-			targetPos = owner.CanUse(currentTile) ? currentTile.GetPosition().GetX0z(Constant.SelectYPos) : mousePos;
+			if (owner.CanUse(currentTile))
+			{
+				if (currentTriggerInfo == null)
+				{
+					currentTriggerInfo = new TargetingActionTriggerInfo()
+					{
+						Target = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
+							.GetBattleObjectOfTile(currentTile)
+					};
+					owner.TargetCard.Action.SetTriggerParam(currentTriggerInfo);
+					NoticeSystem.Instance.Publish(new TargetingCardAimedNotice(owner));
+				}
+				targetPos = currentTile.GetPosition().GetX0z(Constant.SelectYPos);
+			}
+			else
+			{
+				if (currentTriggerInfo != null)
+				{
+					currentTriggerInfo = null;
+					owner.TargetCard.Action.SetTriggerParam(null);
+					NoticeSystem.Instance.Publish(new TargetingCardAimRemovedNotice(owner));
+				}
+				targetPos = mousePos;
+			}
 			NoticeSystem.Instance.Publish(
 				new SkillHandCardTargetingUpdateNotice(Camera.main.WorldToScreenPoint(targetPos)));
 
@@ -509,10 +530,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			if (timePassed > 0f)
 			{
 				timePassed = 0f;
-				owner.TargetCard.Action.Trigger(new TargetingActionTriggerInfo()
-				{
-					Target = targetObject
-				});
+				owner.TargetCard.Action.Trigger();
 				currentUpdateAction = UpdateAction;
 			}
 		}

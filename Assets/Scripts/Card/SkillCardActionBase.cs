@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 public abstract class SkillCardActionBase : IAction
 {
 	protected SkillCardStat Stat { get; private set; }
@@ -5,6 +8,7 @@ public abstract class SkillCardActionBase : IAction
 	protected IStat StatFallback => BattleStat != null ? BattleStat : Stat;
 
 	protected IUpdatableRoutine routine;
+	protected object triggerInfo;
 	public IUpdatableRoutine UpdatableRoutine => routine;
 
 	public virtual bool CanUse(ITile targetTile)
@@ -20,12 +24,12 @@ public abstract class SkillCardActionBase : IAction
 		routine = new UpdatableRoutine(UpdateFrame);
 	}
 	
-	public void Trigger(object triggerInfo = null)
+	public void Trigger()
 	{
 		//todo: publish notice
 		
 		routine.Initialize();
-		OnTrigger(triggerInfo);
+		OnTrigger();
 	}
 
 	public void Cancel()
@@ -35,6 +39,11 @@ public abstract class SkillCardActionBase : IAction
 	}
 
 	public abstract object[] DescParams { get; }
+	public abstract IEnumerable<ITile> Targets { get; }
+	public void SetTriggerParam(object triggerInfo)
+	{
+		this.triggerInfo = triggerInfo;
+	}
 
 	public virtual void SetCardBattleStat(SkillCardBattleStat stat)
 	{
@@ -57,9 +66,13 @@ public abstract class SkillCardActionBase : IAction
 
 	protected abstract void OnUpdate(float dt, out bool routineDone);
 
-	protected abstract void OnTrigger(object triggerInfo = null);
+	protected abstract void OnTrigger();
 
 	protected abstract void OnCancel();
 	
 	
+}
+
+public static class SkillCardActionBaseExtensions
+{
 }

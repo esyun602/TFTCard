@@ -4,7 +4,7 @@ public class UnitSkillCardBattleStat : SkillCardBattleStat
 	public UnitSkillCardStat OriginStat { get; }
 	
 	//todo: fix?
-	public UnitSkillCardBattleStat(UnitSkillCardStat skillCardStat, IBattleObject owner = null) : base(skillCardStat)
+	public UnitSkillCardBattleStat(UnitSkillCardStat skillCardStat, IBattleObject owner) : base(skillCardStat)
 	{
 		Owner = owner;
 		OriginStat = skillCardStat;

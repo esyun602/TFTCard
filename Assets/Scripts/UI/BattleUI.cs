@@ -24,6 +24,7 @@ public class BattleUI : UIInstance
 	public override UIType UIType => UIType.SceneCameraUI;
 
 	private ArrowDrawer arrowDrawer;
+	private TargetMarkerManager targetMarkerManager;
 
 	private Vector2 currentSelectedCardStartPosition;
 	
@@ -31,6 +32,10 @@ public class BattleUI : UIInstance
 	{
 		NoticeSystem.Instance.Subscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Subscribe<SkillHandCardHoverNotice>(OnHandCardHover);
+		NoticeSystem.Instance.Subscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
+		NoticeSystem.Instance.Subscribe<TargetingCardAimedNotice>(OnAimed);
+		NoticeSystem.Instance.Subscribe<TargetingCardAimRemovedNotice>(OnAimRemoved);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
@@ -40,6 +45,34 @@ public class BattleUI : UIInstance
 		
 		//todo: child 구현하면 수정
 		arrowDrawer = Game.Instance.UIManager.GenerateUI<ArrowDrawer>();
+		targetMarkerManager = Game.Instance.UIManager.GenerateUI<TargetMarkerManager>();
+		
+	}
+
+	private void OnAimed(TargetingCardAimedNotice m)
+	{
+		targetMarkerManager.SetTargetMarkerTo(m.Card.TargetCard.Action.Targets, m.Card);
+	}
+
+	private void OnAimRemoved(TargetingCardAimRemovedNotice m)
+	{
+		targetMarkerManager.RemoveTargetMarker(m.Card);
+	}
+
+	private void OnHandCardHover(SkillHandCardHoverNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting)
+		{
+			targetMarkerManager.SetTargetMarkerTo(m.SelectedCard.TargetCard.Action.Targets, m.SelectedCard);
+		}
+	}
+
+	private void OnHandCardRemove(SkillHandCardRemoveHoverNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting)
+		{
+			targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
+		}
 	}
 
 	private void OnTargetingUpdate(SkillHandCardTargetingUpdateNotice m)
@@ -52,21 +85,37 @@ public class BattleUI : UIInstance
 
 	private void OnHandCardSelect(SkillHandCardSelectNotice m)
 	{
-		if (!m.SelectedCard.IsTargeting) return;
-		currentSelectedCardStartPosition = Camera.main.WorldToScreenPoint(m.SelectedCard.transform.position);
-		arrowDrawer.Activate(currentSelectedCardStartPosition, 10);
+		if (m.SelectedCard.IsTargeting)
+		{
+			currentSelectedCardStartPosition = Camera.main.WorldToScreenPoint(m.SelectedCard.transform.position);
+			arrowDrawer.Activate(currentSelectedCardStartPosition, 10);
+		}
+		else
+		{
+			targetMarkerManager.SetTargetMarkerTo(m.SelectedCard.TargetCard.Action.Targets, m.SelectedCard);
+		}
 	}
 
 	private void OnHandCardSelectCancel(SkillHandCardSelectCancelNotice m)
 	{
-		if (!m.SelectedCard.IsTargeting) return;
-		arrowDrawer.Deactivate();
+		if (m.SelectedCard.IsTargeting)
+		{
+			arrowDrawer.Deactivate();
+		}
+		
+		
+		targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
+			
 	}
 
 	private void OnHandCardStartUse(SkillHandCardStartUseNotice m)
 	{
-		if (!m.SelectedCard.IsTargeting) return;
-		arrowDrawer.Deactivate();
+		if (m.SelectedCard.IsTargeting)
+		{
+			arrowDrawer.Deactivate();
+		}
+		
+		targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
 	}
 
 	private void OnSynergyUpdate(SynergyInfoUpdateNotice m)
@@ -109,6 +158,8 @@ public class BattleUI : UIInstance
 	{
 		NoticeSystem.Instance.Unsubscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Unsubscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardHoverNotice>(OnHandCardHover);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
