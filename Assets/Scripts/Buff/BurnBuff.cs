@@ -1,4 +1,5 @@
 using MessageSystem;
+using UnityEngine;
 
 public class BurnBuff : BuffBase
 {
@@ -22,6 +23,11 @@ public class BurnBuff : BuffBase
 		{
 			Dmg = Level--,
 		});
+
+		if (Level == 0)
+		{
+			target.UnitCardBattleStat.RemoveBuff(this);
+		}
 	}
 
 	protected override void OnRemove()
