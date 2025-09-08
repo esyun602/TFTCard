@@ -98,24 +98,19 @@
         "UnitCardName": "ScrapMonster"
       },
       {
-        "Row": 2,
-        "Col": 6,
-        "UnitCardName": "VacuumTubeLump"
-      },
-      {
         "Row": 1,
         "Col": 4,
         "UnitCardName": "BrassMonster"
       },
       {
-        "Row": 0,
-        "Col": 4,
-        "UnitCardName": "ScrapMonster"
+        "Row": 1,
+        "Col": 6,
+        "UnitCardName": "VacuumTubeLump"
       },
       {
         "Row": 0,
-        "Col": 6,
-        "UnitCardName": "VacuumTubeLump"
+        "Col": 4,
+        "UnitCardName": "ScrapMonster"
       }
     ]
   }
