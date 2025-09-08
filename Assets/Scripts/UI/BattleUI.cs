@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
@@ -148,6 +149,33 @@ public class BattleUI : UIInstance
 			return;
 		
 		NoticeSystem.Instance.Publish(new TurnEndClickNotice());
+	}
+
+	public void OpenDrawPanel(bool isEnemy)
+	{
+		Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+		{
+			cardInfoList = 
+				isEnemy
+				? Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyCardPool.GetShuffled()
+				: Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Deck.GetShuffled()
+		});
+	}
+
+	public void OpenDiscardPanel(bool isEnemy)
+	{
+		Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+		{
+			cardInfoList = 
+				isEnemy
+					? Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyDropCardList.GetShuffled()
+					: Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCardList.GetShuffled()
+		});
+	}
+
+	public void OpenExhaustionCardPanel()
+	{
+		//todo: impl
 	}
 
 	private void Update()

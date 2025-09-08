@@ -51,7 +51,10 @@ public class UISkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
             img.sprite = card.CardStaticSpec.CardResource;
         }
         
-        if (skillCard is UnitSkillCard unitSkillCard && unitSkillCard.UnitSkillCardStat.Owner != null)
+        //todo: fix
+        if (skillCard is UnitSkillCard unitSkillCard 
+            && unitSkillCard.UnitSkillCardStat.Owner != null
+            && unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList.Count > 0)
         {
             var spec = GameDataSystem.Instance.GetGameData<SynergyData>()
                 .GetSynergySpec(unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList[0]);

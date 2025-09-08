@@ -60,9 +60,13 @@ public class DeckSystem
 	}
 
 	private List<BattleCardObjectInHand> enemyCardPool = new();
+	public List<BattleCardObjectInHand> EnemyCardPool => enemyCardPool;
 	private List<BattleCardObjectInHand> enemyDropCardList = new();
+	public List<BattleCardObjectInHand> EnemyDropCardList => enemyDropCardList;
 	private List<BattleCardObjectInHand> deck = new();
+	public List<BattleCardObjectInHand> Deck => deck;
 	private List<BattleCardObjectInHand> dropCardList = new();
+	public List<BattleCardObjectInHand> DropCardList => dropCardList;
 
 	private GameObject deckObject;
 
@@ -390,9 +394,9 @@ public class DeckSystem
 	public void OnEnemyRemove(UnitCardInField enemy)
 	{
 		var obj = GetSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard) as UnitSkillCardInHand;
-		
+
 		if (obj == null) return;
-		
+
 		obj.SetDeadState();
 		RemoveCard(obj);
 		ShuffleEnemyDeck();
