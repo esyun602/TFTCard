@@ -337,7 +337,9 @@ public class DeckSystem
 		
 		//todo:fix
 		deck.Remove(target);
+		dropCardList.Remove(target);
 		enemyCardPool.Remove(target);
+		enemyDropCardList.Remove(target);
 	}
 
 	public void ShuffleDeck()
