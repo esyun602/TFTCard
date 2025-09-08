@@ -76,6 +76,11 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	public void Dispose()
 	{
 		isFxOn = null;
+		
+		NoticeSystem.Instance.Unsubscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
+		NoticeSystem.Instance.Unsubscribe<BuffAddNotice>(OnBuffAdd);
+		NoticeSystem.Instance.Unsubscribe<BuffLevelChangeNotice>(OnBuffLevelChange);
+		NoticeSystem.Instance.Unsubscribe<BuffRemoveNotice>(OnBuffRemove);
 	}
 
 	private void OnBuffRemove(BuffRemoveNotice m)
