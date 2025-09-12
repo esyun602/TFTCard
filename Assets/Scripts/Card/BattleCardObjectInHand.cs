@@ -19,10 +19,12 @@ public enum InputBlockFlag
 }
 
 //todo: transform cache?
-public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler,
+public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
+	IPointerExitHandler,
 	IMessageReceiver
 {
 	public bool IsTargeting => TargetCard.SkillCardStaticSpec.CardUseType == UseType.Targeting;
+
 	//todo: fix how?
 	public abstract SkillCardBase TargetCard { get; }
 	protected SimpleStateMachine cardObjectStateMachine = new();
@@ -33,7 +35,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 	protected Vector3 hoverTargetPos;
 
 	protected InputBlockFlag blockInput;
-	
+
 	public abstract ObjectType CardType { get; }
 
 	//todo: 스탯이 없는 카드
@@ -42,12 +44,17 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 	protected virtual bool CanSelect()
 	{
 		//todo: access fix?
-		if (Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -
-		    Game.Instance.GetPlayer().CurrentPlayInfo.MinEnergy < Stat.GetValueByValueType(SkillValueType.Cost))
+		//todo: for test
+		if (Stat.GetValueByValueType(SkillValueType.Cost) < 0)
 		{
 			return false;
 		}
-		
+		var turnSystem = Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem;
+		if (turnSystem.CurrentUsedCost + Stat.GetValueByValueType(SkillValueType.Cost) > turnSystem.CurrentTotalCost)
+		{
+			return false;
+		}
+
 		return true;
 	}
 
@@ -79,7 +86,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 	protected virtual void OnActivate()
 	{
-		
 	}
 
 	public void Deactivate()
@@ -92,7 +98,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 	protected virtual void OnDeactivate()
 	{
-		
 	}
 
 	public void UpdateBlockInput(InputBlockFlag flag)
@@ -167,13 +172,12 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
 		}
 	}
-	
+
 	private void OnUseComplete()
 	{
 		if (TargetCard.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
 		{
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveCard(this);
-					
 		}
 		else
 		{
@@ -287,7 +291,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			startScale = owner.transform.localScale;
 		}
 	}
-	
+
 	private class TargetingSkillCardSelectedInHandState : IState, IUpdatable
 	{
 		public bool IsMoving => targetPos != owner.transform.position;
@@ -320,7 +324,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			var mouseScreenPos = Input.mousePosition;
 			mouseScreenPos.z = 10f;
 			targetPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-		
+
 			NoticeSystem.Instance.Publish(new SkillHandCardSelectNotice(owner));
 			//owner.transform.position = targetPos.GetX0z(Constant.SelectYPos);;
 		}
@@ -337,7 +341,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			if (owner.CanUse(currentTile))
 			{
 				//todo: 사용함수를 분리?
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.Stat.GetValueByValueType(SkillValueType.Cost);
 				owner.ChangeState(new TargetingCardObjectUsedInHandState(owner, currentTile));
 			}
 		}
@@ -378,6 +381,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 					owner.TargetCard.Action.SetTriggerParam(currentTriggerInfo);
 					NoticeSystem.Instance.Publish(new TargetingCardAimedNotice(owner));
 				}
+
 				targetPos = currentTile.GetPosition().GetX0z(Constant.SelectYPos);
 			}
 			else
@@ -388,8 +392,10 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 					owner.TargetCard.Action.SetTriggerParam(null);
 					NoticeSystem.Instance.Publish(new TargetingCardAimRemovedNotice(owner));
 				}
+
 				targetPos = mousePos;
 			}
+
 			NoticeSystem.Instance.Publish(
 				new SkillHandCardTargetingUpdateNotice(Camera.main.WorldToScreenPoint(targetPos)));
 
@@ -454,7 +460,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 				throw new Exception();
 			}
 
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Energy -= owner.Stat.GetValueByValueType(SkillValueType.Cost);
 			owner.ChangeState(new GlobalCardObjectUsedInHandState(owner));
 		}
 
@@ -500,7 +505,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		}
 	}
 
-	private class TargetingCardObjectUsedInHandState : IState, IUpdatable
+	private class TargetingCardObjectUsedInHandState : IState
 	{
 		private BattleCardObjectInHand owner;
 		private IBattleObject targetObject;
@@ -519,6 +524,10 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
 			currentUpdateAction = UpdatePreAction;
 			timePassed = 0f;
+			
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(new UpdatableRoutine(UpdateFrame));
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
+
 		}
 
 		public void Exit(IState nextState)
@@ -557,17 +566,19 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		}
 
 
-		public void UpdateFrame(float dt)
+		private void UpdateFrame(float dt, out bool routineDone)
 		{
+			routineDone = false;
 			currentUpdateAction?.Invoke();
 			if (currentUpdateAction == null)
 			{
 				owner.OnUseComplete();
+				routineDone = true;
 			}
 		}
 	}
-	
-	private class GlobalCardObjectUsedInHandState : IState, IUpdatable
+
+	private class GlobalCardObjectUsedInHandState : IState
 	{
 		private BattleCardObjectInHand owner;
 		private IBattleObject targetObject;
@@ -584,6 +595,10 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
 			currentUpdateAction = UpdatePreAction;
 			timePassed = 0f;
+			
+			
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(new UpdatableRoutine(UpdateFrame));
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
 		}
 
 		public void Exit(IState nextState)
@@ -622,12 +637,15 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		}
 
 
-		public void UpdateFrame(float dt)
+		public void UpdateFrame(float dt, out bool routineDone)
 		{
+			routineDone = false;
 			currentUpdateAction?.Invoke();
 			if (currentUpdateAction == null)
 			{
 				owner.OnUseComplete();
+
+				routineDone = true;
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 public class UnitSkillCardBattleStat : SkillCardBattleStat
 {
-	public IBattleObject Owner { get; set; }
+	public IBattleObject Owner { get; }
 	public UnitSkillCardStat OriginStat { get; }
 	
 	//todo: fix?

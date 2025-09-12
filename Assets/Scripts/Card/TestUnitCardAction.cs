@@ -52,7 +52,7 @@ public class TestUnitCardAction : UnitCardActionBase
 				}
 			}
 		}
-		else if (timePassed > 0.5f)
+		else if (timePassed > 1.5f)
 		{
 			routineDone = true;
 		}
@@ -67,23 +67,8 @@ public class TestUnitCardAction : UnitCardActionBase
 
 	protected override void OnTrigger()
 	{
-		var rotSeq = DOTween.Sequence();
-		rotSeq.Append(owner.FrameTransform.DOLocalRotate(
-			Quaternion.AngleAxis((owner.ObjectType == ObjectType.Ally ? -1 : 1) * 20f, Vector3.forward).eulerAngles,
-			0.15f).SetEase(Ease.InQuart));
-
-		rotSeq.Append(owner.FrameTransform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-
-		var movSeq = DOTween.Sequence();
-		movSeq.Append(owner.FrameTransform
-			.DOLocalMove((owner.ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * owner.Transform.right,
-				0.15f).SetEase(Ease.InQuart));
-		movSeq.Append(owner.FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-
-		movSeq.Play();
-		rotSeq.Play();
-
-
+		owner.RunAttackMotion();
+		
 		timePassed = 0f;
 	}
 

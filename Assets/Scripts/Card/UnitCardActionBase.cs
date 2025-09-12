@@ -3,7 +3,7 @@ using MessageSystem;
 
 public abstract class UnitCardActionBase : IAction
 {
-	protected IBattleObject owner;
+	protected UnitCardInField owner;
 
 	private IUpdatableRoutine routine;
 	protected object triggerInfo;
@@ -37,7 +37,7 @@ public abstract class UnitCardActionBase : IAction
 
 	public virtual void SetBattleOwner(IBattleObject owner)
 	{
-		this.owner = owner;
+		this.owner = (UnitCardInField)owner;
 	}
 
 	//public abstract GridSelector AttackRangeInfo { get; }

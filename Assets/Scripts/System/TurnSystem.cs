@@ -7,20 +7,67 @@ public class TurnSystem
 {
 	private ITurnObject currentObject;
 
+	private int phase;
+	//todo:fix
+	private List<BattleCardObjectInHand> cardList;
+	private List<int> currentUsableCosts;
+	private List<int> currentCostCumulative;
+	private int currentUsedCost;
+
+	public int CurrentUsedCost
+	{
+		get => currentUsedCost;
+		set
+		{
+			while (phase < currentCostCumulative.Count && currentCostCumulative[phase] <= value)
+			{
+				//todo: 죽었을 때? 데미지만 먼저 적용? 
+				RegisterPlayerTurnRoutine(cardList[phase].TargetCard.Action.UpdatableRoutine);
+				//todo: fix
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(cardList[phase]);
+				phase++;
+			}
+
+			currentUsedCost = value;
+		}
+	}
+
+	public int CurrentTotalCost => currentCostCumulative[^1];
+
+	public void RegisterEnemyCard(BattleCardObjectInHand card)
+	{
+		cardList.Add(card);
+		currentUsableCosts.Add(-card.Stat.GetValueByValueType(SkillValueType.Cost));
+		currentCostCumulative.Add((currentCostCumulative.Count == 0 ? 0 : currentCostCumulative[^1]) + currentUsableCosts[^1]);
+	}
+
 	private Queue<ITurnObject> candidates;
 	private Action<float> currentUpdateRoutine;
-	private IUpdatableRoutine priorityRoutine;
+	private Queue<IUpdatableRoutine> priorityRoutine;
 	private PlayerTurn playerTurn;
 
 	public void Initialize()
 	{
 		//todo: fix subscribe once
 		NoticeSystem.Instance.Subscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
+		NoticeSystem.Instance.Subscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 
+		priorityRoutine = new();
 		candidates = new();
+
+		currentUsableCosts = new();
+		currentCostCumulative = new();
+		cardList = new();
+		currentUsedCost = 0;
 
 		playerTurn = new PlayerTurn();
 		playerTurn.Initialize();
+	}
+	
+	private void OnTurnEndButtonClick(TurnEndClickNotice m)
+	{
+		CurrentUsedCost = CurrentTotalCost;
+		playerTurn.EndTurn();
 	}
 
 	private void OnBattleStageInitRoutineDone(BattleStageInitRoutineDoneNotice m)
@@ -35,6 +82,12 @@ public class TurnSystem
 		if (candidates.Count == 0)
 		{
 			//todo: fix
+			cardList.Clear();
+			currentUsableCosts.Clear();
+			currentCostCumulative.Clear();
+			phase = 0;
+			currentUsedCost = 0;
+			
 			playerTurn.StartTurn();
 			currentUpdateRoutine = UpdatePlayerTurn;
 			return;
@@ -49,16 +102,17 @@ public class TurnSystem
 	{
 		playerTurn.Dispose();
 		NoticeSystem.Instance.Unsubscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
+		NoticeSystem.Instance.Unsubscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 	}
 
 	public void UpdateTurn(float dt)
 	{
-		if (priorityRoutine != null)
+		if (priorityRoutine.Count != 0)
 		{
-			priorityRoutine.UpdateFrame(dt, out var done);
+			priorityRoutine.Peek().UpdateFrame(dt, out var done);
 			if (done)
 			{
-				priorityRoutine = null;
+				priorityRoutine.Dequeue();
 			}
 
 			return;
@@ -69,9 +123,10 @@ public class TurnSystem
 
 	private void UpdatePlayerTurn(float dt)
 	{
-		playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
+			playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
 		if (done)
 		{
+			NoticeSystem.Instance.PublishSync(new PlayerTurnEndNotice(playerTurn));
 			StartAutoTurn();
 		}
 	}
@@ -100,8 +155,14 @@ public class TurnSystem
 		candidates.Enqueue(obj);
 	}
 
+	public void RegisterPlayerTurnRoutine(IUpdatableRoutine routine)
+	{
+		playerTurn.UpdatableCurrentRoutine.AddInterrupt(routine);
+	}
+
 	public void RegisterPriorityRoutine(IUpdatableRoutine routine)
 	{
-		priorityRoutine = routine;
+		priorityRoutine.Enqueue(routine);
+		routine.Initialize();
 	}
 }

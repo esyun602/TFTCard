@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MessageSystem;
 
 public abstract class SkillCardActionBase : IAction
 {
@@ -21,15 +22,23 @@ public abstract class SkillCardActionBase : IAction
 	
 	protected SkillCardActionBase()
 	{
-		routine = new UpdatableRoutine(UpdateFrame);
+		routine = new UpdatableRoutine(UpdateFrame, TriggerRoutine, CompleteRoutine);
 	}
 	
 	public void Trigger()
 	{
-		//todo: publish notice
-		
 		routine.Initialize();
+	}
+
+	private void TriggerRoutine()
+	{
+		NoticeSystem.Instance.Publish(new SkillCardActionTriggerNotice(this));
 		OnTrigger();
+	}
+
+	private void CompleteRoutine()
+	{
+		NoticeSystem.Instance.Publish(new SkillCardActionRoutineCompleteNotice(this));
 	}
 
 	public void Cancel()
@@ -60,7 +69,7 @@ public abstract class SkillCardActionBase : IAction
 		OnUpdate(dt, out routineDone);
 		if (routineDone)
 		{
-			//todo: publish
+			NoticeSystem.Instance.Publish(new SkillCardActionEndNotice(this));
 		}
 	}
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class UpdatableRoutine : IUpdatableRoutine
 {
 	public static IUpdatableRoutine CurrentRoutine { get; protected set; }
+	private IUpdatableRoutine currentInterruptRoutine;
 	public delegate void UpdatableRoutineDelegate(float dt, out bool done);
 
 	private Queue<IUpdatableRoutine> interruptQueue;
@@ -14,11 +15,13 @@ public class UpdatableRoutine : IUpdatableRoutine
 	private UpdatableRoutineDelegate currentSubRoutine;
 
 	private Action initializeAction;
+	private Action completeAction;
 	
-	public UpdatableRoutine(UpdatableRoutineDelegate routine, Action initializeAction = null)
+	public UpdatableRoutine(UpdatableRoutineDelegate routine, Action initializeAction = null, Action completeAction = null)
 	{
 		this.baseRoutine = routine;
 		this.initializeAction = initializeAction;
+		this.completeAction = completeAction;
 	}
 
 	public void Initialize()
@@ -41,6 +44,7 @@ public class UpdatableRoutine : IUpdatableRoutine
 		{
 			routineDone = true;
 			CurrentRoutine = null;
+			completeAction?.Invoke();
 			return;
 		}
 
@@ -48,7 +52,7 @@ public class UpdatableRoutine : IUpdatableRoutine
 		
 		routineDone = false;
 		
-		if (interruptQueue.Count == 0)
+		if (currentInterruptRoutine == null)
 		{
 			currentSubRoutine.Invoke(dt, out var subRoutineDone);
 			if (subRoutineDone && chainQueue.TryDequeue(out var chainedRoutine))
@@ -63,10 +67,18 @@ public class UpdatableRoutine : IUpdatableRoutine
 		}
 		else
 		{
-			interruptQueue.Peek().UpdateFrame(dt, out var subRoutineDone);
+			currentInterruptRoutine.UpdateFrame(dt, out var subRoutineDone);
 			if (subRoutineDone)
 			{
-				interruptQueue.Dequeue();
+				if (interruptQueue.TryDequeue(out var iRoutine))
+				{
+					currentInterruptRoutine = iRoutine;
+					iRoutine.Initialize();
+				}
+				else
+				{
+					currentInterruptRoutine = null;
+				}
 			}
 		}
 	}
@@ -78,7 +90,14 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 	public void AddInterrupt(IUpdatableRoutine routine)
 	{
-		interruptQueue.Enqueue(routine);
-		routine.Initialize();
+		if (currentInterruptRoutine == null)
+		{
+			currentInterruptRoutine = routine;
+			routine.Initialize();
+		}
+		else
+		{
+			interruptQueue.Enqueue(routine);
+		}
 	}
 }
