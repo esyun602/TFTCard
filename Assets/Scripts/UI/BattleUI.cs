@@ -180,6 +180,8 @@ public class BattleUI : UIInstance
 
 	private void Update()
 	{
+		//todo: remove test code
+		energy.text = Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn.ToString();
 	}
 
 	protected override void OnRemove()

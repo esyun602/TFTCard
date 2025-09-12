@@ -53,14 +53,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		//todo: fix
 		SpawnAllyUnits();
 		SynergySystem.ActivateSynergies();
-		if (WaveSystem.TrySpawnNextWave(out var initialRoutine))
-		{
-			battleStageStateMachine.ChangeState(new BattleStageInitState(this, initialRoutine));
-		}
-		else
-		{
-			throw new ArgumentException();
-		}
+		WaveSystem.SpawnInitialWave(out var initialRoutine);
+		battleStageStateMachine.ChangeState(new BattleStageInitState(this, initialRoutine));
 	}
 	private void SpawnAllyUnits()
 	{
@@ -126,11 +120,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		}
 		else if (m.Type == ObjectType.Enemy)
 		{
-			if (WaveSystem.TrySpawnNextWave(out var routine))
-			{
-				m.Context.AddChain(routine);
-			}
-			else
+			if(WaveSystem.IsInLastWave)
 			{
 				ClearStage();
 				battleStageStateMachine.ChangeState(new BattleStageGameClearState(this));

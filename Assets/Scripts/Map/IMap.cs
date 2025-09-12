@@ -54,6 +54,18 @@ public static class IMapExtensions
 		}
 	}
 	
+	public static ITile GetUpwardTile(this IMap map, ITile tile)
+	{
+		var (row, col) = map.GetTileCoord(tile);
+		return map.GetTileAt((row + 1) % map.RowCnt, col);
+	}
+	
+	public static ITile GetDownwardTile(this IMap map, ITile tile)
+	{
+		var (row, col) = map.GetTileCoord(tile);
+		return map.GetTileAt((row - 1) % map.RowCnt, col);
+	}
+	
 	public static bool IsInTriggerPos(this IMap map, GridSelector gridSelector, IBattleObject owner)
 	{
 		if (owner.ObjectType == ObjectType.Enemy)

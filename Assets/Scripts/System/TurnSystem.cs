@@ -6,6 +6,7 @@ using MessageSystem;
 public class TurnSystem
 {
 	private ITurnObject currentObject;
+	public int CurrentTurnCount => playerTurn.CurrentTurnCount;
 
 	private int phase;
 	//todo:fix

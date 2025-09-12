@@ -19,11 +19,14 @@ public class PlayerTurn : IDisposable
 	private IUpdatableRoutine turnRoutine;
 	private IUpdatableRoutine currentRoutine;
 	public IUpdatableRoutine UpdatableCurrentRoutine => currentRoutine;
+	//one-base
+	public int CurrentTurnCount { get; private set; }
 	public void Initialize()
 	{
-		startRoutine = new UpdatableRoutine(UpdateTurnStart);
+		startRoutine = new UpdatableRoutine(UpdateTurnStart, () => CoroutineManager.Instance.StartCoroutine(TurnStartRoutine()));
 		turnRoutine = new UpdatableRoutine(UpdateTurn);
 		currentRoutine = startRoutine;
+		CurrentTurnCount = 0;
 	}
 
 	public void Dispose()
@@ -38,10 +41,23 @@ public class PlayerTurn : IDisposable
 
 	public void StartTurn()
 	{
+		CurrentTurnCount++;
 		turnStartRoutineDone = false;
-		currentRoutine = startRoutine;
-		currentRoutine.Initialize();
-		CoroutineManager.Instance.StartCoroutine(TurnStartRoutine());
+		
+		var waveSystem = Game.Instance.GetGameMode<BattleStageGameMode>().WaveSystem;
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().WaveSystem.IsSatisfySpawnWaveCondition())
+		{
+			if(waveSystem.TrySpawnNextWave(out var routine))
+			{
+				currentRoutine = routine;
+				routine.AddChain(startRoutine);
+			}
+		}
+		else
+		{
+			currentRoutine = startRoutine;
+			currentRoutine.Initialize();
+		}
 	}
 
 	private void UpdateTurnStart(float dt, out bool routineDone)
