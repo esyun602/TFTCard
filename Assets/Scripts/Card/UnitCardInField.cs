@@ -64,6 +64,28 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		
 		movSeq.Play();
 	}
+
+	private bool onAttack;
+	public void RunAttackMotion()
+	{
+		onAttack = true;
+		var rotSeq = DOTween.Sequence();
+		rotSeq.Append(FrameTransform.DOLocalRotate(
+			Quaternion.AngleAxis((ObjectType == ObjectType.Ally ? -1 : 1) * 20f, Vector3.forward).eulerAngles,
+			0.15f).SetEase(Ease.InQuart));
+
+		rotSeq.Append(FrameTransform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
+
+		var movSeq = DOTween.Sequence();
+		movSeq.Append(FrameTransform
+			.DOLocalMove((ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * Transform.right,
+				0.15f).SetEase(Ease.InQuart));
+		movSeq.Append(FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
+		movSeq.AppendCallback(() => onAttack = false);
+
+		movSeq.Play();
+		rotSeq.Play();
+	}
 	
 	private void RunDodgeAction()
 	{
@@ -92,11 +114,11 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		ChangeState(null);
 
 		DamagedBehaviour.DetachFrom(this);
-		DamagedBehaviour = null;
+		DamagedBehaviour = NullDamagedBehaviour.Instance;
 		
 		//stat에서 dispose에서
 		UnitCardBattleStat.Dispose();
-		//UnitCardBattleStat = null;
+		UnitCardBattleStat = NullBattleObjectStat.Instance;
 		NoticeSystem.Instance.Publish(new BattleObjectDestroyedNotice(destroyer, this));
 		
 		gameObject.SetActive(false);
@@ -342,6 +364,10 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			{
 				return Constant.FieldMoveYPos;
 			}
+			else if (owner.onAttack)
+			{
+				return Constant.AttackYPos;
+			}
 			else
 			{
 				return Constant.FieldYPos;
@@ -566,7 +592,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			owner.routine = new UpdatableRoutine(UpdateFrame);
 			owner.routine.Initialize();
 			currentUpdateAction = UpdateTurnCount;
-			owner.transform.position = owner.transform.position.GetX0z(Constant.FieldHoverYPos);
+			owner.transform.position = owner.transform.position.GetX0z(Constant.AttackYPos);
 		}
 
 		private void UpdateFrame(float dt, out bool done)
@@ -631,5 +657,12 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	{
 		GetComponentInChildren<ICardInfoHandler>().Dispose();
 		fxHandler.Dispose();
+		
+		DamagedBehaviour.DetachFrom(this);
+		DamagedBehaviour = NullDamagedBehaviour.Instance;
+		
+		//stat에서 dispose에서
+		UnitCardBattleStat.Dispose();
+		UnitCardBattleStat = NullBattleObjectStat.Instance;
 	}
 }

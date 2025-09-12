@@ -87,6 +87,8 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
 		NoticeSystem.Instance.Subscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Subscribe<SkillCardActionTriggerNotice>(OnSkillCardActionTrigger);
+		NoticeSystem.Instance.Subscribe<SkillCardActionRoutineCompleteNotice>(OnSkillCardActionComplete);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
@@ -107,6 +109,21 @@ public class DeckSystem
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
+	
+	private void OnSkillCardActionTrigger(SkillCardActionTriggerNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.TargetAction);
+		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+	}
+
+	private void OnSkillCardActionComplete(SkillCardActionRoutineCompleteNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.TargetAction);
+		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+	}
+
 
 	private BattleCardObjectInHand GenerateTacticsCardInstance(TacticsCard skillCard, bool addToEnemyPool = false)
 	{
@@ -214,11 +231,6 @@ public class DeckSystem
 		{
 			DrawEnemyCard();
 		}
-
-		if (PlayerHand.HasEnemyCard)
-		{
-			blockInputHandler.BlockInputs(InputBlockFlag.TurnEnd, this);
-		}
 	}
 
 	private void OnPlayerTurnEnd(PlayerTurnEndNotice m)
@@ -253,11 +265,6 @@ public class DeckSystem
 	private void OnCardEndUse(SkillHandCardEndUseNotice m)
 	{
 		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
-
-		if (!PlayerHand.HasEnemyCard)
-		{
-			blockInputHandler.RestoreInputs(InputBlockFlag.TurnEnd, this);
-		}
 		
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
@@ -313,8 +320,11 @@ public class DeckSystem
 		targetCard.Activate();
 		enemyCardPool.RemoveAt(enemyCardPool.Count - 1);
 		PlayerHand.AddCard(targetCard);
+		
+		Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterEnemyCard(targetCard);
 	}
 
+	//todo: hand 말고 다른 곳에서 버릴 때
 	public void DropCard(BattleCardObjectInHand target)
 	{
 		if (PlayerHand.CardList.Count == 0)

@@ -21,7 +21,6 @@ public class PlayerTurn : IDisposable
 	public IUpdatableRoutine UpdatableCurrentRoutine => currentRoutine;
 	public void Initialize()
 	{
-		NoticeSystem.Instance.Subscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 		startRoutine = new UpdatableRoutine(UpdateTurnStart);
 		turnRoutine = new UpdatableRoutine(UpdateTurn);
 		currentRoutine = startRoutine;
@@ -29,18 +28,11 @@ public class PlayerTurn : IDisposable
 
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
-	}
-
-	private void OnTurnEndButtonClick(TurnEndClickNotice m)
-	{
-		EndTurn();
 	}
 	
-	private void EndTurn()
+	public void EndTurn()
 	{
 		playerActionDone = true;
-		NoticeSystem.Instance.PublishSync(new PlayerTurnEndNotice(this));
 	}
 
 
