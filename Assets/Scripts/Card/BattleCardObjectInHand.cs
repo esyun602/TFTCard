@@ -175,14 +175,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 	private void OnUseComplete()
 	{
-		if (TargetCard.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
-		{
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveCard(this);
-		}
-		else
-		{
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(this);
-		}
 	}
 
 	protected class CardObjectNormalInHandState : IState, IUpdatable, IMessageReceiver
@@ -525,6 +517,15 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			currentUpdateAction = UpdatePreAction;
 			timePassed = 0f;
 			
+			if (owner.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveCard(owner);
+			}
+			else
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
+			}
+			
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(new UpdatableRoutine(UpdateFrame));
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
 
@@ -595,7 +596,15 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
 			currentUpdateAction = UpdatePreAction;
 			timePassed = 0f;
-			
+						
+			if (owner.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveCard(owner);
+			}
+			else
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
+			}
 			
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(new UpdatableRoutine(UpdateFrame));
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
