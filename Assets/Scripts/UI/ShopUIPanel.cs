@@ -73,7 +73,7 @@ public class ShopUIPanel : UIInstance
 	public void OnCardClick(DraftUICardSelectedNotice notice)
 	{
 		//todo: fix
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add((TacticsCard)notice.SelectedCard.TargetCard);
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
 		OnEnd();
 	}
 

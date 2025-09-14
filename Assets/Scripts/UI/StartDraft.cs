@@ -53,7 +53,7 @@ public class StartDraft : UIInstance
 
 	private void OnSelected(DraftUICardSelectedNotice m)
 	{
-		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Add((UnitCard)m.SelectedCard.TargetCard);
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(m.SelectedCard.TargetCard);
 		for (var i = currentCardList.Count - 1; i >= 0; i--)
 		{
 			currentCardList[i].Dispose();

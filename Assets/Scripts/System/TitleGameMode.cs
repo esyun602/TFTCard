@@ -16,13 +16,13 @@ public class TitleGameMode : IGameMode
 	private void StartGame()
 	{
 		//todo: 카드 추가 관련 위치 수정
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Damage")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Damage")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Shield")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Shield")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Repose")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Repose")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList.Add(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("FireArrow")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Damage")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Damage")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Shield")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Shield")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Repose")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Repose")));
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("FireArrow")));
 
 		var info =	GameDataSystem.Instance.GetGameData<FlowGenData>().GetFlowSpec("EnemyFlow").GenerateFlow();
 		foreach (var head in info.GetHeads())

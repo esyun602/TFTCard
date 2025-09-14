@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 public class UnitCardSpec : ICardSpec
 {
+	public int Id { get; private set; }
 	public string Name { get; private set; }
 	public string NameKey { get; private set; }
 	public string DescKey { get; private set; }
@@ -19,6 +20,7 @@ public class UnitCardSpec : ICardSpec
 	public static UnitCardSpec Create(Dictionary<string, object> param)
 	{
 		var spec = new UnitCardSpec();
+		spec.Id = param.GetInt(nameof(Id));
 		spec.Name = param.GetString(nameof(Name));
 		spec.NameKey = param.GetString(nameof(NameKey));
 		spec.DescKey = param.GetString(nameof(DescKey));

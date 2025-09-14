@@ -19,7 +19,8 @@ public class DeployInfo
 
 public class PlayInfo
 {
-	public List<UnitCard> BagUnitCardList { get; } = new();
+	private List<UnitCard> bagUnitCardList = new();
+	public IEnumerable<UnitCard> BagUnitCardList => bagUnitCardList;
 
 	public IEnumerable<UnitCard> TotalUnitCards
 	{
@@ -56,10 +57,11 @@ public class PlayInfo
 	}
 
 	//todo: 가방 고칠 때 수정
-	public int TotalDeckCardsCount => TacticsCardList.Count + UnitSkillCardList.Count;	
+	public int TotalDeckCardsCount => TacticsCardList.Count() + UnitSkillCardList.Count;
 
+	private List<TacticsCard> tacticsCardList = new();
 	//todo: fix?
-	public List<TacticsCard> TacticsCardList { get; } = new();
+	public IEnumerable<TacticsCard> TacticsCardList => tacticsCardList;
 
 	//todo: 가방 고칠 때 수정
 	public List<UnitSkillCard> UnitSkillCardList => FieldDeployLocationInfo.Select(x => x.TargetCard.UnitSkillCard).ToList();
@@ -94,7 +96,7 @@ public class PlayInfo
 
 		if (FieldDeployLocationInfo.Count < MaxDeployCount)
 		{
-			var toDeployCount = Mathf.Min(MaxDeployCount - FieldDeployLocationInfo.Count, BagUnitCardList.Count);
+			var toDeployCount = Mathf.Min(MaxDeployCount - FieldDeployLocationInfo.Count, BagUnitCardList.Count());
 
 			for (var row = 2; row >= 0; row--)
 			{
@@ -108,7 +110,7 @@ public class PlayInfo
 					if (!FieldDeployLocationInfo.Any(info => info.Row == row && info.Col == col))
 					{
 						toDeployCount--;
-						var targetCard = BagUnitCardList[^1];
+						var targetCard = BagUnitCardList.Last();
 						DeployCard(row, col, targetCard);
 					}
 				}
@@ -123,7 +125,7 @@ public class PlayInfo
 
 	public void DeployCard(int row, int col, UnitCard targetCard)
 	{
-		var isInBag = BagUnitCardList.Remove(targetCard);
+		var isInBag = RemoveCard(targetCard);
 		if (isInBag)
 		{
 			//var unitSkillCard = targetCard.UnitSkillCard;
@@ -167,7 +169,7 @@ public class PlayInfo
 	public void UndeployCard(UnitCard targetCard)
 	{
 		FieldDeployLocationInfo.RemoveAll(info => info.TargetCard == targetCard);
-		BagUnitCardList.Add(targetCard);
+		AddCard(targetCard);
 		//var unitSkillCard = targetCard.UnitSkillCard;
 		//UnitSkillCardList.Remove(unitSkillCard);
 
@@ -183,6 +185,37 @@ public class PlayInfo
 
 		NormalizeLocationInfos();
 		RefreshSynergyList();
+	}
+
+	public void AddCard(ICard card)
+	{
+		if (card is UnitCard unitCard)
+		{
+			bagUnitCardList.Add(unitCard);
+			bagUnitCardList.Sort((x,y) => x.UnitCardStaticSpec.Id.CompareTo(y.UnitCardStaticSpec.Id));
+		}
+		else if (card is TacticsCard tacticsCard)
+		{
+			tacticsCardList.Add(tacticsCard);
+			tacticsCardList.Sort((x,y) => x.SkillCardStaticSpec.Id.CompareTo(y.SkillCardStaticSpec.Id));
+		}
+	}
+
+	public bool RemoveCard(ICard card)
+	{
+		var removed = false;
+		if (card is UnitCard unitCard)
+		{
+			removed = bagUnitCardList.Remove(unitCard);
+			bagUnitCardList.Sort((x,y) => x.UnitCardStaticSpec.Id.CompareTo(y.UnitCardStaticSpec.Id));
+		}
+		else if (card is TacticsCard tacticsCard)
+		{
+			removed = tacticsCardList.Remove(tacticsCard);
+			tacticsCardList.Sort((x,y) => x.SkillCardStaticSpec.Id.CompareTo(y.SkillCardStaticSpec.Id));
+		}
+
+		return removed;
 	}
 
 	private void RefreshSynergyList()
