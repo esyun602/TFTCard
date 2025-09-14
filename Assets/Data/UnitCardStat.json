@@ -5,7 +5,6 @@
       "Alchemist"
     ],
     "Attack": 4,
-    "MaxTurnCount": 999,
     "MaxHp": 6
   },
   {
@@ -14,7 +13,6 @@
       "SteamEngine"
     ],
     "Attack": 2,
-    "MaxTurnCount": 999,
     "MaxHp": 4
   },
   {
@@ -23,7 +21,6 @@
       "SteamEngine"
     ],
     "Attack": 4,
-    "MaxTurnCount": 999,
     "MaxHp": 10
   },
   {
@@ -32,7 +29,6 @@
       "Alchemist"
     ],
     "Attack": 2,
-    "MaxTurnCount": 999,
     "MaxHp": 8
   },
   {
@@ -41,7 +37,6 @@
       "Alchemist"
     ],
     "Attack": 2,
-    "MaxTurnCount": 999,
     "MaxHp": 13
   },
   {
@@ -50,7 +45,6 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxTurnCount": 999,
     "MaxHp": 11
   },
   {
@@ -59,7 +53,6 @@
       "SteamEngine"
     ],
     "Attack": 3,
-    "MaxTurnCount": 999,
     "MaxHp": 6
   },
   {
@@ -68,7 +61,6 @@
       "Alchemist"
     ],
     "Attack": 2,
-    "MaxTurnCount": 999,
     "MaxHp": 4
   },
   {
@@ -77,7 +69,6 @@
       "Alchemist"
     ],
     "Attack": 3,
-    "MaxTurnCount": 999,
     "MaxHp": 5
   },
   {
@@ -86,7 +77,6 @@
       "SteamEngine"
     ],
     "Attack": 4,
-    "MaxTurnCount": 999,
     "MaxHp": 8
   },
   {
@@ -95,7 +85,6 @@
       ""
     ],
     "Attack": 3,
-    "MaxTurnCount": 999,
     "MaxHp": 4
   },
   {
@@ -103,8 +92,7 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 3,
-    "MaxTurnCount": 999,
+    "Attack": 6,
     "MaxHp": 8
   },
   {
@@ -113,7 +101,6 @@
       ""
     ],
     "Attack": 1,
-    "MaxTurnCount": 999,
     "MaxHp": 5
   },
   {
@@ -122,7 +109,6 @@
       ""
     ],
     "Attack": 2,
-    "MaxTurnCount": 999,
     "MaxHp": 3
   },
   {
@@ -130,26 +116,23 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 4,
-    "MaxTurnCount": 999,
-    "MaxHp": 7
+    "Attack": 6,
+    "MaxHp": 11
   },
   {
     "Name": "EnemySlaveGuardStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 1,
-    "MaxTurnCount": 999,
-    "MaxHp": 4
+    "Attack": 2,
+    "MaxHp": 5
   },
   {
     "Name": "EnemyWorkshopSupervisorStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 3,
-    "MaxTurnCount": 999,
+    "Attack": 7,
     "MaxHp": 8
   },
   {
@@ -157,26 +140,23 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 3,
-    "MaxTurnCount": 999,
-    "MaxHp": 12
+    "Attack": 6,
+    "MaxHp": 15
   },
   {
     "Name": "EnemyBrassMonsterStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 2,
-    "MaxTurnCount": 999,
-    "MaxHp": 15
+    "Attack": 4,
+    "MaxHp": 20
   },
   {
     "Name": "EnemyVacuumTubeLumpStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 6,
-    "MaxTurnCount": 999,
+    "Attack": 10,
     "MaxHp": 3
   }
 ]
