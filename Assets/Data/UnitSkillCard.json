@@ -1,202 +1,312 @@
 [
   {
-    "Name": "BiologicalExperiment",
-    "NameKey": "act_skill_biological_experiment",
-    "DescKey": "act_skill_biological_experiment_desc",
-    "StatSpecName": "BiologicalExperimentStat",
-    "CardResource": "skill_biologicalexperiment_default",
-    "ActionSpecName": "BiologicalExperiment",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "SteamPack",
-    "NameKey": "act_skill_steampack",
-    "DescKey": "act_skill_steampack_desc",
-    "StatSpecName": "SteamPackStat",
-    "CardResource": "skill_steampack_default",
-    "ActionSpecName": "SteamPack",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "HighPressureBomb",
-    "NameKey": "act_skill_high_pressure_bomb",
-    "DescKey": "act_skill_high_pressure_bomb_desc",
-    "StatSpecName": "HighPressureBombStat",
-    "CardResource": "skill_highpressurebomb_default",
-    "ActionSpecName": "HighPressureBomb",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "ChainReaction",
-    "NameKey": "act_skill_chain_reaction",
-    "DescKey": "act_skill_chain_reaction_desc",
-    "StatSpecName": "ChainReactionStat",
-    "CardResource": "skill_chainreaction_default",
-    "ActionSpecName": "ChainReaction",
-    "CardUseType": "Global",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "EquivalentExchange",
-    "NameKey": "act_skill_equivalent_exchange",
-    "DescKey": "act_skill_equivalent_exchange_desc",
-    "StatSpecName": "EquivalentExchangeStat",
-    "CardResource": "skill_equivalentexchange_default",
-    "ActionSpecName": "EquivalentExchange",
-    "CardUseType": "Global",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "Flamethrower",
-    "NameKey": "act_skill_flamethrower",
-    "DescKey": "act_skill_flamethrower_desc",
-    "StatSpecName": "FlamethrowerStat",
-    "CardResource": "skill_flamethrower_default",
-    "ActionSpecName": "Flamethrower",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "AutoMail",
-    "NameKey": "act_skill_automail",
-    "DescKey": "act_skill_automail_desc",
-    "StatSpecName": "AutoMailStat",
-    "CardResource": "skill_automail_default",
-    "ActionSpecName": "AutoMail",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "Panacea",
-    "NameKey": "act_skill_panacea",
-    "DescKey": "act_skill_panacea_desc",
-    "StatSpecName": "PanaceaStat",
-    "CardResource": "skill_panacea_default",
-    "ActionSpecName": "Panacea",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
-    "Name": "PositiveFeedback",
-    "NameKey": "act_skill_positive_feedback",
-    "DescKey": "act_skill_positive_feedback_desc",
-    "StatSpecName": "PositiveFeedbackStat",
-    "CardResource": "skill_positivefeedback_default",
-    "ActionSpecName": "PositiveFeedback",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
-  },
-  {
+    "Id": 0,
     "Name": "OverheatPropulsion",
     "NameKey": "act_skill_overheat_propulsion",
     "DescKey": "act_skill_overheat_propulsion_desc",
     "StatSpecName": "OverheatPropulsionStat",
     "CardResource": "skill_overheatpropulsion_default",
     "ActionSpecName": "OverheatPropulsion",
-    "CardUseType": "Targeting",
-    "IsUnitAction": true
+    "CardUseType": "Targeting"
   },
   {
+    "Id": 1,
+    "Name": "Flamethrower",
+    "NameKey": "act_skill_flamethrower",
+    "DescKey": "act_skill_flamethrower_desc",
+    "StatSpecName": "FlamethrowerStat",
+    "CardResource": "skill_flamethrower_default",
+    "ActionSpecName": "Flamethrower",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 2,
+    "Name": "VaperAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 3,
+    "Name": "HighPressureBomb",
+    "NameKey": "act_skill_high_pressure_bomb",
+    "DescKey": "act_skill_high_pressure_bomb_desc",
+    "StatSpecName": "HighPressureBombStat",
+    "CardResource": "skill_highpressurebomb_default",
+    "ActionSpecName": "HighPressureBomb",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 4,
+    "Name": "AutoMail",
+    "NameKey": "act_skill_automail",
+    "DescKey": "act_skill_automail_desc",
+    "StatSpecName": "AutoMailStat",
+    "CardResource": "skill_automail_default",
+    "ActionSpecName": "AutoMail",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 5,
+    "Name": "SteamPack",
+    "NameKey": "act_skill_steampack",
+    "DescKey": "act_skill_steampack_desc",
+    "StatSpecName": "SteamPackStat",
+    "CardResource": "skill_steampack_default",
+    "ActionSpecName": "SteamPack",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 6,
+    "Name": "VilhelmAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 7,
+    "Name": "CollectorAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 8,
+    "Name": "GrahamAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 9,
+    "Name": "NormanAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 10,
+    "Name": "DawsonAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 11,
+    "Name": "DesmondAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 12,
+    "Name": "DerrickAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 13,
+    "Name": "DustinAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 14,
+    "Name": "BiologicalExperiment",
+    "NameKey": "act_skill_biological_experiment",
+    "DescKey": "act_skill_biological_experiment_desc",
+    "StatSpecName": "BiologicalExperimentStat",
+    "CardResource": "skill_biologicalexperiment_default",
+    "ActionSpecName": "BiologicalExperiment",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 15,
+    "Name": "EquivalentExchange",
+    "NameKey": "act_skill_equivalent_exchange",
+    "DescKey": "act_skill_equivalent_exchange_desc",
+    "StatSpecName": "EquivalentExchangeStat",
+    "CardResource": "skill_equivalentexchange_default",
+    "ActionSpecName": "EquivalentExchange",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 16,
+    "Name": "PositiveFeedback",
+    "NameKey": "act_skill_positive_feedback",
+    "DescKey": "act_skill_positive_feedback_desc",
+    "StatSpecName": "PositiveFeedbackStat",
+    "CardResource": "skill_positivefeedback_default",
+    "ActionSpecName": "PositiveFeedback",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 17,
+    "Name": "ChainReaction",
+    "NameKey": "act_skill_chain_reaction",
+    "DescKey": "act_skill_chain_reaction_desc",
+    "StatSpecName": "ChainReactionStat",
+    "CardResource": "skill_chainreaction_default",
+    "ActionSpecName": "ChainReaction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 18,
+    "Name": "Panacea",
+    "NameKey": "act_skill_panacea",
+    "DescKey": "act_skill_panacea_desc",
+    "StatSpecName": "PanaceaStat",
+    "CardResource": "skill_panacea_default",
+    "ActionSpecName": "Panacea",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 19,
+    "Name": "CabinotierAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 20,
+    "Name": "AirshipAction",
+    "NameKey": "",
+    "DescKey": "",
+    "StatSpecName": "",
+    "CardResource": "",
+    "ActionSpecName": "",
+    "CardUseType": ""
+  },
+  {
+    "Id": 21,
     "Name": "PatrolMachineAction",
     "NameKey": "unit_enemy_patrolmachine",
     "DescKey": "",
     "StatSpecName": "PatrolMachineActionStat",
     "CardResource": "enemy_patrolmachine_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 22,
     "Name": "HiredGangsterAction",
     "NameKey": "unit_enemy_hiredgangster",
     "DescKey": "",
     "StatSpecName": "HiredGangsterActionStat",
     "CardResource": "enemy_hiredgangster_default",
     "ActionSpecName": "EnemyAction2Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 23,
     "Name": "GuardAutomatonAction",
     "NameKey": "unit_enemy_guardautomaton",
     "DescKey": "",
     "StatSpecName": "GuardAutomatonActionStat",
     "CardResource": "enemy_guardautomaton_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 24,
     "Name": "RepairMachineAction",
     "NameKey": "unit_enemy_repairmachine",
     "DescKey": "",
     "StatSpecName": "RepairMachineActionStat",
     "CardResource": "enemy_repairmachine_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 25,
     "Name": "MechanizedSlaveAction",
     "NameKey": "unit_enemy_mechanizedslave",
     "DescKey": "",
     "StatSpecName": "MechanizedSlaveActionStat",
     "CardResource": "enemy_mechanizedslave_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 26,
     "Name": "SlaveGuardAction",
     "NameKey": "unit_enemy_slaveguard",
     "DescKey": "",
     "StatSpecName": "SlaveGuardActionStat",
     "CardResource": "enemy_slaveguard_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 27,
     "Name": "WorkshopSupervisorAction",
     "NameKey": "unit_enemy_workshopsupervisor",
     "DescKey": "",
     "StatSpecName": "WorkshopSupervisorActionStat",
     "CardResource": "enemy_workshopsupervisor_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 28,
     "Name": "ScrapMonsterAction",
     "NameKey": "unit_enemy_scrapmonster",
     "DescKey": "",
     "StatSpecName": "ScrapMonsterActionStat",
     "CardResource": "enemy_scrapmonster_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 29,
     "Name": "BrassMonsterAction",
     "NameKey": "unit_enemy_brassmonster",
     "DescKey": "",
     "StatSpecName": "BrassMonsterActionStat",
     "CardResource": "enemy_brassmonster_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   },
   {
+    "Id": 30,
     "Name": "VacuumTubeLumpAction",
     "NameKey": "unit_enemy_vacuumtubelump",
     "DescKey": "",
     "StatSpecName": "VacuumTubeLumpActionStat",
     "CardResource": "enemy_vacuumtubelump_default",
     "ActionSpecName": "EnemyAction1Adapter",
-    "CardUseType": "Global",
-    "IsUnitAction": true
+    "CardUseType": "Global"
   }
 ]

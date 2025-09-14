@@ -1,86 +1,6 @@
 [
   {
-    "Name": "Alle",
-    "NameKey": "unit_alle",
-    "DescKey": "",
-    "StatSpecName": "AlleStat",
-    "CardResource": "alle_default",
-    "ActionSpecName": "AlchemistAction",
-    "TargetSkillCardSpecName": "BiologicalExperiment"
-  },
-  {
-    "Name": "Bella",
-    "NameKey": "unit_bella",
-    "DescKey": "",
-    "StatSpecName": "BellaStat",
-    "CardResource": "bella_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "SteamPack"
-  },
-  {
-    "Name": "Cowl",
-    "NameKey": "unit_cowl",
-    "DescKey": "",
-    "StatSpecName": "CowlStat",
-    "CardResource": "cowl_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "HighPressureBomb"
-  },
-  {
-    "Name": "Dacane",
-    "NameKey": "unit_dacane",
-    "DescKey": "",
-    "StatSpecName": "DacaneStat",
-    "CardResource": "dacane_default",
-    "ActionSpecName": "AlchemistAction",
-    "TargetSkillCardSpecName": "ChainReaction"
-  },
-  {
-    "Name": "Equinox",
-    "NameKey": "unit_equinox",
-    "DescKey": "",
-    "StatSpecName": "EquinoxStat",
-    "CardResource": "equinox_default",
-    "ActionSpecName": "AlchemistAction",
-    "TargetSkillCardSpecName": "EquivalentExchange"
-  },
-  {
-    "Name": "Firebat",
-    "NameKey": "unit_firebat",
-    "DescKey": "",
-    "StatSpecName": "FirebatStat",
-    "CardResource": "firebat_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "Flamethrower"
-  },
-  {
-    "Name": "Guttie",
-    "NameKey": "unit_guttie",
-    "DescKey": "",
-    "StatSpecName": "GuttieStat",
-    "CardResource": "guttie_default",
-    "ActionSpecName": "DefaultAction",
-    "TargetSkillCardSpecName": "AutoMail"
-  },
-  {
-    "Name": "Pana",
-    "NameKey": "unit_pana",
-    "DescKey": "",
-    "StatSpecName": "PanaStat",
-    "CardResource": "pana_default",
-    "ActionSpecName": "AlchemistAction",
-    "TargetSkillCardSpecName": "Panacea"
-  },
-  {
-    "Name": "Posi",
-    "NameKey": "unit_posi",
-    "DescKey": "",
-    "StatSpecName": "PosiStat",
-    "CardResource": "posi_default",
-    "ActionSpecName": "AlchemistAction",
-    "TargetSkillCardSpecName": "PositiveFeedback"
-  },
-  {
+    "Id": 0,
     "Name": "Walter",
     "NameKey": "unit_walter",
     "DescKey": "",
@@ -90,6 +10,207 @@
     "TargetSkillCardSpecName": "OverheatPropulsion"
   },
   {
+    "Id": 1,
+    "Name": "Firebat",
+    "NameKey": "unit_firebat",
+    "DescKey": "",
+    "StatSpecName": "FirebatStat",
+    "CardResource": "firebat_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "Flamethrower"
+  },
+  {
+    "Id": 2,
+    "Name": "Vaper",
+    "NameKey": "unit_vaper",
+    "DescKey": "",
+    "StatSpecName": "VaperStat",
+    "CardResource": "vaper_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "VaperAction"
+  },
+  {
+    "Id": 3,
+    "Name": "Cowl",
+    "NameKey": "unit_cowl",
+    "DescKey": "",
+    "StatSpecName": "CowlStat",
+    "CardResource": "cowl_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "HighPressureBomb"
+  },
+  {
+    "Id": 4,
+    "Name": "Guttie",
+    "NameKey": "unit_guttie",
+    "DescKey": "",
+    "StatSpecName": "GuttieStat",
+    "CardResource": "guttie_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "AutoMail"
+  },
+  {
+    "Id": 5,
+    "Name": "Bella",
+    "NameKey": "unit_bella",
+    "DescKey": "",
+    "StatSpecName": "BellaStat",
+    "CardResource": "bella_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "SteamPack"
+  },
+  {
+    "Id": 6,
+    "Name": "Vilhelm",
+    "NameKey": "unit_vilhelm",
+    "DescKey": "",
+    "StatSpecName": "VilhelmStat",
+    "CardResource": "vilhelm_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "VilhelmAction"
+  },
+  {
+    "Id": 7,
+    "Name": "Collector",
+    "NameKey": "unit_collector",
+    "DescKey": "",
+    "StatSpecName": "CollectorStat",
+    "CardResource": "collector_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "CollectorAction"
+  },
+  {
+    "Id": 8,
+    "Name": "Graham",
+    "NameKey": "unit_graham",
+    "DescKey": "",
+    "StatSpecName": "GrahamStat",
+    "CardResource": "graham_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "GrahamAction"
+  },
+  {
+    "Id": 9,
+    "Name": "Norman",
+    "NameKey": "unit_norman",
+    "DescKey": "",
+    "StatSpecName": "NormanStat",
+    "CardResource": "norman_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "NormanAction"
+  },
+  {
+    "Id": 10,
+    "Name": "Dawson",
+    "NameKey": "unit_dawson",
+    "DescKey": "",
+    "StatSpecName": "DawsonStat",
+    "CardResource": "dawson_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "DawsonAction"
+  },
+  {
+    "Id": 11,
+    "Name": "Desmond",
+    "NameKey": "unit_desmond",
+    "DescKey": "",
+    "StatSpecName": "DesmondStat",
+    "CardResource": "desmond_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "DesmondAction"
+  },
+  {
+    "Id": 12,
+    "Name": "Derrick",
+    "NameKey": "unit_derrick",
+    "DescKey": "",
+    "StatSpecName": "DerrickStat",
+    "CardResource": "derrick_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "DerrickAction"
+  },
+  {
+    "Id": 13,
+    "Name": "Dustin",
+    "NameKey": "unit_dustin",
+    "DescKey": "",
+    "StatSpecName": "DustinStat",
+    "CardResource": "dustin_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "DustinAction"
+  },
+  {
+    "Id": 14,
+    "Name": "Alle",
+    "NameKey": "unit_alle",
+    "DescKey": "",
+    "StatSpecName": "AlleStat",
+    "CardResource": "alle_default",
+    "ActionSpecName": "AlchemistAction",
+    "TargetSkillCardSpecName": "BiologicalExperiment"
+  },
+  {
+    "Id": 15,
+    "Name": "Equinox",
+    "NameKey": "unit_equinox",
+    "DescKey": "",
+    "StatSpecName": "EquinoxStat",
+    "CardResource": "equinox_default",
+    "ActionSpecName": "AlchemistAction",
+    "TargetSkillCardSpecName": "EquivalentExchange"
+  },
+  {
+    "Id": 16,
+    "Name": "Posi",
+    "NameKey": "unit_posi",
+    "DescKey": "",
+    "StatSpecName": "PosiStat",
+    "CardResource": "posi_default",
+    "ActionSpecName": "AlchemistAction",
+    "TargetSkillCardSpecName": "PositiveFeedback"
+  },
+  {
+    "Id": 17,
+    "Name": "Dacane",
+    "NameKey": "unit_dacane",
+    "DescKey": "",
+    "StatSpecName": "DacaneStat",
+    "CardResource": "dacane_default",
+    "ActionSpecName": "AlchemistAction",
+    "TargetSkillCardSpecName": "ChainReaction"
+  },
+  {
+    "Id": 18,
+    "Name": "Pana",
+    "NameKey": "unit_pana",
+    "DescKey": "",
+    "StatSpecName": "PanaStat",
+    "CardResource": "pana_default",
+    "ActionSpecName": "AlchemistAction",
+    "TargetSkillCardSpecName": "Panacea"
+  },
+  {
+    "Id": 19,
+    "Name": "Cabinotier",
+    "NameKey": "unit_cabinotier",
+    "DescKey": "",
+    "StatSpecName": "CabinotierStat",
+    "CardResource": "cabinotier_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "CabinotierAction"
+  },
+  {
+    "Id": 20,
+    "Name": "Airship",
+    "NameKey": "unit_airship",
+    "DescKey": "",
+    "StatSpecName": "AirshipStat",
+    "CardResource": "airship_default",
+    "ActionSpecName": "DefaultAction",
+    "TargetSkillCardSpecName": "AirshipAction"
+  },
+  {
+    "Id": 21,
     "Name": "PatrolMachine",
     "NameKey": "unit_enemy_patrolmachine",
     "DescKey": "",
@@ -99,6 +220,7 @@
     "TargetSkillCardSpecName": "PatrolMachineAction"
   },
   {
+    "Id": 22,
     "Name": "HiredGangster",
     "NameKey": "unit_enemy_hiredgangster",
     "DescKey": "",
@@ -108,6 +230,7 @@
     "TargetSkillCardSpecName": "HiredGangsterAction"
   },
   {
+    "Id": 23,
     "Name": "GuardAutomaton",
     "NameKey": "unit_enemy_guardautomaton",
     "DescKey": "",
@@ -117,6 +240,7 @@
     "TargetSkillCardSpecName": "GuardAutomatonAction"
   },
   {
+    "Id": 24,
     "Name": "RepairMachine",
     "NameKey": "unit_enemy_repairmachine",
     "DescKey": "",
@@ -126,6 +250,7 @@
     "TargetSkillCardSpecName": "RepairMachineAction"
   },
   {
+    "Id": 25,
     "Name": "MechanizedSlave",
     "NameKey": "unit_enemy_mechanizedslave",
     "DescKey": "",
@@ -135,6 +260,7 @@
     "TargetSkillCardSpecName": "MechanizedSlaveAction"
   },
   {
+    "Id": 26,
     "Name": "SlaveGuard",
     "NameKey": "unit_enemy_slaveguard",
     "DescKey": "",
@@ -144,6 +270,7 @@
     "TargetSkillCardSpecName": "SlaveGuardAction"
   },
   {
+    "Id": 27,
     "Name": "WorkshopSupervisor",
     "NameKey": "unit_enemy_workshopsupervisor",
     "DescKey": "",
@@ -153,6 +280,7 @@
     "TargetSkillCardSpecName": "WorkshopSupervisorAction"
   },
   {
+    "Id": 28,
     "Name": "ScrapMonster",
     "NameKey": "unit_enemy_scrapmonster",
     "DescKey": "",
@@ -162,6 +290,7 @@
     "TargetSkillCardSpecName": "ScrapMonsterAction"
   },
   {
+    "Id": 29,
     "Name": "BrassMonster",
     "NameKey": "unit_enemy_brassmonster",
     "DescKey": "",
@@ -171,6 +300,17 @@
     "TargetSkillCardSpecName": "BrassMonsterAction"
   },
   {
+    "Id": 30,
+    "Name": "MagnetMonster",
+    "NameKey": "unit_enemy_magnetmonster",
+    "DescKey": "",
+    "StatSpecName": "EnemyMagnetMonsterStat",
+    "CardResource": "enemy_magnetmonster_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": "MagnetMonsterAction"
+  },
+  {
+    "Id": 31,
     "Name": "VacuumTubeLump",
     "NameKey": "unit_enemy_vacuumtubelump",
     "DescKey": "",
@@ -178,5 +318,45 @@
     "CardResource": "enemy_vacuumtubelump_default",
     "ActionSpecName": "EnemyAction1",
     "TargetSkillCardSpecName": "VacuumTubeLumpAction"
+  },
+  {
+    "Id": 32,
+    "Name": "MutatedSlave",
+    "NameKey": "unit_enemy_mutatedslave",
+    "DescKey": "",
+    "StatSpecName": "EnemyMutatedSlaveStat",
+    "CardResource": "enemy_mutatedslave_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": "MutatedSlaveAction"
+  },
+  {
+    "Id": 33,
+    "Name": "FurnaceGolem",
+    "NameKey": "unit_enemy_furnacegolem",
+    "DescKey": "",
+    "StatSpecName": "EnemyFurnaceGolemStat",
+    "CardResource": "enemy_furnacegolem_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": "FurnaceGolemAction"
+  },
+  {
+    "Id": 34,
+    "Name": "PowerRepeater",
+    "NameKey": "unit_enemy_powerrepeater",
+    "DescKey": "",
+    "StatSpecName": "EnemyPowerRepeaterStat",
+    "CardResource": "enemy_powerrepeater_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": "PowerRepeaterAction"
+  },
+  {
+    "Id": 35,
+    "Name": "BetrayerGunman",
+    "NameKey": "unit_enemy_betrayergunman",
+    "DescKey": "",
+    "StatSpecName": "EnemyBetrayerGunmanStat",
+    "CardResource": "enemy_betrayergunman_default",
+    "ActionSpecName": "EnemyAction1",
+    "TargetSkillCardSpecName": "BetrayerGunmanAction"
   }
 ]
