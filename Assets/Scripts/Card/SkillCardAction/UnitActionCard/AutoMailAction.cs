@@ -12,7 +12,8 @@ public class AutoMailAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Ally;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack) };
+	//todo: 구현 수정
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack), StatFallback.GetValueByValueType(UnitValueType.Attack) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	public AutoMailAction(AutoMailActionSpec spec) : base(spec)
