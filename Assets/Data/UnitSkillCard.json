@@ -190,92 +190,137 @@
   },
   {
     "Id": 21,
-    "Name": "PatrolMachineAction",
+    "Name": "PatrolMachineLightDamage",
     "NameKey": "unit_enemy_patrolmachine",
     "StatSpecName": "PatrolMachineActionStat",
     "CardResource": "enemy_patrolmachine_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "PatrolMachineLightDamageAction",
     "CardUseType": "Global"
   },
   {
     "Id": 22,
-    "Name": "HiredGangsterAction",
+    "Name": "HiredGangsterUnexpectedDamage",
     "NameKey": "unit_enemy_hiredgangster",
     "StatSpecName": "HiredGangsterActionStat",
     "CardResource": "enemy_hiredgangster_default",
-    "ActionSpecName": "EnemyAction2Adapter",
+    "ActionSpecName": "HiredGangsterUnexpectedDamageAction",
     "CardUseType": "Global"
   },
   {
     "Id": 23,
-    "Name": "GuardAutomatonAction",
+    "Name": "GuardAutomatonSwing",
     "NameKey": "unit_enemy_guardautomaton",
     "StatSpecName": "GuardAutomatonActionStat",
     "CardResource": "enemy_guardautomaton_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "GuardAutomatonSwingAction",
     "CardUseType": "Global"
   },
   {
     "Id": 24,
-    "Name": "RepairMachineAction",
+    "Name": "RepairMachineRepair",
     "NameKey": "unit_enemy_repairmachine",
     "StatSpecName": "RepairMachineActionStat",
     "CardResource": "enemy_repairmachine_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "RepairMachineRepairAction",
     "CardUseType": "Global"
   },
   {
     "Id": 25,
-    "Name": "MechanizedSlaveAction",
+    "Name": "MechanizedSlaveBlow",
     "NameKey": "unit_enemy_mechanizedslave",
     "StatSpecName": "MechanizedSlaveActionStat",
     "CardResource": "enemy_mechanizedslave_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "MechanizedSlaveBlowAction",
     "CardUseType": "Global"
   },
   {
     "Id": 26,
-    "Name": "SlaveGuardAction",
+    "Name": "SlaveGuardWhip",
     "NameKey": "unit_enemy_slaveguard",
     "StatSpecName": "SlaveGuardActionStat",
     "CardResource": "enemy_slaveguard_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "SlaveGuardWhipAction",
     "CardUseType": "Global"
   },
   {
     "Id": 27,
-    "Name": "WorkshopSupervisorAction",
+    "Name": "WorkshopSupervisorShoot",
     "NameKey": "unit_enemy_workshopsupervisor",
     "StatSpecName": "WorkshopSupervisorActionStat",
     "CardResource": "enemy_workshopsupervisor_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "WorkshopSupervisorShootAction",
     "CardUseType": "Global"
   },
   {
     "Id": 28,
-    "Name": "ScrapMonsterAction",
+    "Name": "ScrapMonsterHeavySwing",
     "NameKey": "unit_enemy_scrapmonster",
     "StatSpecName": "ScrapMonsterActionStat",
     "CardResource": "enemy_scrapmonster_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "ScrapMonsterHeavySwingAction",
     "CardUseType": "Global"
   },
   {
     "Id": 29,
-    "Name": "BrassMonsterAction",
+    "Name": "BrassMonsterPrepare",
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "BrassMonsterActionStat",
     "CardResource": "enemy_brassmonster_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "BrassMonsterPrepareAction",
     "CardUseType": "Global"
   },
   {
     "Id": 30,
-    "Name": "VacuumTubeLumpAction",
+    "Name": "VacuumTubeLumpAmplify",
     "NameKey": "unit_enemy_vacuumtubelump",
     "StatSpecName": "VacuumTubeLumpActionStat",
     "CardResource": "enemy_vacuumtubelump_default",
-    "ActionSpecName": "EnemyAction1Adapter",
+    "ActionSpecName": "VacuumTubeLumpAmplifyAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 31,
+    "Name": "MagnetMonsterAttraction",
+    "NameKey": "unit_enemy_magnetmonsterattraction",
+    "StatSpecName": "MagnetMonsterAttractionStat",
+    "CardResource": "enemy_magnetmonsterattraction_default",
+    "ActionSpecName": "MagnetMonsterAttractionAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 32,
+    "Name": "MutatedSlaveButcher",
+    "NameKey": "unit_enemy_mutatedslavebutcher",
+    "StatSpecName": "MutatedSlaveButcherStat",
+    "CardResource": "enemy_mutatedslavebutcher_default",
+    "ActionSpecName": "MutatedSlaveButcherAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 33,
+    "Name": "FurnaceGolemCombustion",
+    "NameKey": "unit_enemy_fumacegolemcombustion",
+    "StatSpecName": "FurnaceGolemCombustionStat",
+    "CardResource": "enemy_fumacegolemcombustion_default",
+    "ActionSpecName": "FurnaceGolemCombustionAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 34,
+    "Name": "PowerRepeaterAllocate",
+    "NameKey": "unit_enemy_powerrepeaterallocate",
+    "StatSpecName": "PowerRepeaterAllocateStat",
+    "CardResource": "enemy_powerrepeaterallocate_default",
+    "ActionSpecName": "PowerRepeaterAllocateAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 35,
+    "Name": "BetrayerGunmanRapidFire",
+    "NameKey": "unit_enemy_betrayergunmanrapidfire",
+    "StatSpecName": "BetrayerGunmanRapidFireStat",
+    "CardResource": "enemy_betrayergunmanrapidfire_default",
+    "ActionSpecName": "BetrayerGunmanRapidFireAction",
     "CardUseType": "Global"
   }
 ]

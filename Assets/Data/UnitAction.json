@@ -2,21 +2,25 @@
   {
     "Name": "DefaultAction",
     "ClassName": "TestUnitCardAction",
-    "FxName": "FX_hit_02"
+    "FxName": "FX_hit_02",
+    "DescKey": "melee_attack_desc"
   },
   {
     "Name": "AlchemistAction",
     "ClassName": "TestUnitCardAction",
-    "FxName": "FX_splash_magic_01_air"
+    "FxName": "FX_splash_magic_01_air",
+    "DescKey": "melee_attack_desc"
   },
   {
     "Name": "EnemyAction1",
     "ClassName": "TestUnitCardAction",
-    "FxName": "FX_splash_electric_floor"
+    "FxName": "FX_splash_electric_floor",
+    "DescKey": "melee_attack_desc"
   },
   {
     "Name": "EnemyAction2",
     "ClassName": "TestUnitCardAction",
-    "FxName": "FX_hit_07"
+    "FxName": "FX_hit_07",
+    "DescKey": "melee_attack_desc"
   }
 ]

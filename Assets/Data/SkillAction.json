@@ -100,5 +100,95 @@
     "ClassName": "UnitActionAdapter",
     "TargetUnitCardAction": "EnemyAction2",
     "DescKey": "act_skill_overheat_propulsion_desc"
+  },
+  {
+    "Name": "PatrolMachineLightDamageAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction1",
+    "DescKey": "e_act_skill_pmlightdamageaction_desc"
+  },
+  {
+    "Name": "HiredGangsterUnexpectedDamageAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_hgunexpecteddamageaction_desc"
+  },
+  {
+    "Name": "GuardAutomatonSwingAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_gaswingaction_desc"
+  },
+  {
+    "Name": "RepairMachineRepairAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_rmrepairaction_desc"
+  },
+  {
+    "Name": "MechanizedSlaveBlowAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_msblowaction_desc"
+  },
+  {
+    "Name": "SlaveGuardWhipAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_sgwhipaction_desc"
+  },
+  {
+    "Name": "WorkshopSupervisorShootAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_wsshootaction_desc"
+  },
+  {
+    "Name": "ScrapMonsterHeavySwingAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_smheavyswingaction_desc"
+  },
+  {
+    "Name": "BrassMonsterPrepareAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_bmprepareaction_desc"
+  },
+  {
+    "Name": "MagnetMonsterAttractionAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_mmattractionaction_desc"
+  },
+  {
+    "Name": "VacuumTubeLumpAmplifyAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_vtlamplifyaction_desc"
+  },
+  {
+    "Name": "MutatedSlaveButcherAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_msbutcheraction_desc"
+  },
+  {
+    "Name": "FurnaceGolemCombustionAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_fgcombustionaction_desc"
+  },
+  {
+    "Name": "PowerRepeaterAllocateAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_prallocateaction_desc"
+  },
+  {
+    "Name": "BetrayerGunmanRapidFireAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_bgrapidfireaction_desc"
   }
 ]
