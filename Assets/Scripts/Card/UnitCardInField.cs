@@ -198,7 +198,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			.Instantiate(Resources.Load(allyCardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
 			.AddComponent<UnitCardInField>();
 		cardObject.targetUnitCard = targetUnitCard;
-		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
 		cardObject.DamagedBehaviour = new UnitCardDamagedBehaviour();
 		cardObject.DamagedBehaviour.AttachTo(cardObject);
 
@@ -227,7 +226,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			.Instantiate(Resources.Load(enemyCardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
 			.AddComponent<UnitCardInField>();
 		cardObject.targetUnitCard = targetUnitCard;
-		cardObject.targetUnitCard.Action.SetBattleOwner(cardObject);
 		cardObject.DamagedBehaviour = new UnitCardDamagedBehaviour();
 		cardObject.DamagedBehaviour.AttachTo(cardObject);
 
@@ -263,7 +261,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			NoticeSystem.Instance.Publish(new TurnStartBlockByStunNotice(this));
 			return;
 		}*/
-		ChangeState(new CardObjectActionState(this, overrideTurnCount));
+		//ChangeState(new CardObjectActionState(this, overrideTurnCount));
 	}
 
 	public int TurnCount { get; }
@@ -574,7 +572,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			NoticeSystem.Instance.PublishSync(new PlayerFieldCardMoveNotice(owner));
 		}
 	}
-
+/*
 	private class CardObjectActionState : IState
 	{
 		private UnitCardInField owner;
@@ -651,7 +649,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			currentUpdateAction = null;
 			//todo: end 날리는 타이밍을 chain 루틴이 다 끝나고 날려야 되는지 고민 필요
 		}
-	}
+	}*/
 
 	public void Dispose()
 	{
