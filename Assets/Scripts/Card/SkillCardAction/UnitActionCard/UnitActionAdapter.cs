@@ -3,6 +3,8 @@ using System.Collections.Generic;
 public class UnitActionAdapter : UnitSkillCardActionBase
 {
 	private UnitCardActionBase unitAction;
+
+	public override string Desc => unitAction.Desc + "\n" + base.Desc;
 	public override object[] DescParams => unitAction.DescParams;
 	public override IEnumerable<ITile> Targets => unitAction.Targets;
 
