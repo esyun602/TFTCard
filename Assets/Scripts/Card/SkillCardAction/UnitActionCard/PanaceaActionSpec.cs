@@ -8,7 +8,7 @@ public class PanaceaActionSpec : SkillCardActionSpec
 		return new PanaceaAction(this);
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 		
 	}

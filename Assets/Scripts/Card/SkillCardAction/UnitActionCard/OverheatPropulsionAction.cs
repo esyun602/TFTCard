@@ -10,7 +10,7 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
     private GameObject fxPrefab;
     private IBattleObject target;
 
-    public OverheatPropulsionAction(OverheatPropulsionActionSpec spec)
+    public OverheatPropulsionAction(OverheatPropulsionActionSpec spec) : base(spec)
     {
         actionDuration = spec.actionDuration;
         fxPrefab = spec.fxPrefab;

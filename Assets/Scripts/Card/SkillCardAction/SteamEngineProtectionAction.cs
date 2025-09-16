@@ -17,7 +17,7 @@ public class SteamEngineProtectionAction : TacticsCardActionBase
 	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
-	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec)
+	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec) : base(spec)
 	{
 	}
 

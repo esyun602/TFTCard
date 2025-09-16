@@ -15,7 +15,7 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.CatalystAdd) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
-	public PositiveFeedbackAction(PositiveFeedbackActionSpec spec)
+	public PositiveFeedbackAction(PositiveFeedbackActionSpec spec) : base(spec)
 	{
 	}
 

@@ -4,6 +4,7 @@ using MessageSystem;
 
 public abstract class SkillCardActionBase : IAction
 {
+	private string descKey;
 	protected SkillCardStat Stat { get; private set; }
 	protected SkillCardBattleStat BattleStat { get; private set; }
 	protected IStat StatFallback => BattleStat != null ? BattleStat : Stat;
@@ -20,8 +21,9 @@ public abstract class SkillCardActionBase : IAction
 		return bo != null;
 	}
 	
-	protected SkillCardActionBase()
+	protected SkillCardActionBase(SkillCardActionSpec spec)
 	{
+		descKey = spec.DescKey;
 		routine = new UpdatableRoutine(UpdateFrame, TriggerRoutine, CompleteRoutine);
 	}
 	
@@ -46,6 +48,8 @@ public abstract class SkillCardActionBase : IAction
 		//todo: publish notice
 		OnCancel();
 	}
+
+	public virtual string Desc => GameDataSystem.Instance.GetGameData<GameString>().Format(descKey, DescParams);
 
 	public abstract object[] DescParams { get; }
 	public abstract IEnumerable<ITile> Targets { get; }

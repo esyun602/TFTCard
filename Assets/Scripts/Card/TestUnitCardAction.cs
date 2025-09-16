@@ -77,7 +77,7 @@ public class TestUnitCardAction : UnitCardActionBase
 		throw new System.NotImplementedException();
 	}
 
-	public TestUnitCardAction(TestUnitCardActionSpec actionSpec)
+	public TestUnitCardAction(TestUnitCardActionSpec actionSpec) : base(actionSpec)
 	{
 		actionDuration = actionSpec.actionDuration;
 		fxPrefab = actionSpec.fxPrefab;

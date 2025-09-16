@@ -9,7 +9,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 	private float timePassed;
 	private bool canceled;
 
-	public ChainReactionAction(ChainReactionActionSpec spec)
+	public ChainReactionAction(ChainReactionActionSpec spec) : base(spec)
 	{
 	}
 

@@ -11,7 +11,7 @@ public class StockSkillAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 
-	public StockSkillAction(StockSkillActionSpec spec)
+	public StockSkillAction(StockSkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

@@ -10,7 +10,7 @@ public class BreadSupplySkillAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 
-	public BreadSupplySkillAction(BreadSupplySkillActionSpec spec)
+	public BreadSupplySkillAction(BreadSupplySkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

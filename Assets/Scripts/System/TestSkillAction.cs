@@ -12,7 +12,7 @@ public class TestSkillAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public TestSkillAction(TestSkillActionSpec spec)
+	public TestSkillAction(TestSkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

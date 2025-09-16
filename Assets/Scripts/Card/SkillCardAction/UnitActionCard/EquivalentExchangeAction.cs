@@ -8,7 +8,7 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 	private float timePassed;
 	private bool canceled;
 
-	public EquivalentExchangeAction(EquivalentExchangeActionSpec spec)
+	public EquivalentExchangeAction(EquivalentExchangeActionSpec spec) : base(spec)
 	{
 	}
 

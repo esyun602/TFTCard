@@ -6,7 +6,7 @@ public class UnitActionAdapter : UnitSkillCardActionBase
 	public override object[] DescParams => unitAction.DescParams;
 	public override IEnumerable<ITile> Targets => unitAction.Targets;
 
-	public UnitActionAdapter(UnitCardActionBase unitAction)
+	public UnitActionAdapter(UnitActionAdapterSpec spec, UnitCardActionBase unitAction) : base(spec)
 	{
 		this.unitAction = unitAction;
 	}

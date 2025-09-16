@@ -7,10 +7,10 @@ public class UnitActionAdapterSpec : SkillCardActionSpec
 	private string targetUnitCardAction;
 	public override SkillCardActionBase CreateCardAction()
 	{
-		return new UnitActionAdapter(GameDataSystem.Instance.GetGameData<ActionData>().GetUnitActionByName(targetUnitCardAction).CreateCardAction());
+		return new UnitActionAdapter(this, GameDataSystem.Instance.GetGameData<ActionData>().GetUnitActionByName(targetUnitCardAction).CreateCardAction());
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 		targetUnitCardAction = param.GetString("TargetUnitCardAction");
 	}

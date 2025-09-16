@@ -10,7 +10,7 @@ public class FireArrowSkillActionSpec : SkillCardActionSpec
 		return new FireArrowSkillAction(this);
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 		
 	}

@@ -23,7 +23,7 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		}
 	}
 
-	public HighPressureBombAction(HighPressureBombActionSpec spec)
+	public HighPressureBombAction(HighPressureBombActionSpec spec) : base(spec)
 	{
 	}
 

@@ -15,7 +15,7 @@ public class AutoMailAction : UnitSkillCardActionBase
 	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
-	public AutoMailAction(AutoMailActionSpec spec)
+	public AutoMailAction(AutoMailActionSpec spec) : base(spec)
 	{
 	}
 

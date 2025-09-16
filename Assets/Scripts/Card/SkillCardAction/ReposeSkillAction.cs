@@ -11,7 +11,7 @@ public class ReposeSkillAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public ReposeSkillAction(ReposeSkillActionSpec spec)
+	public ReposeSkillAction(ReposeSkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

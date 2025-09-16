@@ -3,14 +3,16 @@ using MessageSystem;
 
 public abstract class UnitCardActionBase : IAction
 {
+	private string descKey;
 	protected UnitCardInField owner;
 
 	private IUpdatableRoutine routine;
 	protected object triggerInfo;
 	public IUpdatableRoutine UpdatableRoutine => routine;
 
-	protected UnitCardActionBase()
+	protected UnitCardActionBase(UnitCardActionSpec spec)
 	{
+		descKey = spec.DescKey;
 		routine = new UpdatableRoutine(UpdateFrame);
 	}
 	
@@ -27,6 +29,8 @@ public abstract class UnitCardActionBase : IAction
 		NoticeSystem.Instance.Publish(new CardActionEndNotice(owner, this));
 		OnCancel();
 	}
+
+	public string Desc => GameDataSystem.Instance.GetGameData<GameString>().Format(descKey, DescParams);
 
 	public abstract object[] DescParams { get; }
 	public abstract IEnumerable<ITile> Targets { get; }

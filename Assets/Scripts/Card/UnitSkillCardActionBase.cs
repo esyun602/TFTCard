@@ -22,4 +22,8 @@ public abstract class UnitSkillCardActionBase : SkillCardActionBase
 		if (stat is not UnitSkillCardBattleStat) throw new ArgumentException();
 		base.SetCardBattleStat(stat);
 	}
+
+	protected UnitSkillCardActionBase(SkillCardActionSpec spec) : base(spec)
+	{
+	}
 }

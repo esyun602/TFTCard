@@ -7,7 +7,7 @@ public class PrepareBombingAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public PrepareBombingAction(PrepareBombingActionSpec spec)
+	public PrepareBombingAction(PrepareBombingActionSpec spec) : base(spec)
 	{
 	}
 

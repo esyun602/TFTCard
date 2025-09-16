@@ -7,7 +7,7 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public BiologicalExperimentAction(BiologicalExperimentActionSpec spec)
+	public BiologicalExperimentAction(BiologicalExperimentActionSpec spec) : base(spec)
 	{
 	}
 

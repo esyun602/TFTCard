@@ -7,7 +7,7 @@ public class PanaceaAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public PanaceaAction(PanaceaActionSpec spec)
+	public PanaceaAction(PanaceaActionSpec spec) : base(spec)
 	{
 	}
 

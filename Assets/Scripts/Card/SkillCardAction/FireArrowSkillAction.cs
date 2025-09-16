@@ -10,7 +10,7 @@ public class FireArrowSkillAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 
-	public FireArrowSkillAction(FireArrowSkillActionSpec spec)
+	public FireArrowSkillAction(FireArrowSkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

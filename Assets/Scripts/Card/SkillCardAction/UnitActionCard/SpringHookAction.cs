@@ -7,7 +7,7 @@ public class SpringHookAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public SpringHookAction(SpringHookActionSpec spec)
+	public SpringHookAction(SpringHookActionSpec spec) : base(spec)
 	{
 	}
 

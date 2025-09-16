@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UnitCard : ICard
@@ -16,8 +17,12 @@ public class UnitCard : ICard
 		{
 			UnitSkillCard = new UnitSkillCard(targetSkillSpec, this);
 		}
-		var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetUnitActionByName(spec.ActionSpecName);
-		Action = actionSpec.CreateCardAction();
+
+		if (!String.IsNullOrEmpty(spec.ActionSpecName))
+		{
+			var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetUnitActionByName(spec.ActionSpecName);
+			Action = actionSpec.CreateCardAction();
+		}
 		var statSpec = GameDataSystem.Instance.GetGameData<StatData>().GetUnitStatByName(spec.StatSpecName);
 		Stat = new UnitCardStat(statSpec);
 	}
@@ -25,6 +30,5 @@ public class UnitCard : ICard
 	public ICardSpec CardStaticSpec => UnitCardStaticSpec;
 	public string Name => GameDataSystem.Instance.GetGameData<GameString>().GetString(CardStaticSpec.NameKey);
 	//todo: 설명은 액션으로 ?
-	public string Desc => GameDataSystem.Instance.GetGameData<GameString>()
-		.Format(CardStaticSpec.DescKey, Action.DescParams);
+	public string Desc => "";
 }

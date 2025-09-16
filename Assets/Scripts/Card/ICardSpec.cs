@@ -10,6 +10,4 @@ public interface ICardSpec
 {
 	public Sprite CardResource { get; }
 	public string NameKey { get; }
-	public string DescKey { get; }
-	//todo: desc?
 }

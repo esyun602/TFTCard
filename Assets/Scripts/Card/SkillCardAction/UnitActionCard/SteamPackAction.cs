@@ -7,7 +7,7 @@ public class SteamPackAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public SteamPackAction(SteamPackActionSpec spec)
+	public SteamPackAction(SteamPackActionSpec spec) : base(spec)
 	{
 	}
 

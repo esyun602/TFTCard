@@ -11,7 +11,7 @@ public class QuickMotionAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public QuickMotionAction(QuickMotionActionSpec spec)
+	public QuickMotionAction(QuickMotionActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

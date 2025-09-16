@@ -10,7 +10,7 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 
-	public FlamethrowerAction(FlamethrowerActionSpec spec)
+	public FlamethrowerAction(FlamethrowerActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;

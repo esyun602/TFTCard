@@ -8,7 +8,7 @@ public class AutoMailActionSpec : SkillCardActionSpec
 		return new AutoMailAction(this);
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 	}
 }

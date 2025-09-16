@@ -11,7 +11,7 @@ public class AddShieldSkillAction : TacticsCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public AddShieldSkillAction(AddShieldSkillActionSpec spec)
+	public AddShieldSkillAction(AddShieldSkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
