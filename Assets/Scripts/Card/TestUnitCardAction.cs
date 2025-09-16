@@ -13,7 +13,7 @@ public class TestUnitCardAction : UnitCardActionBase
 
 	//public override GridSelector AttackRangeInfo => gridInfo;
 
-	public override object[] DescParams { get; }
+	public override object[] DescParams => new object[] { owner.TargetUnitCard.Name, owner.UnitCardBattleStat.GetValueByValueType(UnitValueType.Attack) };
 
 	public override IEnumerable<ITile> Targets
 	{
