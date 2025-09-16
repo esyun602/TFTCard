@@ -1,42 +1,10 @@
 [
   {
-    "StringKey": "unit_alle",
-    "KorString": "알레"
+    "StringKey": "unit_walter",
+    "KorString": "월터"
   },
   {
-    "StringKey": "unit_alle_desc",
-    "KorString": ""
-  },
-  {
-    "StringKey": "unit_bella",
-    "KorString": "벨라"
-  },
-  {
-    "StringKey": "unit_bella_desc",
-    "KorString": ""
-  },
-  {
-    "StringKey": "unit_cowl",
-    "KorString": "코울"
-  },
-  {
-    "StringKey": "unit_cowl_desc",
-    "KorString": ""
-  },
-  {
-    "StringKey": "unit_dacane",
-    "KorString": "다케인"
-  },
-  {
-    "StringKey": "unit_dacane_desc",
-    "KorString": ""
-  },
-  {
-    "StringKey": "unit_equinox",
-    "KorString": "에퀴녹스"
-  },
-  {
-    "StringKey": "unit_equinox_desc",
+    "StringKey": "unit_walter_desc",
     "KorString": ""
   },
   {
@@ -48,6 +16,22 @@
     "KorString": ""
   },
   {
+    "StringKey": "unit_vaper",
+    "KorString": "베이퍼"
+  },
+  {
+    "StringKey": "unit_vaper_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_cowl",
+    "KorString": "코울"
+  },
+  {
+    "StringKey": "unit_cowl_desc",
+    "KorString": ""
+  },
+  {
     "StringKey": "unit_guttie",
     "KorString": "거티"
   },
@@ -56,11 +40,91 @@
     "KorString": ""
   },
   {
-    "StringKey": "unit_pana",
-    "KorString": "파나"
+    "StringKey": "unit_bella",
+    "KorString": "벨라"
   },
   {
-    "StringKey": "unit_pana_desc",
+    "StringKey": "unit_bella_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_vilhelm",
+    "KorString": "빌헬름"
+  },
+  {
+    "StringKey": "unit_vilhelm_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_collector",
+    "KorString": "콜렉터"
+  },
+  {
+    "StringKey": "unit_collector_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_graham",
+    "KorString": "그레이엄"
+  },
+  {
+    "StringKey": "unit_graham_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_norman",
+    "KorString": "노먼"
+  },
+  {
+    "StringKey": "unit_norman_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_dawson",
+    "KorString": "도슨"
+  },
+  {
+    "StringKey": "unit_dawson_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_desmond",
+    "KorString": "데스몬드"
+  },
+  {
+    "StringKey": "unit_desmond_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_derrick",
+    "KorString": "데릭"
+  },
+  {
+    "StringKey": "unit_derrick_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_dustin",
+    "KorString": "더스틴"
+  },
+  {
+    "StringKey": "unit_dustin_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_alle",
+    "KorString": "알레"
+  },
+  {
+    "StringKey": "unit_alle_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_equinox",
+    "KorString": "에퀴녹스"
+  },
+  {
+    "StringKey": "unit_equinox_desc",
     "KorString": ""
   },
   {
@@ -72,12 +136,148 @@
     "KorString": ""
   },
   {
-    "StringKey": "unit_walter",
-    "KorString": "월터"
+    "StringKey": "unit_dacane",
+    "KorString": "다케인"
   },
   {
-    "StringKey": "unit_walter_desc",
+    "StringKey": "unit_dacane_desc",
     "KorString": ""
+  },
+  {
+    "StringKey": "unit_pana",
+    "KorString": "파나"
+  },
+  {
+    "StringKey": "unit_pana_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_cabinotier",
+    "KorString": "캐비노티에"
+  },
+  {
+    "StringKey": "unit_cabinotier_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_airship",
+    "KorString": "거대 비행선"
+  },
+  {
+    "StringKey": "unit_airship_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "act_skill_overheat_propulsion",
+    "KorString": "과열 추진기"
+  },
+  {
+    "StringKey": "act_skill_overheat_propulsion_desc",
+    "KorString": "근접. 월터가 자신에게 화상을 {0} 부여하고, 적에게 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "act_skill_flamethrower",
+    "KorString": "화염 방사"
+  },
+  {
+    "StringKey": "act_skill_flamethrower_desc",
+    "KorString": "근접. 파이어뱃이 적에게 화상을 {0} 부여합니다."
+  },
+  {
+    "StringKey": "act_skill_vaperaction",
+    "KorString": "폭격 준비"
+  },
+  {
+    "StringKey": "act_skill_vaperaction_desc",
+    "KorString": "카드를 {0}장 뽑습니다. 베이퍼가 거대 비행선에게 강화를 {1} 부여합니다."
+  },
+  {
+    "StringKey": "act_skill_high_pressure_bomb",
+    "KorString": "고압 포탄"
+  },
+  {
+    "StringKey": "act_skill_high_pressure_bomb_desc",
+    "KorString": "근접. 코울이 적에게 {0}의 피해를, 같은 행의 나머지 적 모두에게 {1}의 폭발 피해를 줍니다."
+  },
+  {
+    "StringKey": "act_skill_automail",
+    "KorString": "오토메일"
+  },
+  {
+    "StringKey": "act_skill_automail_desc",
+    "KorString": "거티가 선택한 아군에게 관통 피해를 {0} 주고, 방어도를 {1} 부여합니다."
+  },
+  {
+    "StringKey": "act_skill_steampack",
+    "KorString": "스팀팩"
+  },
+  {
+    "StringKey": "act_skill_steampack_desc",
+    "KorString": "벨라가 선택한 아군에게 화상을 {0} 부여하고, 해당 유닛의 행동 카드가 손에 없다면 손으로 가져옵니다."
+  },
+  {
+    "StringKey": "act_skill_vilhelmaction",
+    "KorString": "위압감"
+  },
+  {
+    "StringKey": "act_skill_vilhelmaction_desc",
+    "KorString": "근접. 빌헬름이 적에게 공격력과 현재 체력을 더한 피해를 줍니다. (피해량: {0})"
+  },
+  {
+    "StringKey": "act_skill_collectoraction",
+    "KorString": "골동품 수집"
+  },
+  {
+    "StringKey": "act_skill_collectoraction_desc",
+    "KorString": "버린 카드 더미에서 무작위 카드 {0}장을 손으로 가져옵니다."
+  },
+  {
+    "StringKey": "act_skill_grahamaction",
+    "KorString": "물자 운송"
+  },
+  {
+    "StringKey": "act_skill_grahamaction_desc",
+    "KorString": "카드를 {0}장 뽑습니다. 비행선이 있다면, 추가로 {1}장을 더 뽑습니다."
+  },
+  {
+    "StringKey": "act_skill_normanaction",
+    "KorString": "사냥"
+  },
+  {
+    "StringKey": "act_skill_normanaction_desc",
+    "KorString": "노먼이 선택한 적에게 피해를 {0} 줍니다. 이 공격으로 적이 죽으면 골드를 {1} 얻습니다."
+  },
+  {
+    "StringKey": "act_skill_dawsonaction",
+    "KorString": "습관"
+  },
+  {
+    "StringKey": "act_skill_dawsonaction_desc",
+    "KorString": "다음 사용하는 카드를 뽑을 카드 더미의 맨 위에 놓습니다."
+  },
+  {
+    "StringKey": "act_skill_desmondaction",
+    "KorString": "암살"
+  },
+  {
+    "StringKey": "act_skill_desmondaction_desc",
+    "KorString": "데스몬드가 적에게 피해를 {0} 줍니다. 이 공격으로 적이 죽으면, 코스트를 {1} 얻습니다."
+  },
+  {
+    "StringKey": "act_skill_derrickaction",
+    "KorString": "사제 폭탄"
+  },
+  {
+    "StringKey": "act_skill_derrickaction_desc",
+    "KorString": "데릭이 선택한 적과 같은 열의 모두에게 {0}의 폭발 피해를 줍니다."
+  },
+  {
+    "StringKey": "act_skill_dustinaction",
+    "KorString": "블랙마켓"
+  },
+  {
+    "StringKey": "act_skill_dustinaction_desc",
+    "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {0} 부여합니다."
   },
   {
     "StringKey": "act_skill_biological_experiment",
@@ -88,60 +288,12 @@
     "KorString": "적에게 {0}의 피해를 주고, 촉매를 {1} 부여합니다."
   },
   {
-    "StringKey": "act_skill_steampack",
-    "KorString": "스팀팩"
-  },
-  {
-    "StringKey": "act_skill_steampack_desc",
-    "KorString": "대상에게 화상을 {0} 부여하고, 턴 카운트를 {1} 감소시킵니다."
-  },
-  {
-    "StringKey": "act_skill_high_pressure_bomb",
-    "KorString": "고압 포탄"
-  },
-  {
-    "StringKey": "act_skill_high_pressure_bomb_desc",
-    "KorString": "적에게 {0}의 피해를, 같은 행의 나머지 적 모두에게 {1}의 폭발 피해를 줍니다."
-  },
-  {
-    "StringKey": "act_skill_chain_reaction",
-    "KorString": "연쇄반응"
-  },
-  {
-    "StringKey": "act_skill_chain_reaction_desc",
-    "KorString": "촉매가 부여된 모든 적에게 1의 폭발 피해를 줍니다."
-  },
-  {
     "StringKey": "act_skill_equivalent_exchange",
     "KorString": "등가교환"
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
     "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 피해를 입습니다."
-  },
-  {
-    "StringKey": "act_skill_flamethrower",
-    "KorString": "화염 방사"
-  },
-  {
-    "StringKey": "act_skill_flamethrower_desc",
-    "KorString": "적에게 화상을 {0} 부여합니다."
-  },
-  {
-    "StringKey": "act_skill_automail",
-    "KorString": "오토메일"
-  },
-  {
-    "StringKey": "act_skill_automail_desc",
-    "KorString": "선택한 아군의 현재 체력과 최대 체력을 3 감소시키고, 방어구를 {0} 부여합니다."
-  },
-  {
-    "StringKey": "act_skill_panacea",
-    "KorString": "만병통치약"
-  },
-  {
-    "StringKey": "act_skill_panacea_desc",
-    "KorString": "선택한 아군을 최대 체력으로 회복시킵니다."
   },
   {
     "StringKey": "act_skill_positive_feedback",
@@ -152,20 +304,36 @@
     "KorString": "적에게 촉매를 {0} 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 1 증가합니다."
   },
   {
-    "StringKey": "act_skill_overheat_propulsion",
-    "KorString": "과열 추진기"
+    "StringKey": "act_skill_chain_reaction",
+    "KorString": "연쇄반응"
   },
   {
-    "StringKey": "act_skill_overheat_propulsion_desc",
-    "KorString": "자신에게 화상을 {0} 부여하고, 적에게 피해를 {1} 줍니다."
+    "StringKey": "act_skill_chain_reaction_desc",
+    "KorString": "촉매가 부여된 모든 적에게 1의 폭발 피해를 줍니다."
   },
   {
-    "StringKey": "skill_bread_supply",
-    "KorString": "빵 보급"
+    "StringKey": "act_skill_panacea",
+    "KorString": "만병통치약"
   },
   {
-    "StringKey": "skill_bread_supply_desc",
-    "KorString": "아군을 {0} 회복합니다."
+    "StringKey": "act_skill_panacea_desc",
+    "KorString": "선택한 아군을 최대 체력으로 회복시킵니다."
+  },
+  {
+    "StringKey": "act_skill_cabinotieraction",
+    "KorString": "시간 강탈"
+  },
+  {
+    "StringKey": "act_skill_cabinotieraction_desc",
+    "KorString": "캐비노티에가 다음 적 카드를 무효화합니다."
+  },
+  {
+    "StringKey": "act_skill_airshipaction",
+    "KorString": "공중 포격"
+  },
+  {
+    "StringKey": "act_skill_airshipaction_desc",
+    "KorString": "거대 비행선이 적에게 {0}의 피해를 {1}번 줍니다."
   },
   {
     "StringKey": "skill_steamengine_protection",
@@ -174,6 +342,38 @@
   {
     "StringKey": "skill_steamengine_protection_desc",
     "KorString": "소진. 선택한 아군에게 방어구 {0}를 부여합니다. 해당 유닛은 증기동력 시너지에 포함됩니다."
+  },
+  {
+    "StringKey": "skill_forging",
+    "KorString": "벼리기"
+  },
+  {
+    "StringKey": "skill_forging_desc",
+    "KorString": "선택한 대상에게 강화를 {0} 부여합니다."
+  },
+  {
+    "StringKey": "skill_planb",
+    "KorString": "플랜B"
+  },
+  {
+    "StringKey": "skill_planb_desc",
+    "KorString": "카드를 {0}장 뽑고, 손패에서 카드를 {1}장 선택하여 버립니다."
+  },
+  {
+    "StringKey": "skill_damage",
+    "KorString": "지원 사격"
+  },
+  {
+    "StringKey": "skill_damage_desc",
+    "KorString": "적에게 피해를 {0} 줍니다."
+  },
+  {
+    "StringKey": "skill_shield",
+    "KorString": "방어구 보급"
+  },
+  {
+    "StringKey": "skill_shield_desc",
+    "KorString": "방어도를 {0} 부여합니다."
   },
   {
     "StringKey": "skill_quick_motion",
@@ -200,6 +400,14 @@
     "KorString": "대상에게 화상을 {0} 부여합니다."
   },
   {
+    "StringKey": "skill_bread_supply",
+    "KorString": "빵 보급"
+  },
+  {
+    "StringKey": "skill_bread_supply_desc",
+    "KorString": "아군을 {0} 회복합니다."
+  },
+  {
     "StringKey": "skill_stock",
     "KorString": "재고"
   },
@@ -208,20 +416,68 @@
     "KorString": "카드 {0}장을 뽑습니다."
   },
   {
-    "StringKey": "skill_damage",
-    "KorString": "지원 사격"
+    "StringKey": "synergy_steamengine",
+    "KorString": "증기기관"
   },
   {
-    "StringKey": "skill_damage_desc",
-    "KorString": "적에게 피해를 {0} 줍니다."
+    "StringKey": "synergy_clockwork",
+    "KorString": "시계태엽"
   },
   {
-    "StringKey": "skill_shield",
-    "KorString": "방어구 보급"
+    "StringKey": "synergy_noble",
+    "KorString": "귀족"
   },
   {
-    "StringKey": "skill_shield_desc",
-    "KorString": "방어도를 {0} 부여합니다."
+    "StringKey": "synergy_secret",
+    "KorString": "비밀결사"
+  },
+  {
+    "StringKey": "synergy_rotula",
+    "KorString": "교단"
+  },
+  {
+    "StringKey": "synergy_kingdom",
+    "KorString": "왕국군"
+  },
+  {
+    "StringKey": "synergy_alchemist",
+    "KorString": "연금술사"
+  },
+  {
+    "StringKey": "synergy_watchmaker",
+    "KorString": "시계공"
+  },
+  {
+    "StringKey": "synergy_vanguard",
+    "KorString": "돌격병"
+  },
+  {
+    "StringKey": "synergy_warden",
+    "KorString": "파수꾼"
+  },
+  {
+    "StringKey": "synergy_strategist",
+    "KorString": "전략가"
+  },
+  {
+    "StringKey": "synergy_aeronaut",
+    "KorString": "에어로넛"
+  },
+  {
+    "StringKey": "synergy_gunman",
+    "KorString": "총잡이"
+  },
+  {
+    "StringKey": "synergy_bomber",
+    "KorString": "폭발 전문가"
+  },
+  {
+    "StringKey": "synergy_engineer",
+    "KorString": "기계공"
+  },
+  {
+    "StringKey": "synergy_supporter",
+    "KorString": "지원가"
   },
   {
     "StringKey": "unit_enemy_patrolmachine",
@@ -256,8 +512,16 @@
     "KorString": ""
   },
   {
+    "StringKey": "unit_enemy_securityautomaton",
+    "KorString": "경비 오토마톤"
+  },
+  {
+    "StringKey": "unit_enemy_securityautomaton_desc",
+    "KorString": ""
+  },
+  {
     "StringKey": "unit_enemy_mechanizedslave",
-    "KorString": "기계화된 노예"
+    "KorString": "광폭화한 노예"
   },
   {
     "StringKey": "unit_enemy_mechanizedslave_desc",
@@ -280,14 +544,6 @@
     "KorString": ""
   },
   {
-    "StringKey": "synergy_alchemist",
-    "KorString": "연금술사"
-  },
-  {
-    "StringKey": "synergy_steamengine",
-    "KorString": "증기기관"
-  },
-  {
     "StringKey": "unit_enemy_scrapmonster",
     "KorString": "고철 괴물"
   },
@@ -304,11 +560,115 @@
     "KorString": ""
   },
   {
+    "StringKey": "unit_enemy_magnetmonster",
+    "KorString": "자석 괴물"
+  },
+  {
+    "StringKey": "unit_enemy_magnetmonster_desc",
+    "KorString": ""
+  },
+  {
     "StringKey": "unit_enemy_vacuumtubelump",
     "KorString": "진공관 덩어리"
   },
   {
     "StringKey": "unit_enemy_vacuumtubelump_desc",
     "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_mutatedslave",
+    "KorString": "변형된 노예"
+  },
+  {
+    "StringKey": "unit_enemy_mutatedslave_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_furnacegolem",
+    "KorString": "소각로 골렘"
+  },
+  {
+    "StringKey": "unit_enemy_furnacegolem_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_powerrepeater",
+    "KorString": "동력 중계기"
+  },
+  {
+    "StringKey": "unit_enemy_powerrepeater_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_betrayergunman",
+    "KorString": "변절한 총잡이"
+  },
+  {
+    "StringKey": "unit_enemy_betrayergunman_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "e_act_skill_pmlightdamageaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_hgunexpecteddamageaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_gaswingaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_rmrepairaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_msblowaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_sgwhipaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_wsshootaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_smheavyswingaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_bmprepareaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_mmattractionaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_vtlamplifyaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_msbutcheraction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_fgcombustionaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_prallocateaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "e_act_skill_bgrapidfireaction_desc",
+    "KorString": "{0}%particle% 피해를 {1} 줍니다."
+  },
+  {
+    "StringKey": "melee_attack_desc",
+    "KorString": "근접"
   }
 ]
