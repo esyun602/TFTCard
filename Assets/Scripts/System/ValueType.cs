@@ -11,7 +11,7 @@ public class ValueType
 
 	public static bool TryParse(string str, out ValueType type)
 	{
-		return typeDict.TryGetValue(str, out type);
+		return typeDict.TryGetValue(str.ToLower(), out type);
 	}
 
 	public string Name { get; }
@@ -19,7 +19,7 @@ public class ValueType
 	protected ValueType(string name)
 	{
 		Name = name;
-		typeDict.Add(name, this);
+		typeDict.Add(name.ToLower(), this);
 	}
 }
 

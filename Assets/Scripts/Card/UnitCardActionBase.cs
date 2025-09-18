@@ -30,7 +30,7 @@ public abstract class UnitCardActionBase : IAction
 		OnCancel();
 	}
 
-	public string Desc => GameDataSystem.Instance.GetGameData<GameString>().Format(descKey, DescParams);
+	public string Desc => GameDataSystem.Instance.GetGameData<GameString>().GetStringWithStat(descKey, owner.UnitCardBattleStat);
 
 	public abstract object[] DescParams { get; }
 	public abstract IEnumerable<ITile> Targets { get; }
