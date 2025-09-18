@@ -25,7 +25,7 @@ namespace MessageSystem
             }
             catch (Exception e)
             {
-                    Debug.LogError(e);
+                Debug.LogError(e);
             }
         }
 

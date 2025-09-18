@@ -3,6 +3,7 @@ using System;
 public abstract class UnitSkillCardActionBase : SkillCardActionBase
 {
 	protected new UnitSkillCardBattleStat BattleStat => (UnitSkillCardBattleStat)base.BattleStat;
+	protected new UnitSkillCardStat Stat => (UnitSkillCardStat)base.Stat;
 
 	public override bool CanUse(ITile targetTile)
 	{

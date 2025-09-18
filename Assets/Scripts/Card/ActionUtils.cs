@@ -7,7 +7,10 @@ public static class ActionUtils
 	{
 		if (triggerInfo is not TargetingActionTriggerInfo ti)
 		{
+#if UNITY_EDITOR			
 			throw new ArgumentException();
+#endif
+			yield break;
 		}
 
 		var targetTile = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap

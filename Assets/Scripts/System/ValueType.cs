@@ -1,7 +1,9 @@
 //todo: 빌드 시 bake
 //todo: 생성자 접근 제한
 
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class ValueType
 {
@@ -45,20 +47,26 @@ public sealed class UnitValueType : ValueType
 
 	public static readonly UnitValueType Hp = new("Hp");
 	public static readonly UnitValueType MaxHp = new("MaxHp");
-	public static readonly UnitValueType Attack = new("Attack");
+	public static readonly UnitValueType Attack = new("Attack", (lv)=>new ValueAddAttackBuff(lv));
 	public static readonly UnitValueType Shield = new("Shield");
-	public static readonly UnitValueType Burn = new("Burn");
-	public static readonly UnitValueType Catalyst = new("Catalyst");
+	public static readonly UnitValueType Burn = new("Burn", (lv)=>new BurnBuff(lv));
+	public static readonly UnitValueType Catalyst = new("Catalyst", (lv)=>new CatalystBuff(lv));
 	public static readonly UnitValueType Stun = new("Stun");
 	public static readonly UnitValueType Dodge = new("Dodge");
 	public static readonly UnitValueType HealBan = new("HealBan");
 
+	private Func<int, IBuff> func;
+	public IBuff InstantiateBuff(int level)
+	{
+		return func?.Invoke(level);
+	}
+	
 	public static bool TryParse(string str, out UnitValueType type)
 	{
 		return typeDict.TryGetValue(str, out type);
 	}
 
-	public UnitValueType(string name) : base(name)
+	public UnitValueType(string name, Func<int, IBuff> buffCreator = null) : base(name)
 	{
 		typeDict.Add(name, this);
 	}

@@ -13,6 +13,9 @@ public interface IBattleObject
 	
 	public IBattleObjectStat UnitCardBattleStat { get; }
 	public IDamagedBehaviour DamagedBehaviour { get; }
+	
+	//todo: fix to animation
+	public void RunAttackMotion();
 }
 
 public static class IBattleObjectExtensions

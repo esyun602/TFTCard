@@ -32,9 +32,10 @@ public class TargetMarkerManager : UIInstance
 			list = markerRequests[requester] = new();
 		}
 
-		foreach (var bo in targetList)
+		foreach (var tile in targetList)
 		{
-			var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(Camera.main.WorldToScreenPoint(bo.GetPosition()));
+			if(tile == null) continue;
+			var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(Camera.main.WorldToScreenPoint(tile.GetPosition()));
 			list.Add(obj);
 		}
 	}

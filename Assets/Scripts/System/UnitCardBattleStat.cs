@@ -231,7 +231,6 @@ public class UnitCardBattleStat : IBattleObjectStat
 	}
 
 	/// <summary>
-	/// 기본 스탯값 외에는 설정을 허용하지 않음
 	/// 스탯 외의 값은 버프로만 추가
 	/// </summary>
 	/// <param name="type"></param>
@@ -246,6 +245,15 @@ public class UnitCardBattleStat : IBattleObjectStat
 		if (type == UnitValueType.Shield)
 		{
 			Shield = newValues[0];
+		}
+
+		if (type is UnitValueType utype)
+		{
+			var buff = utype.InstantiateBuff(newValues[0]);
+			if (buff != null)
+			{
+				AddBuff(buff);
+			}
 		}
 	}
 

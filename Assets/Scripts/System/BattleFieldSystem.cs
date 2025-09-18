@@ -48,6 +48,11 @@ public class BattleFieldSystem
 		return merged;
 	}
 
+	public IBattleObject GetRandomBattleObject(ObjectType type)
+	{
+		return GetAllObjectOfType(type).GetRandomElement();
+	}
+
 
 	private void OnDestroy(BattleObjectDestroyedNotice m)
 	{
