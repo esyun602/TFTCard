@@ -22,5 +22,11 @@
     "ClassName": "TestUnitCardAction",
     "FxName": "FX_hit_07",
     "DescKey": "melee_attack_desc"
+  },
+  {
+    "Name": "DefaultRangeAction",
+    "ClassName": "UnitCardRangeAttackAction",
+    "FxName": "FX_hit_07",
+    "DescKey": "range_attack_desc"
   }
 ]
