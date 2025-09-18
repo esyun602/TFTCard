@@ -1,8 +1,24 @@
 [
   {
-    "Name": "BiologicalExperimentStat",
-    "Cost": 1,
-    "CatalystAdd": 1
+    "Name": "OverheatPropulsionStat",
+    "Cost": 0,
+    "BurnAdd": 2
+  },
+  {
+    "Name": "FlamethrowerStat",
+    "Cost": 2
+  },
+  {
+    "Name": "",
+    "Cost": 3
+  },
+  {
+    "Name": "HighPressureBombStat",
+    "Cost": 2
+  },
+  {
+    "Name": "AutoMailStat",
+    "Cost": 1
   },
   {
     "Name": "SteamPackStat",
@@ -11,29 +27,33 @@
     "TurnCount": 2
   },
   {
-    "Name": "HighPressureBombStat",
-    "Cost": 2
+    "Name": "",
+    "Cost": 0
   },
   {
-    "Name": "ChainReactionStat",
+    "Name": "",
+    "Cost": 0
+  },
+  {
+    "Name": "",
+    "Cost": 0
+  },
+  {
+    "Name": "",
+    "Cost": 0
+  },
+  {
+    "Name": "",
+    "Cost": 0
+  },
+  {
+    "Name": "BiologicalExperimentStat",
     "Cost": 1,
-    "Damage": 1
+    "CatalystAdd": 1
   },
   {
     "Name": "EquivalentExchangeStat",
     "Cost": 0
-  },
-  {
-    "Name": "FlamethrowerStat",
-    "Cost": 2
-  },
-  {
-    "Name": "AutoMailStat",
-    "Cost": 1
-  },
-  {
-    "Name": "PanaceaStat",
-    "Cost": 3
   },
   {
     "Name": "PositiveFeedbackStat",
@@ -41,9 +61,13 @@
     "CatalystAdd": 1
   },
   {
-    "Name": "OverheatPropulsionStat",
-    "Cost": 0,
-    "BurnAdd": 2
+    "Name": "ChainReactionStat",
+    "Cost": 1,
+    "Damage": 1
+  },
+  {
+    "Name": "PanaceaStat",
+    "Cost": 3
   },
   {
     "Name": "PatrolMachineActionStat",
@@ -59,7 +83,8 @@
   },
   {
     "Name": "RepairMachineActionStat",
-    "Cost": -2
+    "Cost": -2,
+    "Heal": 3
   },
   {
     "Name": "MechanizedSlaveActionStat",
