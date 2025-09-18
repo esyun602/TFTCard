@@ -16,6 +16,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private const string allyCardPrefabPath = "Card/CardPrefab";
 	private const string enemyCardPrefabPath = "Card/EnemyCardPrefab";
 
+	public string Name => TargetUnitCard.Name;
 	public ObjectType ObjectType => objectType;
 	public Vector3 Position => transform.position;
 	private Transform transformCache;
