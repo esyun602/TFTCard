@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-public class FurnaceGolemCombustionAction : UnitSkillCardActionBase
+public class ScrapMonsterSmiteAction : UnitSkillCardActionBase
 {
 	private float timePassed = 0f;
 
-	public FurnaceGolemCombustionAction(FurnaceGolemCombustionActionSpec spec) : base(spec)
+	public ScrapMonsterSmiteAction(ScrapMonsterSmiteActionSpec spec) : base(spec)
 	{
 	}
 
@@ -31,10 +31,15 @@ public class FurnaceGolemCombustionAction : UnitSkillCardActionBase
 			{
 				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 				var target = map.GetBattleObjectOfTile(targetTile);
-				
+
 				if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
 				{
-					map.GetBattleObjectOfTile(targetTile).UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(UnitValueType.Attack));
+					target.Damage(new DamageInfo()
+					{
+						DamageType = DamageType.NormalAttack,
+						Sender = BattleStat.Owner,
+						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(UnitValueType.Hp)
+					});
 				}
 			}
 		}

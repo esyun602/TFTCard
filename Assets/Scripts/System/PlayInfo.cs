@@ -64,7 +64,7 @@ public class PlayInfo
 	public IEnumerable<TacticsCard> TacticsCardList => tacticsCardList;
 
 	//todo: 가방 고칠 때 수정
-	public List<UnitSkillCard> UnitSkillCardList => FieldDeployLocationInfo.Select(x => x.TargetCard.UnitSkillCard).ToList();
+	public List<UnitSkillCard> UnitSkillCardList => FieldDeployLocationInfo.SelectMany(x => x.TargetCard.UnitSkillCard).ToList();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	private Dictionary<SynergyCategory, int> synergyNumDict = new();
 	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();

@@ -143,7 +143,7 @@ public class DeckSystem
 	}
 	
 	//todo: battlestat owner set 관련된부분 살펴보기
-	private UnitSkillCardInHand GenerateUnitSkillCardInstance(IBattleObject bo, UnitSkillCard skillCard, bool addToEnemyPool = false)
+	public UnitSkillCardInHand GenerateUnitSkillCardInstance(IBattleObject bo, UnitSkillCard skillCard, bool addToEnemyPool = false)
 	{
 		UnitSkillCardInHand obj;
 		if (addToEnemyPool)
@@ -376,7 +376,10 @@ public class DeckSystem
 
 	public void OnAllyAdd(UnitCardInField ally)
 	{
-		GenerateUnitSkillCardInstance(ally, ally.TargetUnitCard.UnitSkillCard);
+		foreach (var card in ally.TargetUnitCard.UnitSkillCard)
+		{
+			GenerateUnitSkillCardInstance(ally, card);
+		}
 		ShuffleDeck();
 		
 		PlayerField.AddToField(ally);
@@ -385,30 +388,41 @@ public class DeckSystem
 	public void OnAllyRemove(UnitCardInField ally)
 	{
 		PlayerField.RemoveFromField(ally);
+
+		foreach (var card in ally.TargetUnitCard.UnitSkillCard)
+		{
+			var obj = GetSkillCardInstance(card) as UnitSkillCardInHand;
 		
-		var obj = GetSkillCardInstance(ally.TargetUnitCard.UnitSkillCard) as UnitSkillCardInHand;
+			if (obj == null) return;
 		
-		if (obj == null) return;
+			//todo: fix
+			obj.SetDeadState();
+		}
 		
-		//todo: fix
-		obj.SetDeadState();
 		ShuffleDeck();
 	}
 	
 	public void OnEnemyAdd(UnitCardInField enemy)
 	{
-		var obj = GenerateUnitSkillCardInstance(enemy, enemy.TargetUnitCard.UnitSkillCard, true);
-		ShuffleEnemyDeck();
+		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
+		{
+			GenerateUnitSkillCardInstance(enemy, card, true);
+			ShuffleEnemyDeck();
+		}
 	}
 
 	public void OnEnemyRemove(UnitCardInField enemy)
 	{
-		var obj = GetSkillCardInstance(enemy.TargetUnitCard.UnitSkillCard) as UnitSkillCardInHand;
+		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
+		{
+			var obj = GetSkillCardInstance(card) as UnitSkillCardInHand;
 
-		if (obj == null) return;
+			if (obj == null) return;
 
-		obj.SetDeadState();
-		RemoveCard(obj);
+			obj.SetDeadState();
+			RemoveCard(obj);
+		}
+		
 		ShuffleEnemyDeck();
 	}
 

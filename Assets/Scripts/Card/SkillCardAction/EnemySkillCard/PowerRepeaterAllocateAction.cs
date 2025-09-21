@@ -35,6 +35,7 @@ public class PowerRepeaterAllocateAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
+		BattleStat.Owner.RunAttackMotion();
 		timePassed = 0f;
 	}
 

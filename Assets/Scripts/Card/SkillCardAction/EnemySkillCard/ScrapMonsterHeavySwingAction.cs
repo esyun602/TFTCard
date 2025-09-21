@@ -1,11 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 
-public class FurnaceGolemCombustionAction : UnitSkillCardActionBase
+public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 {
 	private float timePassed = 0f;
+	private UnitSkillCardSpec targetCardSpec;
 
-	public FurnaceGolemCombustionAction(FurnaceGolemCombustionActionSpec spec) : base(spec)
+	public ScrapMonsterHeavySwingAction(ScrapMonsterHeavySwingActionSpec spec) : base(spec)
 	{
+		targetCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetCardName);
 	}
 
 	public override object[] DescParams => new object[]
@@ -31,12 +34,20 @@ public class FurnaceGolemCombustionAction : UnitSkillCardActionBase
 			{
 				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 				var target = map.GetBattleObjectOfTile(targetTile);
-				
+
 				if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
 				{
-					map.GetBattleObjectOfTile(targetTile).UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(UnitValueType.Attack));
+					target.Damage(new DamageInfo()
+					{
+						DamageType = DamageType.NormalAttack,
+						Sender = BattleStat.Owner,
+						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(UnitValueType.Hp)
+					});
 				}
 			}
+			
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateUnitSkillCardInstance(
+				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner), true);
 		}
 		else if (timePassed > 1.5f)
 		{

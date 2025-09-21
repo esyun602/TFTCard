@@ -17,7 +17,8 @@ public abstract class SkillCardBattleStat : IStat
 	public virtual int[] GetValuesByValueType(ValueType type)
 	{
 		if (!type.IsSkillCompatible()) throw new ArgumentException();
-		return valueDict.GetValueOrDefault(type);
+		//todo: instance 하나 재활용
+		return valueDict.GetValueOrDefault(type, new int[]{0});
 	}
 
 	public virtual void SetValuesByValueType(ValueType type, int[] newValues)

@@ -23,7 +23,7 @@ public class Game : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
-	private void Start()
+	protected void Initialize()
 	{
 		//todo:fix
 		Screen.SetResolution(1920, 1080, true);
@@ -32,6 +32,11 @@ public class Game : MonoBehaviour
 		UIManager = new();
 		player = new();
 		player.Initialize();
+	}
+
+	private void Start()
+	{
+		Initialize();
 		ChangeGameMode(new TitleGameMode());
 	}
 	

@@ -48,7 +48,7 @@ public class GameString : GameData
 			targetName = unitSkillCardBattleStat.Owner.Name;
 		}
 
-		var nameProcessed = Regex.Replace(str, "\\$name", targetName);
+		var nameProcessed = Regex.Replace(str, @"\$name", targetName);
 
 		
 		var particleProcessed = Regex.Replace(nameProcessed, "%particle%", m =>

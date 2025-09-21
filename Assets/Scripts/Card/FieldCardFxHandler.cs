@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MessageSystem;
 
 public class FieldCardFxHandler
@@ -8,20 +9,6 @@ public class FieldCardFxHandler
 	}
 
 	public UnitCardInField Owner { get; }
-
-	private BattleCardObjectInHand targetSkillCard;
-	private BattleCardObjectInHand TargetSkillCard
-	{
-		get
-		{
-			if (targetSkillCard == null)
-			{
-				targetSkillCard = Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GetSkillCardInstance(Owner.TargetUnitCard.UnitSkillCard);
-			}
-
-			return targetSkillCard;
-		}
-	}
 	public bool ActivateFx { get; private set; }
 
 	public void Initialize()
@@ -36,13 +23,15 @@ public class FieldCardFxHandler
 
 	private void OnStartUse(SkillHandCardStartUseNotice m)
 	{
-		if(m.SelectedCard == TargetSkillCard)
+		if(m.SelectedCard.TargetCard is UnitSkillCard card 
+		   && Owner.TargetUnitCard.UnitSkillCard.Contains(card))
 			ActivateFx = false;
 	}
 
 	private void OnHover(SkillHandCardHoverNotice m)
 	{
-		if (m.SelectedCard == TargetSkillCard)
+		if (m.SelectedCard.TargetCard is UnitSkillCard card 
+		    && Owner.TargetUnitCard.UnitSkillCard.Contains(card))
 			ActivateFx = true;
 		else
 			ActivateFx = false;
@@ -50,19 +39,22 @@ public class FieldCardFxHandler
 
 	private void OnRemoveHover(SkillHandCardRemoveHoverNotice m)
 	{
-		if(m.SelectedCard == TargetSkillCard)
+		if(m.SelectedCard.TargetCard is UnitSkillCard card 
+		   && Owner.TargetUnitCard.UnitSkillCard.Contains(card))
 			ActivateFx = false;
 	}
 
 	private void OnSelectCancel(SkillHandCardSelectCancelNotice m)
 	{
-		if(m.SelectedCard == TargetSkillCard)
+		if(m.SelectedCard.TargetCard is UnitSkillCard card 
+		   && Owner.TargetUnitCard.UnitSkillCard.Contains(card))
 			ActivateFx = false;
 	}
 
 	private void OnSelect(SkillHandCardSelectNotice m)
 	{
-		if(m.SelectedCard == TargetSkillCard)
+		if(m.SelectedCard.TargetCard is UnitSkillCard card 
+		   && Owner.TargetUnitCard.UnitSkillCard.Contains(card))
 			ActivateFx = true;
 		else
 			ActivateFx = false;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
@@ -7,15 +8,19 @@ public class UnitCard : ICard
 	public UnitCardStat Stat { get; }
 	public UnitCardSpec UnitCardStaticSpec { get; }
 	//todo: 적 / 아군 분리
-	public UnitSkillCard UnitSkillCard { get; }
+	public List<UnitSkillCard> UnitSkillCard { get; }
 
 	public UnitCard(UnitCardSpec spec)
 	{
 		UnitCardStaticSpec = spec;
-		var targetSkillSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetSkillCardSpecName);
-		if (targetSkillSpec != null)
+		UnitSkillCard = new();
+		foreach (var str in spec.TargetSkillCardSpecName)
 		{
-			UnitSkillCard = new UnitSkillCard(targetSkillSpec, this);
+			var targetSkillSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(str);
+			if (targetSkillSpec != null)
+			{
+				UnitSkillCard.Add(new UnitSkillCard(targetSkillSpec, this));
+			}
 		}
 
 		if (!String.IsNullOrEmpty(spec.ActionSpecName))

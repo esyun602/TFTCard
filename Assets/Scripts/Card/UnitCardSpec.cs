@@ -10,7 +10,7 @@ public class UnitCardSpec : ICardSpec
 	public string StatSpecName { get; private set; }
 	public Sprite CardResource { get; private set; }
 	public string ActionSpecName { get; private set; }
-	public string TargetSkillCardSpecName { get; private set; }
+	public string[] TargetSkillCardSpecName { get; private set; }
 
 	private UnitCardSpec()
 	{
@@ -27,7 +27,7 @@ public class UnitCardSpec : ICardSpec
 		//todo: fix
 		spec.CardResource = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(CardResource)));
 		spec.ActionSpecName = param.GetString(nameof(ActionSpecName));
-		spec.TargetSkillCardSpecName = param.GetString(nameof(TargetSkillCardSpecName));
+		spec.TargetSkillCardSpecName = param.GetStringArray(nameof(TargetSkillCardSpecName));
 
 		return spec;
 	}
