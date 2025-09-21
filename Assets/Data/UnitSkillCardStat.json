@@ -103,8 +103,18 @@
     "Cost": -2
   },
   {
+    "Name": "ScrapMonsterSmiteActionStat",
+    "Cost": -2,
+    "Exhaustion": 1
+  },
+  {
     "Name": "BrassMonsterActionStat",
     "Cost": -2
+  },
+  {
+    "Name": "BrassMonsterSmashActionStat",
+    "Cost": -2,
+    "Exhaustion": 1
   },
   {
     "Name": "VacuumTubeLumpActionStat",

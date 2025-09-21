@@ -5,7 +5,9 @@
     "NameKey": "unit_walter",
     "StatSpecName": "WalterStat",
     "CardResource": "walter_default",
-    "TargetSkillCardSpecName": "OverheatPropulsion"
+    "TargetSkillCardSpecName": [
+      "OverheatPropulsion"
+    ]
   },
   {
     "Id": 1,
@@ -13,7 +15,9 @@
     "NameKey": "unit_firebat",
     "StatSpecName": "FirebatStat",
     "CardResource": "firebat_default",
-    "TargetSkillCardSpecName": "Flamethrower"
+    "TargetSkillCardSpecName": [
+      "Flamethrower"
+    ]
   },
   {
     "Id": 2,
@@ -21,7 +25,9 @@
     "NameKey": "unit_vaper",
     "StatSpecName": "VaperStat",
     "CardResource": "vaper_default",
-    "TargetSkillCardSpecName": "VaperAction"
+    "TargetSkillCardSpecName": [
+      "VaperAction"
+    ]
   },
   {
     "Id": 3,
@@ -29,7 +35,9 @@
     "NameKey": "unit_cowl",
     "StatSpecName": "CowlStat",
     "CardResource": "cowl_default",
-    "TargetSkillCardSpecName": "HighPressureBomb"
+    "TargetSkillCardSpecName": [
+      "HighPressureBomb"
+    ]
   },
   {
     "Id": 4,
@@ -37,7 +45,9 @@
     "NameKey": "unit_guttie",
     "StatSpecName": "GuttieStat",
     "CardResource": "guttie_default",
-    "TargetSkillCardSpecName": "AutoMail"
+    "TargetSkillCardSpecName": [
+      "AutoMail"
+    ]
   },
   {
     "Id": 5,
@@ -45,7 +55,9 @@
     "NameKey": "unit_bella",
     "StatSpecName": "BellaStat",
     "CardResource": "bella_default",
-    "TargetSkillCardSpecName": "SteamPack"
+    "TargetSkillCardSpecName": [
+      "SteamPack"
+    ]
   },
   {
     "Id": 6,
@@ -53,7 +65,9 @@
     "NameKey": "unit_vilhelm",
     "StatSpecName": "VilhelmStat",
     "CardResource": "vilhelm_default",
-    "TargetSkillCardSpecName": "VilhelmAction"
+    "TargetSkillCardSpecName": [
+      "VilhelmAction"
+    ]
   },
   {
     "Id": 7,
@@ -61,7 +75,9 @@
     "NameKey": "unit_collector",
     "StatSpecName": "CollectorStat",
     "CardResource": "collector_default",
-    "TargetSkillCardSpecName": "CollectorAction"
+    "TargetSkillCardSpecName": [
+      "CollectorAction"
+    ]
   },
   {
     "Id": 8,
@@ -69,7 +85,9 @@
     "NameKey": "unit_graham",
     "StatSpecName": "GrahamStat",
     "CardResource": "graham_default",
-    "TargetSkillCardSpecName": "GrahamAction"
+    "TargetSkillCardSpecName": [
+      "GrahamAction"
+    ]
   },
   {
     "Id": 9,
@@ -77,7 +95,9 @@
     "NameKey": "unit_norman",
     "StatSpecName": "NormanStat",
     "CardResource": "norman_default",
-    "TargetSkillCardSpecName": "NormanAction"
+    "TargetSkillCardSpecName": [
+      "NormanAction"
+    ]
   },
   {
     "Id": 10,
@@ -85,7 +105,9 @@
     "NameKey": "unit_dawson",
     "StatSpecName": "DawsonStat",
     "CardResource": "dawson_default",
-    "TargetSkillCardSpecName": "DawsonAction"
+    "TargetSkillCardSpecName": [
+      "DawsonAction"
+    ]
   },
   {
     "Id": 11,
@@ -93,7 +115,9 @@
     "NameKey": "unit_desmond",
     "StatSpecName": "DesmondStat",
     "CardResource": "desmond_default",
-    "TargetSkillCardSpecName": "DesmondAction"
+    "TargetSkillCardSpecName": [
+      "DesmondAction"
+    ]
   },
   {
     "Id": 12,
@@ -101,7 +125,9 @@
     "NameKey": "unit_derrick",
     "StatSpecName": "DerrickStat",
     "CardResource": "derrick_default",
-    "TargetSkillCardSpecName": "DerrickAction"
+    "TargetSkillCardSpecName": [
+      "DerrickAction"
+    ]
   },
   {
     "Id": 13,
@@ -109,7 +135,9 @@
     "NameKey": "unit_dustin",
     "StatSpecName": "DustinStat",
     "CardResource": "dustin_default",
-    "TargetSkillCardSpecName": "DustinAction"
+    "TargetSkillCardSpecName": [
+      "DustinAction"
+    ]
   },
   {
     "Id": 14,
@@ -117,7 +145,9 @@
     "NameKey": "unit_alle",
     "StatSpecName": "AlleStat",
     "CardResource": "alle_default",
-    "TargetSkillCardSpecName": "BiologicalExperiment"
+    "TargetSkillCardSpecName": [
+      "BiologicalExperiment"
+    ]
   },
   {
     "Id": 15,
@@ -125,7 +155,9 @@
     "NameKey": "unit_equinox",
     "StatSpecName": "EquinoxStat",
     "CardResource": "equinox_default",
-    "TargetSkillCardSpecName": "EquivalentExchange"
+    "TargetSkillCardSpecName": [
+      "EquivalentExchange"
+    ]
   },
   {
     "Id": 16,
@@ -133,7 +165,9 @@
     "NameKey": "unit_posi",
     "StatSpecName": "PosiStat",
     "CardResource": "posi_default",
-    "TargetSkillCardSpecName": "PositiveFeedback"
+    "TargetSkillCardSpecName": [
+      "PositiveFeedback"
+    ]
   },
   {
     "Id": 17,
@@ -141,7 +175,9 @@
     "NameKey": "unit_dacane",
     "StatSpecName": "DacaneStat",
     "CardResource": "dacane_default",
-    "TargetSkillCardSpecName": "ChainReaction"
+    "TargetSkillCardSpecName": [
+      "ChainReaction"
+    ]
   },
   {
     "Id": 18,
@@ -149,7 +185,9 @@
     "NameKey": "unit_pana",
     "StatSpecName": "PanaStat",
     "CardResource": "pana_default",
-    "TargetSkillCardSpecName": "Panacea"
+    "TargetSkillCardSpecName": [
+      "Panacea"
+    ]
   },
   {
     "Id": 19,
@@ -157,7 +195,9 @@
     "NameKey": "unit_cabinotier",
     "StatSpecName": "CabinotierStat",
     "CardResource": "cabinotier_default",
-    "TargetSkillCardSpecName": "CabinotierAction"
+    "TargetSkillCardSpecName": [
+      "CabinotierAction"
+    ]
   },
   {
     "Id": 20,
@@ -165,7 +205,9 @@
     "NameKey": "unit_airship",
     "StatSpecName": "AirshipStat",
     "CardResource": "airship_default",
-    "TargetSkillCardSpecName": "AirshipAction"
+    "TargetSkillCardSpecName": [
+      "AirshipAction"
+    ]
   },
   {
     "Id": 21,
@@ -173,7 +215,9 @@
     "NameKey": "unit_enemy_patrolmachine",
     "StatSpecName": "EnemyPatrolMachineStat",
     "CardResource": "enemy_patrolmachine_default",
-    "TargetSkillCardSpecName": "PatrolMachineLightDamage"
+    "TargetSkillCardSpecName": [
+      "PatrolMachineLightDamage"
+    ]
   },
   {
     "Id": 22,
@@ -181,7 +225,9 @@
     "NameKey": "unit_enemy_hiredgangster",
     "StatSpecName": "EnemyHiredGangsterStat",
     "CardResource": "enemy_hiredgangster_default",
-    "TargetSkillCardSpecName": "HiredGangsterUnexpectedDamage"
+    "TargetSkillCardSpecName": [
+      "HiredGangsterUnexpectedDamage"
+    ]
   },
   {
     "Id": 23,
@@ -189,7 +235,9 @@
     "NameKey": "unit_enemy_guardautomaton",
     "StatSpecName": "EnemyGuardAutomatonStat",
     "CardResource": "enemy_guardautomaton_default",
-    "TargetSkillCardSpecName": "GuardAutomatonSwing"
+    "TargetSkillCardSpecName": [
+      "GuardAutomatonSwing"
+    ]
   },
   {
     "Id": 24,
@@ -197,7 +245,9 @@
     "NameKey": "unit_enemy_repairmachine",
     "StatSpecName": "EnemyRepairMachineStat",
     "CardResource": "enemy_repairmachine_default",
-    "TargetSkillCardSpecName": "RepairMachineRepair"
+    "TargetSkillCardSpecName": [
+      "RepairMachineRepair"
+    ]
   },
   {
     "Id": 25,
@@ -205,7 +255,9 @@
     "NameKey": "unit_enemy_mechanizedslave",
     "StatSpecName": "EnemyMechanizedSlaveStat",
     "CardResource": "enemy_mechanizedslave_default",
-    "TargetSkillCardSpecName": "MechanizedSlaveBlow"
+    "TargetSkillCardSpecName": [
+      "MechanizedSlaveBlow"
+    ]
   },
   {
     "Id": 26,
@@ -213,7 +265,9 @@
     "NameKey": "unit_enemy_slaveguard",
     "StatSpecName": "EnemySlaveGuardStat",
     "CardResource": "enemy_slaveguard_default",
-    "TargetSkillCardSpecName": "SlaveGuardWhip"
+    "TargetSkillCardSpecName": [
+      "SlaveGuardWhip"
+    ]
   },
   {
     "Id": 27,
@@ -221,7 +275,9 @@
     "NameKey": "unit_enemy_workshopsupervisor",
     "StatSpecName": "EnemyWorkshopSupervisorStat",
     "CardResource": "enemy_workshopsupervisor_default",
-    "TargetSkillCardSpecName": "WorkshopSupervisorShoot"
+    "TargetSkillCardSpecName": [
+      "WorkshopSupervisorShoot"
+    ]
   },
   {
     "Id": 28,
@@ -229,7 +285,9 @@
     "NameKey": "unit_enemy_scrapmonster",
     "StatSpecName": "EnemyScrapMonsterStat",
     "CardResource": "enemy_scrapmonster_default",
-    "TargetSkillCardSpecName": "ScrapMonsterHeavySwing"
+    "TargetSkillCardSpecName": [
+      "ScrapMonsterHeavySwing"
+    ]
   },
   {
     "Id": 29,
@@ -237,7 +295,9 @@
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "EnemyBrassMonsterStat",
     "CardResource": "enemy_brassmonster_default",
-    "TargetSkillCardSpecName": "BrassMonsterPrepare"
+    "TargetSkillCardSpecName": [
+      "BrassMonsterPrepare"
+    ]
   },
   {
     "Id": 30,
@@ -245,7 +305,9 @@
     "NameKey": "unit_enemy_magnetmonster",
     "StatSpecName": "EnemyMagnetMonsterStat",
     "CardResource": "enemy_magnetmonster_default",
-    "TargetSkillCardSpecName": "MagnetMonsterAttraction"
+    "TargetSkillCardSpecName": [
+      "MagnetMonsterAttraction"
+    ]
   },
   {
     "Id": 31,
@@ -253,7 +315,9 @@
     "NameKey": "unit_enemy_vacuumtubelump",
     "StatSpecName": "EnemyVacuumTubeLumpStat",
     "CardResource": "enemy_vacuumtubelump_default",
-    "TargetSkillCardSpecName": "VacuumTubeLumpAmplify"
+    "TargetSkillCardSpecName": [
+      "VacuumTubeLumpAmplify"
+    ]
   },
   {
     "Id": 32,
@@ -261,7 +325,9 @@
     "NameKey": "unit_enemy_mutatedslave",
     "StatSpecName": "EnemyMutatedSlaveStat",
     "CardResource": "enemy_mutatedslave_default",
-    "TargetSkillCardSpecName": "MutatedSlaveButcher"
+    "TargetSkillCardSpecName": [
+      "MutatedSlaveButcher"
+    ]
   },
   {
     "Id": 33,
@@ -269,7 +335,9 @@
     "NameKey": "unit_enemy_furnacegolem",
     "StatSpecName": "EnemyFurnaceGolemStat",
     "CardResource": "enemy_furnacegolem_default",
-    "TargetSkillCardSpecName": "FurnaceGolemCombustion"
+    "TargetSkillCardSpecName": [
+      "FurnaceGolemCombustion"
+    ]
   },
   {
     "Id": 34,
@@ -277,7 +345,9 @@
     "NameKey": "unit_enemy_powerrepeater",
     "StatSpecName": "EnemyPowerRepeaterStat",
     "CardResource": "enemy_powerrepeater_default",
-    "TargetSkillCardSpecName": "PowerRepeaterAllocate"
+    "TargetSkillCardSpecName": [
+      "PowerRepeaterAllocate"
+    ]
   },
   {
     "Id": 35,
@@ -285,6 +355,8 @@
     "NameKey": "unit_enemy_betrayergunman",
     "StatSpecName": "EnemyBetrayerGunmanStat",
     "CardResource": "enemy_betrayergunman_default",
-    "TargetSkillCardSpecName": "BetrayerGunmanRapidFire"
+    "TargetSkillCardSpecName": [
+      "BetrayerGunmanRapidFire"
+    ]
   }
 ]

@@ -25,5 +25,26 @@
         "TestStage3"
       ]
     }
+  },
+  {
+    "Name": "TestFlow",
+    "StageTypeOrder": [
+      "BattleStage"
+    ],
+    "EventStageGenType": "StaticNumber",
+    "BranchParams": [
+      2
+    ],
+    "EventStagePool": {
+      "AllowDuplicate": true,
+      "PoolList": [
+      ]
+    },
+    "BattleStagePool": {
+      "AllowDuplicate": true,
+      "PoolList": [
+        "TestStage"
+      ]
+    }
   }
 ]

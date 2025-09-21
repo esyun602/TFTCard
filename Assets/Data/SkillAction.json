@@ -144,14 +144,23 @@
   },
   {
     "Name": "ScrapMonsterHeavySwingAction",
-    "ClassName": "UnitActionAdapter",
+    "ClassName": "ScrapMonsterHeavySwingAction",
     "TargetUnitCardAction": "EnemyAction2",
     "DescKey": "e_act_skill_smheavyswingaction_desc"
   },
   {
+    "Name": "ScrapMonsterSmiteAction",
+    "ClassName": "ScrapMonsterSmiteAction",
+    "DescKey": "e_act_skill_smheavyswingaction_desc"
+  },
+  {
     "Name": "BrassMonsterPrepareAction",
-    "ClassName": "UnitActionAdapter",
-    "TargetUnitCardAction": "EnemyAction2",
+    "ClassName": "BrassMonsterPrepareAction",
+    "DescKey": "e_act_skill_bmprepareaction_desc"
+  },
+  {
+    "Name": "BrassMonsterSmashAction",
+    "ClassName": "BrassMonsterSmashAction",
     "DescKey": "e_act_skill_bmprepareaction_desc"
   },
   {

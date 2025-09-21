@@ -262,6 +262,15 @@
   },
   {
     "Id": 29,
+    "Name": "ScrapMonsterSmite",
+    "NameKey": "unit_enemy_scrapmonster",
+    "StatSpecName": "ScrapMonsterSmiteActionStat",
+    "CardResource": "enemy_scrapmonster_default",
+    "ActionSpecName": "ScrapMonsterSmiteAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 30,
     "Name": "BrassMonsterPrepare",
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "BrassMonsterActionStat",
@@ -270,7 +279,16 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 30,
+    "Id": 31,
+    "Name": "BrassMonsterSmash",
+    "NameKey": "unit_enemy_brassmonster",
+    "StatSpecName": "BrassMonsterSmashActionStat",
+    "CardResource": "enemy_brassmonster_default",
+    "ActionSpecName": "BrassMonsterSmashAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 32,
     "Name": "VacuumTubeLumpAmplify",
     "NameKey": "unit_enemy_vacuumtubelump",
     "StatSpecName": "VacuumTubeLumpActionStat",
@@ -279,7 +297,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 31,
+    "Id": 33,
     "Name": "MagnetMonsterAttraction",
     "NameKey": "unit_enemy_magnetmonsterattraction",
     "StatSpecName": "MagnetMonsterAttractionStat",
@@ -288,7 +306,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 32,
+    "Id": 34,
     "Name": "MutatedSlaveButcher",
     "NameKey": "unit_enemy_mutatedslavebutcher",
     "StatSpecName": "MutatedSlaveButcherStat",
@@ -297,7 +315,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 33,
+    "Id": 35,
     "Name": "FurnaceGolemCombustion",
     "NameKey": "unit_enemy_fumacegolemcombustion",
     "StatSpecName": "FurnaceGolemCombustionStat",
@@ -306,7 +324,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 34,
+    "Id": 36,
     "Name": "PowerRepeaterAllocate",
     "NameKey": "unit_enemy_powerrepeaterallocate",
     "StatSpecName": "PowerRepeaterAllocateStat",
@@ -315,7 +333,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 35,
+    "Id": 37,
     "Name": "BetrayerGunmanRapidFire",
     "NameKey": "unit_enemy_betrayergunmanrapidfire",
     "StatSpecName": "BetrayerGunmanRapidFireStat",
