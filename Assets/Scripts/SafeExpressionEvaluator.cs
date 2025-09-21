@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 public static class AEEvaluator
 {
-	private static Dictionary<string, List<(Instruction[], string[])>> instructionCache = new();
+	private static Dictionary<string, List<(Instruction[], (string, int)[])>> instructionCache = new();
 	private static string number = @"(?<NUM>[1-9][0-9]*|0)";
 	private static string id = @"\$(?<ID>[A-Za-z]+)";
 	private static string plus = @"(?<PLUS>\+)";
@@ -128,19 +129,27 @@ public static class AEEvaluator
 			_ => 0
 		};
 
-		public static (Instruction[] code, string[] varOrder) CompileToRpn(IReadOnlyList<Token> toks)
+		public static (Instruction[] code, (string type, int idx)[] varOrder) CompileToRpn(IReadOnlyList<Token> toks)
 		{
 			var outIns = new List<Instruction>(toks.Count * 2);
 			var ops = new Stack<TokenType>();
-			var varMap = new Dictionary<string, int>(StringComparer.Ordinal);
-			var varOrder = new List<string>();
+			var varMap = new Dictionary<(string, int), int>();
+			var varOrder = new List<(string, int)>();
+			string varIdxPattern = @"\[([^\]]*)\]";
 
 			int VarIndex(string name)
 			{
-				if (!varMap.TryGetValue(name, out var idx))
+				var match = Regex.Match(name, varIdxPattern);
+				int i = 0;
+				if (match.Success)
 				{
-					idx = varMap[name] = varOrder.Count;
-					varOrder.Add(name);
+					i = int.Parse(match.Groups[1].Value);
+					name = Regex.Replace(name, varIdxPattern, ""); 
+				}
+				if (!varMap.TryGetValue((name, i), out var idx))
+				{
+					idx = varMap[(name, i)] = varOrder.Count;
+					varOrder.Add((name, i));
 				}
 
 				return idx;
@@ -254,16 +263,20 @@ public static class AEEvaluator
 	{
 		public static int Evaluate(
 			Instruction[] code,
-			string[] varOrder,
+			(string, int)[] varOrder,
 			IStat stat)
 		{
 			var values = new double[varOrder.Length];
 			for (int i = 0; i < varOrder.Length; i++)
 			{
-				if (!ValueType.TryParse(varOrder[i], out var valType))
+				var idx = 0;
+				var targetStr = varOrder[i];
+				
+				if (!ValueType.TryParse(varOrder[i].Item1, out var valType))
 					throw new KeyNotFoundException($"Variable '{varOrder[i]}' is not provided.");
-				values[i] = stat.GetValueByValueType(valType);
+				values[i] = stat.GetValuesByValueType(valType)[varOrder[i].Item2];
 			}
+			
 
 			return Evaluate(code, values);
 		}

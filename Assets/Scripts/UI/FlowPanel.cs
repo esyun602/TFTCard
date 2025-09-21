@@ -81,7 +81,7 @@ public class FlowPanel : UIInstance
 				var rt = targetNode.GetComponent<RectTransform>();
 				rt.localPosition = new Vector3(
 					Mathf.Lerp(TestNodeStart.localPosition.x,
-						TestNodeEnd.localPosition.x, (float)i / (nodeList.Count - 1)),
+						TestNodeEnd.localPosition.x, (float)i / (Mathf.Max(nodeList.Count - 1, 1))),
 					Mathf.Lerp(TestNodeBottom.localPosition.y,
 						TestNodeTop.localPosition.y, (float)(j+1) / (nodeList[i].Count + 1)),
 				TestNodeStart.localPosition.z
