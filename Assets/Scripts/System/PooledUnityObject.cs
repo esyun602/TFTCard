@@ -27,12 +27,6 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 	{
 		if (gameObject == null)
 			return;
-		
-		if (gameObject.activeSelf == false)
-		{
-			Debug.LogError("Object has already been disposed: " + gameObject.name);
-			return;
-		}
 
 		SetParentToPool();
 		gameObject.SetActive(false);

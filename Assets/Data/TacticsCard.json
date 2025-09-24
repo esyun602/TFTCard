@@ -1,0 +1,74 @@
+[
+  {
+    "Id": 0,
+    "Name": "BreadSupply",
+    "NameKey": "skill_bread_supply",
+    "StatSpecName": "BreadSupplyStat",
+    "CardResource": "breadsupply_default",
+    "ActionSpecName": "BreadSupply",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 1,
+    "Name": "Damage",
+    "NameKey": "skill_damage",
+    "StatSpecName": "DamageStat",
+    "CardResource": "damage_default",
+    "ActionSpecName": "Damage",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 2,
+    "Name": "FireArrow",
+    "NameKey": "skill_fire_arrow",
+    "StatSpecName": "FireArrowStat",
+    "CardResource": "firearrow_default",
+    "ActionSpecName": "FireArrow",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 3,
+    "Name": "QuickMotion",
+    "NameKey": "skill_quick_motion",
+    "StatSpecName": "QuickMotionStat",
+    "CardResource": "quickmotion_default",
+    "ActionSpecName": "QuickMotion",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 4,
+    "Name": "Repose",
+    "NameKey": "skill_repose",
+    "StatSpecName": "ReposeStat",
+    "CardResource": "repose_default",
+    "ActionSpecName": "Repose",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 5,
+    "Name": "Shield",
+    "NameKey": "skill_shield",
+    "StatSpecName": "ShieldStat",
+    "CardResource": "shield_default",
+    "ActionSpecName": "Shield",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 6,
+    "Name": "SteamEngineProtection",
+    "NameKey": "skill_steamengine_protection",
+    "StatSpecName": "SteamEngineProtectionStat",
+    "CardResource": "steamengineprotection_default",
+    "ActionSpecName": "SteamEngineProtection",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 7,
+    "Name": "Stock",
+    "NameKey": "skill_stock",
+    "StatSpecName": "StockStat",
+    "CardResource": "stock_default",
+    "ActionSpecName": "Stock",
+    "CardUseType": "Global"
+  }
+]

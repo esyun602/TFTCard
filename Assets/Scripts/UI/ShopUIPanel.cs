@@ -18,7 +18,7 @@ public class ShopUIPanel : UIInstance
 	private int rollCount;
 	private Action cancelAction;
 
-	private List<SkillCardSpec> cardDataList;
+	private List<TacticsCardSpec> cardDataList;
 	[SerializeField] private List<DraftUISkillCard> cardist;
 	[SerializeField] private TextMeshProUGUI rollCountUI;
 
@@ -43,7 +43,7 @@ public class ShopUIPanel : UIInstance
 		cardDataList = new();
 		//todo: constant
 		
-		cardDataList = GameDataSystem.Instance.GetGameData<CardData>().GetRandomSkillCardSpecs(3);
+		cardDataList = GameDataSystem.Instance.GetGameData<CardData>().GetRandomTacticsCardSpecs(3);
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -72,14 +72,13 @@ public class ShopUIPanel : UIInstance
 
 	public void OnCardClick(DraftUICardSelectedNotice notice)
 	{
-		//todo: 어케하지
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Add((SkillCard)notice.SelectedCard.TargetCard);
+		//todo: fix
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
 		OnEnd();
 	}
 
 	private void OnEnd()
 	{
 		cancelAction?.Invoke();
-		Game.Instance.UIManager.RemoveUI(Id);
 	}
 }

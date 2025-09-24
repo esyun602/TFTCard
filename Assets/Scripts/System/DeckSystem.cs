@@ -1,8 +1,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -15,17 +17,56 @@ public class DeckSystem
 		get => energy;
 		set
 		{
-			NoticeSystem.Instance.Publish(new EnergyChangeNotice(energy, value));
-			energy = value;
+			var target = Mathf.Clamp(value, Game.Instance.GetPlayer().CurrentPlayInfo.MinEnergy,
+				Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy);
+			
+			energy = target;
+			NoticeSystem.Instance.Publish(new EnergyChangeNotice(energy, target));
 		}
 	}
 	public int CardMoveCount { get; set; }
 	public PlayerHand PlayerHand { get; } = new();
 	public PlayerField PlayerField { get; } = new();
 
-	private List<BattleCardObjectInHand> totalList;
+	private IEnumerable<BattleCardObjectInHand> totalList	
+	{
+		get
+		{
+			foreach (var cardInstance in deck)
+			{
+				yield return cardInstance;
+			}
+
+			foreach (var cardInstance in dropCardList)
+			{
+				yield return cardInstance;
+			}
+
+			foreach (var cardInstance in PlayerHand.CardList)
+			{
+				yield return cardInstance;
+			}
+
+			foreach (var cardInstance in enemyCardPool)
+			{
+				yield return cardInstance;
+			}
+			
+			foreach (var cardInstance in enemyDropCardList)
+			{
+				yield return cardInstance;
+			}
+		}
+	}
+
+	private List<BattleCardObjectInHand> enemyCardPool = new();
+	public List<BattleCardObjectInHand> EnemyCardPool => enemyCardPool;
+	private List<BattleCardObjectInHand> enemyDropCardList = new();
+	public List<BattleCardObjectInHand> EnemyDropCardList => enemyDropCardList;
 	private List<BattleCardObjectInHand> deck = new();
+	public List<BattleCardObjectInHand> Deck => deck;
 	private List<BattleCardObjectInHand> dropCardList = new();
+	public List<BattleCardObjectInHand> DropCardList => dropCardList;
 
 	private GameObject deckObject;
 
@@ -46,33 +87,81 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
 		NoticeSystem.Instance.Subscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
+		NoticeSystem.Instance.Subscribe<SkillCardActionTriggerNotice>(OnSkillCardActionTrigger);
+		NoticeSystem.Instance.Subscribe<SkillCardActionRoutineCompleteNotice>(OnSkillCardActionComplete);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
 		PlayerHand.Initialize();
 		PlayerField.Initialize();
-		
-		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
+
+		Energy = 0;
 		CardMoveCount = 0;
 		deckObject = new GameObject("Deck");
 		//todo:fix?
 		deckObject.transform.SetParent(Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().StageGameObject.transform);
-		BattleCardObjectInHand cardObject;
-		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList)
+		foreach (var card in Game.Instance.GetPlayer().CurrentPlayInfo.TacticsCardList)
 		{
-			cardObject = card switch
-			{
-				SkillCard skillCard => SkillCardInHand.Instantiate(skillCard, new SkillCardBattleStat(skillCard.Stat))
-			};
-
-			cardObject.transform.SetParent(deckObject.transform);
-			deck.Add(cardObject);
+			GenerateTacticsCardInstance(card);
 		}
 		
-		totalList = new(deck);
 		ShuffleDeck();
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+	}
+	
+	private void OnSkillCardActionTrigger(SkillCardActionTriggerNotice m)
+	{
+		blockInputHandler.BlockInputs(InputBlockFlag.All, m.TargetAction);
+		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+	}
+
+	private void OnSkillCardActionComplete(SkillCardActionRoutineCompleteNotice m)
+	{
+		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.TargetAction);
+		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+	}
+
+
+	private BattleCardObjectInHand GenerateTacticsCardInstance(TacticsCard skillCard, bool addToEnemyPool = false)
+	{
+		var obj = TacticsCardInHand.Instantiate(skillCard, new TacticsCardBattleStat(skillCard.Stat));
+
+		obj.transform.SetParent(deckObject.transform);
+		if (addToEnemyPool)
+		{
+			enemyCardPool.Add(obj);
+		}
+		else
+		{
+			deck.Add(obj);
+		}
+
+		return obj;
+	}
+	
+	//todo: battlestat owner set 관련된부분 살펴보기
+	public UnitSkillCardInHand GenerateUnitSkillCardInstance(IBattleObject bo, UnitSkillCard skillCard, bool addToEnemyPool = false)
+	{
+		UnitSkillCardInHand obj;
+		if (addToEnemyPool)
+		{
+			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
+			
+			obj.transform.SetParent(deckObject.transform);
+			enemyCardPool.Add(obj);
+		}
+		else
+		{
+			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
+
+			obj.transform.SetParent(deckObject.transform);
+			deck.Add(obj);
+		}
+
+		return obj;
 	}
 
 	private void OnPlayerFieldCardMove(PlayerFieldCardMoveNotice m)
@@ -101,7 +190,7 @@ public class DeckSystem
 	{
 		PlayerHand.Dispose();
 		PlayerField.Dispose();
-		foreach (var cardObject in deck)
+		foreach (var cardObject in totalList)
 		{
 			cardObject.Dispose();
 		}
@@ -132,10 +221,15 @@ public class DeckSystem
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 
-		Energy = Game.Instance.GetPlayer().CurrentPlayInfo.MaxEnergy;
-		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.DrawCount; i++)
+		Energy += Game.Instance.GetPlayer().CurrentPlayInfo.EnergyPerTurn;
+		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.DeckDrawCount; i++)
 		{
-			DrawCard();
+			DrawPlayerCard();
+		}
+		
+		for (var i = 0; i < Game.Instance.GetPlayer().CurrentPlayInfo.EnemyDrawCount; i++)
+		{
+			DrawEnemyCard();
 		}
 	}
 
@@ -171,30 +265,13 @@ public class DeckSystem
 	private void OnCardEndUse(SkillHandCardEndUseNotice m)
 	{
 		blockInputHandler.RestoreInputs(InputBlockFlag.All, m.SelectedCard);
+		
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
 	
-	public void SpawnAllyUnits()
-	{
-		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		var deployInfos = playInfo.FieldDeployLocationInfo;
-		deployInfos.Sort((x, y) => x.Col == y.Col ? x.Row.CompareTo(y.Row) : y.Col.CompareTo(x.Col));
-		
-		//todo: 소환순서..
-		foreach (var info in deployInfos)
-		{
-			var card = UnitCardInField.Instantiate(info.TargetCard, map.GetTileAt(info.Row, info.Col), ObjectType.Ally);
-				
-			PlayerField.AddToField(card);
-			
-			card.UpdateBlockInput(blockInputHandler.BlockInput);
-		}
-	}
-	
 	//todo: 없을 때 예외 체크
-	public void DrawCard()
+	public void DrawPlayerCard()
 	{
 		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
 		{
@@ -219,6 +296,35 @@ public class DeckSystem
 		PlayerHand.AddCard(targetCard);
 	}
 
+	//todo: 핸드를 구분할 건지 정해야함
+	public void DrawEnemyCard()
+	{
+		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
+		{
+			return;
+		}
+		
+		if (enemyCardPool.Count == 0)
+		{
+			if (enemyDropCardList.Count != 0)
+			{
+				(enemyCardPool, enemyDropCardList) = (enemyDropCardList, enemyCardPool);
+				ShuffleEnemyDeck();
+			}
+			else
+			{
+				return;
+			}
+		}
+		var targetCard = enemyCardPool[^1];
+		targetCard.Activate();
+		enemyCardPool.RemoveAt(enemyCardPool.Count - 1);
+		PlayerHand.AddCard(targetCard);
+		
+		Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterEnemyCard(targetCard);
+	}
+
+	//todo: hand 말고 다른 곳에서 버릴 때
 	public void DropCard(BattleCardObjectInHand target)
 	{
 		if (PlayerHand.CardList.Count == 0)
@@ -227,7 +333,14 @@ public class DeckSystem
 		}
 		
 		PlayerHand.RemoveCard(target);
-		dropCardList.Add(target);
+		if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
+		{
+			enemyDropCardList.Add(target);
+		}
+		else
+		{
+			dropCardList.Add(target);
+		}
 		target.Deactivate();
 	}
 
@@ -235,11 +348,22 @@ public class DeckSystem
 	{
 		PlayerHand.RemoveCard(target);
 		target.Deactivate();
+		
+		//todo:fix
+		deck.Remove(target);
+		dropCardList.Remove(target);
+		enemyCardPool.Remove(target);
+		enemyDropCardList.Remove(target);
 	}
 
 	public void ShuffleDeck()
 	{
 		deck.Shuffle();
+	}
+
+	public void ShuffleEnemyDeck()
+	{
+		enemyCardPool.Shuffle();
 	}
 	
 	public void DropAllCards()
@@ -250,8 +374,60 @@ public class DeckSystem
 		}
 	}
 
-	public SkillCardInHand GetSkillCardInstance(SkillCard skillCard)
+	public void OnAllyAdd(UnitCardInField ally)
 	{
-		return (SkillCardInHand)totalList.Find(x => x is SkillCardInHand sc && sc.IsInstanceOf(skillCard));
+		foreach (var card in ally.TargetUnitCard.UnitSkillCard)
+		{
+			GenerateUnitSkillCardInstance(ally, card);
+		}
+		ShuffleDeck();
+		
+		PlayerField.AddToField(ally);
+	}
+
+	public void OnAllyRemove(UnitCardInField ally)
+	{
+		PlayerField.RemoveFromField(ally);
+
+		foreach (var card in ally.TargetUnitCard.UnitSkillCard)
+		{
+			var obj = GetSkillCardInstance(card) as UnitSkillCardInHand;
+		
+			if (obj == null) return;
+		
+			//todo: fix
+			obj.SetDeadState();
+		}
+		
+		ShuffleDeck();
+	}
+	
+	public void OnEnemyAdd(UnitCardInField enemy)
+	{
+		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
+		{
+			GenerateUnitSkillCardInstance(enemy, card, true);
+			ShuffleEnemyDeck();
+		}
+	}
+
+	public void OnEnemyRemove(UnitCardInField enemy)
+	{
+		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
+		{
+			var obj = GetSkillCardInstance(card) as UnitSkillCardInHand;
+
+			if (obj == null) return;
+
+			obj.SetDeadState();
+			RemoveCard(obj);
+		}
+		
+		ShuffleEnemyDeck();
+	}
+
+	public BattleCardObjectInHand GetSkillCardInstance(SkillCardBase skillCard)
+	{
+		return totalList.First(x => x.TargetCard == skillCard);
 	}
 }

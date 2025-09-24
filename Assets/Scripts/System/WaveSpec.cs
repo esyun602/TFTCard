@@ -21,6 +21,7 @@ public class WaveSpec
 {
 	/*public int rows = 3;
 	public int columns = 4;*/
+	public int PrepareTurn { get; private set; }
 	public string Name { get; private set; }
 	
 	public static WaveSpec Create(Dictionary<string, object> waveParam)
@@ -34,6 +35,19 @@ public class WaveSpec
 			var instance = new WaveCellInfo(cellInfo.GetInt("Row"), cellInfo.GetInt("Col"), cellInfo.GetString("UnitCardName"));
 			spec.cells.Add(instance);
 		}
+
+		spec.PrepareTurn = waveParam.GetInt(nameof(PrepareTurn));
+
+		return spec;
+	}
+
+	public static WaveSpec CreateForCarryOver()
+	{
+		var spec = new WaveSpec();
+		spec.Name = "CarryOver";
+		spec.cells = new();
+		//todo: fix
+		spec.PrepareTurn = 3;
 
 		return spec;
 	}

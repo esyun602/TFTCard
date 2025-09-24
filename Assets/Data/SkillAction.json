@@ -1,74 +1,197 @@
 [
   {
     "Name": "BreadSupply",
-    "ClassName": "BreadSupplySkillAction"
+    "ClassName": "BreadSupplySkillAction",
+    "DescKey": "skill_bread_supply_desc"
   },
   {
     "Name": "Damage",
-    "ClassName": "TestSkillAction"
+    "ClassName": "TestSkillAction",
+    "DescKey": "skill_damage_desc"
   },
   {
     "Name": "FireArrow",
-    "ClassName": "FireArrowSkillAction"
+    "ClassName": "FireArrowSkillAction",
+    "DescKey": "skill_fire_arrow_desc"
   },
   {
     "Name": "QuickMotion",
-    "ClassName": "QuickMotionAction"
+    "ClassName": "QuickMotionAction",
+    "DescKey": "skill_quick_motion_desc"
   },
   {
     "Name": "Repose",
-    "ClassName": "ReposeSkillAction"
+    "ClassName": "ReposeSkillAction",
+    "DescKey": "skill_repose_desc"
   },
   {
     "Name": "Shield",
-    "ClassName": "AddShieldSkillAction"
+    "ClassName": "AddShieldSkillAction",
+    "DescKey": "skill_shield_desc"
   },
   {
     "Name": "SteamEngineProtection",
-    "ClassName": "SteamEngineProtectionAction"
+    "ClassName": "SteamEngineProtectionAction",
+    "DescKey": "skill_steamengine_protection_desc"
   },
   {
     "Name": "Stock",
-    "ClassName": "StockSkillAction"
+    "ClassName": "StockSkillAction",
+    "DescKey": "skill_stock_desc"
   },
   {
     "Name": "BiologicalExperiment",
-    "ClassName": "BiologicalExperimentAction"
+    "ClassName": "BiologicalExperimentAction",
+    "DescKey": "act_skill_biological_experiment_desc"
   },
   {
     "Name": "SteamPack",
-    "ClassName": "SteamPackAction"
+    "ClassName": "SteamPackAction",
+    "DescKey": "act_skill_steampack_desc"
   },
   {
     "Name": "HighPressureBomb",
-    "ClassName": "HighPressureBombAction"
+    "ClassName": "HighPressureBombAction",
+    "DescKey": "act_skill_high_pressure_bomb_desc"
   },
   {
     "Name": "ChainReaction",
-    "ClassName": "ChainReactionAction"
+    "ClassName": "ChainReactionAction",
+    "DescKey": "act_skill_chain_reaction_desc"
   },
   {
     "Name": "EquivalentExchange",
-    "ClassName": "EquivalentExchangeAction"
+    "ClassName": "EquivalentExchangeAction",
+    "DescKey": "act_skill_equivalent_exchange_desc"
   },
   {
     "Name": "Flamethrower",
-    "ClassName": "FlamethrowerAction"
+    "ClassName": "FlamethrowerAction",
+    "DescKey": "act_skill_flamethrower_desc"
   },
   {
     "Name": "AutoMail",
-    "ClassName": "AutoMailAction"
+    "ClassName": "AutoMailAction",
+    "DescKey": "act_skill_automail_desc"
   },
   {
     "Name": "Panacea",
-    "ClassName": "PanaceaAction"
+    "ClassName": "PanaceaAction",
+    "DescKey": "act_skill_panacea_desc"
   },
   {
     "Name": "PositiveFeedback",
-    "ClassName": "PositiveFeedbackAction"
+    "ClassName": "PositiveFeedbackAction",
+    "DescKey": "act_skill_positive_feedback_desc"
   },
   {
     "Name": "OverheatPropulsion",
-    "ClassName": "OverheatPropulsionAction"
+    "ClassName": "OverheatPropulsionAction",
+    "DescKey": "act_skill_overheat_propulsion_desc"
+  },
+  {
+    "Name": "EnemyAction1Adapter",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction1",
+    "DescKey": "act_skill_overheat_propulsion_desc"
+  },
+  {
+    "Name": "EnemyAction2Adapter",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "act_skill_overheat_propulsion_desc"
+  },
+  {
+    "Name": "PatrolMachineLightDamageAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction1",
+    "DescKey": "e_act_skill_pmlightdamageaction_desc"
+  },
+  {
+    "Name": "HiredGangsterUnexpectedDamageAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_hgunexpecteddamageaction_desc"
+  },
+  {
+    "Name": "GuardAutomatonSwingAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_gaswingaction_desc"
+  },
+  {
+    "Name": "RepairMachineRepairAction",
+    "ClassName": "RepairMachineRepairAction",
+    "DescKey": "e_act_skill_rmrepairaction_desc"
+  },
+  {
+    "Name": "MechanizedSlaveBlowAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_msblowaction_desc"
+  },
+  {
+    "Name": "SlaveGuardWhipAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_sgwhipaction_desc"
+  },
+  {
+    "Name": "WorkshopSupervisorShootAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "DefaultRangeAction",
+    "DescKey": "e_act_skill_wsshootaction_desc"
+  },
+  {
+    "Name": "ScrapMonsterHeavySwingAction",
+    "ClassName": "ScrapMonsterHeavySwingAction",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_smheavyswingaction_desc"
+  },
+  {
+    "Name": "ScrapMonsterSmiteAction",
+    "ClassName": "ScrapMonsterSmiteAction",
+    "DescKey": "e_act_skill_smheavyswingaction_desc"
+  },
+  {
+    "Name": "BrassMonsterPrepareAction",
+    "ClassName": "BrassMonsterPrepareAction",
+    "DescKey": "e_act_skill_bmprepareaction_desc"
+  },
+  {
+    "Name": "BrassMonsterSmashAction",
+    "ClassName": "BrassMonsterSmashAction",
+    "DescKey": "e_act_skill_bmprepareaction_desc"
+  },
+  {
+    "Name": "MagnetMonsterAttractionAction",
+    "ClassName": "MagnetMonsterAttractionAction",
+    "DescKey": "e_act_skill_mmattractionaction_desc"
+  },
+  {
+    "Name": "VacuumTubeLumpAmplifyAction",
+    "ClassName": "VacuumTubeLumpAmplifyAction",
+    "DescKey": "e_act_skill_vtlamplifyaction_desc"
+  },
+  {
+    "Name": "MutatedSlaveButcherAction",
+    "ClassName": "MutatedSlaveButcherAction",
+    "DescKey": "e_act_skill_msbutcheraction_desc"
+  },
+  {
+    "Name": "FurnaceGolemCombustionAction",
+    "ClassName": "FurnaceGolemCombustionAction",
+    "DescKey": "e_act_skill_fgcombustionaction_desc"
+  },
+  {
+    "Name": "PowerRepeaterAllocateAction",
+    "ClassName": "PowerRepeaterAllocateAction",
+    "DescKey": "e_act_skill_prallocateaction_desc"
+  },
+  {
+    "Name": "BetrayerGunmanRapidFireAction",
+    "ClassName": "UnitActionAdapter",
+    "TargetUnitCardAction": "EnemyAction2",
+    "DescKey": "e_act_skill_bgrapidfireaction_desc"
   }
 ]

@@ -1,13 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MessageSystem;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class StartDraftGenState
 {
 	public int CardPerDraft { get; set; }
 	public int DraftCount { get; set; }
-	
+	public Action DoneAction { get; set; }
 }
 
 public class StartDraft : UIInstance
@@ -20,6 +22,7 @@ public class StartDraft : UIInstance
 	private UnityObjectPool cardPool;
 	private List<PooledUnityObject> currentCardList = new();
 	private Vector3[] candidatePosList;
+	private Action endAction;
 
 	public override UIType UIType => UIType.SceneUI;
 
@@ -29,6 +32,7 @@ public class StartDraft : UIInstance
 		{
 			draftCount = state.DraftCount;
 			cardPerDraft = state.CardPerDraft;
+			endAction = state.DoneAction;
 		}
 		var rectTransform = GetComponent<RectTransform>();
 		currentDraftCount = 0;
@@ -49,7 +53,7 @@ public class StartDraft : UIInstance
 
 	private void OnSelected(DraftUICardSelectedNotice m)
 	{
-		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Add((UnitCard)m.SelectedCard.TargetCard);
+		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(m.SelectedCard.TargetCard);
 		for (var i = currentCardList.Count - 1; i >= 0; i--)
 		{
 			currentCardList[i].Dispose();
@@ -93,6 +97,6 @@ public class StartDraft : UIInstance
 
 	public void OnEnd()
 	{
-		Game.Instance.ChangeGameMode(new MapGameMode());
+		endAction?.Invoke();
 	}
 }

@@ -8,7 +8,7 @@ public class ChainReactionActionSpec : SkillCardActionSpec
 		return new ChainReactionAction(this);
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 		
 	}

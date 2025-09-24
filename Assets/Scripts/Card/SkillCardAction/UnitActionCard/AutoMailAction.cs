@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class AutoMailAction : UnitSkillCardActionBase
 {
@@ -11,9 +12,11 @@ public class AutoMailAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Ally;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack) };
+	//todo: 구현 수정
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack), StatFallback.GetValueByValueType(UnitValueType.Attack) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
-	public AutoMailAction(AutoMailActionSpec spec)
+	public AutoMailAction(AutoMailActionSpec spec) : base(spec)
 	{
 	}
 
@@ -30,24 +33,19 @@ public class AutoMailAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Attack));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(1));
 			
 			routineDone = true;
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
-
+	
 	protected override void OnCancel()
 	{
 		canceled = true;

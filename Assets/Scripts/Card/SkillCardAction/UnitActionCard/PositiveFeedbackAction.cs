@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class PositiveFeedbackAction : UnitSkillCardActionBase
 {
@@ -11,9 +12,10 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Enemy;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Catalyst) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.CatalystAdd) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
-	public PositiveFeedbackAction(PositiveFeedbackActionSpec spec)
+	public PositiveFeedbackAction(PositiveFeedbackActionSpec spec) : base(spec)
 	{
 	}
 
@@ -30,22 +32,18 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new CatalystBuff(battleStat.GetValueByValueType(BattleValueType.Catalyst)));
-			battleStat.AddValueByValueType(BattleValueType.Catalyst, 1);
+			target.UnitCardBattleStat.AddBuff(new CatalystBuff(BattleStat.GetValueByValueType(CommonValueType.CatalystAdd)));
+			BattleStat.AddValueByValueType(CommonValueType.CatalystAdd, 1);
 			
 			routineDone = true;
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

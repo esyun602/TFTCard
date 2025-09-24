@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FlamethrowerAction : UnitSkillCardActionBase
@@ -9,13 +10,14 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 
-	public FlamethrowerAction(FlamethrowerActionSpec spec)
+	public FlamethrowerAction(FlamethrowerActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams  => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack) };
+	public override object[] DescParams  => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -30,20 +32,15 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(StatFallback.GetValueByValueType(BattleValueType.Attack)));
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(StatFallback.GetValueByValueType(UnitValueType.Attack)));
 			routineDone = true;
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

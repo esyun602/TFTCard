@@ -3,9 +3,9 @@ using MessageSystem;
 
 public class SkillHandCardEndUseNotice : Notice
 {
-	public SkillCardInHand SelectedCard { get; }
+	public BattleCardObjectInHand SelectedCard { get; }
 
-	public SkillHandCardEndUseNotice(SkillCardInHand card)
+	public SkillHandCardEndUseNotice(BattleCardObjectInHand card)
 	{
 		SelectedCard = card;
 	}

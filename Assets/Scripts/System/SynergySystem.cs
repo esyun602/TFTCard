@@ -83,10 +83,6 @@ public class SynergySystem
 				synergyDict[category] = battleSynergy;
 			}
 		}
-		else
-		{
-			battleSynergy.Level++;
-		}
 
 		battleSynergy.AddMember(target);
 
@@ -111,10 +107,6 @@ public class SynergySystem
 #if UNITY_EDITOR
 			throw new Exception();
 #endif
-		}
-		else
-		{
-			battleSynergy.Level--;
 		}
 			
 		battleSynergy.RemoveMember(target);

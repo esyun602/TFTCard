@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-//todo: 타게팅 조건 추가 필요
-public class QuickMotionAction : SkillCardActionBase
+//todo: 카드 리메이크 필요
+public class QuickMotionAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -10,13 +11,14 @@ public class QuickMotionAction : SkillCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public QuickMotionAction(QuickMotionActionSpec spec)
+	public QuickMotionAction(QuickMotionActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.TurnCount) };
+	public override object[] DescParams => new object[] {  };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -30,26 +32,15 @@ public class QuickMotionAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			//임시
-			if (target is ITurnObject to)
-			{
-				to.StartTurn(battleStat.GetValueByValueType(BattleValueType.TurnCount));
-				routine.AddChain(to.UpdatableRoutine);
-			}
-			
 			routineDone = true;
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

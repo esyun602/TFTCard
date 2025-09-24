@@ -12,35 +12,70 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro nameText;
 	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private TextMeshPro cost;
+	[SerializeField] private GameObject costStop;
+	[SerializeField] private GameObject costFF;
+	[SerializeField] private GameObject costRW;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private MeshRenderer BackGround;
+	[SerializeField] private GameObject bgFx;
+	private Func<bool> isFxOn;
 	
-	public void Initialize(ICard card, IStat stat)
+	//todo : fix?
+	public void Initialize(ICard card, IStat stat, Func<bool> isFxOn)
 	{
-		if (card is not SkillCard skillCard)
+		if (card is not SkillCardBase skillCard)
 		{
 			throw new ArgumentException();
 		}
 
+		this.isFxOn = isFxOn;
 		this.stat = stat;
 
 		targetCard = card;
 		nameText.text = card.Name;
 		//todo: desc 변화 반영되게
 		desc.text = card.Desc;
-		cost.text = $"{stat.GetValueByValueType(BattleValueType.Cost)}";
+		var costValue = stat.GetValueByValueType(SkillValueType.Cost);
+		cost.text = $"{Mathf.Abs(costValue)}";
+		if (costValue > 0)
+		{
+			costFF.SetActive(false);
+			costRW.SetActive(true);
+			costStop.SetActive(false);
+		}
+		else if (costValue == 0)
+		{
+			costFF.SetActive(false);
+			costRW.SetActive(false);
+			costStop.SetActive(true);
+			
+		}
+		else
+		{
+			costFF.SetActive(true);
+			costRW.SetActive(false);
+			costStop.SetActive(false);
+			
+		}
 		if (card.CardStaticSpec.CardResource != null)
 		{
 			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
 		}
 
 		//todo: fix
-		if (skillCard.Owner != null)
+		if (skillCard is UnitSkillCard unitSkillCard
+		    && unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList.Count > 0
+		    && BackGround != null)
 		{
 			var spec = GameDataSystem.Instance.GetGameData<SynergyData>()
-				.GetSynergySpec(skillCard.Owner.Stat.synergyList[0]);
+				.GetSynergySpec(unitSkillCard.UnitSkillCardStat.Owner.Stat.synergyList[0]);
 			BackGround.material.SetColor("_BaseColor", spec.SymbolColor);
 		}
+	}
+
+	public void Dispose()
+	{
+		isFxOn = null;
 	}
 
 	//todo: callback or notice?
@@ -48,5 +83,6 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	{
 		//todo: test
 		desc.text = targetCard.Desc;
+		bgFx.SetActive(isFxOn?.Invoke() ?? false);
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class SteamPackAction : UnitSkillCardActionBase
 {
@@ -6,11 +7,12 @@ public class SteamPackAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public SteamPackAction(SteamPackActionSpec spec)
+	public SteamPackAction(SteamPackActionSpec spec) : base(spec)
 	{
 	}
 
 	public override object[] DescParams => new object[] { 1, 2 };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -37,15 +39,11 @@ public class SteamPackAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

@@ -5,67 +5,70 @@ using MessageSystem;
 
 public class TurnSystem
 {
-	//todo: to balanced bst?
-	private class TurnOrderHandler
-	{
-		//todo: fix tmp values
-		public IEnumerator GetEnumerator()
-		{
-			var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-			int[] cols = { 4, 5, 6, 7, 3, 2, 1, 0 };
-			var done = false;
-			var doneList = new List<ITurnObject>();
-			
-			while (!done)
-			{
-				done = true;
-				
-				for (int row = 2; row >=0; row--)
-				{
-					foreach (var col in cols)
-					{
-						var bo = map.GetBattleObjectAt(row, col);
-						if(bo is ITurnObject to && !doneList.Contains(to))
-						{
-							doneList.Add(to);
-							yield return to;
-							done = false;
-							break;
-						}
-					}
+	private ITurnObject currentObject;
+	public int CurrentTurnCount => playerTurn.CurrentTurnCount;
 
-					if (!done)
-					{
-						break;
-					}
-				}
+	private int phase;
+	//todo:fix
+	private List<BattleCardObjectInHand> cardList;
+	private List<int> currentUsableCosts;
+	private List<int> currentCostCumulative;
+	private int currentUsedCost;
+
+	public int CurrentUsedCost
+	{
+		get => currentUsedCost;
+		set
+		{
+			while (phase < currentCostCumulative.Count && currentCostCumulative[phase] <= value)
+			{
+				//todo: 죽었을 때? 데미지만 먼저 적용? 
+				RegisterPlayerTurnRoutine(cardList[phase].TargetCard.Action.UpdatableRoutine);
+				//todo: fix
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(cardList[phase]);
+				phase++;
 			}
+
+			currentUsedCost = value;
 		}
 	}
 
+	public int CurrentTotalCost => currentCostCumulative[^1];
 
-	private const float MaxTurnGauge = 100;
-	private TurnOrderHandler turnOrderHandler;
+	public void RegisterEnemyCard(BattleCardObjectInHand card)
+	{
+		cardList.Add(card);
+		currentUsableCosts.Add(-card.Stat.GetValueByValueType(SkillValueType.Cost));
+		currentCostCumulative.Add((currentCostCumulative.Count == 0 ? 0 : currentCostCumulative[^1]) + currentUsableCosts[^1]);
+	}
 
-	private ITurnObject currentObject;
-
-	//todo: 타이 해결
 	private Queue<ITurnObject> candidates;
 	private Action<float> currentUpdateRoutine;
-	private IUpdatableRoutine priorityRoutine;
-	private IEnumerator currentTurnEnumerator;
+	private Queue<IUpdatableRoutine> priorityRoutine;
 	private PlayerTurn playerTurn;
 
 	public void Initialize()
 	{
 		//todo: fix subscribe once
 		NoticeSystem.Instance.Subscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
+		NoticeSystem.Instance.Subscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 
-		turnOrderHandler = new();
+		priorityRoutine = new();
 		candidates = new();
+
+		currentUsableCosts = new();
+		currentCostCumulative = new();
+		cardList = new();
+		currentUsedCost = 0;
 
 		playerTurn = new PlayerTurn();
 		playerTurn.Initialize();
+	}
+	
+	private void OnTurnEndButtonClick(TurnEndClickNotice m)
+	{
+		CurrentUsedCost = CurrentTotalCost;
+		playerTurn.EndTurn();
 	}
 
 	private void OnBattleStageInitRoutineDone(BattleStageInitRoutineDoneNotice m)
@@ -77,36 +80,40 @@ public class TurnSystem
 
 	public void StartAutoTurn()
 	{
-		// ReSharper disable once NotDisposedResource : No Dispose Needed
-		currentTurnEnumerator = turnOrderHandler.GetEnumerator();
-		if (!currentTurnEnumerator.MoveNext())
+		if (candidates.Count == 0)
 		{
 			//todo: fix
+			cardList.Clear();
+			currentUsableCosts.Clear();
+			currentCostCumulative.Clear();
+			phase = 0;
+			currentUsedCost = 0;
+			
 			playerTurn.StartTurn();
 			currentUpdateRoutine = UpdatePlayerTurn;
 			return;
 		}
 
-		currentObject = (ITurnObject)currentTurnEnumerator.Current;
+		currentObject = candidates.Dequeue();
 		currentObject.StartTurn();
 		currentUpdateRoutine = UpdateAutoTurn;
 	}
 
 	public void Dispose()
 	{
-		(currentTurnEnumerator as IDisposable)?.Dispose();
 		playerTurn.Dispose();
 		NoticeSystem.Instance.Unsubscribe<BattleStageInitRoutineDoneNotice>(OnBattleStageInitRoutineDone);
+		NoticeSystem.Instance.Unsubscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 	}
 
 	public void UpdateTurn(float dt)
 	{
-		if (priorityRoutine != null)
+		if (priorityRoutine.Count != 0)
 		{
-			priorityRoutine.UpdateFrame(dt, out var done);
+			priorityRoutine.Peek().UpdateFrame(dt, out var done);
 			if (done)
 			{
-				priorityRoutine = null;
+				priorityRoutine.Dequeue();
 			}
 
 			return;
@@ -117,9 +124,10 @@ public class TurnSystem
 
 	private void UpdatePlayerTurn(float dt)
 	{
-		playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
+			playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
 		if (done)
 		{
+			NoticeSystem.Instance.PublishSync(new PlayerTurnEndNotice(playerTurn));
 			StartAutoTurn();
 		}
 	}
@@ -130,23 +138,32 @@ public class TurnSystem
 		currentObject.UpdatableRoutine.UpdateFrame(dt, out var routineDone);
 		if (routineDone)
 		{
-			if (currentTurnEnumerator.MoveNext())
+			if (candidates.Count > 0)
 			{
-				currentObject = (ITurnObject)currentTurnEnumerator.Current;
+				currentObject = candidates.Dequeue();
 				currentObject.StartTurn();
 			}
 			else
 			{
-				(currentTurnEnumerator as IDisposable)?.Dispose();
 				playerTurn.StartTurn();
 				currentUpdateRoutine = UpdatePlayerTurn;
 			}
 		}
 	}
 
-//todo: fix?
+	public void Register(ITurnObject obj)
+	{
+		candidates.Enqueue(obj);
+	}
+
+	public void RegisterPlayerTurnRoutine(IUpdatableRoutine routine)
+	{
+		playerTurn.UpdatableCurrentRoutine.AddInterrupt(routine);
+	}
+
 	public void RegisterPriorityRoutine(IUpdatableRoutine routine)
 	{
-		priorityRoutine = routine;
+		priorityRoutine.Enqueue(routine);
+		routine.Initialize();
 	}
 }

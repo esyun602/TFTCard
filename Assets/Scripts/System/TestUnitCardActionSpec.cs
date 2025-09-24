@@ -11,7 +11,7 @@ public class TestUnitCardActionSpec : UnitCardActionSpec
 		return new TestUnitCardAction(this);
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 		fxPrefab = Resources.Load<GameObject>("Fx/" + param.GetString("FxName"));
 	}

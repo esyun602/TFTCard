@@ -8,24 +8,65 @@ using UnityEngine;
 public class PlayerHand
 {
 	public List<BattleCardObjectInHand> CardList { get; } = new();
-	private float StartOffset => (CardList.Count - 1) / 2f * cardDistance;
+	private float StartOffset => (CardList.Count - 1) / 2f * CardDistance;
 	private float startAngle => (CardList.Count - 1) / 2f * cardRotationAngle;
 
 	private Vector3 handCenter =>
 		(Camera.main.transform.position + (Constant.HandCenterZOffset - Camera.main.orthographicSize) * Camera.main.transform.up).GetX0z(Constant.HandCenterYPos);
 
-	private float cardDistance = 1.5f;
+	private float CardDistance => 3f - 0.15f * CardList.Count;
 	private float cardRotationAngle = 5f;
+	private int hoveredIdx = -1;
 
 	private InputBlockFlag blockInput;
 
 	public void Initialize()
 	{
 		blockInput = InputBlockFlag.All;
+		NoticeSystem.Instance.Subscribe<SkillHandCardHoverNotice>(OnHover);
+		NoticeSystem.Instance.Subscribe<SkillHandCardRemoveHoverNotice>(OnRemoveHover);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnSelect);
+		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnSelectCancel);
+		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnStartUse);
+	}
+
+	private void OnSelect(SkillHandCardSelectNotice m)
+	{
+		hoveredIdx = CardList.IndexOf(m.SelectedCard);
+		AlignCards();
+	}
+
+	private void OnSelectCancel(SkillHandCardSelectCancelNotice m)
+	{
+		hoveredIdx = -1;
+		AlignCards();
+	}
+
+	private void OnStartUse(SkillHandCardStartUseNotice m)
+	{
+		hoveredIdx = -1;
+		AlignCards();
+	}
+
+	private void OnHover(SkillHandCardHoverNotice m)
+	{
+		hoveredIdx = CardList.IndexOf(m.SelectedCard);
+		AlignCards();
+	}
+
+	private void OnRemoveHover(SkillHandCardRemoveHoverNotice m)
+	{
+		hoveredIdx = -1;
+		AlignCards();
 	}
 
 	public void Dispose()
 	{
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardHoverNotice>(OnHover);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardRemoveHoverNotice>(OnRemoveHover);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnSelect);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnStartUse);
 	}
 	
 	//todo: handler를 안넘겨줄 이유가 있나
@@ -63,7 +104,13 @@ public class PlayerHand
 		for (var i = 0; i < CardList.Count; i++)
 		{
 			var lineTargetPos = handCenter -
-				StartOffset * Vector3.right + Vector3.right * i * cardDistance;
+				StartOffset * Vector3.right + Vector3.right * i * CardDistance;
+			if (hoveredIdx != -1 && hoveredIdx != i)
+			{
+				var dist = Mathf.Abs(i - hoveredIdx);
+				lineTargetPos += (i < hoveredIdx ? Vector3.left : Vector3.right) * (Mathf.Exp((-dist + 1) / 3f) * 1.5f) ;
+			}
+			
 			var targetPos = lineTargetPos + GameDataSystem.Instance.GetGameData<Constant>().HandCardVerticalOffsetCurve
 				                .Evaluate(i -
 				                          (CardList.Count - 1) / 2f) * Camera.main.transform.up +

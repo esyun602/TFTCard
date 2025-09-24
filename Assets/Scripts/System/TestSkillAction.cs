@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class TestSkillAction : SkillCardActionBase
+public class TestSkillAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -9,14 +12,16 @@ public class TestSkillAction : SkillCardActionBase
 	private GameObject fxPrefab;
 	private IBattleObject target;
 	
-	public TestSkillAction(TestSkillActionSpec spec)
+	public TestSkillAction(TestSkillActionSpec spec) : base(spec)
 	{
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { stat.GetValueByValueType(BattleValueType.Attack) };
+	public override object[] DescParams => new object[] { Stat.GetValueByValueType(SkillValueType.Damage) };
 
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
+	
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
 		if (canceled)
@@ -32,21 +37,17 @@ public class TestSkillAction : SkillCardActionBase
 			//todo: sender 수정
 			target.Damage(new DamageInfo()
 			{
-				Dmg = stat.GetValueByValueType(BattleValueType.Attack)
+				Dmg = Stat.GetValueByValueType(SkillValueType.Damage)
 			});
 			routineDone = true;
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
 
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()

@@ -8,7 +8,9 @@ public class Constant : GameData
 	public AnimationCurve CardFollowingSpeedCurve;
 	public AnimationCurve HandCardVerticalOffsetCurve;
 	public const float Epsilon = 0.001f;
-	public const int DefaultEnergy = 3;
+	public static int DefaultEnergy { get; private set; }
+	public static int DefaultMinEnergy { get; private set; }
+	public static int DefaultMaxEnergy { get; private set; }
 
 	public const float FieldYPos = 0.55f;
 	public const float FieldMoveYPos = 2f;
@@ -27,9 +29,20 @@ public class Constant : GameData
 	public static readonly Vector3 HandHoverColliderSize = new Vector3(1f, 1f, 0.01f);
 
 	public const int PlayerHandMax = 10;
+	public static string AllyCardDefaultFrameName { get; private set; }
+	public static string EnemyCardDefaultFrameName { get; private set; }
+	public static string BossCardDefaultFrameName { get; private set; }
 	
 	public override void Initialize()
 	{
+		var param = GameDataSystem.Instance.GameDataParams["ConstantData"][0];
+
+		AllyCardDefaultFrameName = param.GetString(nameof(AllyCardDefaultFrameName));
+		EnemyCardDefaultFrameName = param.GetString(nameof(EnemyCardDefaultFrameName));
+		BossCardDefaultFrameName = param.GetString(nameof(BossCardDefaultFrameName));
+		DefaultEnergy = param.GetInt(nameof(DefaultEnergy));
+		DefaultMinEnergy = param.GetInt(nameof(DefaultMinEnergy));
+		DefaultMaxEnergy = param.GetInt(nameof(DefaultMaxEnergy));
 	}
 
 	public override void Dispose()

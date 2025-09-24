@@ -11,6 +11,7 @@ public class WaveSystem
 	private List<UnitCardInField> currentEnemyObjects;
 	private BlockInputHandler blockInputHandler = new();
 	private Transform waveParentTransform;
+	private int WaveSpawnedTurnCount;
 	
 	public WaveSystem(List<WaveSpec> waveData)
 	{
@@ -20,7 +21,7 @@ public class WaveSystem
 	public void Initialize()
 	{
 		currentEnemyObjects = new();
-		spawnNextWaveRoutine = new UpdatableRoutine(UpdateSpawn);
+		spawnNextWaveRoutine = new UpdatableRoutine(UpdateSpawnNextWave);
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);		
@@ -66,6 +67,16 @@ public class WaveSystem
 			enemy.UpdateBlockInput(blockInputHandler.BlockInput);
 		}
 	}
+
+	public void SpawnInitialWave(out IUpdatableRoutine routine)
+	{
+		WaveSpawnedTurnCount = 1;
+		currentWaveIdx = 0;
+		SpawnWaveImpl(waveData[0]);
+		
+		spawnNextWaveRoutine.Initialize();
+		routine = spawnNextWaveRoutine;
+	}
 	
 	public bool TrySpawnNextWave(out IUpdatableRoutine routine)
 	{
@@ -74,24 +85,118 @@ public class WaveSystem
 			routine = null;
 			return false;
 		}
+
+		WaveSpawnedTurnCount = Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentTurnCount;
 		var gridInfoList = waveData[++currentWaveIdx];
-		var map = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map;
-		foreach (var cellInfo in gridInfoList.CellList)
-		{
-			var cardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(cellInfo.UnitCardName);
-			var card = UnitCardInField.Instantiate(cardSpec, map.GetTileAt(cellInfo.Row, cellInfo.Col),
-				ObjectType.Enemy);
-			card.transform.SetParent(waveParentTransform);
-			currentEnemyObjects.Add(card);
-			currentEnemyObjects[^1].UpdateBlockInput(blockInputHandler.BlockInput);
-		}
-		
+
+		SpawnWaveImpl(gridInfoList);
+
 		spawnNextWaveRoutine.Initialize();
 		routine = spawnNextWaveRoutine;
 		return true;
 	}
 
-	private void UpdateSpawn(float dt, out bool done)
+	private void SpawnWaveImpl(WaveSpec spec)
+	{
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+		bool carryOver = false;
+		foreach (var cellInfo in spec.CellList)
+		{
+			if (carryOver)
+			{
+				waveData[currentWaveIdx + 1].CellList.Add(cellInfo);
+			}
+			else
+			{
+				var cardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(cellInfo.UnitCardName);
+				var tile = DetermineTargetTile(map.GetTileAt(cellInfo.Row, cellInfo.Col));
+				if (tile == null)
+				{
+					carryOver = true;
+					if (waveData.Count >= currentWaveIdx + 1)
+					{
+						var carryOverSpec = WaveSpec.CreateForCarryOver();
+						waveData.Add(carryOverSpec);
+					}
+				
+					waveData[currentWaveIdx + 1].CellList.Add(cellInfo);
+					continue;
+				}
+				var card = UnitCardInField.Instantiate(cardSpec, tile, ObjectType.Enemy);
+				card.transform.SetParent(waveParentTransform);
+				currentEnemyObjects.Add(card);
+				currentEnemyObjects[^1].UpdateBlockInput(blockInputHandler.BlockInput);
+			}
+		}
+		
+	}
+
+	private ITile DetermineTargetTile(ITile tile)
+	{
+		var ret = DetermineTargetTileRow(tile);
+
+		if (ret == null)
+		{
+			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+			var (row, _) = map.GetTileCoord(tile);
+			if (row == 0)
+			{
+				ret = DetermineTargetTileRow(map.GetUpwardTile(tile)) ?? DetermineTargetTileRow(map.GetUpwardTile(tile));
+			}
+			else
+			{
+				ret = DetermineTargetTileRow(map.GetDownwardTile(tile)) ?? DetermineTargetTileRow(map.GetUpwardTile(tile));
+			}
+		}
+		
+		return ret;
+	}
+
+	private ITile DetermineTargetTileRow(ITile tile)
+	{
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+		if (map.GetBattleObjectOfTile(tile) == null)
+		{
+			return tile;
+		}
+
+		var ret = tile;
+		while (ret != null && map.GetBattleObjectOfTile(ret) != null)
+		{
+			ret = map.GetBackwardTile(ret);
+		}
+
+		if (ret == null)
+		{
+			ret = tile;
+			while (ret != null && map.GetBattleObjectOfTile(ret) != null)
+			{
+				ret = map.GetForwardTile(ret);
+			}
+		}
+		
+		return ret;
+	}
+
+	public bool IsSatisfySpawnWaveCondition()
+	{
+		if (IsInLastWave)
+		{
+			return false;
+		}
+
+		return waveData[currentWaveIdx + 1].PrepareTurn <=
+		       Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentTurnCount
+		       - WaveSpawnedTurnCount;
+	}
+
+	public int LeftNextWaveTurn => IsInLastWave ? -1 : waveData[currentWaveIdx + 1].PrepareTurn 
+	                               - (Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentTurnCount
+										- WaveSpawnedTurnCount);
+
+	public bool IsInLastWave => currentWaveIdx == waveData.Count - 1;
+
+	private void UpdateSpawnNextWave(float dt, out bool done)
 	{
 		done = true;
 	}
@@ -105,9 +210,14 @@ public class WaveSystem
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardEndUseNotice>(OnCardEndUse);
-		NoticeSystem.Instance.Subscribe<FieldCardSelectNotice>(OnFieldCardSelect);
-		NoticeSystem.Instance.Subscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
-		NoticeSystem.Instance.Subscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
+		NoticeSystem.Instance.Unsubscribe<FieldCardSelectNotice>(OnFieldCardSelect);
+		NoticeSystem.Instance.Unsubscribe<FieldCardSelectCancelNotice>(OnFieldCardSelectCancel);
+		NoticeSystem.Instance.Unsubscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
+
+		foreach (var obj in currentEnemyObjects)
+		{
+			obj.Dispose();
+		}
 	}
 	
 	private void OnHandCardSelect(SkillHandCardSelectNotice m)

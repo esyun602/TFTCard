@@ -10,13 +10,12 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 {
 	[SerializeField] private TextMeshProUGUI atk;
 	[SerializeField] private TextMeshProUGUI hp;
-	[SerializeField] private TextMeshProUGUI turnCount;
 	[SerializeField] private TextMeshProUGUI nameText;
 	[SerializeField] private TextMeshProUGUI desc;
 	[SerializeField] private Image img;
 	[SerializeField] private Image bgImg;
 	
-	public void Initialize(ICard card, IStat stat)
+	public void Initialize(ICard card, IStat stat, Func<bool> isFxOn)
 	{
 		if (card is not UnitCard unitCard)
 		{
@@ -35,11 +34,15 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			.GetSynergySpec(unitCard.Stat.synergyList[0]);
 		bgImg.color = synergySpec.SymbolColor;
 		
-		atk.text = $"{stat.GetValueByValueType(BattleValueType.Attack)}";
-		hp.text = $"{stat.GetValueByValueType(BattleValueType.Hp)}";
-		turnCount.text = $"{stat.GetValueByValueType(BattleValueType.TurnCount)}";
+		atk.text = $"{stat.GetValueByValueType(UnitValueType.Attack)}";
+		hp.text = $"{stat.GetValueByValueType(UnitValueType.Hp)}";
 	}
-	
+
+	public void Dispose()
+	{
+		
+	}
+
 	//todo: callback or notice?
 	private void Update()
 	{

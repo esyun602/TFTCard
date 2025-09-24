@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 
-public class SteamEngineProtectionAction : SkillCardActionBase
+public class SteamEngineProtectionAction : TacticsCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
@@ -8,14 +9,15 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 
 	public override bool CanUse(ITile targetTile)
 	{
-		var targetObject = Game.Instance.GetGameMode<StageGameMode>().GetCurrentStage().Map
+		var targetObject = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map
 			.GetBattleObjectOfTile(targetTile);
 		return base.CanUse(targetTile) && targetObject.ObjectType == ObjectType.Ally;
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Shield) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
-	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec)
+	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec) : base(spec)
 	{
 	}
 
@@ -32,24 +34,20 @@ public class SteamEngineProtectionAction : SkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(BattleValueType.Shield, battleStat.GetValueByValueType(BattleValueType.Shield));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(CommonValueType.ShieldAdd));
 			target.UnitCardBattleStat.AddSynergy(SynergyCategory.SteamEngine);
 			
 			routineDone = true;
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
-
+	
 	protected override void OnCancel()
 	{
 		canceled = true;

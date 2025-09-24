@@ -1,0 +1,65 @@
+[
+  {
+    "Name": "Catalyst",
+    "ValueType": "Catalyst",
+    "IconCategory": "HpRelevant",
+    "IconResource": "IconCatalyst",
+    "Importance": 0,
+    "NameKey": "keyword_catalyst",
+    "DescKey": "keyword_catalyst_desc"
+  },
+  {
+    "Name": "Healban",
+    "ValueType": "Healban",
+    "IconCategory": "HpRelevant",
+    "IconResource": "IconHealBan",
+    "Importance": 0,
+    "NameKey": "keyword_healban",
+    "DescKey": "keyword_healban_desc"
+  },
+  {
+    "Name": "HpAdded",
+    "ValueType": "MaxHp",
+    "IconCategory": "HpRelevant",
+    "IconResource": "IconHeartUp",
+    "Importance": 0,
+    "NameKey": "keyword_hpadded",
+    "DescKey": "keyword_hpadded_desc"
+  },
+  {
+    "Name": "AttackAdded",
+    "ValueType": "Attack",
+    "IconCategory": "AttackRelevant",
+    "IconResource": "IconAttackAdd",
+    "Importance": 0,
+    "NameKey": "keywoord_attackadded",
+    "DescKey": "keywoord_attackadded_desc"
+  },
+  {
+    "Name": "AttackReduced",
+    "ValueType": "Attack",
+    "IconCategory": "",
+    "IconResource": "",
+    "Importance": 0,
+    "NameKey": "keyword_attackreduced",
+    "DescKey": "keyword_attackreduced_desc"
+  },
+  {
+    "Name": "Burn",
+    "ValueType": "Burn",
+    "IconCategory": "HpRelevant",
+    "IconResource": "IconFire",
+    "Importance": 0,
+    "NameKey": "keyword_burn",
+    "DescKey": "keyword_burn_desc"
+  },
+  {
+    "Name": "Shield",
+    "ValueType": "Shield",
+    "IconCategory": "Special",
+    "IconResource": "IconSheild",
+    "Importance": 0,
+    "NameKey": "keyword_shield",
+    "DescKey": "keyword_shield_desc"
+  }
+]

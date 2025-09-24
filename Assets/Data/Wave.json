@@ -17,7 +17,8 @@
         "Col": 4,
         "UnitCardName": "Alle"
       }
-    ]
+    ],
+    "PrepareTurn": 1
   },
   {
     "Name": "test_wave_1",
@@ -47,7 +48,8 @@
         "Col": 4,
         "UnitCardName": "GuardAutomaton"
       }
-    ]
+    ],
+    "PrepareTurn": 1
   },
   {
     "Name": "test_wave_2",
@@ -87,7 +89,8 @@
         "Col": 5,
         "UnitCardName": "SlaveGuard"
       }
-    ]
+    ],
+    "PrepareTurn": 1
   },
   {
     "Name": "test_wave_3",
@@ -98,25 +101,21 @@
         "UnitCardName": "ScrapMonster"
       },
       {
-        "Row": 2,
-        "Col": 6,
-        "UnitCardName": "VacuumTubeLump"
-      },
-      {
         "Row": 1,
         "Col": 4,
         "UnitCardName": "BrassMonster"
       },
       {
-        "Row": 0,
-        "Col": 4,
-        "UnitCardName": "ScrapMonster"
+        "Row": 1,
+        "Col": 6,
+        "UnitCardName": "VacuumTubeLump"
       },
       {
         "Row": 0,
-        "Col": 6,
-        "UnitCardName": "VacuumTubeLump"
+        "Col": 4,
+        "UnitCardName": "ScrapMonster"
       }
-    ]
+    ],
+    "PrepareTurn": 1
   }
 ]

@@ -11,7 +11,7 @@ public class AddShieldSkillActionSpec : SkillCardActionSpec
 		return new AddShieldSkillAction(this);
 	}
 
-	public override void Initialize(Dictionary<string, object> param)
+	protected override void OnInitialize(Dictionary<string, object> param)
 	{
 		
 	}

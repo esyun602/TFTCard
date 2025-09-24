@@ -43,6 +43,24 @@ public class UIManager
 	private Transform UIRoot;
 	private List<UIInstance> uiInstanceList;
 
+	private Camera currentUICamera;
+	public Camera CurrentUICamera
+	{
+		get => currentUICamera;
+		set
+		{
+			foreach (var kvp in canvasMap)
+			{
+				if (kvp.Value != null)
+				{
+					kvp.Value.worldCamera = value;
+				}
+			}
+
+			currentUICamera = value;
+		} 
+	}
+
 	public UIManager()
 	{
 		UIRoot = new GameObject("UIRoot").transform;
@@ -93,6 +111,8 @@ public class UIManager
 		scalar.referenceResolution = new Vector2(1920, 1080);
 		go.AddComponent<GraphicRaycaster>();
 		canvas.renderMode = GetRenderModeFromType(type);
+		//todo: 카메라 할당 픽스
+		canvas.worldCamera = CurrentUICamera;
 		return canvas;
 	}
 

@@ -1,49 +1,50 @@
 using MessageSystem;
+using UnityEngine;
 
-public class BurnBuff : IBuff
+public class BurnBuff : BuffBase
 {
-	private IBattleObject target;
-	private int burnLevel;
 
 	public BurnBuff(int burnLevel)
 	{
-		this.burnLevel = burnLevel;
+		Level = burnLevel;
 	}
 
-	public BuffType BuffType => BuffType.Negative;
-	public BattleValueType ControlBattleValueType => BattleValueType.Burn;
-	public int Level => burnLevel;
+	public override BuffType BuffType => BuffType.Negative;
+	public override UnitValueType ControlUnitValueType => UnitValueType.Burn;
 
-	public void OnAdd(IBattleObject target)
+	protected override void OnAdd()
 	{
-		this.target = target;
-		NoticeSystem.Instance.Subscribe<TurnStartNotice>(OnTurnStart);
+		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
-	private void OnTurnStart(TurnStartNotice m)
+	private void OnTurnEnd(PlayerTurnEndNotice m)
 	{
-		if (m.TargetObject == target)
+		target.Damage(new DamageInfo()
 		{
-			target.Damage(new DamageInfo()
-			{
-				Dmg = burnLevel--,
-			});
+			Dmg = Level--,
+		});
+
+		if (Level == 0)
+		{
+			target.UnitCardBattleStat.RemoveBuff(this);
 		}
 	}
 
-	public void OnRemove()
+	protected override void OnRemove()
 	{
-		NoticeSystem.Instance.Unsubscribe<TurnStartNotice>(OnTurnStart);
+		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
-	public bool TryStack(IBuff buff)
+	public override bool TryStack(IBuff buff)
 	{
 		var canStack = buff is BurnBuff;
 		if (canStack)
 		{
-			burnLevel += buff.Level;
+			Level += buff.Level;
 		}
 
 		return canStack;
 	}
+
+	public override string Keyword => "Burn";
 }

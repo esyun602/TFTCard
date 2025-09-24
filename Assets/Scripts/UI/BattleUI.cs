@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
@@ -21,9 +22,10 @@ public class BattleUI : UIInstance
 
 	[SerializeField] 
 	private Transform synergyContentTransform;
-	public override UIType UIType => UIType.SceneUI;
+	public override UIType UIType => UIType.SceneCameraUI;
 
-	[SerializeField] private ArrowDrawer arrowDrawer;
+	private ArrowDrawer arrowDrawer;
+	private TargetMarkerManager targetMarkerManager;
 
 	private Vector2 currentSelectedCardStartPosition;
 	
@@ -31,12 +33,47 @@ public class BattleUI : UIInstance
 	{
 		NoticeSystem.Instance.Subscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Subscribe<SkillHandCardHoverNotice>(OnHandCardHover);
+		NoticeSystem.Instance.Subscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
+		NoticeSystem.Instance.Subscribe<TargetingCardAimedNotice>(OnAimed);
+		NoticeSystem.Instance.Subscribe<TargetingCardAimRemovedNotice>(OnAimRemoved);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
 		NoticeSystem.Instance.Subscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
 		
 		inputHandler = ((BattleUIGenState)param).InputHandler;
+		
+		//todo: child 구현하면 수정
+		arrowDrawer = Game.Instance.UIManager.GenerateUI<ArrowDrawer>();
+		targetMarkerManager = Game.Instance.UIManager.GenerateUI<TargetMarkerManager>();
+		
+	}
+
+	private void OnAimed(TargetingCardAimedNotice m)
+	{
+		targetMarkerManager.SetTargetMarkerTo(m.Card.TargetCard.Action.Targets, m.Card);
+	}
+
+	private void OnAimRemoved(TargetingCardAimRemovedNotice m)
+	{
+		targetMarkerManager.RemoveTargetMarker(m.Card);
+	}
+
+	private void OnHandCardHover(SkillHandCardHoverNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting)
+		{
+			targetMarkerManager.SetTargetMarkerTo(m.SelectedCard.TargetCard.Action.Targets, m.SelectedCard);
+		}
+	}
+
+	private void OnHandCardRemove(SkillHandCardRemoveHoverNotice m)
+	{
+		if (!m.SelectedCard.IsTargeting)
+		{
+			targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
+		}
 	}
 
 	private void OnTargetingUpdate(SkillHandCardTargetingUpdateNotice m)
@@ -49,21 +86,37 @@ public class BattleUI : UIInstance
 
 	private void OnHandCardSelect(SkillHandCardSelectNotice m)
 	{
-		if (!m.SelectedCard.IsTargeting) return;
-		currentSelectedCardStartPosition = Camera.main.WorldToScreenPoint(m.SelectedCard.transform.position);
-		arrowDrawer.Activate(currentSelectedCardStartPosition, 10);
+		if (m.SelectedCard.IsTargeting)
+		{
+			currentSelectedCardStartPosition = Camera.main.WorldToScreenPoint(m.SelectedCard.transform.position);
+			arrowDrawer.Activate(currentSelectedCardStartPosition, 10);
+		}
+		else
+		{
+			targetMarkerManager.SetTargetMarkerTo(m.SelectedCard.TargetCard.Action.Targets, m.SelectedCard);
+		}
 	}
 
 	private void OnHandCardSelectCancel(SkillHandCardSelectCancelNotice m)
 	{
-		if (!m.SelectedCard.IsTargeting) return;
-		arrowDrawer.Deactivate();
+		if (m.SelectedCard.IsTargeting)
+		{
+			arrowDrawer.Deactivate();
+		}
+		
+		
+		targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
+			
 	}
 
 	private void OnHandCardStartUse(SkillHandCardStartUseNotice m)
 	{
-		if (!m.SelectedCard.IsTargeting) return;
-		arrowDrawer.Deactivate();
+		if (m.SelectedCard.IsTargeting)
+		{
+			arrowDrawer.Deactivate();
+		}
+		
+		targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
 	}
 
 	private void OnSynergyUpdate(SynergyInfoUpdateNotice m)
@@ -92,20 +145,53 @@ public class BattleUI : UIInstance
 
 	public void OnTurnEndClick()
 	{
-		if (inputHandler.IsBlocked(InputBlockFlag.Select))
+		if (inputHandler.IsBlocked(InputBlockFlag.TurnEnd))
 			return;
 		
 		NoticeSystem.Instance.Publish(new TurnEndClickNotice());
 	}
 
+	public void OpenDrawPanel(bool isEnemy)
+	{
+		Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+		{
+			cardInfoList = 
+				isEnemy
+				? Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyCardPool.GetShuffled()
+				: Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Deck.GetShuffled()
+		});
+	}
+
+	public void OpenDiscardPanel(bool isEnemy)
+	{
+		Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+		{
+			cardInfoList = 
+				isEnemy
+					? Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyDropCardList.GetShuffled()
+					: Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCardList.GetShuffled()
+		});
+	}
+
+	public void OpenExhaustionCardPanel()
+	{
+		//todo: impl
+	}
+
 	private void Update()
 	{
+		//todo: remove test code
+		energy.text = Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn.ToString();
 	}
 
 	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<EnergyChangeNotice>(OnEnergyChange);
 		NoticeSystem.Instance.Unsubscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardHoverNotice>(OnHandCardHover);
+		NoticeSystem.Instance.Unsubscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
+		NoticeSystem.Instance.Unsubscribe<TargetingCardAimedNotice>(OnAimed);
+		NoticeSystem.Instance.Unsubscribe<TargetingCardAimRemovedNotice>(OnAimRemoved);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);

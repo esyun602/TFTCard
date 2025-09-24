@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "EnemyFlow",
+    "StageTypeOrder": [
+      "BattleStage",
+      " EventStage",
+      " EventStage",
+      " BattleStage"
+    ],
+    "EventStageGenType": "StaticNumber",
+    "BranchParams": [
+      2
+    ],
+    "EventStagePool": {
+      "AllowDuplicate": true,
+      "PoolList": [
+        "Scout"
+      ]
+    },
+    "BattleStagePool": {
+      "AllowDuplicate": true,
+      "PoolList": [
+        "TestStage",
+        "TestStage2",
+        "TestStage3"
+      ]
+    }
+  },
+  {
+    "Name": "TestFlow",
+    "StageTypeOrder": [
+      "BattleStage"
+    ],
+    "EventStageGenType": "StaticNumber",
+    "BranchParams": [
+      2
+    ],
+    "EventStagePool": {
+      "AllowDuplicate": true,
+      "PoolList": [
+      ]
+    },
+    "BattleStagePool": {
+      "AllowDuplicate": true,
+      "PoolList": [
+        "TestStage"
+      ]
+    }
+  }
+]

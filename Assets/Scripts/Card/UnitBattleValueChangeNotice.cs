@@ -2,7 +2,7 @@ using MessageSystem;
 
 public class UnitBattleValueChangeNotice : Notice
 {
-	public UnitBattleValueChangeNotice(BattleValueType type, int prevValue, int changedValue, UnitCardBattleStat stat)
+	public UnitBattleValueChangeNotice(UnitValueType type, int prevValue, int changedValue, UnitCardBattleStat stat)
 	{
 		Type = type;
 		PrevValue = prevValue;
@@ -13,6 +13,6 @@ public class UnitBattleValueChangeNotice : Notice
 	public UnitCardBattleStat Stat { get; private set; }
 	public int PrevValue { get; private set; }
 	public int ChangedValue { get; private set; }
-	public BattleValueType Type { get; private set; }
+	public UnitValueType Type { get; private set; }
 	public int Diff => ChangedValue - PrevValue;
 }

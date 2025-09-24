@@ -40,4 +40,17 @@ public abstract class SynergySpec
 
 		return spec;
 	}
+
+	public int GetGrade(int currentCount)
+	{
+		for (var i = SynergyCountList.Length - 1; i >= 0; i--)
+		{
+			if (currentCount >= SynergyCountList[i])
+			{
+				return i + 1;
+			}
+		}
+
+		return 0;
+	}
 }

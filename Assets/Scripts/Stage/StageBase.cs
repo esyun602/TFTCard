@@ -9,25 +9,20 @@ public abstract class StageBase : IStage
 {
 	//game -> subsystem -> stagemanager 
 	public StageSpec StageSpec { get; protected set; }
-	protected MapData mapData;
-	protected IMap map;
+	public StageType StageType => StageSpec.StageType;
 	public GameObject StageGameObject => stageGo;
 	private GameObject stageGo;
-	public IMap Map => map;
 	protected StageCamera stageCamera;
 	//라이팅 어떻게? -> 맵에 포함?
 
 	protected StageBase(StageSpec stageSpec)
 	{
 		this.StageSpec = stageSpec;
-		mapData = stageSpec.MapData;
 	}
 	
 	public void Load()
 	{
 		stageGo = new GameObject(StageSpec.StageName);
-		map = mapData.InstantiateMap();
-		map.Load();
 		stageCamera = SpawnStageCamera();
 		//stage default UI load
 		OnLoad();
@@ -69,6 +64,9 @@ public abstract class StageBase : IStage
 		camera.tag = "MainCamera";
 		camera.transform.rotation = Quaternion.Euler(90, 0, 0);
 		camera.transform.position = new Vector3(9f, 100f, 5f);
+
+		Game.Instance.UIManager.CurrentUICamera = camComponent;
+		
 		return camera.AddComponent<StageCamera>();
 	}
 

@@ -1,19 +1,16 @@
 using MessageSystem;
 
-public class DodgeBuff : IBuff
+public class DodgeBuff : BuffBase
 {
-	private IBattleObject target;
-	public BuffType BuffType => BuffType.Positive;
-	public BattleValueType ControlBattleValueType => BattleValueType.Dodge;
-	public int Level => 1;
+	public override BuffType BuffType => BuffType.Positive;
+	public override UnitValueType ControlUnitValueType => UnitValueType.Dodge;
 
-	public void OnAdd(IBattleObject target)
+	protected override void OnAdd()
 	{
-		this.target = target;
 		NoticeSystem.Instance.Subscribe<DamageDodgeNotice>(OnDodge);
 	}
 
-	public void OnRemove()
+	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<DamageDodgeNotice>(OnDodge);
 	}
@@ -26,8 +23,10 @@ public class DodgeBuff : IBuff
 		}
 	}
 
-	public bool TryStack(IBuff buff)
+	public override bool TryStack(IBuff buff)
 	{
 		return true;
 	}
+
+	public override string Keyword => "Dodge";
 }

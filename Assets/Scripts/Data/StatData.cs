@@ -4,16 +4,23 @@ using Newtonsoft.Json;
 public class StatData : GameData
 {
 	private Dictionary<string, UnitStatSpec> unitStatDict;
-	private Dictionary<string, SkillStatSpec> skillStatDict;
+	private Dictionary<string, TacticsCardStatSpec> tacticsStatDict;
+	private Dictionary<string, UnitSkillCardStatSpec> unitSkillStatDict;
+	
 
 	public UnitStatSpec GetUnitStatByName(string name)
 	{
 		return unitStatDict.GetValueOrDefault(name);
 	}
 	
-	public SkillStatSpec GetSkillStatByName(string name)
+	public SkillCardStatSpec GetTacticsStatByName(string name)
 	{
-		return skillStatDict.GetValueOrDefault(name);
+		return tacticsStatDict.GetValueOrDefault(name);
+	}
+	
+	public SkillCardStatSpec GetUnitSkillStatByName(string name)
+	{
+		return unitSkillStatDict.GetValueOrDefault(name);
 	}
 
 	
@@ -28,12 +35,20 @@ public class StatData : GameData
 		}
 		
 		
-		skillStatDict = new();
-		deserializedObject = GameDataSystem.Instance.GameDataParams["SkillCardStatData"];
+		tacticsStatDict = new();
+		deserializedObject = GameDataSystem.Instance.GameDataParams["TacticsCardStatData"];
 		foreach (var specJson in deserializedObject)
 		{
-			var stat = SkillStatSpec.Create(specJson);
-			skillStatDict[stat.Name] = stat;
+			var stat = TacticsCardStatSpec.Create(specJson);
+			tacticsStatDict[stat.Name] = stat;
+		}
+				
+		unitSkillStatDict = new();
+		deserializedObject = GameDataSystem.Instance.GameDataParams["UnitSkillCardStatData"];
+		foreach (var specJson in deserializedObject)
+		{
+			var stat = UnitSkillCardStatSpec.Create(specJson);
+			unitSkillStatDict[stat.Name] = stat;
 		}
 	}
 

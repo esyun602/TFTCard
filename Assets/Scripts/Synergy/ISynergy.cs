@@ -1,4 +1,4 @@
 public interface ISynergy
 {
-	public int Level { get; set; }
+	public int Level { get; }
 }

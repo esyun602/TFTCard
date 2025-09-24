@@ -3,6 +3,7 @@ using UnityEngine;
 
 public interface IBattleObject
 {
+	public string Name { get; }
 	public ObjectType ObjectType { get; }
 	public Vector3 Position { get; }
 	public Transform Transform { get; }
@@ -13,6 +14,9 @@ public interface IBattleObject
 	
 	public IBattleObjectStat UnitCardBattleStat { get; }
 	public IDamagedBehaviour DamagedBehaviour { get; }
+	
+	//todo: fix to animation
+	public void RunAttackMotion();
 }
 
 public static class IBattleObjectExtensions
@@ -29,6 +33,6 @@ public static class IBattleObjectExtensions
 	
 	public static bool IsDead(this IBattleObject bo)
 	{
-		return bo.UnitCardBattleStat.GetValueByValueType(BattleValueType.Hp) == 0;
+		return bo.UnitCardBattleStat.GetValueByValueType(UnitValueType.Hp) == 0;
 	}
 }

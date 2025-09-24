@@ -54,6 +54,18 @@ public static class IMapExtensions
 		}
 	}
 	
+	public static ITile GetUpwardTile(this IMap map, ITile tile)
+	{
+		var (row, col) = map.GetTileCoord(tile);
+		return map.GetTileAt((row + 1) % map.RowCnt, col);
+	}
+	
+	public static ITile GetDownwardTile(this IMap map, ITile tile)
+	{
+		var (row, col) = map.GetTileCoord(tile);
+		return map.GetTileAt((row - 1) % map.RowCnt, col);
+	}
+	
 	public static bool IsInTriggerPos(this IMap map, GridSelector gridSelector, IBattleObject owner)
 	{
 		if (owner.ObjectType == ObjectType.Enemy)
@@ -150,6 +162,14 @@ public static class IMapExtensions
 		return map.GetFirstTileInRow(row, owner.ObjectType.GetOpposite());
 	}
 	
+	//새로운 기획 반영
+	public static ITile GetRangeAttackTargetTile(this IMap map, IBattleObject owner)
+	{
+		var row = map.GetAttackTargetRow(owner);
+		var bo = map.GetLastObjectInRow(row, owner.ObjectType.GetOpposite());
+		return bo != null ? map.GetTileOfBattleObject(bo) : null;
+	}
+	
 	[Obsolete]
 	public static List<ITile> GetAttackTargetTiles(this IMap map, GridSelector gridSelector, IBattleObject owner)
 	{
@@ -189,6 +209,36 @@ public static class IMapExtensions
 			return map.GetTileAt(row, map.ColumnCnt / 2);
 		}
 	}
+		
+	public static ITile GetLastTileInRow(this IMap map, int row, ObjectType type)
+	{
+		if (type == ObjectType.Ally)
+		{
+			return map.GetTileAt(row, 0);
+		}
+		else
+		{
+			return map.GetTileAt(row, map.ColumnCnt - 1);
+		}
+	}
+
+	public static IBattleObject GetLastObjectInRow(this IMap map, int row, ObjectType type)
+	{
+		for (var i = 0; i < map.ColumnCnt / 2; i++)
+		{
+			IBattleObject ret;
+			if (type == ObjectType.Ally && (ret = map.GetBattleObjectAt(row, i)) != null)
+			{
+				return ret;
+			}
+			if (type == ObjectType.Enemy && (ret = map.GetBattleObjectAt(row, map.ColumnCnt - 1 - i)) != null)
+			{
+				return ret;
+			}
+		}
+
+		return null;
+	}
 
 	public static IBattleObject GetFirstObjectInRow(this IMap map, ITile tile)
 	{
@@ -212,5 +262,46 @@ public static class IMapExtensions
 		}
 
 		return null;
+	}
+
+	public static List<ITile> GetAllTilesInRow(this IMap map, IBattleObject obj, ObjectType type)
+	{
+		var (row, _) = map.GetTileCoordOf(obj);
+		return map.GetAllTilesInRow(row, type);
+	}
+	
+	public static List<ITile> GetAllTilesInRow(this IMap map, ITile tile, ObjectType type)
+	{
+		var (row, _) = map.GetTileCoord(tile);
+		return map.GetAllTilesInRow(row, type);
+	}
+	
+	public static List<ITile> GetAllTilesInRow(this IMap map, int row, ObjectType type)
+	{
+		var targetList = new List<ITile>();
+		if (type == ObjectType.Enemy)
+		{
+			for (var i = 4; i <= 7; i++)
+			{
+				var obj = (map.GetTileAt(row, i));
+				if (obj != null)
+				{
+					targetList.Add(obj);
+				}
+			}
+		}
+		else if(type == ObjectType.Ally)
+		{
+			for (var i = 0; i <= 3; i++)
+			{
+				var obj = (map.GetTileAt(row, i));
+				if (obj != null)
+				{
+					targetList.Add(obj);
+				}
+			}
+		}
+
+		return targetList;
 	}
 }

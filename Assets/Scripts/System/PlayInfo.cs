@@ -19,7 +19,8 @@ public class DeployInfo
 
 public class PlayInfo
 {
-	public List<UnitCard> BagUnitCardList { get; } = new();
+	private List<UnitCard> bagUnitCardList = new();
+	public IEnumerable<UnitCard> BagUnitCardList => bagUnitCardList;
 
 	public IEnumerable<UnitCard> TotalUnitCards
 	{
@@ -36,23 +37,52 @@ public class PlayInfo
 			}
 		}
 	}
+	
+	public IEnumerable<SkillCardBase> TotalDeckCards
+	{
+		get
+		{
+			foreach (var card in TacticsCardList)
+			{
+				yield return card;
+			}
 
+			
+			//todo: 가방 고칠 때 수정
+			foreach (var card in UnitSkillCardList)
+			{
+				yield return card;
+			}
+		}
+	}
+
+	//todo: 가방 고칠 때 수정
+	public int TotalDeckCardsCount => TacticsCardList.Count() + UnitSkillCardList.Count;
+
+	private List<TacticsCard> tacticsCardList = new();
 	//todo: fix?
-	public List<SkillCard> DeckCardList { get; } = new();
+	public IEnumerable<TacticsCard> TacticsCardList => tacticsCardList;
+
+	//todo: 가방 고칠 때 수정
+	public List<UnitSkillCard> UnitSkillCardList => FieldDeployLocationInfo.SelectMany(x => x.TargetCard.UnitSkillCard).ToList();
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	private Dictionary<SynergyCategory, int> synergyNumDict = new();
 	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
-	public MapInfo CurrentMapInfo { get; set; }
+	public FlowInfo CurrentFlowInfo { get; set; }
 
-	public MapNodeInfo CurrentSelectedNode { get; private set; }
+	public FlowNodeInfo CurrentSelectedNode { get; private set; }
 
 	//todo: to constant
 	//todo: test
 	public int MaxDeployCount { get; private set; } = 30;
-	public int DrawCount { get; private set; } = 5;
+	public int DeckDrawCount { get; private set; } = 5;
+	public int EnemyDrawCount { get; private set; } = 3;
+	
 
 	//todo: additional value
-	public int MaxEnergy => Constant.DefaultEnergy;
+	public int MaxEnergy => Constant.DefaultMaxEnergy;
+	public int MinEnergy => Constant.DefaultMinEnergy;
+	public int EnergyPerTurn => Constant.DefaultEnergy;
 
 	/// <summary>
 	/// 최대 배치 가능 갯수에 맞게 normalize
@@ -66,7 +96,7 @@ public class PlayInfo
 
 		if (FieldDeployLocationInfo.Count < MaxDeployCount)
 		{
-			var toDeployCount = Mathf.Min(MaxDeployCount - FieldDeployLocationInfo.Count, BagUnitCardList.Count);
+			var toDeployCount = Mathf.Min(MaxDeployCount - FieldDeployLocationInfo.Count, BagUnitCardList.Count());
 
 			for (var row = 2; row >= 0; row--)
 			{
@@ -80,7 +110,7 @@ public class PlayInfo
 					if (!FieldDeployLocationInfo.Any(info => info.Row == row && info.Col == col))
 					{
 						toDeployCount--;
-						var targetCard = BagUnitCardList[^1];
+						var targetCard = BagUnitCardList.Last();
 						DeployCard(row, col, targetCard);
 					}
 				}
@@ -95,19 +125,35 @@ public class PlayInfo
 
 	public void DeployCard(int row, int col, UnitCard targetCard)
 	{
-		var isInBag = BagUnitCardList.Remove(targetCard);
+		var isInBag = RemoveCard(targetCard);
 		if (isInBag)
 		{
-			var unitSkillCard = targetCard.UnitSkillCard;
+			//var unitSkillCard = targetCard.UnitSkillCard;
 			foreach (var synergy in targetCard.Stat.synergyList)
 			{
 				if (!synergyNumDict.TryAdd(synergy, 1))
 				{
 					synergyNumDict[synergy]++;
 				}
+				
+				
+				if (activatedByDeploySynergyDict.TryGetValue(synergy, out var synergyInstance))
+				{
+					synergyInstance.AddMember(targetCard);
+				}
+				else
+				{
+					if (GameDataSystem.Instance.GetGameData<SynergyData>()
+					    .GetSynergySpec(synergy).TryGenerateGlobalSynergyInstance(out var newSynergy))
+					{
+						activatedByDeploySynergyDict[synergy] = newSynergy;
+						newSynergy.Initialize();
+						newSynergy.AddMember(targetCard);
+					}
+				}
 			}
 
-			DeckCardList.Add(unitSkillCard);
+			//UnitSkillCardList.Add(unitSkillCard);
 			RefreshSynergyList();
 		}
 
@@ -123,17 +169,53 @@ public class PlayInfo
 	public void UndeployCard(UnitCard targetCard)
 	{
 		FieldDeployLocationInfo.RemoveAll(info => info.TargetCard == targetCard);
-		BagUnitCardList.Add(targetCard);
-		var unitSkillCard = targetCard.UnitSkillCard;
-		DeckCardList.Remove(unitSkillCard);
+		AddCard(targetCard);
+		//var unitSkillCard = targetCard.UnitSkillCard;
+		//UnitSkillCardList.Remove(unitSkillCard);
 
 		foreach (var synergy in targetCard.Stat.synergyList)
 		{
 			synergyNumDict[synergy]--;
+			
+			if (activatedByDeploySynergyDict.TryGetValue(synergy, out var synergyInstance))
+			{
+				synergyInstance.RemoveMember(targetCard);
+			}
 		}
 
 		NormalizeLocationInfos();
 		RefreshSynergyList();
+	}
+
+	public void AddCard(ICard card)
+	{
+		if (card is UnitCard unitCard)
+		{
+			bagUnitCardList.Add(unitCard);
+			bagUnitCardList.Sort((x,y) => x.UnitCardStaticSpec.Id.CompareTo(y.UnitCardStaticSpec.Id));
+		}
+		else if (card is TacticsCard tacticsCard)
+		{
+			tacticsCardList.Add(tacticsCard);
+			tacticsCardList.Sort((x,y) => x.SkillCardStaticSpec.Id.CompareTo(y.SkillCardStaticSpec.Id));
+		}
+	}
+
+	public bool RemoveCard(ICard card)
+	{
+		var removed = false;
+		if (card is UnitCard unitCard)
+		{
+			removed = bagUnitCardList.Remove(unitCard);
+			bagUnitCardList.Sort((x,y) => x.UnitCardStaticSpec.Id.CompareTo(y.UnitCardStaticSpec.Id));
+		}
+		else if (card is TacticsCard tacticsCard)
+		{
+			removed = tacticsCardList.Remove(tacticsCard);
+			tacticsCardList.Sort((x,y) => x.SkillCardStaticSpec.Id.CompareTo(y.SkillCardStaticSpec.Id));
+		}
+
+		return removed;
 	}
 
 	private void RefreshSynergyList()
@@ -148,22 +230,6 @@ public class PlayInfo
 				{
 					synergy.Dispose();
 					activatedByDeploySynergyDict.Remove(kvp.Key);
-				}
-			}
-			else
-			{
-				if (activatedByDeploySynergyDict.TryGetValue(kvp.Key, out var synergy))
-				{
-					synergy.Level = kvp.Value;
-				}
-				else
-				{
-					if (GameDataSystem.Instance.GetGameData<SynergyData>()
-					    .GetSynergySpec(kvp.Key).TryGenerateGlobalSynergyInstance(out var newSynergy))
-					{
-						activatedByDeploySynergyDict[kvp.Key] = newSynergy;
-						newSynergy.Initialize();
-					}
 				}
 			}
 		}
@@ -192,18 +258,22 @@ public class PlayInfo
 
 	public void Initialize()
 	{
-		NoticeSystem.Instance.Subscribe<MapNodeSelectNotice>(OnMapNodeSelect);
+		NoticeSystem.Instance.Subscribe<FlowNodeSelectNotice>(OnMapNodeSelect);
 		NoticeSystem.Instance.Subscribe<StageClearNotice>(OnStageClear);
 	}
 
-	private void OnMapNodeSelect(MapNodeSelectNotice m)
+	private void OnMapNodeSelect(FlowNodeSelectNotice m)
 	{
 		CurrentSelectedNode = m.TargetInfo;
+		foreach (var node in CurrentFlowInfo.GetCousins(CurrentSelectedNode))
+		{
+			node.CloseNode();
+		}
 	}
 
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Unsubscribe<MapNodeSelectNotice>(OnMapNodeSelect);
+		NoticeSystem.Instance.Unsubscribe<FlowNodeSelectNotice>(OnMapNodeSelect);
 		NoticeSystem.Instance.Unsubscribe<StageClearNotice>(OnStageClear);
 	}
 

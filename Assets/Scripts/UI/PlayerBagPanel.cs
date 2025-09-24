@@ -39,13 +39,13 @@ public class PlayerBagPanel : UIInstance
 
 	public Dictionary<ICard, BagUICard> cardDictionary;
 	private int BagUnitCardRowCount => 
-		Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count == 0 
-		? 0 
-		: (Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count - 1) / cardCountPerRow + 1;
+		!Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Any() 
+			? 0 
+		: (Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList.Count() - 1) / cardCountPerRow + 1;
 	private int BagSkillCardRowCount => 
-		Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Count == 0 
+		Game.Instance.GetPlayer().CurrentPlayInfo.TotalDeckCardsCount == 0 
 			? 0
-			: (Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList.Count - 1) / cardCountPerRow + 1;
+			: (Game.Instance.GetPlayer().CurrentPlayInfo.TotalDeckCardsCount - 1) / cardCountPerRow + 1;
 	
 	
 	protected override void Init(object param)
@@ -105,12 +105,14 @@ public class PlayerBagPanel : UIInstance
 		var bagPool = UnityObjectPool.GetOrCreateUIPool("BagUnitCard");
 		bagPool.transform.SetParent(transform);
 		var cardList = Game.Instance.GetPlayer().CurrentPlayInfo.BagUnitCardList;
-		for (int i = 0; i < cardList.Count; i++)
+		var idx = 0;
+		foreach (var card in cardList)
 		{
-			var pos = CalculateBagUnitCardPositionWithIndex(i);
+			var pos = CalculateBagUnitCardPositionWithIndex(idx++);
 			var bagUICard = bagPool.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagUnitCard>();
-			bagUICard.Initialize(cardList[i], pos);
-			cardDictionary.Add(cardList[i], bagUICard);
+			bagUICard.Initialize(card, pos);
+			cardDictionary.Add(card, bagUICard);
+			
 		}
 	}
 
@@ -120,12 +122,13 @@ public class PlayerBagPanel : UIInstance
 		var unitActionPool = UnityObjectPool.GetOrCreateUIPool("BagUnitActionCard");
 		skillPool.transform.SetParent(transform);
 		unitActionPool.transform.SetParent(transform);
-		var cardList = Game.Instance.GetPlayer().CurrentPlayInfo.DeckCardList;
+		//todo: fix
+		var cardList = Game.Instance.GetPlayer().CurrentPlayInfo.TotalDeckCards.ToList();
 		for (int i = 0; i < cardList.Count; i++)
 		{
 			var pos = CalculateDeckCardPositionWithIndex(i);
 			BagSkillCard bagUICard;
-			if (cardList[i].SkillCardStaticSpec.IsUnitAction)
+			if (cardList[i].SkillCardStaticSpec is UnitSkillCardSpec)
 			{
 				bagUICard = unitActionPool.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagSkillCard>();
 			}
@@ -216,31 +219,32 @@ public class PlayerBagPanel : UIInstance
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
 		var locationInfos = playInfo.FieldDeployLocationInfo;
 		var bagUnitCards = playInfo.BagUnitCardList;
-		var deckCards = playInfo.DeckCardList;
+		//todo: fix
+		var deckCards = playInfo.TotalDeckCards;
 
-		for (var i = 0; i < bagUnitCards.Count; i++)
+		foreach (var card in bagUnitCards)
 		{
-			if (!cardDictionary.ContainsKey(bagUnitCards[i]))
+			if (!cardDictionary.ContainsKey(card))
 			{
-				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
+				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count() - 1);
 				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagUnitCard")
 					.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagUnitCard>();
-				bagUICard.Initialize(bagUnitCards[i], pos);
-				cardDictionary.Add(bagUnitCards[i], bagUICard);
+				bagUICard.Initialize(card, pos);
+				cardDictionary.Add(card, bagUICard);
 			}
 		}
 
-		for (var i = 0; i < deckCards.Count; i++)
+		foreach (var card in deckCards)
 		{
-			if (!cardDictionary.ContainsKey(deckCards[i]))
+			if (!cardDictionary.ContainsKey(card))
 			{
-				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count - 1);
-				var bagUICard = UnityObjectPool.GetOrCreateUIPool(deckCards[i].SkillCardStaticSpec.IsUnitAction
+				var pos = CalculateDeckCardPositionWithIndex(deckCards.Count() - 1);
+				var bagUICard = UnityObjectPool.GetOrCreateUIPool(card.SkillCardStaticSpec is UnitSkillCardSpec
 						? "BagUnitActionCard"
 						: "BagSkillCard")
 					.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagSkillCard>();
-				bagUICard.Initialize(deckCards[i], pos);
-				cardDictionary.Add(deckCards[i], bagUICard);
+				bagUICard.Initialize(card, pos);
+				cardDictionary.Add(card, bagUICard);
 			}
 		}
 
@@ -268,7 +272,7 @@ public class PlayerBagPanel : UIInstance
 				toRemove.Add(key);
 			}
 
-			if (key is SkillCard sk && !deckCards.Contains(sk))
+			if (key is SkillCardBase sk && !deckCards.Contains(sk))
 			{
 				toRemove.Add(key);
 			}
@@ -287,13 +291,14 @@ public class PlayerBagPanel : UIInstance
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
 		var locationInfos = playInfo.FieldDeployLocationInfo;
 		var bagUnitCards = playInfo.BagUnitCardList;
-		var deckCards = playInfo.DeckCardList;
+		//todo: fix
+		var deckCards = playInfo.TotalDeckCards.ToList();
 
-		for (var i = 0; i < bagUnitCards.Count; i++)
+		var idx = 0;
+		foreach (var card in bagUnitCards)
 		{
-			//todo : exception check?
-			var bagUICard = cardDictionary[bagUnitCards[i]];
-			var pos = CalculateBagUnitCardPositionWithIndex(i);
+			var bagUICard = cardDictionary[card];
+			var pos = CalculateBagUnitCardPositionWithIndex(idx++);
 			NoticeSystem.Instance.Send(new BagCardPosUpdateNotice(pos), bagUICard);
 		}
 

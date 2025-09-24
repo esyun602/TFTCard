@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class SpringHookAction : UnitSkillCardActionBase
 {
@@ -6,11 +7,12 @@ public class SpringHookAction : UnitSkillCardActionBase
 	private bool canceled;
 	private IBattleObject target;
 
-	public SpringHookAction(SpringHookActionSpec spec)
+	public SpringHookAction(SpringHookActionSpec spec) : base(spec)
 	{
 	}
 
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(BattleValueType.Attack) };
+	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(SkillValueType.Damage) };
+	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -28,8 +30,8 @@ public class SpringHookAction : UnitSkillCardActionBase
 			//todo: owner가 있으면 그냥 스탯에 owner 스탯을 합쳐버리는 방향으로 수정
 			target.Damage(new DamageInfo()
 			{
-				Sender = battleStat.Owner, 
-				Dmg = battleStat.GetValueByValueType(BattleValueType.Attack)
+				Sender = BattleStat.Owner, 
+				Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage)
 			});
 			Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap.GrabObject(target);
 			
@@ -37,15 +39,11 @@ public class SpringHookAction : UnitSkillCardActionBase
 		}
 	}
 
-	protected override void OnTrigger(object triggerInfo)
+
+	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		if (triggerInfo is not TargetingActionTriggerInfo ti)
-		{
-			throw new ArgumentException();
-		}
-
-		target = ti.Target;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()
