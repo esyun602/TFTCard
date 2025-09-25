@@ -7,7 +7,8 @@
     "CardResource": "walter_default",
     "TargetSkillCardSpecName": [
       "OverheatPropulsion"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 1,
@@ -17,7 +18,8 @@
     "CardResource": "firebat_default",
     "TargetSkillCardSpecName": [
       "Flamethrower"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 2,
@@ -27,7 +29,8 @@
     "CardResource": "vaper_default",
     "TargetSkillCardSpecName": [
       "VaperAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 3,
@@ -37,7 +40,8 @@
     "CardResource": "cowl_default",
     "TargetSkillCardSpecName": [
       "HighPressureBomb"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 4,
@@ -47,7 +51,8 @@
     "CardResource": "guttie_default",
     "TargetSkillCardSpecName": [
       "AutoMail"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 5,
@@ -57,7 +62,8 @@
     "CardResource": "bella_default",
     "TargetSkillCardSpecName": [
       "SteamPack"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 6,
@@ -67,7 +73,8 @@
     "CardResource": "vilhelm_default",
     "TargetSkillCardSpecName": [
       "VilhelmAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 7,
@@ -77,7 +84,8 @@
     "CardResource": "collector_default",
     "TargetSkillCardSpecName": [
       "CollectorAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 8,
@@ -87,7 +95,8 @@
     "CardResource": "graham_default",
     "TargetSkillCardSpecName": [
       "GrahamAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 9,
@@ -97,7 +106,8 @@
     "CardResource": "norman_default",
     "TargetSkillCardSpecName": [
       "NormanAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 10,
@@ -107,7 +117,10 @@
     "CardResource": "dawson_default",
     "TargetSkillCardSpecName": [
       "DawsonAction"
-    ]
+    ],
+    "ExtraParams": {
+      "UpgradeCardNames": "OverheatPropulsion"
+    }
   },
   {
     "Id": 11,
@@ -117,7 +130,10 @@
     "CardResource": "desmond_default",
     "TargetSkillCardSpecName": [
       "DesmondAction"
-    ]
+    ],
+    "ExtraParams": {
+      "UpgradeCardNames": "OverheatPropulsion"
+    }
   },
   {
     "Id": 12,
@@ -127,7 +143,10 @@
     "CardResource": "derrick_default",
     "TargetSkillCardSpecName": [
       "DerrickAction"
-    ]
+    ],
+    "ExtraParams": {
+      "UpgradeCardNames": "OverheatPropulsion"
+    }
   },
   {
     "Id": 13,
@@ -137,7 +156,10 @@
     "CardResource": "dustin_default",
     "TargetSkillCardSpecName": [
       "DustinAction"
-    ]
+    ],
+    "ExtraParams": {
+      "UpgradeCardNames": "OverheatPropulsion"
+    }
   },
   {
     "Id": 14,
@@ -147,7 +169,8 @@
     "CardResource": "alle_default",
     "TargetSkillCardSpecName": [
       "BiologicalExperiment"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 15,
@@ -157,7 +180,8 @@
     "CardResource": "equinox_default",
     "TargetSkillCardSpecName": [
       "EquivalentExchange"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 16,
@@ -167,7 +191,8 @@
     "CardResource": "posi_default",
     "TargetSkillCardSpecName": [
       "PositiveFeedback"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 17,
@@ -177,7 +202,8 @@
     "CardResource": "dacane_default",
     "TargetSkillCardSpecName": [
       "ChainReaction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 18,
@@ -187,7 +213,8 @@
     "CardResource": "pana_default",
     "TargetSkillCardSpecName": [
       "Panacea"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 19,
@@ -197,7 +224,8 @@
     "CardResource": "cabinotier_default",
     "TargetSkillCardSpecName": [
       "CabinotierAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 20,
@@ -207,7 +235,8 @@
     "CardResource": "airship_default",
     "TargetSkillCardSpecName": [
       "AirshipAction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 21,
@@ -217,7 +246,8 @@
     "CardResource": "enemy_patrolmachine_default",
     "TargetSkillCardSpecName": [
       "PatrolMachineLightDamage"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 22,
@@ -227,7 +257,8 @@
     "CardResource": "enemy_hiredgangster_default",
     "TargetSkillCardSpecName": [
       "HiredGangsterUnexpectedDamage"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 23,
@@ -237,7 +268,8 @@
     "CardResource": "enemy_guardautomaton_default",
     "TargetSkillCardSpecName": [
       "GuardAutomatonSwing"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 24,
@@ -247,7 +279,8 @@
     "CardResource": "enemy_repairmachine_default",
     "TargetSkillCardSpecName": [
       "RepairMachineRepair"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 25,
@@ -257,7 +290,8 @@
     "CardResource": "enemy_mechanizedslave_default",
     "TargetSkillCardSpecName": [
       "MechanizedSlaveBlow"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 26,
@@ -267,7 +301,8 @@
     "CardResource": "enemy_slaveguard_default",
     "TargetSkillCardSpecName": [
       "SlaveGuardWhip"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 27,
@@ -277,7 +312,8 @@
     "CardResource": "enemy_workshopsupervisor_default",
     "TargetSkillCardSpecName": [
       "WorkshopSupervisorShoot"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 28,
@@ -287,7 +323,8 @@
     "CardResource": "enemy_scrapmonster_default",
     "TargetSkillCardSpecName": [
       "ScrapMonsterHeavySwing"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 29,
@@ -297,7 +334,8 @@
     "CardResource": "enemy_brassmonster_default",
     "TargetSkillCardSpecName": [
       "BrassMonsterPrepare"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 30,
@@ -307,7 +345,8 @@
     "CardResource": "enemy_magnetmonster_default",
     "TargetSkillCardSpecName": [
       "MagnetMonsterAttraction"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 31,
@@ -317,7 +356,8 @@
     "CardResource": "enemy_vacuumtubelump_default",
     "TargetSkillCardSpecName": [
       "VacuumTubeLumpAmplify"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 32,
@@ -327,7 +367,8 @@
     "CardResource": "enemy_mutatedslave_default",
     "TargetSkillCardSpecName": [
       "MutatedSlaveButcher"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 33,
@@ -337,7 +378,8 @@
     "CardResource": "enemy_furnacegolem_default",
     "TargetSkillCardSpecName": [
       "FurnaceGolemCombustion"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 34,
@@ -347,7 +389,8 @@
     "CardResource": "enemy_powerrepeater_default",
     "TargetSkillCardSpecName": [
       "PowerRepeaterAllocate"
-    ]
+    ],
+    "ExtraParams": null
   },
   {
     "Id": 35,
@@ -357,6 +400,7 @@
     "CardResource": "enemy_betrayergunman_default",
     "TargetSkillCardSpecName": [
       "BetrayerGunmanRapidFire"
-    ]
+    ],
+    "ExtraParams": null
   }
 ]

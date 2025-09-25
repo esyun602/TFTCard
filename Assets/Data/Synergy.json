@@ -1,12 +1,145 @@
 [
   {
     "SynergyCategory": "Alchemist",
+    "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "alchemist_symbol",
     "SynergyNameKey": "synergy_alchemist",
     "CommonDescKey": "todo",
     "SynergyCountList": [
+      2,
+      5
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#F1EDAD",
+    "OptionName": "AlchemistOption"
+  },
+  {
+    "SynergyCategory": "SteamEngine",
+    "OverrideClassName": "AddOptionBattleSynergy",
+    "TargetSprite": "steamengine_symbol",
+    "SynergyNameKey": "synergy_steamengine",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2,
+      4,
+      6
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6",
+    "OptionName": "SteamEngineOption"
+  },
+  {
+    "SynergyCategory": "Clock",
+    "TargetSprite": "watchmaker_symbol",
+    "SynergyNameKey": "synergy_watchmaker",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      1
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6"
+  },
+  {
+    "SynergyCategory": "Aeronaut",
+    "TargetSprite": "aeronaut_symbol",
+    "SynergyNameKey": "synergy_aeronaut",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6"
+  },
+  {
+    "SynergyCategory": "Secret",
+    "TargetSprite": "secret_symbol",
+    "SynergyNameKey": "synergy_secret",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
       1,
       2,
+      4
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6"
+  },
+  {
+    "SynergyCategory": "Noble",
+    "TargetSprite": "noble_symbol",
+    "SynergyNameKey": "synergy_noble",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2,
+      4,
+      5
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6"
+  },
+  {
+    "SynergyCategory": "Assault",
+    "OverrideClassName": "AddOptionBattleSynergy",
+    "TargetSprite": "assault_symbol",
+    "SynergyNameKey": "synergy_vanguard",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6",
+    "OptionName": "AssaultOption"
+  },
+  {
+    "SynergyCategory": "Guard",
+    "OverrideClassName": "AddOptionBattleSynergy",
+    "TargetSprite": "guard_symbol",
+    "SynergyNameKey": "synergy_warden",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6",
+    "OptionName": "GuardOption"
+  },
+  {
+    "SynergyCategory": "Strategy",
+    "TargetSprite": "strategy_symbol",
+    "SynergyNameKey": "synergy_strategist",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
       3
     ],
     "DescKey": [
@@ -14,16 +147,63 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#F1EDAD"
+    "SymbolColor": "#B4A0D6"
   },
   {
-    "SynergyCategory": "SteamEngine",
-    "TargetSprite": "steamengine_symbol",
-    "SynergyNameKey": "synergy_steamengine",
+    "SynergyCategory": "Gunslinger",
+    "OverrideClassName": "AddOptionBattleSynergy",
+    "TargetSprite": "gunslinger_symbol",
+    "SynergyNameKey": "synergy_gunman",
     "CommonDescKey": "todo",
     "SynergyCountList": [
-      1,
-      2,
+      2
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6",
+    "OptionName": "GunslingerOption"
+  },
+  {
+    "SynergyCategory": "Bomber",
+    "TargetSprite": "bomber_symbol",
+    "SynergyNameKey": "synergy_bomber",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6"
+  },
+  {
+    "SynergyCategory": "Mechanic",
+    "OverrideClassName": "AddOptionBattleSynergy",
+    "TargetSprite": "mechanic_symbol",
+    "SynergyNameKey": "synergy_engineer",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
+      2
+    ],
+    "DescKey": [
+      "todo",
+      "todo",
+      "todo"
+    ],
+    "SymbolColor": "#B4A0D6",
+    "OptionName": "MechanicOption"
+  },
+  {
+    "SynergyCategory": "Supporter",
+    "TargetSprite": "supporter_symbol",
+    "SynergyNameKey": "synergy_supporter",
+    "CommonDescKey": "todo",
+    "SynergyCountList": [
       3
     ],
     "DescKey": [

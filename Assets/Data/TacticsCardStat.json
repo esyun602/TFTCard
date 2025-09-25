@@ -7,7 +7,7 @@
   {
     "Name": "DamageStat",
     "Cost": 1,
-    "Damage": 2
+    "Damage": 3
   },
   {
     "Name": "FireArrowStat",
@@ -16,12 +16,12 @@
   },
   {
     "Name": "QuickMotionStat",
-    "Cost": 0,
-    "TurnCount": 1
+    "Cost": 0
   },
   {
     "Name": "ReposeStat",
-    "Cost": 0
+    "Cost": 0,
+    "ShieldAdd": 1
   },
   {
     "Name": "ShieldStat",
