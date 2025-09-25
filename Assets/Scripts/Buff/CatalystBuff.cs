@@ -1,6 +1,6 @@
 public class CatalystBuff : BuffBase
 {
-	public override BuffType BuffType => BuffType.Negative;
+	public override BuffType DefaultType => BuffType.Negative;
 	public override UnitValueType ControlUnitValueType => UnitValueType.Catalyst;
 
 	public CatalystBuff(int catalystLevel)

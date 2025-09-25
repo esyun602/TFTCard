@@ -16,7 +16,6 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams  => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -32,7 +31,7 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(StatFallback.GetValueByValueType(UnitValueType.Attack)));
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(UnitValueType.Attack)));
 			routineDone = true;
 		}
 	}

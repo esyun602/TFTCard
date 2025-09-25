@@ -78,7 +78,7 @@ public class DeckSystem
 	public void Initialize()
 	{
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		playInfo.NormalizeFieldDeployLocationInfo();
+		playInfo.NormalizeFieldDeployInfo();
 		
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
@@ -294,6 +294,42 @@ public class DeckSystem
 		targetCard.Activate();
 		deck.RemoveAt(deck.Count - 1);
 		PlayerHand.AddCard(targetCard);
+	}
+
+	public void DrawPlayerCard(BattleCardObjectInHand card)
+	{
+		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
+		{
+			return;
+		}
+		
+		if(card == null) return;
+		
+		if (deck.Contains(card)) deck.Remove(card);
+		else if (dropCardList.Contains(card)) dropCardList.Remove(card);
+		else return;
+		
+		PlayerHand.CardList.Add(card);
+	}
+
+	public void ReturnHandCardToDeck(BattleCardObjectInHand card)
+	{
+		if (PlayerHand.CardList.Remove(card))
+		{
+			if (card.CardType == ObjectType.Ally)
+			{
+				deck.Add(card);
+			}
+			else if(card.CardType == ObjectType.Enemy)
+			{
+				enemyCardPool.Add(card);
+			}
+		}
+	}
+	
+	public void DrawPlayerCard(SkillCardBase card)
+	{
+		DrawPlayerCard(GetSkillCardInstance(card));
 	}
 
 	//todo: 핸드를 구분할 건지 정해야함

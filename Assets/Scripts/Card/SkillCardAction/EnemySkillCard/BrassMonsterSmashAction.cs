@@ -8,9 +8,6 @@ public class BrassMonsterSmashAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
 	public override IEnumerable<ITile> Targets
 	{
 		get

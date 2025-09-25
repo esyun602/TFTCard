@@ -105,6 +105,16 @@ MonoBehaviour:
   - Pana
   - Posi
   - Walter
+  - Vaper
+  - Vilhelm
+  - Collector
+  - Graham
+  - Norman
+  - Dawson
+  - Desmond
+  - Derrick
+  - Dustin
+  - Cabinotier
   endButton: {fileID: 7808950255589281784}
 --- !u!1 &2876142976763267914
 GameObject:

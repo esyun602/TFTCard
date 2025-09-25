@@ -13,8 +13,6 @@ public class ChainReactionAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams { get; }
-
 	public override IEnumerable<ITile> Targets
 	{
 		get
@@ -48,7 +46,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 				bo.Damage(new DamageInfo()
 				{
 					Sender = BattleStat.Owner,
-					Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage),
+					Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack),
 				});
 			}
 			

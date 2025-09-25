@@ -18,8 +18,6 @@ public class TestSkillAction : TacticsCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override object[] DescParams => new object[] { Stat.GetValueByValueType(SkillValueType.Damage) };
-
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 	
 	protected override void OnUpdate(float dt, out bool routineDone)

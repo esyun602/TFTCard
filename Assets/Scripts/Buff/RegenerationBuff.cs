@@ -1,0 +1,48 @@
+using MessageSystem;
+
+public class RegenerationBuff : BuffBase
+{
+    public RegenerationBuff(int lv)
+    {
+        Level = lv;
+    }
+
+    public override BuffType DefaultType => BuffType.Positive | BuffType.BlockOptionAdd;
+    public override UnitValueType ControlUnitValueType => UnitValueType.Regeneration;
+
+    protected override void OnAdd()
+    {
+        NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnTurnEnd);
+    }
+
+    private void OnTurnEnd(PlayerTurnEndNotice m)
+    {
+        target.Heal(new HealInfo()
+        {
+            HealAmount = Level--,
+        });
+
+        if (Level == 0)
+        {
+            target.UnitCardBattleStat.RemoveBuff<RegenerationBuff>();
+        }
+    }
+
+    protected override void OnRemove()
+    {
+        NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);
+    }
+
+    public override bool TryStack(IBuff buff)
+    {
+        var canStack = buff is RegenerationBuff;
+        if (canStack)
+        {
+            Level += buff.Level;
+        }
+
+        return canStack;
+    }
+
+    public override string Keyword => "Burn";
+}

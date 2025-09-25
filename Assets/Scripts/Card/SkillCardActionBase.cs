@@ -52,7 +52,6 @@ public abstract class SkillCardActionBase : IAction
 	public virtual string Desc => GameDataSystem.Instance.GetGameData<GameString>().GetStringWithStat(descKey, StatFallback);
 
 	//todo: remove
-	public abstract object[] DescParams { get; }
 	public abstract IEnumerable<ITile> Targets { get; }
 	public void SetTriggerParam(object triggerInfo)
 	{

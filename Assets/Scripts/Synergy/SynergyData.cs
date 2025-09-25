@@ -8,7 +8,19 @@ using UnityEngine;
 public enum SynergyCategory
 {
 	SteamEngine,
-	Alchemist
+	Alchemist,
+	Aeronaut,
+	Noble,
+	Secret,
+	Clock,
+	Assault,
+	Guard,
+	Strategy,
+	Gunslinger,
+	Bomber,
+	Mechanic,
+	Supporter,
+	
 }
 
 public class SynergyData : GameData

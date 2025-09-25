@@ -15,8 +15,6 @@ public class FireArrowSkillAction : TacticsCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.BurnAdd) };	
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 
@@ -33,7 +31,7 @@ public class FireArrowSkillAction : TacticsCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(CommonValueType.BurnAdd)));
+			target.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(SkillValueType.BurnAdd)));
 			routineDone = true;
 		}
 	}

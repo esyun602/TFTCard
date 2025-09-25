@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class BurnBuff : BuffBase
 {
-
 	public BurnBuff(int burnLevel)
 	{
 		Level = burnLevel;
 	}
 
-	public override BuffType BuffType => BuffType.Negative;
+	public override BuffType DefaultType => BuffType.Negative | BuffType.BlockOptionAdd;
 	public override UnitValueType ControlUnitValueType => UnitValueType.Burn;
 
 	protected override void OnAdd()
@@ -26,7 +25,7 @@ public class BurnBuff : BuffBase
 
 		if (Level == 0)
 		{
-			target.UnitCardBattleStat.RemoveBuff(this);
+			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
 		}
 	}
 

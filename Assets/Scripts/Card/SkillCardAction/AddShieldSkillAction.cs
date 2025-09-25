@@ -16,8 +16,6 @@ public class AddShieldSkillAction : TacticsCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -32,7 +30,7 @@ public class AddShieldSkillAction : TacticsCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(CommonValueType.ShieldAdd));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(SkillValueType.ShieldAdd));
 			routineDone = true;
 		}
 	}

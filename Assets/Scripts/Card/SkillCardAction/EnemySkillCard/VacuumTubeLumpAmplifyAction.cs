@@ -9,9 +9,6 @@ public class VacuumTubeLumpAmplifyAction : UnitSkillCardActionBase
 	public VacuumTubeLumpAmplifyAction(VacuumTubeLumpAmplifyActionSpec spec) : base(spec)
 	{
 	}
-
-	//todo: 적, 아군 분리
-	public override object[] DescParams => new object[] { BattleStat?.Owner.Name ?? Stat.Owner.Name, StatFallback.GetValueByValueType(CommonValueType.Draw) };
 	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)

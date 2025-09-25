@@ -21,6 +21,16 @@ public class SynergySystem
 		
 	}
 
+	public T GetSynergyInstance<T>(SynergyCategory synergyCategory) where T : IBattleSynergy
+	{
+		if (synergyDict.TryGetValue(synergyCategory, out var instance) && instance is T ret)
+		{
+			return ret;
+		}
+
+		return default;
+	}
+	
 	private void OnSynergyAdd(StatSynergyAddNotice m)
 	{
 		foreach (var synergy in m.AddedSynergyList)
@@ -108,7 +118,7 @@ public class SynergySystem
 			throw new Exception();
 #endif
 		}
-			
+		
 		battleSynergy.RemoveMember(target);
 
 		NoticeSystem.Instance.Publish(new SynergyInfoUpdateNotice(category, objList.Count));
@@ -132,6 +142,7 @@ public class SynergySystem
 
 	public void Dispose()
 	{
+		DeactivateSynergies();
 		NoticeSystem.Instance.Unsubscribe<StatSynergyAddNotice>(OnSynergyAdd);
 		NoticeSystem.Instance.Unsubscribe<StatSynergyRemoveNotice>(OnSynergyRemove);
 	}

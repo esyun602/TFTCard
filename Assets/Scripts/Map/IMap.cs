@@ -191,6 +191,19 @@ public static class IMapExtensions
 
 		return ret;
 	}
+
+	public static int GetOrderInRow(this IMap map, ITile tile)
+	{
+		var (_, col)= map.GetTileCoord(tile);
+		if (tile.TileType == ObjectType.Ally)
+		{
+			return map.ColumnCnt / 2 - col;
+		}
+		else
+		{
+			return col + 1 - map.ColumnCnt / 2;
+		}
+	}
 	
 	public static ITile GetFirstTileInRow(this IMap map, ITile tile)
 	{
@@ -264,6 +277,23 @@ public static class IMapExtensions
 		return null;
 	}
 
+	public static List<ITile> GetAllTilesInCol(this IMap map, IBattleObject obj)
+	{
+		var (_, col) = map.GetTileCoordOf(obj);
+		return map.GetAllTilesInCol(col);
+	}
+
+	public static List<ITile> GetAllTilesInCol(this IMap map, int col)
+	{
+		var targetList = new List<ITile>();
+		for (var i = 0; i < map.RowCnt; i++)
+		{
+			targetList.Add(map.GetTileAt(i, col));
+		}
+
+		return targetList;
+	}
+	
 	public static List<ITile> GetAllTilesInRow(this IMap map, IBattleObject obj, ObjectType type)
 	{
 		var (row, _) = map.GetTileCoordOf(obj);

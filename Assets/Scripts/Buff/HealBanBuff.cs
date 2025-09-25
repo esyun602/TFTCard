@@ -2,7 +2,7 @@ using MessageSystem;
 
 public class HealBanBuff : BuffBase
 {
-	public override BuffType BuffType => BuffType.DefiniteNegative;
+	public override BuffType DefaultType => BuffType.Definite | BuffType.Negative;
 	public override UnitValueType ControlUnitValueType => UnitValueType.HealBan;
 	public int Level => 1;
 

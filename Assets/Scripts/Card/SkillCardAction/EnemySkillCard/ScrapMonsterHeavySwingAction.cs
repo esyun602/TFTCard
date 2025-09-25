@@ -11,9 +11,6 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 		targetCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetCardName);
 	}
 
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
 	public override IEnumerable<ITile> Targets
 	{
 		get

@@ -23,20 +23,26 @@ public class ValueType
 	}
 }
 
-public sealed class CommonValueType : ValueType
+public sealed class SkillValueType : ValueType
 {
-	public static readonly CommonValueType MaxHpAdd = new("MaxHpAdd");
-	public static readonly CommonValueType AttackAdd = new("AttackAdd");
-	public static readonly CommonValueType ShieldAdd = new("ShieldAdd");
-	public static readonly CommonValueType BurnAdd = new("BurnAdd");
-	public static readonly CommonValueType CatalystAdd = new("CatalystAdd");
-	public static readonly CommonValueType StunAdd = new("StunAdd");
-	public static readonly CommonValueType DodgeAdd = new("DodgeAdd");
-	public static readonly CommonValueType HealBanAdd = new("HealBanAdd");
-	public static readonly CommonValueType Draw = new("Draw");
-	public static readonly CommonValueType Heal = new("Heal");
+	public static readonly SkillValueType MaxHpAdd = new("MaxHpAdd");
+	public static readonly SkillValueType AttackAdd = new("AttackAdd");
+	public static readonly SkillValueType ShieldAdd = new("ShieldAdd");
+	public static readonly SkillValueType BurnAdd = new("BurnAdd");
+	public static readonly SkillValueType CatalystAdd = new("CatalystAdd");
+	public static readonly SkillValueType StunAdd = new("StunAdd");
+	public static readonly SkillValueType DodgeAdd = new("DodgeAdd");
+	public static readonly SkillValueType HealBanAdd = new("HealBanAdd");
+	public static readonly SkillValueType Draw = new("Draw");
+	public static readonly SkillValueType Heal = new("Heal");
+	public static readonly SkillValueType Damage = new("Damage");
+	public static readonly SkillValueType BombDamage = new("BombDamage");
+	public static readonly SkillValueType Cost = new("Cost");
+	public static readonly SkillValueType Exhaustion = new("Exhaustion");
+	public static readonly SkillValueType AttackCount = new("AttackCount");
+	public static readonly SkillValueType GoldAdd = new("GoldAdd");
 
-	public CommonValueType(string name) : base(name)
+	public SkillValueType(string name) : base(name)
 	{
 	}
 }
@@ -54,7 +60,8 @@ public sealed class UnitValueType : ValueType
 	public static readonly UnitValueType Stun = new("Stun");
 	public static readonly UnitValueType Dodge = new("Dodge");
 	public static readonly UnitValueType HealBan = new("HealBan");
-
+	public static readonly UnitValueType BurnImmune = new("BurnImmune", (_) => new BurnImmuneBuff());
+	public static readonly UnitValueType Regeneration = new("Regeneration", (lv) => new RegenerationBuff(lv));
 	private Func<int, IBuff> func;
 	public IBuff InstantiateBuff(int level)
 	{
@@ -67,25 +74,6 @@ public sealed class UnitValueType : ValueType
 	}
 
 	public UnitValueType(string name, Func<int, IBuff> buffCreator = null) : base(name)
-	{
-		typeDict.Add(name, this);
-	}
-}
-
-public sealed class SkillValueType : ValueType
-{
-	private static Dictionary<string, SkillValueType> typeDict = new();
-
-	public static readonly SkillValueType Damage = new("Damage");
-	public static readonly SkillValueType Cost = new("Cost");
-	public static readonly SkillValueType Exhaustion = new("Exhaustion");
-
-	public static bool TryParse(string str, out SkillValueType type)
-	{
-		return typeDict.TryGetValue(str, out type);
-	}
-
-	public SkillValueType(string name) : base(name)
 	{
 		typeDict.Add(name, this);
 	}

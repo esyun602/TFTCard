@@ -30,9 +30,12 @@ public class UIUnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		}
 		
 		//todo:fix
-		var synergySpec = GameDataSystem.Instance.GetGameData<SynergyData>()
-			.GetSynergySpec(unitCard.Stat.synergyList[0]);
-		bgImg.color = synergySpec.SymbolColor;
+		if (unitCard.Stat.synergyList.Count > 0)
+		{
+			var synergySpec = GameDataSystem.Instance.GetGameData<SynergyData>()
+				.GetSynergySpec(unitCard.Stat.synergyList[0]);
+			bgImg.color = synergySpec.SymbolColor;
+		}
 		
 		atk.text = $"{stat.GetValueByValueType(UnitValueType.Attack)}";
 		hp.text = $"{stat.GetValueByValueType(UnitValueType.Hp)}";

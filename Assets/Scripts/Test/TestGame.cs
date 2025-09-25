@@ -22,7 +22,7 @@ public class TestGame : Game
 		
 		foreach (var cardName in unitCardList)
 		{
-			GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName(cardName)));
+			GetPlayer().CurrentPlayInfo.AddCard(new UnitCard(GameDataSystem.Instance.GetGameData<CardData>().GetUnitCardSpecByName(cardName)));
 		}
 		
 		ChangeGameMode(new TestGameMode());

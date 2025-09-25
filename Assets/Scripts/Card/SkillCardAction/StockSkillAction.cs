@@ -16,8 +16,6 @@ public class StockSkillAction : TacticsCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.Draw) };
 	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -33,7 +31,7 @@ public class StockSkillAction : TacticsCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			for (var i = 0; i < BattleStat.GetValueByValueType(CommonValueType.Draw); i++)
+			for (var i = 0; i < BattleStat.GetValueByValueType(SkillValueType.Draw); i++)
 			{
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
 			}

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IStat
 {
 	public int[] GetValuesByValueType(ValueType type);
@@ -17,12 +19,12 @@ public static class IStatExtensions
 		stat.SetValuesByValueType(type, new int[] { value });
 	}
 
-	public static void AddValueByValueType(this IStat stat, ValueType type, int value)
+	public static void AddValueByValueType(this IStat stat, ValueType type, int value, int minValue = int.MinValue, int maxValue = int.MaxValue)
 	{
 		var originValues = stat.GetValuesByValueType(type);
 		for (var i = 0; i < originValues.Length; i++)
 		{
-			originValues[i] += value;
+			originValues[i] = Mathf.Clamp(originValues[i] + value, minValue, maxValue);
 		}
 
 		stat.SetValuesByValueType(type, originValues);

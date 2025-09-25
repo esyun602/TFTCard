@@ -2,7 +2,7 @@ using MessageSystem;
 
 public class DodgeBuff : BuffBase
 {
-	public override BuffType BuffType => BuffType.Positive;
+	public override BuffType DefaultType => BuffType.Positive;
 	public override UnitValueType ControlUnitValueType => UnitValueType.Dodge;
 
 	protected override void OnAdd()
@@ -19,7 +19,7 @@ public class DodgeBuff : BuffBase
 	{
 		if (m.DodgedObject == target)
 		{
-			target.UnitCardBattleStat.RemoveBuff(this);
+			target.UnitCardBattleStat.RemoveBuff<DodgeBuff>();
 		}
 	}
 

@@ -3,7 +3,14 @@ using MessageSystem;
 public abstract class BuffBase : IBuff
 {
 	protected IBattleObject target;
-	public abstract BuffType BuffType { get; }
+	public abstract BuffType DefaultType { get; }
+	public BuffType BuffType => DefaultType | additionalType;
+	private BuffType additionalType;
+	public void SetAdditionalType(BuffType type)
+	{
+		additionalType |= type;
+	}
+
 	public abstract UnitValueType ControlUnitValueType { get; }
 	private int level;
 

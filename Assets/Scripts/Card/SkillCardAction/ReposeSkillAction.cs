@@ -16,8 +16,6 @@ public class ReposeSkillAction : TacticsCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-
-	public override object[] DescParams { get; }
 	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)

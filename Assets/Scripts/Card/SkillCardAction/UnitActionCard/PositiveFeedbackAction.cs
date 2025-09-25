@@ -11,8 +11,6 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 	{
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Enemy;
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.CatalystAdd) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	public PositiveFeedbackAction(PositiveFeedbackActionSpec spec) : base(spec)
@@ -32,8 +30,8 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new CatalystBuff(BattleStat.GetValueByValueType(CommonValueType.CatalystAdd)));
-			BattleStat.AddValueByValueType(CommonValueType.CatalystAdd, 1);
+			target.UnitCardBattleStat.AddBuff(new CatalystBuff(BattleStat.GetValueByValueType(SkillValueType.CatalystAdd)));
+			BattleStat.AddValueByValueType(SkillValueType.CatalystAdd, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			
 			routineDone = true;
 		}

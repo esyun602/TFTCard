@@ -39,16 +39,21 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 			//todo: 죽음 및 데미지 처리 관련 다듬기 필요
 			if (owner.IsDead())
 			{
-				Die(info.Sender);
+				//todo: 죽음으로 판정 필요?
+				if (!Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.ReviveHandler.TryRevive(owner))
+				{
+					Die(info.Sender);
+				}
 			}
 		}
 	}
 
 	public void Heal(HealInfo healInfo)
 	{
-		if (owner.UnitCardBattleStat.GetValueByValueType(UnitValueType.HealBan) == 0)
+		if (owner.UnitCardBattleStat.GetValueByValueType(UnitValueType.HealBan) == 0 && healInfo.HealAmount != 0)
 		{
 			owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Hp, healInfo.HealAmount);
+			NoticeSystem.Instance.Publish(new HealNotice(healInfo, owner));
 		}
 	}
 

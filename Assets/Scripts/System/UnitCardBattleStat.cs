@@ -10,6 +10,13 @@ public class UnitCardBattleStat : IBattleObjectStat
 	private IBattleObject owner;
 	private UnitCardStat originStat;
 
+	public void Revive()
+	{
+		RemoveAllBuff();
+		Shield = 0;
+		Hp = originStat.MaxHp;
+	}
+	
 	#region StatValue
 
 	private int Attack => originStat.Attack + GetValueFromBuffs(UnitValueType.Attack);
@@ -101,6 +108,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 	#region Buff
 
 	//field scope 기믹
+	private Dictionary<IBuff, object> buffRequester = new();
 	private List<IBuff> buffList = new();
 	private List<SynergyCategory> synergyList = new();
 
@@ -109,24 +117,29 @@ public class UnitCardBattleStat : IBattleObjectStat
 	{
 		for (var i = buffList.Count - 1; i >= 0; i--)
 		{
-			if (buffList[i].BuffType == BuffType.Negative)
+			if (!buffList[i].BuffType.IsAny(BuffType.Positive | BuffType.Definite) && buffRequester[buffList[i]] == null)
 			{
 				RemoveBuff(buffList[i]);
 			}
 		}
-
-		buffList = new();
 	}
 
 
-	public void AddBuff(IBuff targetBuff)
+	public void AddBuff(IBuff targetBuff, object requester = null)
 	{
+		if (targetBuff.BuffType.IsAny(BuffType.BlockOptionAdd) && requester != null) throw new InvalidOperationException();
+		
 		foreach (var buff in buffList)
 		{
-			var done = buff.TryStack(targetBuff);
-			if (done) return;
+			//종류와 requester가 같으면 반드시 스택
+			if (buff.GetType() == targetBuff.GetType() && buffRequester[buff] == buffRequester[targetBuff])
+			{
+				buff.TryStack(targetBuff);
+				return;
+			}
 		}
 
+		buffRequester[targetBuff] = requester;
 		var prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 
 		buffList.Add(targetBuff);
@@ -150,51 +163,39 @@ public class UnitCardBattleStat : IBattleObjectStat
 		buffList = new();
 	}
 
-	public bool RemoveBuff(IBuff targetBuff)
+	public bool RemoveBuff<T>(object requester = null) where T : IBuff
 	{
-		var prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
-		var removed = buffList.Remove(targetBuff);
-		if (!removed)
-		{
-			return false;
-		}
+		var buff = GetBuff<T>(requester);
+		if (buff == null) return false;
 
-		targetBuff.RemoveFromObject();
-		var curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
+		return RemoveBuff(buff);
+	}
+
+	private bool RemoveBuff(IBuff buff)
+	{
+		var prevValue = this.GetValueByValueType(buff.ControlUnitValueType);
+		buffList.Remove(buff);
+		buffRequester.Remove(buff);
+
+		buff.RemoveFromObject();
+		var curValue = this.GetValueByValueType(buff.ControlUnitValueType);
 		if (prevValue != curValue)
 		{
-			NoticeSystem.Instance.Publish(new UnitBattleValueChangeNotice(targetBuff.ControlUnitValueType, prevValue,
+			NoticeSystem.Instance.Publish(new UnitBattleValueChangeNotice(buff.ControlUnitValueType, prevValue,
 				curValue, this));
 		}
 
 		return true;
 	}
 
-	public IBuff GetBuff<T>() where T : IBuff
+	public IBuff GetBuff<T>(object requester) where T : IBuff
 	{
-		return buffList.Find(buff => buff is T);
+		return buffList.Find(buff => buff is T && buffRequester[buff] == requester);
 	}
 
 	#endregion
 
 	public List<SynergyCategory> SynergyList => synergyList;
-
-	public void AddSynergy(SynergyCategory target)
-	{
-		synergyList.Add(target);
-		NoticeSystem.Instance.Publish(new StatSynergyAddNotice(new List<SynergyCategory>() { target }, owner));
-	}
-
-	public bool RemoveSynergy(SynergyCategory target)
-	{
-		if (synergyList.Remove(target))
-		{
-			NoticeSystem.Instance.Publish(new StatSynergyRemoveNotice(new List<SynergyCategory>() { target }, owner));
-			return true;
-		}
-
-		return false;
-	}
 
 	public UnitCardBattleStat(IBattleObject owner, UnitCardStat unitCardStat)
 	{
@@ -205,9 +206,11 @@ public class UnitCardBattleStat : IBattleObjectStat
 		synergyList = new(unitCardStat.synergyList);
 	}
 
+	private Dictionary<ValueType, int> skillGlobalValueDict = new();
 	public int[] GetValuesByValueType(ValueType type)
 	{
-		if (!type.IsUnitCompatible()) return new int[] { };
+		if (!type.IsUnitCompatible()) return new int[] { skillGlobalValueDict.GetValueOrDefault(type) };
+		
 		if (type == UnitValueType.MaxHp)
 		{
 			return new int[] { MaxHp };

@@ -10,8 +10,6 @@ public class PrepareBombingAction : UnitSkillCardActionBase
 	public PrepareBombingAction(PrepareBombingActionSpec spec) : base(spec)
 	{
 	}
-
-	public override object[] DescParams { get; }
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)

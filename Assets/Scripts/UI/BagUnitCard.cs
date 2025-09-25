@@ -9,6 +9,7 @@ public class BagUnitCard : BagUICard
 {
     public override ICard TargetCard => TargetUnitCard;
     public UnitCard TargetUnitCard { get; private set; }
+    public bool CanUnplaced { get; set; }
 
     protected override void InitializeInfo()
     {
@@ -27,7 +28,8 @@ public class BagUnitCard : BagUICard
     protected override void OnRightClick()
     {
         if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true }
-            && cardPosInfo.Tile != null)
+            && cardPosInfo.Tile != null
+            && CanUnplaced)
         {
             NoticeSystem.Instance.PublishSync(new BagUICardUnPlaceNotice(this, cardPosInfo.Tile));
         }

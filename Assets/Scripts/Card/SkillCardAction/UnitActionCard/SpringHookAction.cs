@@ -10,8 +10,6 @@ public class SpringHookAction : UnitSkillCardActionBase
 	public SpringHookAction(SpringHookActionSpec spec) : base(spec)
 	{
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(SkillValueType.Damage) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)

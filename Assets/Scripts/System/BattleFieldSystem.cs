@@ -4,6 +4,7 @@ using MessageSystem;
 
 public class BattleFieldSystem
 {
+	public ReviveHandler ReviveHandler { get; private set; }
 	private Dictionary<ObjectType, List<IBattleObject>> battleObjectDict;
 
 	public void Initialize()
@@ -58,8 +59,15 @@ public class BattleFieldSystem
 	{
 	}
 
+	public UnitCardInField GetInstanceOf(UnitCard card)
+	{
+		return battleObjectDict.Values.SelectMany(x => x).OfType<UnitCardInField>()
+			.First(x => x.TargetUnitCard == card);
+	}
+
 	public void Dispose()
 	{
 		NoticeSystem.Instance.Unsubscribe<BattleObjectDestroyedNotice>(OnDestroy);
+		ReviveHandler.Dispose();
 	}
 }

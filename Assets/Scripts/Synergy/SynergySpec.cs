@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 //todo: 접근성 수정
 public abstract class SynergySpec
 {
-	public SynergyCategory SynergyCategory { get; private set; } 
+	public SynergyCategory SynergyCategory { get; private set; }
 	public Sprite TargetSprite { get; private set; }
 	public string SynergyNameKey { get; private set; }
 	public string CommonDescKey { get; private set; }
@@ -21,7 +21,8 @@ public abstract class SynergySpec
 
 	public static SynergySpec Create(Dictionary<string, object> param)
 	{
-		var spec = (SynergySpec)Activator.CreateInstance(Type.GetType(param.GetString("SynergyCategory") + "SynergySpec") ?? throw new InvalidOperationException());
+		var overrideClassName = param.GetString("OverrideClassName");
+		var spec = (SynergySpec)Activator.CreateInstance(Type.GetType(string.IsNullOrEmpty(overrideClassName) ? param.GetString("SynergyCategory")  + "SynergySpec" : overrideClassName + "Spec") ?? throw new InvalidOperationException());
 
 		spec.SynergyCategory =
 			Enum.TryParse(param.GetString(nameof(SynergyCategory)), out SynergyCategory category)
@@ -38,7 +39,14 @@ public abstract class SynergySpec
 			spec.SymbolColor = color;
 		}
 
+		spec.Initialize(param);
+		
 		return spec;
+	}
+
+	protected virtual void Initialize(Dictionary<string, object> param)
+	{
+		
 	}
 
 	public int GetGrade(int currentCount)

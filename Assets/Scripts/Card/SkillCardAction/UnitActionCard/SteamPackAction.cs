@@ -11,7 +11,10 @@ public class SteamPackAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams => new object[] { 1, 2 };
+	public override bool CanUse(ITile targetTile)
+	{
+		return base.CanUse(targetTile) && targetTile.TileType == BattleStat.Owner.ObjectType;
+	}
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -27,13 +30,8 @@ public class SteamPackAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(1));
-			
-			if (target is ITurnObject to)
-			{
-				to.StartTurn(2);
-				routine.AddChain(to.UpdatableRoutine);
-			}
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Attack, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			
 			routineDone = true;
 		}
