@@ -2,49 +2,68 @@
   {
     "Name": "OverheatPropulsionStat",
     "Cost": 0,
-    "BurnAdd": 2
+    "BurnAdd": 1
   },
   {
     "Name": "FlamethrowerStat",
-    "Cost": 2
-  },
-  {
-    "Name": "",
     "Cost": 3
   },
   {
+    "Name": "VaperActionStat",
+    "Cost": 2,
+    "Draw": 1
+  },
+  {
     "Name": "HighPressureBombStat",
-    "Cost": 2
+    "Cost": 4
   },
   {
     "Name": "AutoMailStat",
-    "Cost": 1
+    "Cost": 2,
+    "Damage": 1
   },
   {
     "Name": "SteamPackStat",
-    "Cost": 1,
-    "BurnAdd": 1,
-    "TurnCount": 2
+    "Cost": 0,
+    "BurnAdd": 2
   },
   {
-    "Name": "",
+    "Name": "VilhelmActionStat",
+    "Cost": 2
+  },
+  {
+    "Name": "CollectorActionStat",
     "Cost": 0
   },
   {
-    "Name": "",
+    "Name": "GrahamActionStat",
+    "Cost": 2,
+    "Draw": 1
+  },
+  {
+    "Name": "NormanActionStat",
+    "Cost": 2,
+    "GoldAdd": 4
+  },
+  {
+    "Name": "DawsonActionStat",
     "Cost": 0
   },
   {
-    "Name": "",
-    "Cost": 0
+    "Name": "DesmondActionStat",
+    "Cost": 3,
+    "AttackAdd": [
+      3,
+      -3
+    ]
   },
   {
-    "Name": "",
-    "Cost": 0
+    "Name": "DerrickActionStat",
+    "Cost": 4
   },
   {
-    "Name": "",
-    "Cost": 0
+    "Name": "DustinActionStat",
+    "Cost": 1
   },
   {
     "Name": "BiologicalExperimentStat",
@@ -57,21 +76,28 @@
   },
   {
     "Name": "PositiveFeedbackStat",
-    "Cost": 1,
+    "Cost": 2,
     "CatalystAdd": 1
   },
   {
     "Name": "ChainReactionStat",
-    "Cost": 1,
-    "Damage": 1
+    "Cost": 1
   },
   {
     "Name": "PanaceaStat",
-    "Cost": 3
+    "Cost": 2
+  },
+  {
+    "Name": "CabinotierActionStat",
+    "Cost": 6
+  },
+  {
+    "Name": "AirshipActionStat",
+    "Cost": 1
   },
   {
     "Name": "PatrolMachineActionStat",
-    "Cost": -2
+    "Cost": -1
   },
   {
     "Name": "HiredGangsterActionStat",
@@ -79,11 +105,11 @@
   },
   {
     "Name": "GuardAutomatonActionStat",
-    "Cost": -2
+    "Cost": -1
   },
   {
     "Name": "RepairMachineActionStat",
-    "Cost": -2,
+    "Cost": -1,
     "Heal": 3
   },
   {
@@ -92,7 +118,7 @@
   },
   {
     "Name": "SlaveGuardActionStat",
-    "Cost": -2
+    "Cost": -1
   },
   {
     "Name": "WorkshopSupervisorActionStat",
@@ -104,7 +130,7 @@
   },
   {
     "Name": "ScrapMonsterSmiteActionStat",
-    "Cost": -2,
+    "Cost": -3,
     "Exhaustion": 1
   },
   {
@@ -113,11 +139,34 @@
   },
   {
     "Name": "BrassMonsterSmashActionStat",
-    "Cost": -2,
+    "Cost": -4,
     "Exhaustion": 1
   },
   {
+    "Name": "MagnetMonsterAttractionStat",
+    "Cost": -2,
+    "ShieldAdd": 5
+  },
+  {
     "Name": "VacuumTubeLumpActionStat",
+    "Cost": -1
+  },
+  {
+    "Name": "MutatedSlaveButcherStat",
+    "Cost": -2,
+    "AttackTimes": 3
+  },
+  {
+    "Name": "MutatedSlaveButcherStat",
+    "Cost": -2,
+    "AttackTimes": 3
+  },
+  {
+    "Name": "FurnaceGolemCombustionStat",
     "Cost": -2
+  },
+  {
+    "Name": "PowerRepeaterAllocateStat",
+    "Cost": -1
   }
 ]

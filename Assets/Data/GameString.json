@@ -213,7 +213,7 @@
   },
   {
     "StringKey": "act_skill_steampack_desc",
-    "KorString": "벨라가 선택한 아군에게 화상을 {$burnAdd} 부여하고, 해당 유닛의 행동 카드가 손에 없다면 손으로 가져옵니다."
+    "KorString": "벨라가 선택한 아군에게 화상을 {$burnAdd} 부여하고, 강화를 {$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_vilhelmaction",
@@ -237,7 +237,7 @@
   },
   {
     "StringKey": "act_skill_grahamaction_desc",
-    "KorString": "카드를 {$draw}장 뽑습니다. 비행선이 있다면, 추가로 {$draw}장을 더 뽑습니다."
+    "KorString": "카드를 {$draw}장 뽑습니다. 이번 전투에서 무차별 폭격의 공격 횟수가 {$attack} 증가합니다."
   },
   {
     "StringKey": "act_skill_normanaction",
@@ -253,7 +253,7 @@
   },
   {
     "StringKey": "act_skill_dawsonaction_desc",
-    "KorString": "다음 사용하는 카드를 뽑을 카드 더미의 맨 위에 놓습니다."
+    "KorString": "근접. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 뽑을 카드 더미의 맨 위에 놓습니다."
   },
   {
     "StringKey": "act_skill_desmondaction",
@@ -261,7 +261,7 @@
   },
   {
     "StringKey": "act_skill_desmondaction_desc",
-    "KorString": "데스몬드가 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면, 코스트를 {$attack} 얻습니다."
+    "KorString": "데스몬드가 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면, 강화를 3 얻습니다. 적을 죽이지 못하면, 약화를 3 얻습니다."
   },
   {
     "StringKey": "act_skill_derrickaction",
@@ -277,7 +277,7 @@
   },
   {
     "StringKey": "act_skill_dustinaction_desc",
-    "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {$shieldAdd} 부여합니다."
+    "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_biological_experiment",
@@ -285,7 +285,7 @@
   },
   {
     "StringKey": "act_skill_biological_experiment_desc",
-    "KorString": "적에게 {$attack}의 피해를 주고, 촉매를 {$catalystAdd} 부여합니다."
+    "KorString": "알레가 적에게 {$attack}의 피해를 주고, 촉매를 {$catalystAdd} 부여합니다."
   },
   {
     "StringKey": "act_skill_equivalent_exchange",
@@ -293,7 +293,7 @@
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
-    "KorString": "카드를 손이 꽉 찰 때까지 뽑습니다. 그만큼 피해를 입습니다."
+    "KorString": "근접. 적에게 피해를 {$attack} 준 다음, 자신의 공격력과 체력을 서로 바꿉니다."
   },
   {
     "StringKey": "act_skill_positive_feedback",
@@ -301,7 +301,7 @@
   },
   {
     "StringKey": "act_skill_positive_feedback_desc",
-    "KorString": "적에게 촉매를 {$catalystAdd} 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 1 증가합니다."
+    "KorString": "포지가 선택한 적에게 촉매를 {$catalystAdd} 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 {$attack} 증가합니다."
   },
   {
     "StringKey": "act_skill_chain_reaction",
@@ -309,7 +309,7 @@
   },
   {
     "StringKey": "act_skill_chain_reaction_desc",
-    "KorString": "촉매가 부여된 모든 적에게 {$damage}의 폭발 피해를 줍니다."
+    "KorString": "다케인이 촉매가 부여된 모든 적에게 {$attack + $damage}의 폭발 피해를 줍니다."
   },
   {
     "StringKey": "act_skill_panacea",
@@ -317,7 +317,7 @@
   },
   {
     "StringKey": "act_skill_panacea_desc",
-    "KorString": "선택한 아군을 최대 체력으로 회복시킵니다."
+    "KorString": "파나가 선택한 아군에게 재생을 {$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_cabinotieraction",
@@ -325,15 +325,15 @@
   },
   {
     "StringKey": "act_skill_cabinotieraction_desc",
-    "KorString": "캐비노티에가 다음 적 카드를 무효화합니다."
+    "KorString": "캐비노티에가 손에 있는 카드의 비용을 {$attack}만큼 감소시킵니다. (최소 비용: 0)"
   },
   {
     "StringKey": "act_skill_airshipaction",
-    "KorString": "공중 포격"
+    "KorString": "무차별 폭격"
   },
   {
     "StringKey": "act_skill_airshipaction_desc",
-    "KorString": "거대 비행선이 적에게 {$attack}의 피해를 {$attack}번 줍니다."
+    "KorString": "거대 비행선이 무작위 적에게 {$attack}의 피해를 {$attackCount}번 준 다음, 공격력과 공격 횟수가 초기화됩니다."
   },
   {
     "StringKey": "skill_steamengine_protection",
@@ -621,7 +621,7 @@
   },
   {
     "StringKey": "e_act_skill_rmrepairaction_desc",
-    "KorString": "$name%particle% 무작위 적군을 {1} 회복시킵니다."
+    "KorString": "$name%particle% 무작위 적군을 {$heal} 회복시킵니다."
   },
   {
     "StringKey": "e_act_skill_msblowaction_desc",
@@ -649,7 +649,7 @@
   },
   {
     "StringKey": "e_act_skill_vtlamplifyaction_desc",
-    "KorString": "적 카드를 {$draw}장 뽑습니다."
+    "KorString": "적 카드를 {$attack}장 뽑습니다."
   },
   {
     "StringKey": "e_act_skill_msbutcheraction_desc",

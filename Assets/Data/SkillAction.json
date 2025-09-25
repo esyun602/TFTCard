@@ -40,29 +40,9 @@
     "DescKey": "skill_stock_desc"
   },
   {
-    "Name": "BiologicalExperiment",
-    "ClassName": "BiologicalExperimentAction",
-    "DescKey": "act_skill_biological_experiment_desc"
-  },
-  {
-    "Name": "SteamPack",
-    "ClassName": "SteamPackAction",
-    "DescKey": "act_skill_steampack_desc"
-  },
-  {
-    "Name": "HighPressureBomb",
-    "ClassName": "HighPressureBombAction",
-    "DescKey": "act_skill_high_pressure_bomb_desc"
-  },
-  {
-    "Name": "ChainReaction",
-    "ClassName": "ChainReactionAction",
-    "DescKey": "act_skill_chain_reaction_desc"
-  },
-  {
-    "Name": "EquivalentExchange",
-    "ClassName": "EquivalentExchangeAction",
-    "DescKey": "act_skill_equivalent_exchange_desc"
+    "Name": "OverheatPropulsion",
+    "ClassName": "OverheatPropulsionAction",
+    "DescKey": "act_skill_overheat_propulsion_desc"
   },
   {
     "Name": "Flamethrower",
@@ -70,14 +50,74 @@
     "DescKey": "act_skill_flamethrower_desc"
   },
   {
+    "Name": "VaperAction",
+    "ClassName": "VaperAction",
+    "DescKey": "act_skill_vaperaction"
+  },
+  {
+    "Name": "HighPressureBomb",
+    "ClassName": "HighPressureBombAction",
+    "DescKey": "act_skill_high_pressure_bomb_desc"
+  },
+  {
     "Name": "AutoMail",
     "ClassName": "AutoMailAction",
     "DescKey": "act_skill_automail_desc"
   },
   {
-    "Name": "Panacea",
-    "ClassName": "PanaceaAction",
-    "DescKey": "act_skill_panacea_desc"
+    "Name": "SteamPack",
+    "ClassName": "SteamPackAction",
+    "DescKey": "act_skill_steampack_desc"
+  },
+  {
+    "Name": "VilhelmAction",
+    "ClassName": "VilhelmAction",
+    "DescKey": "act_skill_vilhelmaction"
+  },
+  {
+    "Name": "CollectorAction",
+    "ClassName": "CollectorAction",
+    "DescKey": "act_skill_collectoraction"
+  },
+  {
+    "Name": "GrahamAction",
+    "ClassName": "GrahamAction",
+    "DescKey": "act_skill_grahamaction"
+  },
+  {
+    "Name": "NormanAction",
+    "ClassName": "NormanAction",
+    "DescKey": "act_skill_normanaction"
+  },
+  {
+    "Name": "DawsonAction",
+    "ClassName": "DawsonAction",
+    "DescKey": "act_skill_dawsonaction"
+  },
+  {
+    "Name": "DesmondAction",
+    "ClassName": "DesmondAction",
+    "DescKey": "act_skill_desmondaction"
+  },
+  {
+    "Name": "DerrickAction",
+    "ClassName": "DerrickAction",
+    "DescKey": "act_skill_derrickaction"
+  },
+  {
+    "Name": "DustinAction",
+    "ClassName": "DustinAction",
+    "DescKey": "act_skill_dustinaction"
+  },
+  {
+    "Name": "BiologicalExperiment",
+    "ClassName": "BiologicalExperimentAction",
+    "DescKey": "act_skill_biological_experiment_desc"
+  },
+  {
+    "Name": "EquivalentExchange",
+    "ClassName": "EquivalentExchangeAction",
+    "DescKey": "act_skill_equivalent_exchange_desc"
   },
   {
     "Name": "PositiveFeedback",
@@ -85,9 +125,24 @@
     "DescKey": "act_skill_positive_feedback_desc"
   },
   {
-    "Name": "OverheatPropulsion",
-    "ClassName": "OverheatPropulsionAction",
-    "DescKey": "act_skill_overheat_propulsion_desc"
+    "Name": "ChainReaction",
+    "ClassName": "ChainReactionAction",
+    "DescKey": "act_skill_chain_reaction_desc"
+  },
+  {
+    "Name": "Panacea",
+    "ClassName": "PanaceaAction",
+    "DescKey": "act_skill_panacea_desc"
+  },
+  {
+    "Name": "CabinotierAction",
+    "ClassName": "CabinotierAction",
+    "DescKey": "act_skill_cabinotieraction"
+  },
+  {
+    "Name": "AirshipAction",
+    "ClassName": "AirshipAction",
+    "DescKey": "act_skill_airshipaction"
   },
   {
     "Name": "EnemyAction1Adapter",

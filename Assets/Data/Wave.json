@@ -27,26 +27,6 @@
         "Row": 2,
         "Col": 4,
         "UnitCardName": "PatrolMachine"
-      },
-      {
-        "Row": 2,
-        "Col": 5,
-        "UnitCardName": "HiredGangster"
-      },
-      {
-        "Row": 1,
-        "Col": 4,
-        "UnitCardName": "PatrolMachine"
-      },
-      {
-        "Row": 1,
-        "Col": 5,
-        "UnitCardName": "HiredGangster"
-      },
-      {
-        "Row": 0,
-        "Col": 4,
-        "UnitCardName": "GuardAutomaton"
       }
     ],
     "PrepareTurn": 1
