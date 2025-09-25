@@ -20,10 +20,10 @@
   {
     "Id": 2,
     "Name": "VaperAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_vaperaction",
+    "StatSpecName": "VaperActionStat",
+    "CardResource": "skill_vaperaction_default",
+    "ActionSpecName": "VaperAction",
     "CardUseType": ""
   },
   {
@@ -56,73 +56,73 @@
   {
     "Id": 6,
     "Name": "VilhelmAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_vilhelmaction",
+    "StatSpecName": "VilhelmActionStat",
+    "CardResource": "skill_vilhelmaction_default",
+    "ActionSpecName": "VilhelmAction",
     "CardUseType": ""
   },
   {
     "Id": 7,
     "Name": "CollectorAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_collectoraction",
+    "StatSpecName": "CollectorActionStat",
+    "CardResource": "skill_collectoraction_default",
+    "ActionSpecName": "CollectorAction",
     "CardUseType": ""
   },
   {
     "Id": 8,
     "Name": "GrahamAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_grahamaction",
+    "StatSpecName": "GrahamActionStat",
+    "CardResource": "skill_grahamaction_default",
+    "ActionSpecName": "GrahamAction",
     "CardUseType": ""
   },
   {
     "Id": 9,
     "Name": "NormanAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_normanaction",
+    "StatSpecName": "NormanActionStat",
+    "CardResource": "skill_normanaction_default",
+    "ActionSpecName": "NormanAction",
     "CardUseType": ""
   },
   {
     "Id": 10,
     "Name": "DawsonAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_dawsonaction",
+    "StatSpecName": "DawsonActionStat",
+    "CardResource": "skill_dawsonaction_default",
+    "ActionSpecName": "DawsonAction",
     "CardUseType": ""
   },
   {
     "Id": 11,
     "Name": "DesmondAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_desmondaction",
+    "StatSpecName": "DesmondActionStat",
+    "CardResource": "skill_desmondaction_default",
+    "ActionSpecName": "DesmondAction",
     "CardUseType": ""
   },
   {
     "Id": 12,
     "Name": "DerrickAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_derrickaction",
+    "StatSpecName": "DerrickActionStat",
+    "CardResource": "skill_derrickaction_default",
+    "ActionSpecName": "DerrickAction",
     "CardUseType": ""
   },
   {
     "Id": 13,
     "Name": "DustinAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_dustinaction",
+    "StatSpecName": "DustinActionStat",
+    "CardResource": "skill_dustinaction_default",
+    "ActionSpecName": "DustinAction",
     "CardUseType": ""
   },
   {
@@ -173,19 +173,19 @@
   {
     "Id": 19,
     "Name": "CabinotierAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_cabinotieraction",
+    "StatSpecName": "CabinotierActionStat",
+    "CardResource": "skill_cabinotieraction_default",
+    "ActionSpecName": "CabinotierAction",
     "CardUseType": ""
   },
   {
     "Id": 20,
     "Name": "AirshipAction",
-    "NameKey": "",
-    "StatSpecName": "",
-    "CardResource": "",
-    "ActionSpecName": "",
+    "NameKey": "act_skill_airshipaction",
+    "StatSpecName": "AirshipActionStat",
+    "CardResource": "skill_airshipaction_default",
+    "ActionSpecName": "AirshipAction",
     "CardUseType": ""
   },
   {
@@ -193,7 +193,7 @@
     "Name": "PatrolMachineLightDamage",
     "NameKey": "unit_enemy_patrolmachine",
     "StatSpecName": "PatrolMachineActionStat",
-    "CardResource": "enemy_patrolmachine_default",
+    "CardResource": "skill_enemy_patrolmachine_default",
     "ActionSpecName": "PatrolMachineLightDamageAction",
     "CardUseType": "Global"
   },
@@ -202,7 +202,7 @@
     "Name": "HiredGangsterUnexpectedDamage",
     "NameKey": "unit_enemy_hiredgangster",
     "StatSpecName": "HiredGangsterActionStat",
-    "CardResource": "enemy_hiredgangster_default",
+    "CardResource": "skill_enemy_hiredgangster_default",
     "ActionSpecName": "HiredGangsterUnexpectedDamageAction",
     "CardUseType": "Global"
   },
@@ -211,7 +211,7 @@
     "Name": "GuardAutomatonSwing",
     "NameKey": "unit_enemy_guardautomaton",
     "StatSpecName": "GuardAutomatonActionStat",
-    "CardResource": "enemy_guardautomaton_default",
+    "CardResource": "skill_enemy_guardautomaton_default",
     "ActionSpecName": "GuardAutomatonSwingAction",
     "CardUseType": "Global"
   },
@@ -220,7 +220,7 @@
     "Name": "RepairMachineRepair",
     "NameKey": "unit_enemy_repairmachine",
     "StatSpecName": "RepairMachineActionStat",
-    "CardResource": "enemy_repairmachine_default",
+    "CardResource": "skill_enemy_repairmachine_default",
     "ActionSpecName": "RepairMachineRepairAction",
     "CardUseType": "Global"
   },
@@ -229,7 +229,7 @@
     "Name": "MechanizedSlaveBlow",
     "NameKey": "unit_enemy_mechanizedslave",
     "StatSpecName": "MechanizedSlaveActionStat",
-    "CardResource": "enemy_mechanizedslave_default",
+    "CardResource": "skill_enemy_mechanizedslave_default",
     "ActionSpecName": "MechanizedSlaveBlowAction",
     "CardUseType": "Global"
   },
@@ -238,7 +238,7 @@
     "Name": "SlaveGuardWhip",
     "NameKey": "unit_enemy_slaveguard",
     "StatSpecName": "SlaveGuardActionStat",
-    "CardResource": "enemy_slaveguard_default",
+    "CardResource": "skill_enemy_slaveguard_default",
     "ActionSpecName": "SlaveGuardWhipAction",
     "CardUseType": "Global"
   },
@@ -247,7 +247,7 @@
     "Name": "WorkshopSupervisorShoot",
     "NameKey": "unit_enemy_workshopsupervisor",
     "StatSpecName": "WorkshopSupervisorActionStat",
-    "CardResource": "enemy_workshopsupervisor_default",
+    "CardResource": "skill_enemy_workshopsupervisor_default",
     "ActionSpecName": "WorkshopSupervisorShootAction",
     "CardUseType": "Global"
   },
@@ -256,7 +256,7 @@
     "Name": "ScrapMonsterHeavySwing",
     "NameKey": "unit_enemy_scrapmonster",
     "StatSpecName": "ScrapMonsterActionStat",
-    "CardResource": "enemy_scrapmonster_default",
+    "CardResource": "skill_enemy_scrapmonster_default",
     "ActionSpecName": "ScrapMonsterHeavySwingAction",
     "CardUseType": "Global"
   },
@@ -265,7 +265,7 @@
     "Name": "ScrapMonsterSmite",
     "NameKey": "unit_enemy_scrapmonster",
     "StatSpecName": "ScrapMonsterSmiteActionStat",
-    "CardResource": "enemy_scrapmonster_default",
+    "CardResource": "skill_enemy_scrapmonster_2_default",
     "ActionSpecName": "ScrapMonsterSmiteAction",
     "CardUseType": "Global"
   },
@@ -274,7 +274,7 @@
     "Name": "BrassMonsterPrepare",
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "BrassMonsterActionStat",
-    "CardResource": "enemy_brassmonster_default",
+    "CardResource": "skill_enemy_brassmonster_default",
     "ActionSpecName": "BrassMonsterPrepareAction",
     "CardUseType": "Global"
   },
@@ -283,7 +283,7 @@
     "Name": "BrassMonsterSmash",
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "BrassMonsterSmashActionStat",
-    "CardResource": "enemy_brassmonster_default",
+    "CardResource": "skill_enemy_brassmonster_2_default",
     "ActionSpecName": "BrassMonsterSmashAction",
     "CardUseType": "Global"
   },
@@ -292,7 +292,7 @@
     "Name": "VacuumTubeLumpAmplify",
     "NameKey": "unit_enemy_vacuumtubelump",
     "StatSpecName": "VacuumTubeLumpActionStat",
-    "CardResource": "enemy_vacuumtubelump_default",
+    "CardResource": "skill_enemy_vacuumtubelump_default",
     "ActionSpecName": "VacuumTubeLumpAmplifyAction",
     "CardUseType": "Global"
   },
@@ -301,7 +301,7 @@
     "Name": "MagnetMonsterAttraction",
     "NameKey": "unit_enemy_magnetmonsterattraction",
     "StatSpecName": "MagnetMonsterAttractionStat",
-    "CardResource": "enemy_magnetmonsterattraction_default",
+    "CardResource": "skill_enemy_magnetmonsterattraction_default",
     "ActionSpecName": "MagnetMonsterAttractionAction",
     "CardUseType": "Global"
   },
@@ -310,7 +310,7 @@
     "Name": "MutatedSlaveButcher",
     "NameKey": "unit_enemy_mutatedslavebutcher",
     "StatSpecName": "MutatedSlaveButcherStat",
-    "CardResource": "enemy_mutatedslavebutcher_default",
+    "CardResource": "skill_enemy_mutatedslavebutcher_default",
     "ActionSpecName": "MutatedSlaveButcherAction",
     "CardUseType": "Global"
   },
@@ -319,7 +319,7 @@
     "Name": "FurnaceGolemCombustion",
     "NameKey": "unit_enemy_fumacegolemcombustion",
     "StatSpecName": "FurnaceGolemCombustionStat",
-    "CardResource": "enemy_fumacegolemcombustion_default",
+    "CardResource": "skill_enemy_fumacegolemcombustion_default",
     "ActionSpecName": "FurnaceGolemCombustionAction",
     "CardUseType": "Global"
   },
@@ -328,7 +328,7 @@
     "Name": "PowerRepeaterAllocate",
     "NameKey": "unit_enemy_powerrepeaterallocate",
     "StatSpecName": "PowerRepeaterAllocateStat",
-    "CardResource": "enemy_powerrepeaterallocate_default",
+    "CardResource": "skill_enemy_powerrepeaterallocate_default",
     "ActionSpecName": "PowerRepeaterAllocateAction",
     "CardUseType": "Global"
   },
@@ -337,7 +337,7 @@
     "Name": "BetrayerGunmanRapidFire",
     "NameKey": "unit_enemy_betrayergunmanrapidfire",
     "StatSpecName": "BetrayerGunmanRapidFireStat",
-    "CardResource": "enemy_betrayergunmanrapidfire_default",
+    "CardResource": "skill_enemy_betrayergunmanrapidfire_default",
     "ActionSpecName": "BetrayerGunmanRapidFireAction",
     "CardUseType": "Global"
   }

@@ -1,83 +1,191 @@
 [
   {
-    "Name": "AlleStat",
+    "Name": "WalterStat",
     "SynergyList": [
-      "Alchemist"
+      "SteamEngine",
+      " Assault"
     ],
     "Attack": 4,
-    "MaxHp": 6
+    "MaxHp": 8
   },
   {
-    "Name": "BellaStat",
+    "Name": "FirebatStat",
     "SynergyList": [
-      "SteamEngine"
+      "SteamEngine",
+      " Guard"
+    ],
+    "Attack": 4,
+    "MaxHp": 11
+  },
+  {
+    "Name": "VaperStat",
+    "SynergyList": [
+      "SteamEngine",
+      " Aeronaut"
     ],
     "Attack": 2,
-    "MaxHp": 4
+    "MaxHp": 5
   },
   {
     "Name": "CowlStat",
     "SynergyList": [
-      "SteamEngine"
+      "SteamEngine",
+      " Bomber"
     ],
     "Attack": 4,
     "MaxHp": 10
   },
   {
-    "Name": "DacaneStat",
-    "SynergyList": [
-      "Alchemist"
-    ],
-    "Attack": 2,
-    "MaxHp": 8
-  },
-  {
-    "Name": "EquinoxStat",
-    "SynergyList": [
-      "Alchemist"
-    ],
-    "Attack": 2,
-    "MaxHp": 13
-  },
-  {
-    "Name": "FirebatStat",
-    "SynergyList": [
-      "SteamEngine"
-    ],
-    "Attack": 3,
-    "MaxHp": 11
-  },
-  {
     "Name": "GuttieStat",
     "SynergyList": [
-      "SteamEngine"
+      "SteamEngine",
+      " Mechanic"
     ],
-    "Attack": 3,
+    "Attack": 6,
     "MaxHp": 6
   },
   {
-    "Name": "PanaStat",
+    "Name": "BellaStat",
     "SynergyList": [
-      "Alchemist"
+      "SteamEngine",
+      " Supporter"
     ],
     "Attack": 2,
     "MaxHp": 4
   },
   {
-    "Name": "PosiStat",
+    "Name": "VilhelmStat",
     "SynergyList": [
-      "Alchemist"
+      "Noble",
+      " Guard"
     ],
-    "Attack": 3,
+    "Attack": 1,
+    "MaxHp": 10
+  },
+  {
+    "Name": "CollectorStat",
+    "SynergyList": [
+      "Noble",
+      " Strategy"
+    ],
+    "Attack": 2,
+    "MaxHp": 8
+  },
+  {
+    "Name": "GrahamStat",
+    "SynergyList": [
+      "Noble",
+      " Aeronaut"
+    ],
+    "Attack": 2,
+    "MaxHp": 6
+  },
+  {
+    "Name": "NormanStat",
+    "SynergyList": [
+      "Noble",
+      " Gunslinger"
+    ],
+    "Attack": 5,
     "MaxHp": 5
   },
   {
-    "Name": "WalterStat",
+    "Name": "DawsonStat",
     "SynergyList": [
-      "SteamEngine"
+      "Secret",
+      " Strategy"
+    ],
+    "Attack": 2,
+    "MaxHp": 8
+  },
+  {
+    "Name": "DesmondStat",
+    "SynergyList": [
+      "Secret",
+      " Gunslinger"
+    ],
+    "Attack": 3,
+    "MaxHp": 3
+  },
+  {
+    "Name": "DerrickStat",
+    "SynergyList": [
+      "Secret",
+      " Bomber"
+    ],
+    "Attack": 5,
+    "MaxHp": 6
+  },
+  {
+    "Name": "DustinStat",
+    "SynergyList": [
+      "Secret",
+      " Supporter"
+    ],
+    "Attack": 3,
+    "MaxHp": 8
+  },
+  {
+    "Name": "AlleStat",
+    "SynergyList": [
+      "Alchemist",
+      " Assault"
     ],
     "Attack": 4,
+    "MaxHp": 11
+  },
+  {
+    "Name": "EquinoxStat",
+    "SynergyList": [
+      "Alchemist",
+      " Strategy"
+    ],
+    "Attack": 2,
+    "MaxHp": 13
+  },
+  {
+    "Name": "PosiStat",
+    "SynergyList": [
+      "Alchemist",
+      " Gunslinger"
+    ],
+    "Attack": 2,
+    "MaxHp": 5
+  },
+  {
+    "Name": "DacaneStat",
+    "SynergyList": [
+      "Alchemist",
+      " Bomber"
+    ],
+    "Attack": 0,
     "MaxHp": 8
+  },
+  {
+    "Name": "PanaStat",
+    "SynergyList": [
+      "Alchemist",
+      " Supporter"
+    ],
+    "Attack": 3,
+    "MaxHp": 4
+  },
+  {
+    "Name": "CabinotierStat",
+    "SynergyList": [
+      "Clock",
+      " Mechanic"
+    ],
+    "Attack": 3,
+    "MaxHp": 12
+  },
+  {
+    "Name": "AirshipStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 0,
+    "MaxHp": 15
   },
   {
     "Name": "EnemyPatrolMachineStat",
@@ -92,16 +200,8 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 6,
-    "MaxHp": 8
-  },
-  {
-    "Name": "EnemyGuardAutomatonStat",
-    "SynergyList": [
-      ""
-    ],
-    "Attack": 1,
-    "MaxHp": 5
+    "Attack": 5,
+    "MaxHp": 6
   },
   {
     "Name": "EnemyRepairMachineStat",
@@ -112,12 +212,20 @@
     "MaxHp": 3
   },
   {
+    "Name": "EnemyGuardAutomatonStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 1,
+    "MaxHp": 5
+  },
+  {
     "Name": "EnemyMechanizedSlaveStat",
     "SynergyList": [
       ""
     ],
     "Attack": 6,
-    "MaxHp": 11
+    "MaxHp": 10
   },
   {
     "Name": "EnemySlaveGuardStat",
@@ -132,7 +240,7 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 7,
+    "Attack": 4,
     "MaxHp": 8
   },
   {
@@ -141,22 +249,62 @@
       ""
     ],
     "Attack": 6,
-    "MaxHp": 15
+    "MaxHp": 20
   },
   {
     "Name": "EnemyBrassMonsterStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 4,
-    "MaxHp": 20
+    "Attack": 2,
+    "MaxHp": 30
+  },
+  {
+    "Name": "EnemyMagnetMonsterStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 2,
+    "MaxHp": 15
   },
   {
     "Name": "EnemyVacuumTubeLumpStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 10,
-    "MaxHp": 3
+    "Attack": 1,
+    "MaxHp": 1
+  },
+  {
+    "Name": "EnemyMutatedSlaveStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 2,
+    "MaxHp": 10
+  },
+  {
+    "Name": "EnemyFurnaceGolemStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 3,
+    "MaxHp": 16
+  },
+  {
+    "Name": "EnemyPowerRepeaterStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 1,
+    "MaxHp": 8
+  },
+  {
+    "Name": "EnemyBetrayerGunmanStat",
+    "SynergyList": [
+      ""
+    ],
+    "Attack": 4,
+    "MaxHp": 7
   }
 ]
