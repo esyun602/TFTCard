@@ -119,7 +119,7 @@
       "DawsonAction"
     ],
     "ExtraParams": {
-      "UpgradeCardNames": "OverheatPropulsion"
+      "UpgradeCardNames": "DawsonActionPlus"
     }
   },
   {
@@ -132,7 +132,7 @@
       "DesmondAction"
     ],
     "ExtraParams": {
-      "UpgradeCardNames": "OverheatPropulsion"
+      "UpgradeCardNames": "DesmondActionPlus"
     }
   },
   {
@@ -145,7 +145,7 @@
       "DerrickAction"
     ],
     "ExtraParams": {
-      "UpgradeCardNames": "OverheatPropulsion"
+      "UpgradeCardNames": "DerrickActionPlus"
     }
   },
   {
@@ -158,7 +158,7 @@
       "DustinAction"
     ],
     "ExtraParams": {
-      "UpgradeCardNames": "OverheatPropulsion"
+      "UpgradeCardNames": "DustinActionPlus"
     }
   },
   {

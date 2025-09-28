@@ -37,13 +37,12 @@
     ],
     "EventStagePool": {
       "AllowDuplicate": true,
-      "PoolList": [
-      ]
+      "PoolList": []
     },
     "BattleStagePool": {
       "AllowDuplicate": true,
       "PoolList": [
-        "TestStage"
+        "StageForTest"
       ]
     }
   }
