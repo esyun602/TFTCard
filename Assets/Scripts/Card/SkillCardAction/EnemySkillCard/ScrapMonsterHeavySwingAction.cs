@@ -38,7 +38,7 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 					{
 						DamageType = DamageType.NormalAttack,
 						Sender = BattleStat.Owner,
-						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(UnitValueType.Hp)
+						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack)
 					});
 				}
 			}
