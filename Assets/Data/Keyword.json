@@ -6,7 +6,8 @@
     "IconResource": "IconCatalyst",
     "Importance": 0,
     "NameKey": "keyword_catalyst",
-    "DescKey": "keyword_catalyst_desc"
+    "DescKey": "keyword_catalyst_desc",
+    "PoolName": ""
   },
   {
     "Name": "Healban",
@@ -15,7 +16,8 @@
     "IconResource": "IconHealBan",
     "Importance": 0,
     "NameKey": "keyword_healban",
-    "DescKey": "keyword_healban_desc"
+    "DescKey": "keyword_healban_desc",
+    "PoolName": ""
   },
   {
     "Name": "HpAdded",
@@ -24,25 +26,8 @@
     "IconResource": "IconHeartUp",
     "Importance": 0,
     "NameKey": "keyword_hpadded",
-    "DescKey": "keyword_hpadded_desc"
-  },
-  {
-    "Name": "AttackAdded",
-    "ValueType": "Attack",
-    "IconCategory": "AttackRelevant",
-    "IconResource": "IconAttackAdd",
-    "Importance": 0,
-    "NameKey": "keywoord_attackadded",
-    "DescKey": "keywoord_attackadded_desc"
-  },
-  {
-    "Name": "AttackReduced",
-    "ValueType": "Attack",
-    "IconCategory": "",
-    "IconResource": "",
-    "Importance": 0,
-    "NameKey": "keyword_attackreduced",
-    "DescKey": "keyword_attackreduced_desc"
+    "DescKey": "keyword_hpadded_desc",
+    "PoolName": ""
   },
   {
     "Name": "Burn",
@@ -51,7 +36,28 @@
     "IconResource": "IconFire",
     "Importance": 0,
     "NameKey": "keyword_burn",
-    "DescKey": "keyword_burn_desc"
+    "DescKey": "keyword_burn_desc",
+    "PoolName": ""
+  },
+  {
+    "Name": "AttackAdded",
+    "ValueType": "Attack",
+    "IconCategory": "AttackRelevant",
+    "IconResource": "IconAttackAdd",
+    "Importance": 0,
+    "NameKey": "keywoord_attackadded",
+    "DescKey": "keywoord_attackadded_desc",
+    "PoolName": "TestAttackAddFx"
+  },
+  {
+    "Name": "AttackReduced",
+    "ValueType": "Attack",
+    "IconCategory": "",
+    "IconResource": "",
+    "Importance": 0,
+    "NameKey": "keyword_attackreduced",
+    "DescKey": "keyword_attackreduced_desc",
+    "PoolName": ""
   },
   {
     "Name": "Shield",
@@ -60,6 +66,7 @@
     "IconResource": "IconSheild",
     "Importance": 0,
     "NameKey": "keyword_shield",
-    "DescKey": "keyword_shield_desc"
+    "DescKey": "keyword_shield_desc",
+    "PoolName": ""
   }
 ]
