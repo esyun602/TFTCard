@@ -326,6 +326,14 @@ public class DeckSystem
 			}
 		}
 	}
+
+	public void ReturnHandCardToHand(BattleCardObjectInHand card)
+	{
+		if (PlayerHand.CardList.Remove(card))
+		{
+			PlayerHand.CardList.Add(card);
+		}
+	}
 	
 	public void DrawPlayerCard(SkillCardBase card)
 	{

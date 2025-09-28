@@ -199,6 +199,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		public void UpdateFrame(float dt)
 		{
 			owner.TurnSystem.UpdateTurn(dt);
+			owner.BattleFxManager.UpdateFrame(dt);
 		}
 	}
 

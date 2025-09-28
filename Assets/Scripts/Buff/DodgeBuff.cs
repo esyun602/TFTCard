@@ -23,7 +23,7 @@ public class DodgeBuff : BuffBase
 		}
 	}
 
-	public override bool TryStack(IBuff buff)
+	protected override bool TryStackImpl(IBuff buff)
 	{
 		return true;
 	}

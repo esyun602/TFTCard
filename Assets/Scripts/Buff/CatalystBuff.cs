@@ -7,8 +7,8 @@ public class CatalystBuff : BuffBase
 	{
 		Level = catalystLevel;
 	}
-	
-	public override bool TryStack(IBuff buff)
+
+	protected override bool TryStackImpl(IBuff buff)
 	{
 		var canStack = buff is CatalystBuff;
 		if (canStack)

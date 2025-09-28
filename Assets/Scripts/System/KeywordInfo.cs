@@ -16,7 +16,8 @@ public class KeywordInfo
 	public string NameKey { get; private set; }
 	public string DescKey { get; private set; }
 	public IconCategory IconCategory { get; private set; }
-
+	public string PoolName { get; private set; }
+	
 	private KeywordInfo()
 	{
 		
@@ -35,6 +36,7 @@ public class KeywordInfo
 		info.Importance = param.GetInt(nameof(Importance));
 		info.NameKey = param.GetString(nameof(NameKey));
 		info.DescKey = param.GetString(nameof(DescKey));
+		info.PoolName = param.GetString(nameof(PoolName));
 		if (Enum.TryParse(param.GetString(nameof(IconCategory)), out IconCategory iconCategory))
 		{
 			info.IconCategory = iconCategory;

@@ -33,7 +33,7 @@ public class RegenerationBuff : BuffBase
         NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);
     }
 
-    public override bool TryStack(IBuff buff)
+    protected override bool TryStackImpl(IBuff buff)
     {
         var canStack = buff is RegenerationBuff;
         if (canStack)

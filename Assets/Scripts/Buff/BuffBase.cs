@@ -6,9 +6,16 @@ public abstract class BuffBase : IBuff
 	public abstract BuffType DefaultType { get; }
 	public BuffType BuffType => DefaultType | additionalType;
 	private BuffType additionalType;
+	private UnityObjectPool pool;
 	public void SetAdditionalType(BuffType type)
 	{
 		additionalType |= type;
+	}
+
+	protected BuffBase()
+	{
+		pool = UnityObjectPool.GetOrCreatePool("Fx", GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(Keyword)
+			.PoolName, disposeTime: 2f);
 	}
 
 	public abstract UnitValueType ControlUnitValueType { get; }
@@ -48,7 +55,23 @@ public abstract class BuffBase : IBuff
 		
 	}
 
-	public abstract bool TryStack(IBuff buff);
+	public bool TryStack(IBuff buff)
+	{
+		if (buff.GetType() != GetType()) return false;
+		
+		if (TryStackImpl(buff))
+		{
+			NoticeSystem.Instance.Publish(new BuffStackSuccessNotice(this, buff, target));
+			return true;
+		}
+		else
+		{
+			NoticeSystem.Instance.Publish(new BuffStackFailNotice(this, buff, target));
+			return false;
+		}
+	}
+
+	protected abstract bool TryStackImpl(IBuff buff);
 
 	public abstract string Keyword { get; }
 }

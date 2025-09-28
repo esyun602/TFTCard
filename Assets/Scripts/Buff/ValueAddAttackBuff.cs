@@ -1,4 +1,7 @@
 //todo: negative를 별도로 둘건지 결정 필요
+
+using UnityEngine;
+
 public class ValueAddAttackBuff : BuffBase
 {
 	public override BuffType DefaultType => Level > 0 ? BuffType.Positive : BuffType.Negative;
@@ -18,7 +21,7 @@ public class ValueAddAttackBuff : BuffBase
 	{
 	}
 
-	public override bool TryStack(IBuff buff)
+	protected override bool TryStackImpl(IBuff buff)
 	{
 		if (buff is ValueAddAttackBuff)
 		{
