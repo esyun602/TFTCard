@@ -18,6 +18,8 @@ public class BagUnitCard : BagUICard
 
     protected override void OnLeftClick()
     {
+        if (Game.Instance.GetGameMode<BattleStageGameMode>() != null) return;
+        
         if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true })
         {
             NoticeSystem.Instance.PublishSync(new BagUICardSelectedNotice(this));
@@ -27,6 +29,8 @@ public class BagUnitCard : BagUICard
 
     protected override void OnRightClick()
     {
+        if (Game.Instance.GetGameMode<BattleStageGameMode>() != null) return;
+        
         if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true }
             && cardPosInfo.Tile != null
             && CanUnplaced)

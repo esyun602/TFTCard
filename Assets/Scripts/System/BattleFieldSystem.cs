@@ -9,6 +9,7 @@ public class BattleFieldSystem
 
 	public void Initialize()
 	{
+		ReviveHandler = new();
 		battleObjectDict = new();
 		NoticeSystem.Instance.Subscribe<BattleObjectDestroyedNotice>(OnDestroy);
 	}

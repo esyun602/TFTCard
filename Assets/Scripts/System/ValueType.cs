@@ -75,6 +75,7 @@ public sealed class UnitValueType : ValueType
 
 	public UnitValueType(string name, Func<int, IBuff> buffCreator = null) : base(name)
 	{
+		func = buffCreator;
 		typeDict.Add(name, this);
 	}
 }

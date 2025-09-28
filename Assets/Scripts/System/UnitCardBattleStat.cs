@@ -132,7 +132,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 		foreach (var buff in buffList)
 		{
 			//종류와 requester가 같으면 반드시 스택
-			if (buff.GetType() == targetBuff.GetType() && buffRequester[buff] == buffRequester[targetBuff])
+			if (buff.GetType() == targetBuff.GetType() && buffRequester[buff] == requester)
 			{
 				buff.TryStack(targetBuff);
 				return;
@@ -209,7 +209,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 	private Dictionary<ValueType, int> skillGlobalValueDict = new();
 	public int[] GetValuesByValueType(ValueType type)
 	{
-		if (!type.IsUnitCompatible()) return new int[] { skillGlobalValueDict.GetValueOrDefault(type) };
+		if (type is SkillValueType) return new int[] { skillGlobalValueDict.GetValueOrDefault(type) };
 		
 		if (type == UnitValueType.MaxHp)
 		{
@@ -257,6 +257,11 @@ public class UnitCardBattleStat : IBattleObjectStat
 			{
 				AddBuff(buff);
 			}
+		}
+
+		if (type is SkillValueType stype)
+		{
+			skillGlobalValueDict[stype] = newValues[0];
 		}
 	}
 

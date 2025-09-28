@@ -75,7 +75,7 @@ public class PlayerBagPanel : UIInstance
 		NoticeSystem.Instance.Unsubscribe<BagUITileHoverNotice>(OnTileHover);
 		NoticeSystem.Instance.Unsubscribe<BagUICardPlaceNotice>(OnCardDeploy);
 		NoticeSystem.Instance.Unsubscribe<BagUICardUnPlaceNotice>(OnCardUnDeploy);
-		NoticeSystem.Instance.Subscribe<UnitSkillCardUpdateNotice>(OnUnitSkillCardChange);
+		NoticeSystem.Instance.Unsubscribe<UnitSkillCardUpdateNotice>(OnUnitSkillCardChange);
 		foreach (var kvp in cardDictionary)
 		{
 			var card = kvp.Value;

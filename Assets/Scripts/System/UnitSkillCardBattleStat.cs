@@ -29,7 +29,7 @@ public class UnitSkillCardBattleStat : SkillCardBattleStat
 		var ret = new int[baseValue.Length];
 		for (var i = 0; i < ret.Length; i++)
 		{
-			ret[i] += unitValue;
+			ret[i] = baseValue[i] + unitValue;
 		}
 
 		return ret;

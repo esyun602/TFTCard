@@ -92,6 +92,10 @@ public class SynergySystem
 			{
 				synergyDict[category] = battleSynergy;
 			}
+			else
+			{
+				return;
+			}
 		}
 
 		battleSynergy.AddMember(target);
