@@ -7,7 +7,7 @@ using UnityEngine;
 //todo: rename?
 public class UnitCardBattleStat : IBattleObjectStat
 {
-	private IBattleObject owner;
+	public IBattleObject Owner { get; }
 	private UnitCardStat originStat;
 
 	public void Revive()
@@ -73,7 +73,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 		}
 
 		optionDict[targetOption.GetType()] = targetOption;
-		targetOption.OnAdd(owner);
+		targetOption.OnAdd(Owner);
 	}
 
 
@@ -143,7 +143,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 		var prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 
 		buffList.Add(targetBuff);
-		targetBuff.AddTo(owner);
+		targetBuff.AddTo(Owner);
 
 		var curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 		if (prevValue != curValue)
@@ -199,7 +199,7 @@ public class UnitCardBattleStat : IBattleObjectStat
 
 	public UnitCardBattleStat(IBattleObject owner, UnitCardStat unitCardStat)
 	{
-		this.owner = owner;
+		this.Owner = owner;
 		originStat = unitCardStat;
 		hp = MaxHp;
 		Shield = 0;

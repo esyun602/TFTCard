@@ -25,6 +25,13 @@ public class BattleFxManager : IUpdatable
 			if (buffFxQueue.Count == 0) timePassed = 1f;
 			buffFxQueue.Enqueue(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f));
 		}
+
+		public void AddShield()
+		{
+			var keywordInfo = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword("Shield");
+			if (buffFxQueue.Count == 0) timePassed = 1f;
+			buffFxQueue.Enqueue(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f));
+		}
 		
 		public void UpdateFrame(float dt)
 		{
@@ -49,6 +56,22 @@ public class BattleFxManager : IUpdatable
 		buffFxDict = new();
 		NoticeSystem.Instance.Subscribe<BuffAddNotice>(OnBuffAdd);
 		NoticeSystem.Instance.Subscribe<BuffStackSuccessNotice>(OnBuffStackNotice);
+		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
+	}
+
+	private void OnBattleValueChange(UnitBattleValueChangeNotice m)
+	{
+		if (m.Type != UnitValueType.Shield || m.Diff <= 0) return;
+		
+		if (buffFxDict.TryGetValue(m.Stat.Owner, out var info))
+		{
+			info.AddShield();
+		}
+		else
+		{
+			buffFxDict[m.Stat.Owner] = new BuffFxInfo(m.Stat.Owner);
+			buffFxDict[m.Stat.Owner].AddShield();
+		}
 	}
 
 
@@ -92,8 +115,9 @@ public class BattleFxManager : IUpdatable
 	
 	public void Dispose()
 	{
-		NoticeSystem.Instance.Subscribe<BuffAddNotice>(OnBuffAdd);
-		NoticeSystem.Instance.Subscribe<BuffStackSuccessNotice>(OnBuffStackNotice);
+		NoticeSystem.Instance.Unsubscribe<BuffAddNotice>(OnBuffAdd);
+		NoticeSystem.Instance.Unsubscribe<BuffStackSuccessNotice>(OnBuffStackNotice);
+		NoticeSystem.Instance.Unsubscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
 	}
 
 }
