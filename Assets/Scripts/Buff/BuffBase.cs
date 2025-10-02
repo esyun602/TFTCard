@@ -26,9 +26,10 @@ public abstract class BuffBase : IBuff
 		get => level;
 		set
 		{
+			var diff = value - level;
 			level = value;
 			if(target != null)
-				NoticeSystem.Instance.Publish(new BuffLevelChangeNotice(this, target));
+				NoticeSystem.Instance.Publish(new BuffLevelChangeNotice(this, target, diff));
 		}
 	}
 

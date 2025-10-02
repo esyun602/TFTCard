@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using MessageSystem;
+using Unity.Mathematics;
 using UnityEngine;
 
 //todo: 인터페이스 분리
@@ -122,30 +124,38 @@ public class UnitCardBattleStat : IBattleObjectStat
 				RemoveBuff(buffList[i]);
 			}
 		}
+		
+		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager.RegisterFx(Owner, UnityObjectPool.GetOrCreatePool("Fx", "PurifyFx", 5f));
 	}
 
 
 	public void AddBuff(IBuff targetBuff, object requester = null)
 	{
 		if (targetBuff.BuffType.IsAny(BuffType.BlockOptionAdd) && requester != null) throw new InvalidOperationException();
-		
+
+		int prevValue;
+		int curValue;
 		foreach (var buff in buffList)
 		{
 			//종류와 requester가 같으면 반드시 스택
 			if (buff.GetType() == targetBuff.GetType() && buffRequester[buff] == requester)
 			{
+				prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 				buff.TryStack(targetBuff);
+				curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
+				NoticeSystem.Instance.Publish(new UnitBattleValueChangeNotice(targetBuff.ControlUnitValueType, prevValue,
+					curValue, this));
 				return;
 			}
 		}
 
 		buffRequester[targetBuff] = requester;
-		var prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
+		prevValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 
 		buffList.Add(targetBuff);
 		targetBuff.AddTo(Owner);
 
-		var curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
+		curValue = this.GetValueByValueType(targetBuff.ControlUnitValueType);
 		if (prevValue != curValue)
 		{
 			NoticeSystem.Instance.Publish(new UnitBattleValueChangeNotice(targetBuff.ControlUnitValueType, prevValue,
@@ -252,7 +262,8 @@ public class UnitCardBattleStat : IBattleObjectStat
 
 		if (type is UnitValueType utype)
 		{
-			var buff = utype.InstantiateBuff(newValues[0]);
+			var diff = newValues[0] - this.GetValueByValueType(type);
+			var buff = utype.InstantiateBuff(diff);
 			if (buff != null)
 			{
 				AddBuff(buff);

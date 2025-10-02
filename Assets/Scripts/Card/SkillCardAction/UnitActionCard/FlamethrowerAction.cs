@@ -16,31 +16,52 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 		fxPrefab = spec.fxPrefab;
 	}
 
-	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
+	public override IEnumerable<ITile> Targets
+	{
+		get
+		{
+			yield return GetTarget();
+		}
+	}
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
-		if (canceled)
-		{
-			routineDone = true;
-			return;
-		}
-
 		routineDone = false;
 
 		timePassed += dt;
-		if (timePassed > 0f)
+		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
-			target.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(UnitValueType.Attack)));
+			var targetTile = GetTarget();
+			if (targetTile != null)
+			{
+				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+				var target = map.GetBattleObjectOfTile(targetTile);
+
+				if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
+				{
+					target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(UnitValueType.Attack));
+				}
+			}
+		}
+		else if (timePassed > 1.5f)
+		{
 			routineDone = true;
 		}
+	}
+	
+	private ITile GetTarget()
+	{
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+
+		return map.GetAttackTargetTile(BattleStat.Owner);
 	}
 
 	protected override void OnTrigger()
 	{
+		BattleStat.Owner.RunAttackMotion();
 		timePassed = 0f;
-		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
+
 
 	protected override void OnCancel()
 	{

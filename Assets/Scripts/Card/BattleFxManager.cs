@@ -4,43 +4,50 @@ using Unity.Mathematics;
 
 public class BattleFxManager : IUpdatable
 {
-	private class BuffFxInfo : IUpdatable
+	private class FxInfo : IUpdatable
 	{
 		private float fxInterval;
 		private float timePassed;
 		private Queue<UnityObjectPool> buffFxQueue;
 		private IBattleObject bo;
 
-		public BuffFxInfo(IBattleObject bo, float fxInterval = 0.5f)
+		public FxInfo(IBattleObject bo, float fxInterval = 0.5f)
 		{
 			this.fxInterval = fxInterval;
 			this.bo = bo;
 			buffFxQueue = new();
-			timePassed = 0;
+			timePassed = 1f;
 		}
 
-		public void AddQueue(IBuff buff)
+		public void AddQueueBuff(IBuff buff)
 		{
 			var keywordInfo = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(buff.Keyword);
-			if (buffFxQueue.Count == 0) timePassed = 1f;
-			buffFxQueue.Enqueue(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f));
+			var pool = UnityObjectPool.GetOrCreatePool("Fx",
+				buff.Level > 0 ? keywordInfo.PoolName : keywordInfo.ReducePoolName, disposeTime: 5f);
+			
+			if (pool == null) return;
+			
+			AddQueueFx(pool);
+		}
+		public void AddQueueFx(UnityObjectPool pool)
+		{
+			buffFxQueue.Enqueue(pool);
 		}
 
 		public void AddShield()
 		{
 			var keywordInfo = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword("Shield");
-			if (buffFxQueue.Count == 0) timePassed = 1f;
-			buffFxQueue.Enqueue(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f));
+			AddQueueFx(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f));
 		}
 		
 		public void UpdateFrame(float dt)
 		{
+			timePassed += dt;
 			if (buffFxQueue.Count == 0 || bo == null || bo.IsDead())
 			{
 				return;
 			}
 			
-			timePassed += dt;
 			if (timePassed > fxInterval)
 			{
 				timePassed = 0f;
@@ -50,10 +57,11 @@ public class BattleFxManager : IUpdatable
 		}
 	}
 	
-	private Dictionary<IBattleObject, BuffFxInfo> buffFxDict;
+	private Dictionary<IBattleObject, FxInfo> fxDict;
 	public void Initialize()
 	{
-		buffFxDict = new();
+		fxDict = new();
+		//todo: 나중에 분리, register로 일괄
 		NoticeSystem.Instance.Subscribe<BuffAddNotice>(OnBuffAdd);
 		NoticeSystem.Instance.Subscribe<BuffStackSuccessNotice>(OnBuffStackNotice);
 		NoticeSystem.Instance.Subscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
@@ -63,41 +71,55 @@ public class BattleFxManager : IUpdatable
 	{
 		if (m.Type != UnitValueType.Shield || m.Diff <= 0) return;
 		
-		if (buffFxDict.TryGetValue(m.Stat.Owner, out var info))
+		if (fxDict.TryGetValue(m.Stat.Owner, out var info))
 		{
 			info.AddShield();
 		}
 		else
 		{
-			buffFxDict[m.Stat.Owner] = new BuffFxInfo(m.Stat.Owner);
-			buffFxDict[m.Stat.Owner].AddShield();
+			fxDict[m.Stat.Owner] = new FxInfo(m.Stat.Owner);
+			fxDict[m.Stat.Owner].AddShield();
 		}
+	}
+
+	public void RegisterFx(IBattleObject bo, UnityObjectPool pool)
+	{
+		if (fxDict.TryGetValue(bo, out var info))
+		{
+			info.AddQueueFx(pool);
+		}
+		else
+		{
+			fxDict[bo] = new FxInfo(bo);
+			fxDict[bo].AddQueueFx(pool);
+		}
+		
 	}
 
 
 	private void OnBuffAdd(BuffAddNotice m)
 	{
-		if (buffFxDict.TryGetValue(m.Target, out var info))
+		if (fxDict.TryGetValue(m.Target, out var info))
 		{
-			info.AddQueue(m.Buff);
+			info.AddQueueBuff(m.Buff);
 		}
 		else
 		{
-			buffFxDict[m.Target] = new BuffFxInfo(m.Target);
-			buffFxDict[m.Target].AddQueue(m.Buff);
+			fxDict[m.Target] = new FxInfo(m.Target);
+			fxDict[m.Target].AddQueueBuff(m.Buff);
 		}
 	}
 
 	private void OnBuffStackNotice(BuffStackSuccessNotice m)
 	{
-		if (buffFxDict.TryGetValue(m.Target, out var info))
+		if (fxDict.TryGetValue(m.Target, out var info))
 		{
-			info.AddQueue(m.StackedBuff);
+			info.AddQueueBuff(m.StackedBuff);
 		}
 		else
 		{
-			buffFxDict[m.Target] = new BuffFxInfo(m.Target);
-			buffFxDict[m.Target].AddQueue(m.StackedBuff);
+			fxDict[m.Target] = new FxInfo(m.Target);
+			fxDict[m.Target].AddQueueBuff(m.StackedBuff);
 		}
 	}
 
@@ -107,7 +129,7 @@ public class BattleFxManager : IUpdatable
 
 	public void UpdateFrame(float dt)
 	{
-		foreach (var kvp in buffFxDict)
+		foreach (var kvp in fxDict)
 		{
 			kvp.Value.UpdateFrame(dt);
 		}

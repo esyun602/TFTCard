@@ -1,4 +1,5 @@
 using MessageSystem;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class UnitCardDamagedBehaviour : IDamagedBehaviour
@@ -55,6 +56,8 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 			owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Hp, healInfo.HealAmount);
 			NoticeSystem.Instance.Publish(new HealNotice(healInfo, owner));
 		}
+		
+		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager.RegisterFx(owner, UnityObjectPool.GetOrCreatePool("Fx", "HealFx", 5f));
 	}
 
 	public void Die(IBattleObject sender)

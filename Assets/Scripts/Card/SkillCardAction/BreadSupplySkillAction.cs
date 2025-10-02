@@ -31,7 +31,10 @@ public class BreadSupplySkillAction : TacticsCardActionBase
 		if (timePassed > 0f)
 		{
 			//todo: heal?
-			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Hp, BattleStat.GetValueByValueType(SkillValueType.Heal));
+			target.Heal(new HealInfo()
+			{
+				HealAmount = BattleStat.GetValueByValueType(SkillValueType.Heal)
+			});
 			routineDone = true;
 		}
 	}

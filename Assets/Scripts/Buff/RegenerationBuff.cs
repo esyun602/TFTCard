@@ -44,5 +44,5 @@ public class RegenerationBuff : BuffBase
         return canStack;
     }
 
-    public override string Keyword => "Burn";
+    public override string Keyword => "Regeneration";
 }

@@ -16,40 +16,58 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
         fxPrefab = spec.fxPrefab;
     }
 
-    public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
+	public override IEnumerable<ITile> Targets
+	{
+		get
+		{
+			yield return GetTarget();
+		}
+	}
 
-    protected override void OnUpdate(float dt, out bool routineDone)
-    {
-        if (canceled)
-        {
-            routineDone = true;
-            return;
-        }
+	protected override void OnUpdate(float dt, out bool routineDone)
+	{
+		routineDone = false;
 
-        routineDone = false;
+		timePassed += dt;
+		if (timePassed > 0.15f && timePassed - dt < 0.15f)
+		{
+			var targetTile = GetTarget();
+			if (targetTile != null)
+			{
+				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+				var target = map.GetBattleObjectOfTile(targetTile);
 
-        timePassed += dt;
-        if (timePassed > 0f)
-        {
-            BattleStat.Owner.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(SkillValueType.BurnAdd)));
-            target.Damage(
-                new DamageInfo()
-                {
-                    Sender = BattleStat.Owner,
-                    Dmg = StatFallback.GetValueByValueType(UnitValueType.Attack)
-                });
+				if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
+				{
+					BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
+					target.Damage(new DamageInfo()
+					{
+						DamageType = DamageType.NormalAttack,
+						Sender = BattleStat.Owner,
+						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack)
+					});
+				}
+			}
+		}
+		else if (timePassed > 1.5f)
+		{
+			routineDone = true;
+		}
+	}
+	
+	private ITile GetTarget()
+	{
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 
-            routineDone = true;
-        }
-    }
+		return map.GetAttackTargetTile(BattleStat.Owner);
+	}
 
-
-    protected override void OnTrigger()
-    {
-        timePassed = 0f;
-        target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
-    }
+	protected override void OnTrigger()
+	{
+		BattleStat.Owner.RunAttackMotion();
+		timePassed = 0f;
+	}
 
     protected override void OnCancel()
     {
