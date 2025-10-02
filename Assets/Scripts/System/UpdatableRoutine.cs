@@ -40,7 +40,7 @@ public class UpdatableRoutine : IUpdatableRoutine
 			routine.Initialize();
 			currentSubRoutine = routine.UpdateFrame;
 		}
-		else if (currentSubRoutine == null && interruptQueue.Count == 0)
+		else if (currentSubRoutine == null && interruptQueue.Count == 0 && currentInterruptRoutine == null)
 		{
 			routineDone = true;
 			CurrentRoutine = null;
