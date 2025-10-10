@@ -10,9 +10,6 @@ public class MutatedSlaveButcherAction : UnitSkillCardActionBase
 
 	//public override GridSelector AttackRangeInfo => gridInfo;
 
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
 	public override IEnumerable<ITile> Targets
 	{
 		get
@@ -67,7 +64,7 @@ public class MutatedSlaveButcherAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		
 		timePassed = 0f;
 	}

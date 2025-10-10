@@ -11,8 +11,6 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 	public EquivalentExchangeAction(EquivalentExchangeActionSpec spec) : base(spec)
 	{
 	}
-
-	public override object[] DescParams { get; }
 	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)

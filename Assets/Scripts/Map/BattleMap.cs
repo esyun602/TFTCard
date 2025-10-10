@@ -46,14 +46,18 @@ public class BattleMap : IMap
 			(tileToBattleObject[tileA], tileToBattleObject[tileB]) =
 				(tileToBattleObject[tileB], tileToBattleObject[tileA]);
 
+			var e = new BattleObjectPosUpdatedNotice(objA, tileB);
+			NoticeSystem.Instance.PublishSync(e);
 			if (objA is IMessageReceiver mra)
 			{
-				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(objA, tileB), mra);
+				NoticeSystem.Instance.SendSync(e, mra);
 			}
 
+			e = new BattleObjectPosUpdatedNotice(objB, tileA);
+			NoticeSystem.Instance.PublishSync(e);
 			if (objB is IMessageReceiver mrb)
 			{
-				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(objB, tileA), mrb);
+				NoticeSystem.Instance.SendSync(e, mrb);
 			}
 		}
 
@@ -75,9 +79,11 @@ public class BattleMap : IMap
 			if (KnockBackObject(firstObject))
 			{
 				SetTileImpl(battleObject, firstTile);
+				var e = new BattleObjectPosUpdatedNotice(battleObject, firstTile);
+				NoticeSystem.Instance.PublishSync(e);
 				if (battleObject is IMessageReceiver mr)
 				{
-					NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(battleObject, firstTile), mr);
+					NoticeSystem.Instance.SendSync(e, mr);
 				}
 			}
 			else
@@ -99,9 +105,11 @@ public class BattleMap : IMap
 			{
 				RemoveFromTileImpl(battleObject);
 				SetTileImpl(battleObject, backTile);
+				var e = new BattleObjectPosUpdatedNotice(battleObject, backTile);
+				NoticeSystem.Instance.PublishSync(e);
 				if (battleObject is IMessageReceiver mr)
 				{
-					NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(battleObject, backTile), mr);
+					NoticeSystem.Instance.SendSync(e, mr);
 				}
 				return true;
 			}
@@ -131,9 +139,11 @@ public class BattleMap : IMap
 			RemoveFromTileImpl(firstObj);
 			SetTileImpl(firstObj, firstTile);
 
+			var e = new BattleObjectPosUpdatedNotice(firstObj, firstTile);
+			NoticeSystem.Instance.PublishSync(e);
 			if (firstObj is IMessageReceiver mr)
 			{
-				NoticeSystem.Instance.SendSync(new BattleObjectPosUpdatedNotice(firstObj, firstTile), mr);
+				NoticeSystem.Instance.SendSync(e, mr);
 			}
 		}
 
@@ -308,7 +318,7 @@ public class BattleMap : IMap
 	/// </summary>
 	public (int, int) GetTileCoord(ITile tile)
 	{
-		return (tile.GetPosition().ToRowCol(rowPosList, colPosList));
+		return (tile?.GetPosition().ToRowCol(rowPosList, colPosList)) ?? (-1, -1);
 	}
 
 	public ITile[] GetTiles()

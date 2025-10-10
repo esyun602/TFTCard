@@ -20,7 +20,8 @@ public abstract class SkillCardBase : ICard
 		SkillCardStaticSpec = spec;
 		
 		var actionSpec = GameDataSystem.Instance.GetGameData<ActionData>().GetSkillActionByName(spec.ActionSpecName);
-		Action = actionSpec.CreateCardAction();
+		//임시
+        Action = actionSpec?.CreateCardAction();
 	}
 	
 	public ICardSpec CardStaticSpec => SkillCardStaticSpec;

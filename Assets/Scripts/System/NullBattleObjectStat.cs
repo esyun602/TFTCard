@@ -21,6 +21,10 @@ public class NullBattleObjectStat : IBattleObjectStat
 	{
 	}
 
+	public void Revive()
+	{
+	}
+
 	public List<SynergyCategory> SynergyList { get; } = new List<SynergyCategory>();
 
 	public void AddOption(IOption option)
@@ -41,31 +45,24 @@ public class NullBattleObjectStat : IBattleObjectStat
 		return null;
 	}
 
-	public void AddBuff(IBuff buff)
+	public void AddBuff(IBuff buff, object requester = null)
 	{
+		
 	}
 
-	public bool RemoveBuff(IBuff buff)
+	public bool RemoveBuff<T>(object requester = null) where T : IBuff
 	{
 		return false;
 	}
+
 
 	public void RemoveAllBuff()
 	{
 	}
 
-	public IBuff GetBuff<T>() where T : IBuff
+	public IBuff GetBuff<T>(object requester = null) where T : IBuff
 	{
 		return null;
-	}
-
-	public void AddSynergy(SynergyCategory synergyCategory)
-	{
-	}
-
-	public bool RemoveSynergy(SynergyCategory synergyCategory)
-	{
-		return false;
 	}
 
 	public void Purify()

@@ -24,6 +24,11 @@ public abstract class UnitSkillCardActionBase : SkillCardActionBase
 		base.SetCardBattleStat(stat);
 	}
 
+	protected sealed override bool CanTrigger()
+	{
+		return base.CanTrigger() && !BattleStat.Owner.IsDead();
+	}
+
 	protected UnitSkillCardActionBase(SkillCardActionSpec spec) : base(spec)
 	{
 	}

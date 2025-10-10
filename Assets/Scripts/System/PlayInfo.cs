@@ -5,20 +5,23 @@ using UnityEngine;
 
 public class DeployInfo
 {
-	public DeployInfo(int row, int col, UnitCard targetCard)
+	public DeployInfo(int row, int col, UnitCard targetCard, bool isFixed = false)
 	{
 		Row = row;
 		Col = col;
 		TargetCard = targetCard;
+		IsFixed = isFixed;
 	}
 
 	public int Row { get; set; }
 	public int Col { get; set; }
 	public UnitCard TargetCard { get; set; }
+	public bool IsFixed { get; set; }
 }
 
 public class PlayInfo
 {
+	public int Gold { get; set; }
 	private List<UnitCard> bagUnitCardList = new();
 	public IEnumerable<UnitCard> BagUnitCardList => bagUnitCardList;
 
@@ -65,9 +68,11 @@ public class PlayInfo
 
 	//todo: 가방 고칠 때 수정
 	public List<UnitSkillCard> UnitSkillCardList => FieldDeployLocationInfo.SelectMany(x => x.TargetCard.UnitSkillCard).ToList();
+	public int CurrentUsingDeploySlot => FieldDeployLocationInfo.Count((x) => !x.IsFixed);
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
+	public List<DeployInfo> SpecialDeployLocationInfo { get; } = new();
 	private Dictionary<SynergyCategory, int> synergyNumDict = new();
-	public Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
+	private Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
 	public FlowInfo CurrentFlowInfo { get; set; }
 
 	public FlowNodeInfo CurrentSelectedNode { get; private set; }
@@ -84,37 +89,35 @@ public class PlayInfo
 	public int MinEnergy => Constant.DefaultMinEnergy;
 	public int EnergyPerTurn => Constant.DefaultEnergy;
 
+	public T GetGlobalSynergy<T>(SynergyCategory synergyCategory) where T : IGlobalSynergy
+	{
+		if (activatedByDeploySynergyDict.TryGetValue(synergyCategory, out var value) && value is T ret)
+		{
+			return ret;
+		}
+
+		return default;
+	}
+	
 	/// <summary>
 	/// 최대 배치 가능 갯수에 맞게 normalize
 	/// </summary>
-	public void NormalizeFieldDeployLocationInfo()
+	public void NormalizeFieldDeployInfo()
 	{
-		if (FieldDeployLocationInfo.Count == MaxDeployCount)
+		if (CurrentUsingDeploySlot == MaxDeployCount)
 		{
 			return;
 		}
 
-		if (FieldDeployLocationInfo.Count < MaxDeployCount)
+		if (CurrentUsingDeploySlot < MaxDeployCount)
 		{
-			var toDeployCount = Mathf.Min(MaxDeployCount - FieldDeployLocationInfo.Count, BagUnitCardList.Count());
-
-			for (var row = 2; row >= 0; row--)
+			var toDeployCount = Mathf.Min(MaxDeployCount - CurrentUsingDeploySlot, BagUnitCardList.Count());
+			for (var i = 0; i < toDeployCount; i++)
 			{
-				for (var col = 3; col >= 0; col--)
-				{
-					if (toDeployCount == 0)
-					{
-						return;
-					}
-
-					if (!FieldDeployLocationInfo.Any(info => info.Row == row && info.Col == col))
-					{
-						toDeployCount--;
-						var targetCard = BagUnitCardList.Last();
-						DeployCard(row, col, targetCard);
-					}
-				}
+				var targetCard = BagUnitCardList.Last();
+				DeployToSomewhere(targetCard);
 			}
+
 		}
 		else
 		{
@@ -123,10 +126,47 @@ public class PlayInfo
 		}
 	}
 
-	public void DeployCard(int row, int col, UnitCard targetCard)
+	public void DeployToSomewhere(UnitCard targetCard, bool isFixed = false)
 	{
-		var isInBag = RemoveCard(targetCard);
-		if (isInBag)
+		var (row, col) = GetSomewhereCoord();
+		DeployCard(row, col, targetCard, isFixed);
+	}
+
+	private (int row, int col) GetSomewhereCoord()
+	{
+		for (var row = 2; row >= 0; row--)
+		{
+			for (var col = 3; col >= 0; col--)
+			{
+				if (!FieldDeployLocationInfo.Any(info => info.Row == row && info.Col == col))
+				{
+					return (row, col);
+				}
+			}
+		}
+
+		return (-1, -1);
+	}
+
+	public void DeployCard(int row, int col, UnitCard targetCard, bool isFixed = false)
+	{
+		var info = FieldDeployLocationInfo.Find(info => info.TargetCard == targetCard);
+		var isInField = FieldDeployLocationInfo.Remove(info);
+		
+		RemoveCard(targetCard);
+		if (FieldDeployLocationInfo.Any(x => x.Row == row && x.Col == col))
+		{
+			(row, col) = GetSomewhereCoord();
+			FieldDeployLocationInfo.Add(new DeployInfo(row, col, targetCard, isFixed));
+		}
+		else
+		{
+			FieldDeployLocationInfo.Add(new DeployInfo(row, col, targetCard, isFixed));
+		}
+
+		NormalizeLocationInfos();
+		
+		if (!isInField)
 		{
 			//var unitSkillCard = targetCard.UnitSkillCard;
 			foreach (var synergy in targetCard.Stat.synergyList)
@@ -157,19 +197,17 @@ public class PlayInfo
 			RefreshSynergyList();
 		}
 
-		var info = FieldDeployLocationInfo.Find(info => info.TargetCard == targetCard);
-
-		FieldDeployLocationInfo.Remove(info);
-
-		FieldDeployLocationInfo.Add(new DeployInfo(row, col, targetCard));
-
-		NormalizeLocationInfos();
 	}
 
-	public void UndeployCard(UnitCard targetCard)
+	public void UndeployCard(UnitCard targetCard, bool returnToBag = true)
 	{
 		FieldDeployLocationInfo.RemoveAll(info => info.TargetCard == targetCard);
-		AddCard(targetCard);
+		if (returnToBag)
+		{
+			AddCard(targetCard);
+		}
+		NormalizeLocationInfos();
+		
 		//var unitSkillCard = targetCard.UnitSkillCard;
 		//UnitSkillCardList.Remove(unitSkillCard);
 
@@ -183,7 +221,6 @@ public class PlayInfo
 			}
 		}
 
-		NormalizeLocationInfos();
 		RefreshSynergyList();
 	}
 

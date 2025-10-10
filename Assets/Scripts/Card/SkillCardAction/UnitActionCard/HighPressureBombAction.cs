@@ -12,8 +12,6 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Enemy;
 	}
 
-	public override object[] DescParams => new object[]{StatFallback.GetValueByValueType(UnitValueType.Attack), StatFallback.GetValueByValueType(UnitValueType.Attack) / 2};
-
 	public override IEnumerable<ITile> Targets
 	{
 		get
@@ -68,7 +66,8 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 				obj.Damage(new DamageInfo()
 				{
 					Sender = BattleStat.Owner,
-					Dmg = dmg / 2
+					Dmg = dmg / 2,
+					DamageType = DamageType.Bomb
 				});
 			}
 			

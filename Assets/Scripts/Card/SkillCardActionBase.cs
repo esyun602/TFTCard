@@ -24,7 +24,12 @@ public abstract class SkillCardActionBase : IAction
 	protected SkillCardActionBase(SkillCardActionSpec spec)
 	{
 		descKey = spec.DescKey;
-		routine = new UpdatableRoutine(UpdateFrame, TriggerRoutine, CompleteRoutine);
+		routine = new UpdatableRoutine(UpdateFrame, TriggerRoutine, CompleteRoutine, CanTrigger);
+	}
+
+	protected virtual bool CanTrigger()
+	{
+		return true;
 	}
 	
 	public void Trigger()
@@ -52,7 +57,6 @@ public abstract class SkillCardActionBase : IAction
 	public virtual string Desc => GameDataSystem.Instance.GetGameData<GameString>().GetStringWithStat(descKey, StatFallback);
 
 	//todo: remove
-	public abstract object[] DescParams { get; }
 	public abstract IEnumerable<ITile> Targets { get; }
 	public void SetTriggerParam(object triggerInfo)
 	{

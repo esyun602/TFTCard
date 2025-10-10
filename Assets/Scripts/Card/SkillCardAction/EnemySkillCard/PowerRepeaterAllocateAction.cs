@@ -7,10 +7,7 @@ public class PowerRepeaterAllocateAction : UnitSkillCardActionBase
 	public PowerRepeaterAllocateAction(PowerRepeaterAllocateActionSpec spec) : base(spec)
 	{
 	}
-
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
+	
 	public override IEnumerable<ITile> Targets => new ITile[] { };
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -35,7 +32,7 @@ public class PowerRepeaterAllocateAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

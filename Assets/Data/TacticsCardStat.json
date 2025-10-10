@@ -7,7 +7,7 @@
   {
     "Name": "DamageStat",
     "Cost": 1,
-    "Damage": 3
+    "Damage": 999
   },
   {
     "Name": "FireArrowStat",

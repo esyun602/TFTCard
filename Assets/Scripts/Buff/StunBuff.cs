@@ -2,7 +2,7 @@ using MessageSystem;
 
 public class StunBuff : BuffBase
 {
-	public override BuffType BuffType => BuffType.Negative;
+	public override BuffType DefaultType => BuffType.Negative;
 	public override UnitValueType ControlUnitValueType => UnitValueType.Stun;
 	protected override void OnAdd()
 	{	
@@ -18,11 +18,11 @@ public class StunBuff : BuffBase
 	{
 		if (m.TargetObject == target)
 		{
-			target.UnitCardBattleStat.RemoveBuff(this);
+			target.UnitCardBattleStat.RemoveBuff<StunBuff>();
 		}
 	}
 
-	public override bool TryStack(IBuff buff)
+	protected override bool TryStackImpl(IBuff buff)
 	{
 		return true;
 	}

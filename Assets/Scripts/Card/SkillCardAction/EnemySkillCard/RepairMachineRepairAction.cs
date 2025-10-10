@@ -7,7 +7,6 @@ public class RepairMachineRepairAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams => new object[] { (BattleStat?.Owner.Name ?? Stat.Owner.Name) , StatFallback.GetValuesByValueType(CommonValueType.Heal) };
 	public override IEnumerable<ITile> Targets => new ITile[] { };
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -22,7 +21,7 @@ public class RepairMachineRepairAction : UnitSkillCardActionBase
 				new HealInfo()
 				{
 					Sender = BattleStat.Owner,
-					HealAmount = BattleStat.GetValueByValueType(CommonValueType.Heal)
+					HealAmount = BattleStat.GetValueByValueType(SkillValueType.Heal)
 				});
 		}
 		else if (timePassed > 1.5f)
@@ -33,7 +32,7 @@ public class RepairMachineRepairAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

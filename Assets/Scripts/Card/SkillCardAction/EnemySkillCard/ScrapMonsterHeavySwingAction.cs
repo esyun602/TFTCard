@@ -11,9 +11,6 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 		targetCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetCardName);
 	}
 
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
 	public override IEnumerable<ITile> Targets
 	{
 		get
@@ -41,7 +38,7 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 					{
 						DamageType = DamageType.NormalAttack,
 						Sender = BattleStat.Owner,
-						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(UnitValueType.Hp)
+						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack)
 					});
 				}
 			}
@@ -64,7 +61,7 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

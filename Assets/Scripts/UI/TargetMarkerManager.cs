@@ -5,7 +5,7 @@ public class TargetMarkerManager : UIInstance
 {
 	private Dictionary<object, List<PooledUnityObject>> markerRequests;
 
-	public override UIType UIType => UIType.SceneUI;
+	public override UIType UIType => UIType.SceneCameraUI;
 	protected override void Init(object param)
 	{
 		markerRequests = new();
@@ -15,7 +15,7 @@ public class TargetMarkerManager : UIInstance
 	public void SetTargetMarkerTo(ITile target, object requester)
 	{
 		//todo: fix camera
-		var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(Camera.main.WorldToScreenPoint(target.GetPosition()));
+		var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(target.GetPosition().GetX0z(Constant.FieldHoverYPos));
 		
 		if (markerRequests.TryGetValue(requester, out var list))
 		{
@@ -35,7 +35,7 @@ public class TargetMarkerManager : UIInstance
 		foreach (var tile in targetList)
 		{
 			if(tile == null) continue;
-			var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(Camera.main.WorldToScreenPoint(tile.GetPosition()));
+			var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(tile.GetPosition().GetX0z(Constant.FieldHoverYPos));
 			list.Add(obj);
 		}
 	}

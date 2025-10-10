@@ -4,6 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using MessageSystem;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -88,8 +89,10 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		if (m.Target.UnitCardBattleStat != stat) return;
 		
 		var keyword = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(m.Buff.Keyword);
-		iconDict[keyword].GetComponent<PooledUnityObject>().Dispose();
-		iconDict.Remove(keyword);
+		if (iconDict.TryGetValue(keyword, out var icon))
+		{
+			icon.Value -= m.Buff.Level;
+		}
 		
 		UpdateIcon();
 	}
@@ -100,7 +103,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		var keyword = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(m.Buff.Keyword);
 		//todo: 일단은 버프에 keyword 하나라고 가정
-		iconDict[keyword].SetValue(m.Buff.Level);
+		iconDict[keyword].Value += m.Diff;
 		
 		UpdateIcon();
 	}
@@ -108,23 +111,38 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	private void OnBuffAdd(BuffAddNotice m)
 	{
 		if (m.Target.UnitCardBattleStat != stat) return;
-
 		var keyword = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(m.Buff.Keyword);
+		if (iconDict.TryGetValue(keyword, out var icon))
+		{
+			icon.Value += m.Buff.Level;
+			UpdateIcon();
+			return;
+		}
+		AddIcon(m.Buff.Keyword, m.Buff.Level);
+	}
+
+	private void AddIcon(string keywordName, int level)
+	{
+		var keyword = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(keywordName);
 		var resourceName = keyword.IconResource;
 		var importance = keyword.Importance;
 		switch (keyword.IconCategory)
 		{
 			case IconCategory.HpRelevant:
 				var icon = UnityObjectPool.GetOrCreatePool("Icon", resourceName).Instantiate(parent: hpRelevantIconAnchor).GetComponent<KeywordIcon>();
+				icon.transform.localRotation = quaternion.identity;
+				icon.transform.localScale = Vector3.one;
 				iconDict[keyword] = icon;
-				icon.SetValue(m.Buff.Level);
+				icon.Value = level;
 				icon.Importance = keyword.Importance;
 				break;
 			
 			case IconCategory.AttackRelevant:
 				icon = UnityObjectPool.GetOrCreatePool("Icon", resourceName).Instantiate(parent: attackRelevantIconAnchor).GetComponent<KeywordIcon>();
+				icon.transform.localRotation = quaternion.identity;
+				icon.transform.localScale = Vector3.one;
 				iconDict[keyword] = icon;
-				icon.SetValue(m.Buff.Level);
+				icon.Value = level;
 				icon.Importance = keyword.Importance;
 				break;
 		}
@@ -138,6 +156,14 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		var attackIdx = 0;
 		foreach (var icon in iconDict.Values.OrderByDescending(x => x.Importance))
 		{
+			if (icon.Value == 0)
+			{
+				icon.gameObject.SetActive(false);
+				continue;
+			}
+			
+			icon.gameObject.SetActive(true);
+			
 			if (icon.transform.parent == hpRelevantIconAnchor)
 			{
 				icon.transform.localPosition = Vector3.up * (iconSpacing * hpIdx++);

@@ -17,6 +17,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	public SynergySystem SynergySystem { get; }
 	public BattleStage BattleStage { get; }
 	public BattleFxManager BattleFxManager { get; }
+	public BattleGlobalModifier BattleGlobalModifier { get; }
 	private SimpleStateMachine battleStageStateMachine = new();
 	//todo: map gamemode 넣는게 맞나?
 	public BattleStageGameMode(IStage targetStage) : base(targetStage)
@@ -28,6 +29,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		WaveSystem = new( GameDataSystem.Instance.GetGameData<WaveData>().GetMultipleWaveSpec(((BattleStageSpec)BattleStage.StageSpec).WaveGridList));
 		SynergySystem = new();
 		BattleFxManager = new();
+		BattleGlobalModifier = new();
 	}
 
 	protected override void OnInitialize()
@@ -97,7 +99,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem.UnRegister(m.Target, m.Context);
 		if (m.Target.ObjectType == ObjectType.Ally)
 		{
-			SynergySystem.UnRegister(m.Target);
+			//SynergySystem.UnRegister(m.Target);
 			if (m.Target is UnitCardInField bco)
 			{
 				DeckSystem.OnAllyRemove(bco);
@@ -197,6 +199,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		public void UpdateFrame(float dt)
 		{
 			owner.TurnSystem.UpdateTurn(dt);
+			owner.BattleFxManager.UpdateFrame(dt);
 		}
 	}
 

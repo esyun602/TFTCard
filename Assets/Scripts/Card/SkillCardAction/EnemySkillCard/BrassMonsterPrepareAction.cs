@@ -12,9 +12,6 @@ public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 		targetCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetCardName);
 	}
 
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
 	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -36,6 +33,7 @@ public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
+		BattleStat.Owner.AnimationController.RunGaugeMotion();
 	}
 
 	protected override void OnCancel()

@@ -10,8 +10,8 @@
   },
   {
     "StageName": "Scout",
-    "CamSize": 8.0,
-    "ClassName": "UnitScoutStage"
+    "ClassName": "UnitScoutStage",
+    "CamSize": 8.0
   },
   {
     "StageName": "TestStage2",
@@ -29,6 +29,15 @@
     "CamSize": 8.0,
     "WaveGridList": [
       "test_wave_3"
+    ]
+  },
+  {
+    "StageName": "StageForTest",
+    "ClassName": "BattleStage",
+    "MapData": "TestMap",
+    "CamSize": 8.0,
+    "WaveGridList": [
+      "wave_for_test"
     ]
   }
 ]

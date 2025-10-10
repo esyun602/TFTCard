@@ -7,3 +7,34 @@ public interface IUpdatableRoutine
 	public void AddChain(IUpdatableRoutine routine);
 	public void AddInterrupt(IUpdatableRoutine routine);
 }
+
+public static class IUpdatableRoutineExtensions
+{
+	public static void AddInterrupt(this IUpdatableRoutine routine, Action action, float timeAfter)
+	{
+		routine.AddInterrupt(GenerateRunAfterTime(timeAfter, action));
+	}
+	
+	public static void AddChain(this IUpdatableRoutine routine, Action action, float timeAfter)
+	{
+		routine.AddChain(GenerateRunAfterTime(timeAfter, action));
+	}
+	
+	public static UpdatableRoutine GenerateRunAfterTime(float time, Action action)
+	{
+		var timePassed = 0f;
+		return new UpdatableRoutine((float dt, out bool done) =>
+		{
+			timePassed += dt;
+			if (timePassed > time && timePassed - dt < time)
+			{
+				action.Invoke();
+				done = true;
+				return;
+			}
+			
+
+			done = false;
+		});
+	}
+}

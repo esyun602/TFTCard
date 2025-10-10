@@ -1,4 +1,5 @@
 
+using Unity.Mathematics;
 using UnityEngine;
 
 public interface IBattleObject
@@ -14,16 +15,25 @@ public interface IBattleObject
 	
 	public IBattleObjectStat UnitCardBattleStat { get; }
 	public IDamagedBehaviour DamagedBehaviour { get; }
-	
-	//todo: fix to animation
-	public void RunAttackMotion();
+	public BattleObjectAnimationController AnimationController { get; }
 }
 
 public static class IBattleObjectExtensions
 {
 	public static void Damage(this IBattleObject bo, DamageInfo dmgInfo)
 	{
+		ShowDamageFx(dmgInfo.DamageType, bo);
 		bo.DamagedBehaviour?.Damage(dmgInfo);
+	}
+
+	//todo: 임시
+	private static void ShowDamageFx(DamageType type, IBattleObject obj)
+	{
+		if (type == DamageType.Bomb)
+		{
+			UnityObjectPool.GetOrCreatePool("Fx", "BombFx", 5f)
+				.Instantiate(obj.Position, quaternion.identity, followTarget: obj.Transform);
+		}
 	}
 	
 	public static void Heal(this IBattleObject bo, HealInfo healInfo)

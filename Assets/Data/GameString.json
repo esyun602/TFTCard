@@ -256,12 +256,28 @@
     "KorString": "근접. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 뽑을 카드 더미의 맨 위에 놓습니다."
   },
   {
+    "StringKey": "act_skill_dawsonactionplus",
+    "KorString": "습관+"
+  },
+  {
+    "StringKey": "act_skill_dawsonactionplus_desc",
+    "KorString": "근접. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 다시 손으로 가져옵니다."
+  },
+  {
     "StringKey": "act_skill_desmondaction",
     "KorString": "암살"
   },
   {
     "StringKey": "act_skill_desmondaction_desc",
     "KorString": "데스몬드가 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면, 강화를 3 얻습니다. 적을 죽이지 못하면, 약화를 3 얻습니다."
+  },
+  {
+    "StringKey": "act_skill_desmondactionplus",
+    "KorString": "암살+"
+  },
+  {
+    "StringKey": "act_skill_desmondactionplus_desc",
+    "KorString": "데스몬드가 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면, 강화를 3 얻습니다."
   },
   {
     "StringKey": "act_skill_derrickaction",
@@ -272,11 +288,27 @@
     "KorString": "데릭이 선택한 적과 같은 열의 모두에게 {$attack}의 폭발 피해를 줍니다."
   },
   {
+    "StringKey": "act_skill_derrickactionplus",
+    "KorString": "사제 폭탄+"
+  },
+  {
+    "StringKey": "act_skill_derrickactionplus_desc",
+    "KorString": "데릭이 선택한 적과 같은 열의 모두에게 {$attack}의 폭발 피해를 주고, 화상을 {$burnAdd} 부여합니다."
+  },
+  {
     "StringKey": "act_skill_dustinaction",
     "KorString": "블랙마켓"
   },
   {
     "StringKey": "act_skill_dustinaction_desc",
+    "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {$attack} 부여합니다."
+  },
+  {
+    "StringKey": "act_skill_dustinactionplus",
+    "KorString": "블랙마켓+"
+  },
+  {
+    "StringKey": "act_skill_dustinactionplus_desc",
     "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {$attack} 부여합니다."
   },
   {

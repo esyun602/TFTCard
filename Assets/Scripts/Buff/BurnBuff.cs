@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class BurnBuff : BuffBase
 {
-
 	public BurnBuff(int burnLevel)
 	{
 		Level = burnLevel;
 	}
 
-	public override BuffType BuffType => BuffType.Negative;
+	public override BuffType DefaultType => BuffType.Negative | BuffType.BlockOptionAdd;
 	public override UnitValueType ControlUnitValueType => UnitValueType.Burn;
 
 	protected override void OnAdd()
@@ -19,15 +18,15 @@ public class BurnBuff : BuffBase
 
 	private void OnTurnEnd(PlayerTurnEndNotice m)
 	{
+		if (Level <= 0)
+		{
+			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
+		}
+		
 		target.Damage(new DamageInfo()
 		{
 			Dmg = Level--,
 		});
-
-		if (Level == 0)
-		{
-			target.UnitCardBattleStat.RemoveBuff(this);
-		}
 	}
 
 	protected override void OnRemove()
@@ -35,7 +34,7 @@ public class BurnBuff : BuffBase
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);
 	}
 
-	public override bool TryStack(IBuff buff)
+	protected override bool TryStackImpl(IBuff buff)
 	{
 		var canStack = buff is BurnBuff;
 		if (canStack)

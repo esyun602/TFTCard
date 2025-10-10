@@ -11,6 +11,7 @@ public class UnitCardSpec : ICardSpec
 	public Sprite CardResource { get; private set; }
 	public string ActionSpecName { get; private set; }
 	public string[] TargetSkillCardSpecName { get; private set; }
+	public Dictionary<string, object> ExtraParams { get; private set; }
 
 	private UnitCardSpec()
 	{
@@ -28,6 +29,8 @@ public class UnitCardSpec : ICardSpec
 		spec.CardResource = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(CardResource)));
 		spec.ActionSpecName = param.GetString(nameof(ActionSpecName));
 		spec.TargetSkillCardSpecName = param.GetStringArray(nameof(TargetSkillCardSpecName));
+
+		spec.ExtraParams = param.GetObject(nameof(ExtraParams));
 
 		return spec;
 	}

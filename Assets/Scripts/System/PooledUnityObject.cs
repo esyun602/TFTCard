@@ -78,7 +78,11 @@ public class PooledUnityObject : MonoBehaviour, IDisposable
 
 	public void FollowTarget()
 	{
-		if (followTarget == null) return;
+		if (followTarget == null || !followTarget.gameObject.activeSelf)
+		{
+			Dispose();
+			return;
+		}
 
 		transform.position = followTarget.TransformPoint(localPos);
 		transform.rotation = followTarget.rotation * localRotation;

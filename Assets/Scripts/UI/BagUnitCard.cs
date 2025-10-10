@@ -9,6 +9,7 @@ public class BagUnitCard : BagUICard
 {
     public override ICard TargetCard => TargetUnitCard;
     public UnitCard TargetUnitCard { get; private set; }
+    public bool CanUnplaced { get; set; }
 
     protected override void InitializeInfo()
     {
@@ -17,6 +18,8 @@ public class BagUnitCard : BagUICard
 
     protected override void OnLeftClick()
     {
+        if (Game.Instance.GetGameMode<BattleStageGameMode>() != null) return;
+        
         if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true })
         {
             NoticeSystem.Instance.PublishSync(new BagUICardSelectedNotice(this));
@@ -26,8 +29,11 @@ public class BagUnitCard : BagUICard
 
     protected override void OnRightClick()
     {
+        if (Game.Instance.GetGameMode<BattleStageGameMode>() != null) return;
+        
         if (stateMachine.CurrentState is BagUICardNormalState { IsHovered: true }
-            && cardPosInfo.Tile != null)
+            && cardPosInfo.Tile != null
+            && CanUnplaced)
         {
             NoticeSystem.Instance.PublishSync(new BagUICardUnPlaceNotice(this, cardPosInfo.Tile));
         }

@@ -6,7 +6,7 @@ public static class Bootstrap
 	[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 	static void Warmup()
 	{
-		RuntimeHelpers.RunClassConstructor(typeof(CommonValueType).TypeHandle);
+		RuntimeHelpers.RunClassConstructor(typeof(SkillValueType).TypeHandle);
 		RuntimeHelpers.RunClassConstructor(typeof(UnitValueType).TypeHandle);
 		RuntimeHelpers.RunClassConstructor(typeof(SkillValueType).TypeHandle);
 	}

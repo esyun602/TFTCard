@@ -15,8 +15,6 @@ public class BreadSupplySkillAction : TacticsCardActionBase
 		actionDuration = spec.actionDuration;
 		fxPrefab = spec.fxPrefab;
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.Heal) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	protected override void OnUpdate(float dt, out bool routineDone)
@@ -33,7 +31,10 @@ public class BreadSupplySkillAction : TacticsCardActionBase
 		if (timePassed > 0f)
 		{
 			//todo: heal?
-			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Hp, BattleStat.GetValueByValueType(CommonValueType.Heal));
+			target.Heal(new HealInfo()
+			{
+				HealAmount = BattleStat.GetValueByValueType(SkillValueType.Heal)
+			});
 			routineDone = true;
 		}
 	}

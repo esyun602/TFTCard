@@ -66,6 +66,23 @@
     "Cost": 1
   },
   {
+    "Name": "DawsonActionPlusStat",
+    "Cost": 0
+  },
+  {
+    "Name": "DesmondActionPlusStat",
+    "Cost": 3,
+    "AttackAdd": 3
+  },
+  {
+    "Name": "DerrickActionPlusStat",
+    "Cost": 4
+  },
+  {
+    "Name": "DustinActionPlusStat",
+    "Cost": 0
+  },
+  {
     "Name": "BiologicalExperimentStat",
     "Cost": 1,
     "CatalystAdd": 1

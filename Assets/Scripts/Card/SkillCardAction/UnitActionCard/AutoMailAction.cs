@@ -11,9 +11,6 @@ public class AutoMailAction : UnitSkillCardActionBase
 	{
 		return base.CanUse(targetTile) && targetTile.TileType == ObjectType.Ally;
 	}
-
-	//todo: 구현 수정
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(UnitValueType.Attack), StatFallback.GetValueByValueType(UnitValueType.Attack) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	public AutoMailAction(AutoMailActionSpec spec) : base(spec)
@@ -34,7 +31,12 @@ public class AutoMailAction : UnitSkillCardActionBase
 		if (timePassed > 0f)
 		{
 			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(UnitValueType.Attack));
-			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(1));
+			target.Damage(new DamageInfo()
+			{
+				DamageType = DamageType.Pierce,
+				Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage),
+				Sender = BattleStat.Owner
+			});
 			
 			routineDone = true;
 		}

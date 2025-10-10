@@ -52,7 +52,7 @@
   {
     "Name": "VaperAction",
     "ClassName": "VaperAction",
-    "DescKey": "act_skill_vaperaction"
+    "DescKey": "act_skill_vaperaction_desc"
   },
   {
     "Name": "HighPressureBomb",
@@ -72,42 +72,62 @@
   {
     "Name": "VilhelmAction",
     "ClassName": "VilhelmAction",
-    "DescKey": "act_skill_vilhelmaction"
+    "DescKey": "act_skill_vilhelmaction_desc"
   },
   {
     "Name": "CollectorAction",
     "ClassName": "CollectorAction",
-    "DescKey": "act_skill_collectoraction"
+    "DescKey": "act_skill_collectoraction_desc"
   },
   {
     "Name": "GrahamAction",
     "ClassName": "GrahamAction",
-    "DescKey": "act_skill_grahamaction"
+    "DescKey": "act_skill_grahamaction_desc"
   },
   {
     "Name": "NormanAction",
     "ClassName": "NormanAction",
-    "DescKey": "act_skill_normanaction"
+    "DescKey": "act_skill_normanaction_desc"
   },
   {
     "Name": "DawsonAction",
     "ClassName": "DawsonAction",
-    "DescKey": "act_skill_dawsonaction"
+    "DescKey": "act_skill_dawsonaction_desc"
   },
   {
     "Name": "DesmondAction",
     "ClassName": "DesmondAction",
-    "DescKey": "act_skill_desmondaction"
+    "DescKey": "act_skill_desmondaction_desc"
   },
   {
     "Name": "DerrickAction",
     "ClassName": "DerrickAction",
-    "DescKey": "act_skill_derrickaction"
+    "DescKey": "act_skill_derrickaction_desc"
   },
   {
     "Name": "DustinAction",
     "ClassName": "DustinAction",
-    "DescKey": "act_skill_dustinaction"
+    "DescKey": "act_skill_dustinaction_desc"
+  },
+  {
+    "Name": "DawsonActionPlus",
+    "ClassName": "DawsonActionPlus",
+    "DescKey": "act_skill_dawsonactionplus_desc"
+  },
+  {
+    "Name": "DesmondActionPlus",
+    "ClassName": "DesmondActionPlus",
+    "DescKey": "act_skill_desmondactionplus_desc"
+  },
+  {
+    "Name": "DerrickActionPlus",
+    "ClassName": "DerrickActionPlus",
+    "DescKey": "act_skill_derrickactionplus_desc"
+  },
+  {
+    "Name": "DustinActionPlus",
+    "ClassName": "DustinAction",
+    "DescKey": "act_skill_dustinactionplus_desc"
   },
   {
     "Name": "BiologicalExperiment",
@@ -137,12 +157,12 @@
   {
     "Name": "CabinotierAction",
     "ClassName": "CabinotierAction",
-    "DescKey": "act_skill_cabinotieraction"
+    "DescKey": "act_skill_cabinotieraction_desc"
   },
   {
     "Name": "AirshipAction",
     "ClassName": "AirshipAction",
-    "DescKey": "act_skill_airshipaction"
+    "DescKey": "act_skill_airshipaction_desc"
   },
   {
     "Name": "EnemyAction1Adapter",

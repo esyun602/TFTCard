@@ -93,10 +93,11 @@ public class PlayerHand
 		AlignCards();
 	}
 
-	public void RemoveCard(BattleCardObjectInHand card)
+	public bool RemoveCard(BattleCardObjectInHand card)
 	{
-		CardList.Remove(card);
+		var removed = CardList.Remove(card);
 		AlignCards();
+		return removed;
 	}
 	
 	private void AlignCards()

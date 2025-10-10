@@ -13,8 +13,6 @@ public class SteamEngineProtectionAction : TacticsCardActionBase
 			.GetBattleObjectOfTile(targetTile);
 		return base.CanUse(targetTile) && targetObject.ObjectType == ObjectType.Ally;
 	}
-
-	public override object[] DescParams => new object[] { StatFallback.GetValueByValueType(CommonValueType.ShieldAdd) };
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 	public SteamEngineProtectionAction(SteamEngineProtectionActionSpec spec) : base(spec)
@@ -34,8 +32,7 @@ public class SteamEngineProtectionAction : TacticsCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(CommonValueType.ShieldAdd));
-			target.UnitCardBattleStat.AddSynergy(SynergyCategory.SteamEngine);
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(SkillValueType.ShieldAdd));
 			
 			routineDone = true;
 		}

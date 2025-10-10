@@ -78,7 +78,7 @@ public class DeckSystem
 	public void Initialize()
 	{
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
-		playInfo.NormalizeFieldDeployLocationInfo();
+		playInfo.NormalizeFieldDeployInfo();
 		
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
@@ -296,6 +296,50 @@ public class DeckSystem
 		PlayerHand.AddCard(targetCard);
 	}
 
+	public void DrawPlayerCard(BattleCardObjectInHand card)
+	{
+		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
+		{
+			return;
+		}
+		
+		if(card == null) return;
+		
+		if (deck.Contains(card)) deck.Remove(card);
+		else if (dropCardList.Contains(card)) dropCardList.Remove(card);
+		else return;
+		
+		PlayerHand.CardList.Add(card);
+	}
+
+	public void ReturnHandCardToDeck(BattleCardObjectInHand card)
+	{
+		if (PlayerHand.CardList.Remove(card))
+		{
+			if (card.CardType == ObjectType.Ally)
+			{
+				deck.Add(card);
+			}
+			else if(card.CardType == ObjectType.Enemy)
+			{
+				enemyCardPool.Add(card);
+			}
+		}
+	}
+
+	public void ReturnHandCardToHand(BattleCardObjectInHand card)
+	{
+		if (PlayerHand.CardList.Remove(card))
+		{
+			PlayerHand.CardList.Add(card);
+		}
+	}
+	
+	public void DrawPlayerCard(SkillCardBase card)
+	{
+		DrawPlayerCard(GetSkillCardInstance(card));
+	}
+
 	//todo: 핸드를 구분할 건지 정해야함
 	public void DrawEnemyCard()
 	{
@@ -331,17 +375,19 @@ public class DeckSystem
 		{
 			return;
 		}
-		
-		PlayerHand.RemoveCard(target);
-		if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
+
+		if (PlayerHand.RemoveCard(target))
 		{
-			enemyDropCardList.Add(target);
+			if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
+			{
+				enemyDropCardList.Add(target);
+			}
+			else
+			{
+				dropCardList.Add(target);
+			}
+			target.Deactivate();
 		}
-		else
-		{
-			dropCardList.Add(target);
-		}
-		target.Deactivate();
 	}
 
 	public void RemoveCard(BattleCardObjectInHand target)
@@ -413,14 +459,20 @@ public class DeckSystem
 
 	public void OnEnemyRemove(UnitCardInField enemy)
 	{
-		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
+		var cards = totalList.OfType<UnitSkillCardInHand>()
+			.Where(x => ((UnitSkillCardBattleStat)x.Stat).Owner == enemy);
+		var removeCardList = new List<UnitSkillCardInHand>();
+		foreach (var card in cards)
 		{
-			var obj = GetSkillCardInstance(card) as UnitSkillCardInHand;
+			if (card == null) return;
 
-			if (obj == null) return;
+			card.SetDeadState();
+			removeCardList.Add(card);
+		}
 
-			obj.SetDeadState();
-			RemoveCard(obj);
+		foreach (var card in removeCardList)
+		{
+			RemoveCard(card);
 		}
 		
 		ShuffleEnemyDeck();

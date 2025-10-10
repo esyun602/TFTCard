@@ -6,7 +6,7 @@
     "StatSpecName": "OverheatPropulsionStat",
     "CardResource": "skill_overheatpropulsion_default",
     "ActionSpecName": "OverheatPropulsion",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 1,
@@ -15,7 +15,7 @@
     "StatSpecName": "FlamethrowerStat",
     "CardResource": "skill_flamethrower_default",
     "ActionSpecName": "Flamethrower",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 2,
@@ -24,7 +24,7 @@
     "StatSpecName": "VaperActionStat",
     "CardResource": "skill_vaperaction_default",
     "ActionSpecName": "VaperAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 3,
@@ -33,7 +33,7 @@
     "StatSpecName": "HighPressureBombStat",
     "CardResource": "skill_highpressurebomb_default",
     "ActionSpecName": "HighPressureBomb",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 4,
@@ -60,7 +60,7 @@
     "StatSpecName": "VilhelmActionStat",
     "CardResource": "skill_vilhelmaction_default",
     "ActionSpecName": "VilhelmAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 7,
@@ -69,7 +69,7 @@
     "StatSpecName": "CollectorActionStat",
     "CardResource": "skill_collectoraction_default",
     "ActionSpecName": "CollectorAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 8,
@@ -78,7 +78,7 @@
     "StatSpecName": "GrahamActionStat",
     "CardResource": "skill_grahamaction_default",
     "ActionSpecName": "GrahamAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 9,
@@ -87,7 +87,7 @@
     "StatSpecName": "NormanActionStat",
     "CardResource": "skill_normanaction_default",
     "ActionSpecName": "NormanAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 10,
@@ -96,7 +96,7 @@
     "StatSpecName": "DawsonActionStat",
     "CardResource": "skill_dawsonaction_default",
     "ActionSpecName": "DawsonAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 11,
@@ -105,7 +105,7 @@
     "StatSpecName": "DesmondActionStat",
     "CardResource": "skill_desmondaction_default",
     "ActionSpecName": "DesmondAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 12,
@@ -114,7 +114,7 @@
     "StatSpecName": "DerrickActionStat",
     "CardResource": "skill_derrickaction_default",
     "ActionSpecName": "DerrickAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 13,
@@ -123,19 +123,55 @@
     "StatSpecName": "DustinActionStat",
     "CardResource": "skill_dustinaction_default",
     "ActionSpecName": "DustinAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 14,
+    "Name": "DawsonActionPlus",
+    "NameKey": "act_skill_dawsonactionplus",
+    "StatSpecName": "DawsonActionPlusStat",
+    "CardResource": "skill_dawsonactionplus_default",
+    "ActionSpecName": "DawsonActionPlus",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 15,
+    "Name": "DesmondActionPlus",
+    "NameKey": "act_skill_desmondactionplus",
+    "StatSpecName": "DesmondActionPlusStat",
+    "CardResource": "skill_desmondactionplus_default",
+    "ActionSpecName": "DesmondActionPlus",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 16,
+    "Name": "DerrickActionPlus",
+    "NameKey": "act_skill_derrickactionplus",
+    "StatSpecName": "DerrickActionPlusStat",
+    "CardResource": "skill_derrickactionplus_default",
+    "ActionSpecName": "DerrickActionPlus",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 17,
+    "Name": "DustinActionPlus",
+    "NameKey": "act_skill_dustinactionplus",
+    "StatSpecName": "DustinActionPlusStat",
+    "CardResource": "skill_dustinactionplus_default",
+    "ActionSpecName": "DustinAction",
+    "CardUseType": "Targeting"
+  },
+  {
+    "Id": 18,
     "Name": "BiologicalExperiment",
     "NameKey": "act_skill_biological_experiment",
     "StatSpecName": "BiologicalExperimentStat",
     "CardResource": "skill_biologicalexperiment_default",
     "ActionSpecName": "BiologicalExperiment",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
-    "Id": 15,
+    "Id": 19,
     "Name": "EquivalentExchange",
     "NameKey": "act_skill_equivalent_exchange",
     "StatSpecName": "EquivalentExchangeStat",
@@ -144,7 +180,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 16,
+    "Id": 20,
     "Name": "PositiveFeedback",
     "NameKey": "act_skill_positive_feedback",
     "StatSpecName": "PositiveFeedbackStat",
@@ -153,7 +189,7 @@
     "CardUseType": "Targeting"
   },
   {
-    "Id": 17,
+    "Id": 21,
     "Name": "ChainReaction",
     "NameKey": "act_skill_chain_reaction",
     "StatSpecName": "ChainReactionStat",
@@ -162,7 +198,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 18,
+    "Id": 22,
     "Name": "Panacea",
     "NameKey": "act_skill_panacea",
     "StatSpecName": "PanaceaStat",
@@ -171,25 +207,25 @@
     "CardUseType": "Targeting"
   },
   {
-    "Id": 19,
+    "Id": 23,
     "Name": "CabinotierAction",
     "NameKey": "act_skill_cabinotieraction",
     "StatSpecName": "CabinotierActionStat",
     "CardResource": "skill_cabinotieraction_default",
     "ActionSpecName": "CabinotierAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
-    "Id": 20,
+    "Id": 24,
     "Name": "AirshipAction",
     "NameKey": "act_skill_airshipaction",
     "StatSpecName": "AirshipActionStat",
     "CardResource": "skill_airshipaction_default",
     "ActionSpecName": "AirshipAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
-    "Id": 21,
+    "Id": 25,
     "Name": "PatrolMachineLightDamage",
     "NameKey": "unit_enemy_patrolmachine",
     "StatSpecName": "PatrolMachineActionStat",
@@ -198,7 +234,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 22,
+    "Id": 26,
     "Name": "HiredGangsterUnexpectedDamage",
     "NameKey": "unit_enemy_hiredgangster",
     "StatSpecName": "HiredGangsterActionStat",
@@ -207,7 +243,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 23,
+    "Id": 27,
     "Name": "GuardAutomatonSwing",
     "NameKey": "unit_enemy_guardautomaton",
     "StatSpecName": "GuardAutomatonActionStat",
@@ -216,7 +252,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 24,
+    "Id": 28,
     "Name": "RepairMachineRepair",
     "NameKey": "unit_enemy_repairmachine",
     "StatSpecName": "RepairMachineActionStat",
@@ -225,7 +261,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 25,
+    "Id": 29,
     "Name": "MechanizedSlaveBlow",
     "NameKey": "unit_enemy_mechanizedslave",
     "StatSpecName": "MechanizedSlaveActionStat",
@@ -234,7 +270,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 26,
+    "Id": 30,
     "Name": "SlaveGuardWhip",
     "NameKey": "unit_enemy_slaveguard",
     "StatSpecName": "SlaveGuardActionStat",
@@ -243,7 +279,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 27,
+    "Id": 31,
     "Name": "WorkshopSupervisorShoot",
     "NameKey": "unit_enemy_workshopsupervisor",
     "StatSpecName": "WorkshopSupervisorActionStat",
@@ -252,7 +288,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 28,
+    "Id": 32,
     "Name": "ScrapMonsterHeavySwing",
     "NameKey": "unit_enemy_scrapmonster",
     "StatSpecName": "ScrapMonsterActionStat",
@@ -261,7 +297,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 29,
+    "Id": 33,
     "Name": "ScrapMonsterSmite",
     "NameKey": "unit_enemy_scrapmonster",
     "StatSpecName": "ScrapMonsterSmiteActionStat",
@@ -270,7 +306,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 30,
+    "Id": 34,
     "Name": "BrassMonsterPrepare",
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "BrassMonsterActionStat",
@@ -279,7 +315,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 31,
+    "Id": 35,
     "Name": "BrassMonsterSmash",
     "NameKey": "unit_enemy_brassmonster",
     "StatSpecName": "BrassMonsterSmashActionStat",
@@ -288,7 +324,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 32,
+    "Id": 36,
     "Name": "VacuumTubeLumpAmplify",
     "NameKey": "unit_enemy_vacuumtubelump",
     "StatSpecName": "VacuumTubeLumpActionStat",
@@ -297,7 +333,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 33,
+    "Id": 37,
     "Name": "MagnetMonsterAttraction",
     "NameKey": "unit_enemy_magnetmonsterattraction",
     "StatSpecName": "MagnetMonsterAttractionStat",
@@ -306,7 +342,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 34,
+    "Id": 38,
     "Name": "MutatedSlaveButcher",
     "NameKey": "unit_enemy_mutatedslavebutcher",
     "StatSpecName": "MutatedSlaveButcherStat",
@@ -315,7 +351,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 35,
+    "Id": 39,
     "Name": "FurnaceGolemCombustion",
     "NameKey": "unit_enemy_fumacegolemcombustion",
     "StatSpecName": "FurnaceGolemCombustionStat",
@@ -324,7 +360,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 36,
+    "Id": 40,
     "Name": "PowerRepeaterAllocate",
     "NameKey": "unit_enemy_powerrepeaterallocate",
     "StatSpecName": "PowerRepeaterAllocateStat",
@@ -333,7 +369,7 @@
     "CardUseType": "Global"
   },
   {
-    "Id": 37,
+    "Id": 41,
     "Name": "BetrayerGunmanRapidFire",
     "NameKey": "unit_enemy_betrayergunmanrapidfire",
     "StatSpecName": "BetrayerGunmanRapidFireStat",

@@ -4,6 +4,7 @@ public class SteamEngineOption : IOption
 {
 	private IBattleObject target;
 	public int Level { get; set; }
+	private IBuff immuneBuff;
 	
 	public SteamEngineOption(int level)
 	{
@@ -19,6 +20,11 @@ public class SteamEngineOption : IOption
 	public void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<UnitBattleValueChangeNotice>(OnBattleValueChange);
+		if (immuneBuff != null)
+		{
+			target.UnitCardBattleStat.RemoveBuff<BurnImmuneBuff>(this);
+			immuneBuff = null;
+		}
 	}
 	
 	private void OnBattleValueChange(UnitBattleValueChangeNotice m)
@@ -26,7 +32,16 @@ public class SteamEngineOption : IOption
 		if (m.Stat == target.UnitCardBattleStat && m.Type == UnitValueType.Burn && m.Diff > 0)
 		{
 			//todo: fix?
-			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(Level));
+			if (Level <= 2)
+			{
+				target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(Level));
+			}
+			else if(Level >= 3)
+			{
+				target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(2));
+				immuneBuff = new BurnImmuneBuff();
+				target.UnitCardBattleStat.AddBuff(immuneBuff, this);
+			}
 		}
 	}
 

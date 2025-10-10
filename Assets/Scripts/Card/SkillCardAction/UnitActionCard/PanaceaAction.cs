@@ -10,8 +10,6 @@ public class PanaceaAction : UnitSkillCardActionBase
 	public PanaceaAction(PanaceaActionSpec spec) : base(spec)
 	{
 	}
-
-	public override object[] DescParams { get; }
 	public override IEnumerable<ITile> Targets => ActionUtils.GetTargetTileWithTargetingInfo(triggerInfo);
 
 
@@ -28,13 +26,7 @@ public class PanaceaAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			target.DamagedBehaviour.Heal(
-				new HealInfo()
-				{
-					Sender = BattleStat.Owner,
-					HealAmount =
-						target.UnitCardBattleStat.GetValueByValueType(UnitValueType.MaxHp)
-				});
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Regeneration, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			
 			routineDone = true;
 		}

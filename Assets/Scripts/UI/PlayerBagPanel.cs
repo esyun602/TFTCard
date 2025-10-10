@@ -56,6 +56,7 @@ public class PlayerBagPanel : UIInstance
 		NoticeSystem.Instance.Subscribe<BagUITileHoverNotice>(OnTileHover);
 		NoticeSystem.Instance.Subscribe<BagUICardPlaceNotice>(OnCardDeploy);
 		NoticeSystem.Instance.Subscribe<BagUICardUnPlaceNotice>(OnCardUnDeploy);
+		NoticeSystem.Instance.Subscribe<UnitSkillCardUpdateNotice>(OnUnitSkillCardChange);
 		InitializeBagUnitCards();
 		InitializeDeckCards();
 		InitializeField();
@@ -74,6 +75,7 @@ public class PlayerBagPanel : UIInstance
 		NoticeSystem.Instance.Unsubscribe<BagUITileHoverNotice>(OnTileHover);
 		NoticeSystem.Instance.Unsubscribe<BagUICardPlaceNotice>(OnCardDeploy);
 		NoticeSystem.Instance.Unsubscribe<BagUICardUnPlaceNotice>(OnCardUnDeploy);
+		NoticeSystem.Instance.Unsubscribe<UnitSkillCardUpdateNotice>(OnUnitSkillCardChange);
 		foreach (var kvp in cardDictionary)
 		{
 			var card = kvp.Value;
@@ -95,6 +97,7 @@ public class PlayerBagPanel : UIInstance
 			var tile = CalculateFieldUnitCardTile(deployInfos[i]);
 			var bagUICard = bagPool.Instantiate(tile.GetPosition()).GetComponent<BagUnitCard>();
 			bagUICard.Initialize(deployInfos[i].TargetCard, tile);
+			bagUICard.CanUnplaced = !deployInfos[i].IsFixed;
 			cardDictionary.Add(deployInfos[i].TargetCard, bagUICard);
 			CalculateFieldUnitCardTile(deployInfos[i]).IsOccupied = true;
 		}
@@ -111,6 +114,7 @@ public class PlayerBagPanel : UIInstance
 			var pos = CalculateBagUnitCardPositionWithIndex(idx++);
 			var bagUICard = bagPool.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagUnitCard>();
 			bagUICard.Initialize(card, pos);
+			bagUICard.CanUnplaced = true;
 			cardDictionary.Add(card, bagUICard);
 			
 		}
@@ -154,6 +158,14 @@ public class PlayerBagPanel : UIInstance
 		}
 	}
 
+	private void OnUnitSkillCardChange(UnitSkillCardUpdateNotice _)
+	{
+		SyncCardUIToPlayInfo();
+
+		UpdateAndPropagateTargetPos();
+		SyncScroll();
+	}
+	
 	private void OnCardDeploy(BagUICardPlaceNotice m)
 	{
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
@@ -181,7 +193,6 @@ public class PlayerBagPanel : UIInstance
 
 
 		playInfo.DeployCard(m.TargetTile.Row, m.TargetTile.Col, m.TargetCard.TargetUnitCard);
-		m.TargetCard.transform.SetParent(UnityObjectPool.GetOrCreateUIPool("BagUnitCard").transform);
 		SyncCardUIToPlayInfo();
 
 		UpdateAndPropagateTargetPos();
@@ -194,13 +205,15 @@ public class PlayerBagPanel : UIInstance
 		//m.TargetTile.IsOccupied = false;
 
 		var playInfo = Game.Instance.GetPlayer().CurrentPlayInfo;
+		if (playInfo.FieldDeployLocationInfo.Find((x) => x.TargetCard == m.TargetCard.TargetCard).IsFixed)
+		{
+			return;
+		}
 
 		playInfo.UndeployCard(m.TargetCard.TargetUnitCard);
 		//todo: pooledObj를 보유하고 있는게 나을수도
 		/*cardDictionary[unitSkillCard].GetComponent<PooledUnityObject>().Dispose();
 		cardDictionary.Remove(unitSkillCard);*/
-
-		m.TargetCard.transform.SetParent(DeckCardArea);
 
 		SyncCardUIToPlayInfo();
 
@@ -230,7 +243,12 @@ public class PlayerBagPanel : UIInstance
 				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagUnitCard")
 					.Instantiate(pos, parent: DeckCardArea, useLocalPos: true).GetComponent<BagUnitCard>();
 				bagUICard.Initialize(card, pos);
+				bagUICard.CanUnplaced = true;
 				cardDictionary.Add(card, bagUICard);
+			}
+			else
+			{
+				cardDictionary[card].transform.SetParent(DeckCardArea);
 			}
 		}
 
@@ -246,6 +264,10 @@ public class PlayerBagPanel : UIInstance
 				bagUICard.Initialize(card, pos);
 				cardDictionary.Add(card, bagUICard);
 			}
+			else
+			{
+				cardDictionary[card].transform.SetParent(DeckCardArea);
+			}
 		}
 
 		foreach (var info in locationInfos)
@@ -255,8 +277,13 @@ public class PlayerBagPanel : UIInstance
 				var tile = CalculateFieldUnitCardTile(info);
 				var bagUICard = UnityObjectPool.GetOrCreateUIPool("BagUnitCard")
 					.Instantiate(tile.GetPosition()).GetComponent<BagUnitCard>();
+				bagUICard.CanUnplaced = !info.IsFixed;
 				bagUICard.Initialize(info.TargetCard, tile);
 				cardDictionary.Add(info.TargetCard, bagUICard);
+			}
+			else
+			{
+				cardDictionary[info.TargetCard].transform.SetParent(UnityObjectPool.GetOrCreateUIPool("BagUnitCard").transform);
 			}
 		}
 

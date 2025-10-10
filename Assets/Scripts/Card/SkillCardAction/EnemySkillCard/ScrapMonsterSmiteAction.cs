@@ -8,9 +8,6 @@ public class ScrapMonsterSmiteAction : UnitSkillCardActionBase
 	{
 	}
 
-	public override object[] DescParams => new object[]
-		{ (BattleStat?.Owner.Name ?? Stat.Owner.Name), StatFallback.GetValuesByValueType(UnitValueType.Attack) };
-
 	public override IEnumerable<ITile> Targets
 	{
 		get
@@ -38,7 +35,7 @@ public class ScrapMonsterSmiteAction : UnitSkillCardActionBase
 					{
 						DamageType = DamageType.NormalAttack,
 						Sender = BattleStat.Owner,
-						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(UnitValueType.Hp)
+						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) * 2
 					});
 				}
 			}
@@ -58,7 +55,7 @@ public class ScrapMonsterSmiteAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 
