@@ -61,7 +61,7 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

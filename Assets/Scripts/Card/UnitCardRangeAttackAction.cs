@@ -64,7 +64,7 @@ public class UnitCardRangeAttackAction : UnitCardActionBase
 
 	protected override void OnTrigger()
 	{
-		owner.RunAttackMotion();
+		owner.AnimationController.RunAttackMotion();
 		
 		timePassed = 0f;
 	}

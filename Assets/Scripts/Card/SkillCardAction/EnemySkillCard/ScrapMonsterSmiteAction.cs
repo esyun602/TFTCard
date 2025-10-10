@@ -55,7 +55,7 @@ public class ScrapMonsterSmiteAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.RunAttackMotion();
+		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

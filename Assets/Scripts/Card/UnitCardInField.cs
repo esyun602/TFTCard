@@ -24,80 +24,25 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 	public Transform FrameTransform { get; private set; }
 	private SimpleStateMachine cardObjectStateMachine = new();
-	private Material materialCache;
-	private Material Material => materialCache == null ? materialCache = FrameTransform.Find("DamageFx").GetComponent<MeshRenderer>().material : materialCache;
 	public IBattleObjectStat UnitCardBattleStat { get; private set; }
 	public IDamagedBehaviour DamagedBehaviour { get; private set; }
+	public BattleObjectAnimationController AnimationController { get; private set; }
 
 	private FieldCardFxHandler fxHandler;
 	
 	private void Awake()
 	{
 		FrameTransform = transform.Find("CardFrame").transform;
+		AnimationController = new BattleObjectAnimationController(this);
 	}
 
 	public void CatchMessage(Message m)
 	{
-		//todo: 분리
-		if (m is DamageNotice)
-		{
-			RunHitAction();
-		}
-		else if (m is DamageDodgeNotice)
-		{
-			RunDodgeAction();
-		}
 		NoticeSystem.Instance.SendSync(m, cardObjectStateMachine);
+		NoticeSystem.Instance.SendSync(m, AnimationController);
 	}
 
 	//todo: 나중에 그냥 애니메이션 셋으로 통일
-	private void RunHitAction()
-	{
-		var movSeq = DOTween.Sequence();
-		movSeq.Append(FrameTransform
-			.DOLocalMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right,
-				0.15f).SetEase(Ease.InQuart));
-		movSeq.Append(FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-
-		Material.DOFade(1, 0.15f).SetLoops(2, LoopType.Yoyo);
-		
-		//틴트, 데미지 텍스트
-		
-		movSeq.Play();
-	}
-
-	private bool onAttack;
-	public void RunAttackMotion()
-	{
-		onAttack = true;
-		var rotSeq = DOTween.Sequence();
-		rotSeq.Append(FrameTransform.DOLocalRotate(
-			Quaternion.AngleAxis((ObjectType == ObjectType.Ally ? -1 : 1) * 20f, Vector3.forward).eulerAngles,
-			0.15f).SetEase(Ease.InQuart));
-
-		rotSeq.Append(FrameTransform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-
-		var movSeq = DOTween.Sequence();
-		movSeq.Append(FrameTransform
-			.DOLocalMove((ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * Transform.right,
-				0.15f).SetEase(Ease.InQuart));
-		movSeq.Append(FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-		movSeq.AppendCallback(() => onAttack = false);
-
-		movSeq.Play();
-		rotSeq.Play();
-	}
-	
-	private void RunDodgeAction()
-	{
-		var movSeq = DOTween.Sequence();
-		movSeq.Append(FrameTransform
-			.DOLocalMove((ObjectType == ObjectType.Ally ? -1f : 1f) * 1f * Transform.right,
-				0.15f).SetEase(Ease.InQuart));
-		movSeq.Append(FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
-		
-		movSeq.Play();
-	}
 
 	public void UpdateBlockInput(InputBlockFlag flag)
 	{
@@ -363,7 +308,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			{
 				return Constant.FieldMoveYPos;
 			}
-			else if (owner.onAttack)
+			else if (owner.AnimationController.OnAnimation)
 			{
 				return Constant.AttackYPos;
 			}
