@@ -509,7 +509,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		private BattleCardObjectInHand owner;
 		private IBattleObject targetObject;
 		private float timePassed;
-		private Action currentUpdateAction;
 
 		public TargetingCardObjectUsedInHandState(BattleCardObjectInHand owner, ITile targetTile)
 		{
@@ -521,7 +520,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		public void Enter(IState prevState)
 		{
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
-			currentUpdateAction = UpdatePreAction;
 			timePassed = 0f;
 			
 			if (owner.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
@@ -533,7 +531,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
 			}
 			
-			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(new UpdatableRoutine(UpdateFrame));
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(owner.TargetCard.Action.UpdatableRoutine);
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
 
 		}
@@ -542,48 +540,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		{
 			NoticeSystem.Instance.Publish(new SkillHandCardEndUseNotice(owner));
 		}
-
-		private void UpdatePreAction()
-		{
-			timePassed += Time.deltaTime;
-			if (timePassed > 0f)
-			{
-				timePassed = 0f;
-				owner.TargetCard.Action.Trigger();
-				currentUpdateAction = UpdateAction;
-			}
-		}
-
-		private void UpdateAction()
-		{
-			owner.TargetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
-			if (routineDone)
-			{
-				currentUpdateAction = UpdateEndAction;
-			}
-		}
-
-		private void UpdateEndAction()
-		{
-			timePassed += Time.deltaTime;
-			if (timePassed > 0f)
-			{
-				timePassed = 0f;
-				currentUpdateAction = null;
-			}
-		}
-
-
-		private void UpdateFrame(float dt, out bool routineDone)
-		{
-			routineDone = false;
-			currentUpdateAction?.Invoke();
-			if (currentUpdateAction == null)
-			{
-				owner.OnUseComplete();
-				routineDone = true;
-			}
-		}
 	}
 
 	private class GlobalCardObjectUsedInHandState : IState
@@ -591,7 +547,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		private BattleCardObjectInHand owner;
 		private IBattleObject targetObject;
 		private float timePassed;
-		private Action currentUpdateAction;
 
 		public GlobalCardObjectUsedInHandState(BattleCardObjectInHand owner)
 		{
@@ -601,7 +556,6 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		public void Enter(IState prevState)
 		{
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
-			currentUpdateAction = UpdatePreAction;
 			timePassed = 0f;
 						
 			if (owner.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
@@ -613,56 +567,13 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
 			}
 			
-			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(new UpdatableRoutine(UpdateFrame));
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(owner.TargetCard.Action.UpdatableRoutine);
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
 		}
 
 		public void Exit(IState nextState)
 		{
 			NoticeSystem.Instance.Publish(new SkillHandCardEndUseNotice(owner));
-		}
-
-		private void UpdatePreAction()
-		{
-			timePassed += Time.deltaTime;
-			if (timePassed > 0f)
-			{
-				timePassed = 0f;
-				owner.TargetCard.Action.Trigger();
-				currentUpdateAction = UpdateAction;
-			}
-		}
-
-		private void UpdateAction()
-		{
-			owner.TargetCard.Action.UpdatableRoutine.UpdateFrame(Time.deltaTime, out var routineDone);
-			if (routineDone)
-			{
-				currentUpdateAction = UpdateEndAction;
-			}
-		}
-
-		private void UpdateEndAction()
-		{
-			timePassed += Time.deltaTime;
-			if (timePassed > 0f)
-			{
-				timePassed = 0f;
-				currentUpdateAction = null;
-			}
-		}
-
-
-		public void UpdateFrame(float dt, out bool routineDone)
-		{
-			routineDone = false;
-			currentUpdateAction?.Invoke();
-			if (currentUpdateAction == null)
-			{
-				owner.OnUseComplete();
-
-				routineDone = true;
-			}
 		}
 	}
 }

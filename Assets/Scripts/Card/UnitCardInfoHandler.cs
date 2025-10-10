@@ -131,6 +131,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			case IconCategory.HpRelevant:
 				var icon = UnityObjectPool.GetOrCreatePool("Icon", resourceName).Instantiate(parent: hpRelevantIconAnchor).GetComponent<KeywordIcon>();
 				icon.transform.localRotation = quaternion.identity;
+				icon.transform.localScale = Vector3.one;
 				iconDict[keyword] = icon;
 				icon.Value = level;
 				icon.Importance = keyword.Importance;
@@ -139,6 +140,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 			case IconCategory.AttackRelevant:
 				icon = UnityObjectPool.GetOrCreatePool("Icon", resourceName).Instantiate(parent: attackRelevantIconAnchor).GetComponent<KeywordIcon>();
 				icon.transform.localRotation = quaternion.identity;
+				icon.transform.localScale = Vector3.one;
 				iconDict[keyword] = icon;
 				icon.Value = level;
 				icon.Importance = keyword.Importance;

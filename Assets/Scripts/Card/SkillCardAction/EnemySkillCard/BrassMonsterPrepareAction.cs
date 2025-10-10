@@ -33,6 +33,7 @@ public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
+		BattleStat.Owner.AnimationController.RunGaugeMotion();
 	}
 
 	protected override void OnCancel()

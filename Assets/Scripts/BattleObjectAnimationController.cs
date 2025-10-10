@@ -4,6 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using MessageSystem;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -109,14 +110,14 @@ public class BattleObjectAnimationController : IMessageReceiver
         onAnimation++;
         var rotSeq = DOTween.Sequence();
         rotSeq.Append(owner.FrameTransform.DOLocalRotate(
-            Quaternion.AngleAxis((owner.ObjectType == ObjectType.Ally ? 1 : -1) * 20f, Vector3.forward).eulerAngles,
+            Quaternion.AngleAxis((owner.ObjectType == ObjectType.Ally ? 1 : -1) * 10f, Vector3.forward).eulerAngles,
             0.15f).SetEase(Ease.InQuart));
 
         rotSeq.Append(owner.FrameTransform.DOLocalRotate(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
 
         var movSeq = DOTween.Sequence();
         movSeq.Append(owner.FrameTransform
-            .DOLocalMove((owner.ObjectType == ObjectType.Ally ? 1f : -1f) * 3f * -owner.Transform.right,
+            .DOLocalMove((owner.ObjectType == ObjectType.Ally ? 1f : -1f) * 1.5f * -owner.Transform.right,
                 0.15f).SetEase(Ease.InQuart));
         movSeq.Append(owner.FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
         movSeq.AppendCallback(() => 
@@ -124,6 +125,25 @@ public class BattleObjectAnimationController : IMessageReceiver
 
         movSeq.Play();
         rotSeq.Play();
+    }
+    
+    public void RunGaugeMotion()
+    {
+        var movSeq = DOTween.Sequence();
+        movSeq.Append(owner.FrameTransform.DOPunchScale(Vector3.one * 0.2f, 0.4f, 0, 0));
+        
+        var textSeq = DOTween.Sequence();
+        var text = UnityObjectPool.GetOrCreatePool("Fx", "TextFx", 5f)
+            .Instantiate(owner.Position.GetX0z(5f) + Vector3.forward * 1f, parent: owner.Transform);
+        var tmp = text.GetComponentInChildren<TextMeshPro>();
+        tmp.text = "준비중...";
+        textSeq.Append(tmp.DOFade(0f, 1.5f));
+        textSeq.Join(text.transform.DOLocalMoveY(1.5f, 1f).SetEase(Ease.OutQuart));
+        textSeq.AppendInterval(5f);
+        textSeq.AppendCallback(() => tmp.alpha = 1f);
+        
+        movSeq.Play();
+        textSeq.Play();
     }
 
 	

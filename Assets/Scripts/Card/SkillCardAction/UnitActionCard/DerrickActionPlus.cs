@@ -37,7 +37,7 @@ public class DerrickActionPlus : UnitSkillCardActionBase
         routineDone = false;
 
         timePassed += dt;
-        if (timePassed > 0f)
+        if (timePassed > 0.1f && timePassed - dt < 0.1f)
         {
             var dmg = BattleStat.GetValueByValueType(UnitValueType.Attack);
 
@@ -56,7 +56,10 @@ public class DerrickActionPlus : UnitSkillCardActionBase
                 
                 targetObj.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
             }
-			
+        }
+
+        if (timePassed > 2f)
+        {
             routineDone = true;
         }
     }
@@ -65,6 +68,7 @@ public class DerrickActionPlus : UnitSkillCardActionBase
     {
         timePassed = 0f;
         target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
+        BattleStat.Owner.AnimationController.RunReboundMotion();
     }
 
     protected override void OnCancel()

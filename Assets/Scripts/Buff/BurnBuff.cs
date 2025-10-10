@@ -18,15 +18,15 @@ public class BurnBuff : BuffBase
 
 	private void OnTurnEnd(PlayerTurnEndNotice m)
 	{
+		if (Level <= 0)
+		{
+			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
+		}
+		
 		target.Damage(new DamageInfo()
 		{
 			Dmg = Level--,
 		});
-
-		if (Level == 0)
-		{
-			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
-		}
 	}
 
 	protected override void OnRemove()
