@@ -6,7 +6,7 @@
     "StatSpecName": "OverheatPropulsionStat",
     "CardResource": "skill_overheatpropulsion_default",
     "ActionSpecName": "OverheatPropulsion",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 1,
@@ -15,7 +15,7 @@
     "StatSpecName": "FlamethrowerStat",
     "CardResource": "skill_flamethrower_default",
     "ActionSpecName": "Flamethrower",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 2,
@@ -24,7 +24,7 @@
     "StatSpecName": "VaperActionStat",
     "CardResource": "skill_vaperaction_default",
     "ActionSpecName": "VaperAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 3,
@@ -33,7 +33,7 @@
     "StatSpecName": "HighPressureBombStat",
     "CardResource": "skill_highpressurebomb_default",
     "ActionSpecName": "HighPressureBomb",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 4,
@@ -60,7 +60,7 @@
     "StatSpecName": "VilhelmActionStat",
     "CardResource": "skill_vilhelmaction_default",
     "ActionSpecName": "VilhelmAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 7,
@@ -69,7 +69,7 @@
     "StatSpecName": "CollectorActionStat",
     "CardResource": "skill_collectoraction_default",
     "ActionSpecName": "CollectorAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 8,
@@ -78,7 +78,7 @@
     "StatSpecName": "GrahamActionStat",
     "CardResource": "skill_grahamaction_default",
     "ActionSpecName": "GrahamAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 9,
@@ -87,7 +87,7 @@
     "StatSpecName": "NormanActionStat",
     "CardResource": "skill_normanaction_default",
     "ActionSpecName": "NormanAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 10,
@@ -96,7 +96,7 @@
     "StatSpecName": "DawsonActionStat",
     "CardResource": "skill_dawsonaction_default",
     "ActionSpecName": "DawsonAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 11,
@@ -105,7 +105,7 @@
     "StatSpecName": "DesmondActionStat",
     "CardResource": "skill_desmondaction_default",
     "ActionSpecName": "DesmondAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 12,
@@ -114,7 +114,7 @@
     "StatSpecName": "DerrickActionStat",
     "CardResource": "skill_derrickaction_default",
     "ActionSpecName": "DerrickAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 13,
@@ -123,7 +123,7 @@
     "StatSpecName": "DustinActionStat",
     "CardResource": "skill_dustinaction_default",
     "ActionSpecName": "DustinAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 14,
@@ -132,7 +132,7 @@
     "StatSpecName": "DawsonActionPlusStat",
     "CardResource": "skill_dawsonactionplus_default",
     "ActionSpecName": "DawsonActionPlus",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 15,
@@ -141,7 +141,7 @@
     "StatSpecName": "DesmondActionPlusStat",
     "CardResource": "skill_desmondactionplus_default",
     "ActionSpecName": "DesmondActionPlus",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 16,
@@ -150,7 +150,7 @@
     "StatSpecName": "DerrickActionPlusStat",
     "CardResource": "skill_derrickactionplus_default",
     "ActionSpecName": "DerrickActionPlus",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 17,
@@ -159,7 +159,7 @@
     "StatSpecName": "DustinActionPlusStat",
     "CardResource": "skill_dustinactionplus_default",
     "ActionSpecName": "DustinAction",
-    "CardUseType": ""
+    "CardUseType": "Targeting"
   },
   {
     "Id": 18,
@@ -168,7 +168,7 @@
     "StatSpecName": "BiologicalExperimentStat",
     "CardResource": "skill_biologicalexperiment_default",
     "ActionSpecName": "BiologicalExperiment",
-    "CardUseType": "Targeting"
+    "CardUseType": "Global"
   },
   {
     "Id": 19,
@@ -213,7 +213,7 @@
     "StatSpecName": "CabinotierActionStat",
     "CardResource": "skill_cabinotieraction_default",
     "ActionSpecName": "CabinotierAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 24,
@@ -222,7 +222,7 @@
     "StatSpecName": "AirshipActionStat",
     "CardResource": "skill_airshipaction_default",
     "ActionSpecName": "AirshipAction",
-    "CardUseType": ""
+    "CardUseType": "Global"
   },
   {
     "Id": 25,

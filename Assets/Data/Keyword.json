@@ -7,7 +7,8 @@
     "Importance": 0,
     "NameKey": "keyword_catalyst",
     "DescKey": "keyword_catalyst_desc",
-    "PoolName": "CatalystFx"
+    "PoolName": "CatalystFx",
+    "ReducePoolName": ""
   },
   {
     "Name": "Healban",
@@ -17,7 +18,8 @@
     "Importance": 0,
     "NameKey": "keyword_healban",
     "DescKey": "keyword_healban_desc",
-    "PoolName": ""
+    "PoolName": "",
+    "ReducePoolName": ""
   },
   {
     "Name": "HpAdded",
@@ -27,7 +29,8 @@
     "Importance": 0,
     "NameKey": "keyword_hpadded",
     "DescKey": "keyword_hpadded_desc",
-    "PoolName": ""
+    "PoolName": "",
+    "ReducePoolName": ""
   },
   {
     "Name": "Burn",
@@ -37,7 +40,8 @@
     "Importance": 0,
     "NameKey": "keyword_burn",
     "DescKey": "keyword_burn_desc",
-    "PoolName": ""
+    "PoolName": "BurnFx",
+    "ReducePoolName": ""
   },
   {
     "Name": "AttackAdded",
@@ -47,17 +51,8 @@
     "Importance": 0,
     "NameKey": "keywoord_attackadded",
     "DescKey": "keywoord_attackadded_desc",
-    "PoolName": "TestAttackAddFx"
-  },
-  {
-    "Name": "AttackReduced",
-    "ValueType": "Attack",
-    "IconCategory": "",
-    "IconResource": "",
-    "Importance": 0,
-    "NameKey": "keyword_attackreduced",
-    "DescKey": "keyword_attackreduced_desc",
-    "PoolName": ""
+    "PoolName": "TestAttackAddFx",
+    "ReducePoolName": "WeakFx"
   },
   {
     "Name": "Shield",
@@ -67,6 +62,18 @@
     "Importance": 0,
     "NameKey": "keyword_shield",
     "DescKey": "keyword_shield_desc",
-    "PoolName": ""
+    "PoolName": "ShieldFx",
+    "ReducePoolName": ""
+  },
+  {
+    "Name": "Regeneration",
+    "ValueType": "Regeneration",
+    "IconCategory": "HpRelevant",
+    "IconResource": "IconRegeneration",
+    "Importance": 0,
+    "NameKey": "keyword_regeneration",
+    "DescKey": "keyword_regeneration_desc",
+    "PoolName": "RegenerationFx",
+    "ReducePoolName": ""
   }
 ]
