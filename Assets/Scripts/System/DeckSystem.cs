@@ -375,17 +375,19 @@ public class DeckSystem
 		{
 			return;
 		}
-		
-		PlayerHand.RemoveCard(target);
-		if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
+
+		if (PlayerHand.RemoveCard(target))
 		{
-			enemyDropCardList.Add(target);
+			if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
+			{
+				enemyDropCardList.Add(target);
+			}
+			else
+			{
+				dropCardList.Add(target);
+			}
+			target.Deactivate();
 		}
-		else
-		{
-			dropCardList.Add(target);
-		}
-		target.Deactivate();
 	}
 
 	public void RemoveCard(BattleCardObjectInHand target)
@@ -457,14 +459,20 @@ public class DeckSystem
 
 	public void OnEnemyRemove(UnitCardInField enemy)
 	{
-		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
+		var cards = totalList.OfType<UnitSkillCardInHand>()
+			.Where(x => ((UnitSkillCardBattleStat)x.Stat).Owner == enemy);
+		var removeCardList = new List<UnitSkillCardInHand>();
+		foreach (var card in cards)
 		{
-			var obj = GetSkillCardInstance(card) as UnitSkillCardInHand;
+			if (card == null) return;
 
-			if (obj == null) return;
+			card.SetDeadState();
+			removeCardList.Add(card);
+		}
 
-			obj.SetDeadState();
-			RemoveCard(obj);
+		foreach (var card in removeCardList)
+		{
+			RemoveCard(card);
 		}
 		
 		ShuffleEnemyDeck();

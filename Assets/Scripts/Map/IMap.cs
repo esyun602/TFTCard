@@ -106,6 +106,11 @@ public static class IMapExtensions
 	{
 		var (row, _) = map.GetTileCoordOf(owner);
 
+		if (row < 0)
+		{
+			return -1;
+		}
+
 		for (var offset = 0; offset < map.RowCnt; offset++)
 		{
 			if (IsBattleObjectInRow(row + offset))

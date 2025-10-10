@@ -318,7 +318,7 @@ public class BattleMap : IMap
 	/// </summary>
 	public (int, int) GetTileCoord(ITile tile)
 	{
-		return (tile.GetPosition().ToRowCol(rowPosList, colPosList));
+		return (tile?.GetPosition().ToRowCol(rowPosList, colPosList)) ?? (-1, -1);
 	}
 
 	public ITile[] GetTiles()

@@ -124,7 +124,7 @@ public class TurnSystem
 
 	private void UpdatePlayerTurn(float dt)
 	{
-			playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
+		playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
 		if (done)
 		{
 			NoticeSystem.Instance.PublishSync(new PlayerTurnEndNotice(playerTurn));

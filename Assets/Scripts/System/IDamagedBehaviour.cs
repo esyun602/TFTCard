@@ -7,7 +7,7 @@ public enum DamageType
 	SkillAttack = 0,
 	NormalAttack = 1,
 	Pierce = 2,
-	Bomb=3,
+	Bomb = 3,
 }
 
 public struct DamageInfo

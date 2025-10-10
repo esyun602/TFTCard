@@ -66,7 +66,8 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 				obj.Damage(new DamageInfo()
 				{
 					Sender = BattleStat.Owner,
-					Dmg = dmg / 2
+					Dmg = dmg / 2,
+					DamageType = DamageType.Bomb
 				});
 			}
 			

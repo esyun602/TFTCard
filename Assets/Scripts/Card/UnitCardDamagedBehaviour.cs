@@ -62,6 +62,13 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 
 	public void Die(IBattleObject sender)
 	{
+		UnityObjectPool.GetOrCreatePool("Fx", "DieFx").Instantiate(owner.Position, quaternion.identity, followTarget: owner.Transform);
+		owner.AnimationController.RunDieAction();
+		UpdatableRoutine.CurrentRoutine.AddInterrupt(() => RunDieRoutine(sender), 2f);
+	}
+
+	private void RunDieRoutine(IBattleObject sender)
+	{
 		owner.DestroyObject(sender);
 	}
 

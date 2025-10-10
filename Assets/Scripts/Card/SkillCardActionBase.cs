@@ -24,7 +24,12 @@ public abstract class SkillCardActionBase : IAction
 	protected SkillCardActionBase(SkillCardActionSpec spec)
 	{
 		descKey = spec.DescKey;
-		routine = new UpdatableRoutine(UpdateFrame, TriggerRoutine, CompleteRoutine);
+		routine = new UpdatableRoutine(UpdateFrame, TriggerRoutine, CompleteRoutine, CanTrigger);
+	}
+
+	protected virtual bool CanTrigger()
+	{
+		return true;
 	}
 	
 	public void Trigger()

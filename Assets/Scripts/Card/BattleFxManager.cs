@@ -22,8 +22,17 @@ public class BattleFxManager : IUpdatable
 		public void AddQueueBuff(IBuff buff)
 		{
 			var keywordInfo = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(buff.Keyword);
-			var pool = UnityObjectPool.GetOrCreatePool("Fx",
-				buff.Level > 0 ? keywordInfo.PoolName : keywordInfo.ReducePoolName, disposeTime: 5f);
+			UnityObjectPool pool = null;
+			if (buff.Level > 0)
+			{
+				pool = UnityObjectPool.GetOrCreatePool("Fx",
+					keywordInfo.PoolName, disposeTime: 5f);
+			}
+			else if(buff.Level < 0)
+			{
+				pool = UnityObjectPool.GetOrCreatePool("Fx",
+					keywordInfo.ReducePoolName, disposeTime: 5f);
+			}
 			
 			if (pool == null) return;
 			

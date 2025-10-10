@@ -15,7 +15,8 @@ public enum InputBlockFlag
 	Hover = 1 << 0,
 	Select = 1 << 1,
 	TurnEnd = 1 << 2,
-	All = Hover | Select | TurnEnd
+	All = Hover | Select | TurnEnd,
+	CardInteraction = Hover | Select,
 }
 
 //todo: transform cache?
@@ -80,7 +81,13 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;
 		ChangeState(new CardObjectNormalInHandState(this));
-		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard, Stat, CanSelect);
+		GetComponentInChildren<ICardInfoHandler>().Initialize(TargetCard, Stat, () =>
+		{
+			return CanSelect()
+			       && ((blockInput & InputBlockFlag.CardInteraction) == InputBlockFlag.None
+					|| cardObjectStateMachine.CurrentState is GlobalSkillCardSelectedInHandState
+					|| cardObjectStateMachine.CurrentState is TargetingSkillCardSelectedInHandState);
+		});
 		OnActivate();
 	}
 

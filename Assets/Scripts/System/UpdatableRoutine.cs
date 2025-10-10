@@ -16,12 +16,15 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 	private Action initializeAction;
 	private Action completeAction;
-	
-	public UpdatableRoutine(UpdatableRoutineDelegate routine, Action initializeAction = null, Action completeAction = null)
+	private Func<bool> triggerCondition;
+
+	private UpdatableRoutineDelegate updateFunc;
+	public UpdatableRoutine(UpdatableRoutineDelegate routine, Action initializeAction = null, Action completeAction = null, Func<bool> triggerCondition = null)
 	{
 		this.baseRoutine = routine;
 		this.initializeAction = initializeAction;
 		this.completeAction = completeAction;
+		this.triggerCondition = triggerCondition;
 	}
 
 	public void Initialize()
@@ -29,11 +32,28 @@ public class UpdatableRoutine : IUpdatableRoutine
 		currentSubRoutine = baseRoutine;
 		interruptQueue = new();
 		chainQueue = new();
+
+		if (triggerCondition != null && !triggerCondition.Invoke())
+		{
+			updateFunc = TriggerFailRoutine;
+			return;
+		}
+		else
+		{
+			updateFunc = CommonRoutine;
+			
+		}
+
 		
 		initializeAction?.Invoke();
 	}
 
 	public void UpdateFrame(float dt, out bool routineDone)
+	{
+		updateFunc.Invoke(dt, out routineDone);
+	}
+
+	private void CommonRoutine(float dt, out bool routineDone)
 	{
 		if (currentSubRoutine == null && chainQueue.TryDequeue(out var routine))
 		{
@@ -81,6 +101,11 @@ public class UpdatableRoutine : IUpdatableRoutine
 				}
 			}
 		}
+	}
+
+	private void TriggerFailRoutine(float dt, out bool routineDone)
+	{
+		routineDone = true;
 	}
 
 	public void AddChain(IUpdatableRoutine routine)
