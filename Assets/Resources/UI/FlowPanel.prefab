@@ -282,7 +282,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 66ea076a7698c454dbaefe3512f7deae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c71e6507ba44479b9687997ba3116de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -308,7 +308,6 @@ MonoBehaviour:
   TestNodeEnd: {fileID: 7883270164957933494}
   TestNodeTop: {fileID: 8314130865725430737}
   TestNodeBottom: {fileID: 7926732683796490263}
-  flowNodePrefab: {fileID: 8475190210933656302, guid: bc4e0eeecfee3af4ba8326b4f957a1a7, type: 3}
 --- !u!1 &5332350039390360882
 GameObject:
   m_ObjectHideFlags: 0
