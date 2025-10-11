@@ -113,7 +113,10 @@ public class UIManager
 		canvas.renderMode = GetRenderModeFromType(type);
 		//todo: 카메라 할당 픽스
 		canvas.worldCamera = CurrentUICamera;
-		canvas.planeDistance = Constant.StageCameraHeight;
+		if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+		{
+			canvas.planeDistance = Constant.StageCameraHeight;
+		}
 		return canvas;
 	}
 
