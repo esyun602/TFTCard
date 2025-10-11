@@ -36,6 +36,10 @@ public class DerrickActionPlus : UnitSkillCardActionBase
 
         routineDone = false;
 
+        if (timePassed == 0)
+        {
+            BattleStat.Owner.AnimationController.RunReboundMotion();
+        }
         timePassed += dt;
         if (timePassed > 0.1f && timePassed - dt < 0.1f)
         {
@@ -68,7 +72,6 @@ public class DerrickActionPlus : UnitSkillCardActionBase
     {
         timePassed = 0f;
         target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
-        BattleStat.Owner.AnimationController.RunReboundMotion();
     }
 
     protected override void OnCancel()

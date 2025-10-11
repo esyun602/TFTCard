@@ -297,7 +297,15 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
 		private float GetYValue(bool isMoving)
 		{
-			if (isHovered)
+			if (owner.IsHighlighted)
+			{
+				return Constant.HighlightYPos;
+			}
+			else if (owner.AnimationController.OnAnimation)
+			{
+				return Constant.AttackYPos;
+			}
+			else if (isHovered)
 			{
 				return Constant.FieldHoverYPos;
 			}
@@ -308,10 +316,6 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			else if (isMoving)
 			{
 				return Constant.FieldMoveYPos;
-			}
-			else if (owner.AnimationController.OnAnimation)
-			{
-				return Constant.AttackYPos;
 			}
 			else
 			{
@@ -352,6 +356,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 			startPos = owner.transform.position;
 		}
 	}
+
+	public bool IsHighlighted { get; set; }
 
 	/// <summary>
 	/// 마우스 포인터를 따라가는 상태

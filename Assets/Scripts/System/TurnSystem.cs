@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MessageSystem;
+using UnityEngine;
 
 public class TurnSystem
 {
@@ -9,7 +10,7 @@ public class TurnSystem
 
 	private int phase;
 	//todo:fix
-	private List<BattleCardObjectInHand> cardList;
+	private List<EnemySkillCardObject> cardList;
 	private List<int> currentUsableCosts;
 	private List<int> currentCostCumulative;
 	private int currentUsedCost;
@@ -19,26 +20,38 @@ public class TurnSystem
 		get => currentUsedCost;
 		set
 		{
-			while (phase < currentCostCumulative.Count && currentCostCumulative[phase] <= value)
+			if (phase < currentCostCumulative.Count && currentCostCumulative[phase] <= value)
 			{
 				//todo: 죽었을 때? 데미지만 먼저 적용? 
-				RegisterPlayerTurnRoutine(cardList[phase].TargetCard.Action.UpdatableRoutine);
+				var routine = cardList[phase].TargetCard.Action.UpdatableRoutine;
+				routine.AddChainAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.3f, () => CurrentUsedCost = value));
+				routine.AddInterruptAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
+				RegisterPlayerTurnRoutine(routine);
+
 				//todo: fix
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(cardList[phase]);
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(cardList[phase]);
+				currentUsedCost = currentCostCumulative[phase];
+				
 				phase++;
 			}
-
-			currentUsedCost = value;
+			else
+			{
+				currentUsedCost = Mathf.Min(value, CurrentTotalCost);
+			}
+			
+			NoticeSystem.Instance.Publish(new CurrentUsedCostChangeNotice(currentUsedCost));
 		}
 	}
 
-	public int CurrentTotalCost => currentCostCumulative[^1];
+	public int CurrentTotalCost => currentCostCumulative.Count == 0 ? 0 : currentCostCumulative[^1];
 
-	public void RegisterEnemyCard(BattleCardObjectInHand card)
+	public void RegisterEnemyCard(EnemySkillCardObject card)
 	{
 		cardList.Add(card);
 		currentUsableCosts.Add(-card.Stat.GetValueByValueType(SkillValueType.Cost));
 		currentCostCumulative.Add((currentCostCumulative.Count == 0 ? 0 : currentCostCumulative[^1]) + currentUsableCosts[^1]);
+		
+		NoticeSystem.Instance.Publish(new EnemyCardRegisteredNotice(CurrentTotalCost, currentCostCumulative, cardList));
 	}
 	
 	private Action<float> currentUpdateRoutine;
@@ -72,7 +85,7 @@ public class TurnSystem
 	
 	private void OnTurnEndButtonClick(TurnEndClickNotice m)
 	{
-		CurrentUsedCost = CurrentTotalCost;
+		CurrentUsedCost = int.MaxValue;
 		playerTurn.EndTurn();
 	}
 
@@ -90,7 +103,7 @@ public class TurnSystem
 		currentUsableCosts.Clear();
 		currentCostCumulative.Clear();
 		phase = 0;
-		currentUsedCost = 0;
+		CurrentUsedCost = 0;
 			
 		playerTurn.StartTurn();
 		currentUpdateRoutine = UpdatePlayerTurn;

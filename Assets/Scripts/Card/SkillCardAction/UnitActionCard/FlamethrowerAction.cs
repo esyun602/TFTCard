@@ -28,6 +28,10 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunAttackMotion();
+		}
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
@@ -58,7 +62,6 @@ public class FlamethrowerAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

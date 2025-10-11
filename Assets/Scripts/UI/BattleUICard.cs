@@ -10,7 +10,6 @@ public class BattleUICard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 {
 	private SimpleStateMachine stateMachine;
 	private ICardInfoHandler infoHandler;
-	private BattleCardObjectInHand targetCard;
 	private void Awake()
 	{
 		infoHandler = GetComponentInChildren<ICardInfoHandler>();
@@ -19,17 +18,16 @@ public class BattleUICard : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	
 	public void Initialize(BattleCardObjectInHand targetCard)
 	{
-		this.targetCard = targetCard;
 		stateMachine.ChangeState(new BattleUICardNormalState(this));
 		
-		InitializeInfo();
-	}
-
-	private void InitializeInfo()
-	{
 		infoHandler.Initialize(targetCard.TargetCard, targetCard.Stat);
 	}
 
+	public void InitializeForEnemy(EnemySkillCardObject targetCard)
+	{
+		infoHandler.Initialize(targetCard.TargetCard, targetCard.Stat);
+	}
+	
 	public void OnPointerEnter(PointerEventData eventData)
     {
 	    if (stateMachine.CurrentState is BattleUICardNormalState normalState)

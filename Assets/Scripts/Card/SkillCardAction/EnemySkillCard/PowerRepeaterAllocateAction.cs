@@ -14,6 +14,11 @@ public class PowerRepeaterAllocateAction : UnitSkillCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunAttackMotion();
+		}
+		
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
@@ -32,7 +37,6 @@ public class PowerRepeaterAllocateAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

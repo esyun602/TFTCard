@@ -15,7 +15,7 @@ public class TargetMarkerManager : UIInstance
 	public void SetTargetMarkerTo(ITile target, object requester)
 	{
 		//todo: fix camera
-		var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(target.GetPosition().GetX0z(Constant.FieldHoverYPos));
+		var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(target.GetPosition().GetX0z(Constant.HighlightYPos + 1));
 		
 		if (markerRequests.TryGetValue(requester, out var list))
 		{
@@ -35,7 +35,7 @@ public class TargetMarkerManager : UIInstance
 		foreach (var tile in targetList)
 		{
 			if(tile == null) continue;
-			var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(tile.GetPosition().GetX0z(Constant.FieldHoverYPos));
+			var obj = UnityObjectPool.GetOrCreateUIPool("TargetMarker").Instantiate(tile.GetPosition().GetX0z(Constant.HighlightYPos + 1));
 			list.Add(obj);
 		}
 	}

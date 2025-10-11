@@ -16,13 +16,17 @@ public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunGaugeMotion();
+		}
 		routineDone = false;
 
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateUnitSkillCardInstance(
-				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner), true);
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateEnemySkillCardInstance(
+				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner));
 		}
 		else if (timePassed > 1.5f)
 		{
@@ -33,7 +37,6 @@ public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		BattleStat.Owner.AnimationController.RunGaugeMotion();
 	}
 
 	protected override void OnCancel()

@@ -29,6 +29,10 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunAttackMotion();
+		}
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
@@ -65,7 +69,6 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

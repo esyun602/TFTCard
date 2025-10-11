@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MessageSystem;
@@ -46,7 +47,13 @@ public class DeckSystem
 			{
 				yield return cardInstance;
 			}
+		}
+	}
 
+	private IEnumerable<EnemySkillCardObject> enemyTotalList
+	{
+		get
+		{
 			foreach (var cardInstance in enemyCardPool)
 			{
 				yield return cardInstance;
@@ -59,10 +66,10 @@ public class DeckSystem
 		}
 	}
 
-	private List<BattleCardObjectInHand> enemyCardPool = new();
-	public List<BattleCardObjectInHand> EnemyCardPool => enemyCardPool;
-	private List<BattleCardObjectInHand> enemyDropCardList = new();
-	public List<BattleCardObjectInHand> EnemyDropCardList => enemyDropCardList;
+	private List<EnemySkillCardObject> enemyCardPool = new();
+	public List<EnemySkillCardObject> EnemyCardPool => enemyCardPool;
+	private List<EnemySkillCardObject> enemyDropCardList = new();
+	public List<EnemySkillCardObject> EnemyDropCardList => enemyDropCardList;
 	private List<BattleCardObjectInHand> deck = new();
 	public List<BattleCardObjectInHand> Deck => deck;
 	private List<BattleCardObjectInHand> dropCardList = new();
@@ -125,41 +132,33 @@ public class DeckSystem
 	}
 
 
-	private BattleCardObjectInHand GenerateTacticsCardInstance(TacticsCard skillCard, bool addToEnemyPool = false)
+	private BattleCardObjectInHand GenerateTacticsCardInstance(TacticsCard skillCard)
 	{
 		var obj = TacticsCardInHand.Instantiate(skillCard, new TacticsCardBattleStat(skillCard.Stat));
 
 		obj.transform.SetParent(deckObject.transform);
-		if (addToEnemyPool)
-		{
-			enemyCardPool.Add(obj);
-		}
-		else
-		{
-			deck.Add(obj);
-		}
+		deck.Add(obj);
 
 		return obj;
 	}
 	
 	//todo: battlestat owner set 관련된부분 살펴보기
-	public UnitSkillCardInHand GenerateUnitSkillCardInstance(IBattleObject bo, UnitSkillCard skillCard, bool addToEnemyPool = false)
+	public UnitSkillCardInHand GenerateUnitSkillCardInstance(IBattleObject bo, UnitSkillCard skillCard)
 	{
-		UnitSkillCardInHand obj;
-		if (addToEnemyPool)
-		{
-			obj = UnitSkillCardInHand.InstantiateForEnemy(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
-			
-			obj.transform.SetParent(deckObject.transform);
-			enemyCardPool.Add(obj);
-		}
-		else
-		{
-			obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
+		var obj = UnitSkillCardInHand.InstantiateForAlly(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
 
-			obj.transform.SetParent(deckObject.transform);
-			deck.Add(obj);
-		}
+		obj.transform.SetParent(deckObject.transform);
+		deck.Add(obj);
+
+		return obj;
+	}
+
+	public EnemySkillCardObject GenerateEnemySkillCardInstance(IBattleObject bo, UnitSkillCard skillCard)
+	{
+		var obj = EnemySkillCardObject.Instantiate(skillCard, new UnitSkillCardBattleStat(skillCard.UnitSkillCardStat, bo));
+			
+		obj.transform.SetParent(deckObject.transform);
+		enemyCardPool.Add(obj);
 
 		return obj;
 	}
@@ -316,14 +315,7 @@ public class DeckSystem
 	{
 		if (PlayerHand.CardList.Remove(card))
 		{
-			if (card.CardType == ObjectType.Ally)
-			{
-				deck.Add(card);
-			}
-			else if(card.CardType == ObjectType.Enemy)
-			{
-				enemyCardPool.Add(card);
-			}
+			deck.Add(card);
 		}
 	}
 
@@ -343,11 +335,6 @@ public class DeckSystem
 	//todo: 핸드를 구분할 건지 정해야함
 	public void DrawEnemyCard()
 	{
-		if (PlayerHand.CardList.Count >= Constant.PlayerHandMax)
-		{
-			return;
-		}
-		
 		if (enemyCardPool.Count == 0)
 		{
 			if (enemyDropCardList.Count != 0)
@@ -361,13 +348,16 @@ public class DeckSystem
 			}
 		}
 		var targetCard = enemyCardPool[^1];
-		targetCard.Activate();
 		enemyCardPool.RemoveAt(enemyCardPool.Count - 1);
-		PlayerHand.AddCard(targetCard);
 		
 		Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterEnemyCard(targetCard);
 	}
 
+	public void AddEnemyCardToDrop(EnemySkillCardObject card)
+	{
+		enemyDropCardList.Add(card);
+	}
+	
 	//todo: hand 말고 다른 곳에서 버릴 때
 	public void DropCard(BattleCardObjectInHand target)
 	{
@@ -378,14 +368,8 @@ public class DeckSystem
 
 		if (PlayerHand.RemoveCard(target))
 		{
-			if ((target.Stat as UnitSkillCardBattleStat)?.Owner?.ObjectType == ObjectType.Enemy)
-			{
-				enemyDropCardList.Add(target);
-			}
-			else
-			{
-				dropCardList.Add(target);
-			}
+			dropCardList.Add(target);
+			
 			target.Deactivate();
 		}
 	}
@@ -398,6 +382,10 @@ public class DeckSystem
 		//todo:fix
 		deck.Remove(target);
 		dropCardList.Remove(target);
+	}
+
+	public void RemoveEnemyCard(EnemySkillCardObject target)
+	{
 		enemyCardPool.Remove(target);
 		enemyDropCardList.Remove(target);
 	}
@@ -452,27 +440,25 @@ public class DeckSystem
 	{
 		foreach (var card in enemy.TargetUnitCard.UnitSkillCard)
 		{
-			GenerateUnitSkillCardInstance(enemy, card, true);
+			GenerateEnemySkillCardInstance(enemy, card);
 			ShuffleEnemyDeck();
 		}
 	}
 
 	public void OnEnemyRemove(UnitCardInField enemy)
 	{
-		var cards = totalList.OfType<UnitSkillCardInHand>()
-			.Where(x => ((UnitSkillCardBattleStat)x.Stat).Owner == enemy);
-		var removeCardList = new List<UnitSkillCardInHand>();
+		var cards = enemyTotalList.Where(x => (x.Stat).Owner == enemy);
+		var removeCardList = new List<EnemySkillCardObject>();
 		foreach (var card in cards)
 		{
 			if (card == null) return;
 
-			card.SetDeadState();
 			removeCardList.Add(card);
 		}
 
 		foreach (var card in removeCardList)
 		{
-			RemoveCard(card);
+			RemoveEnemyCard(card);
 		}
 		
 		ShuffleEnemyDeck();

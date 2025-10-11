@@ -63,7 +63,7 @@ public class BattleFieldSystem
 	public UnitCardInField GetInstanceOf(UnitCard card)
 	{
 		return battleObjectDict.Values.SelectMany(x => x).OfType<UnitCardInField>()
-			.First(x => x.TargetUnitCard == card);
+			.FirstOrDefault(x => x.TargetUnitCard == card);
 	}
 
 	public void Dispose()

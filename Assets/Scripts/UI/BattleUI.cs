@@ -13,6 +13,7 @@ public class BattleUIGenState
 public class BattleUI : UIInstance
 {
 	private BlockInputHandler inputHandler;
+	[SerializeField] private GameObject tint;
 	[SerializeField]
 	private TextMeshProUGUI energy;
 
@@ -28,6 +29,8 @@ public class BattleUI : UIInstance
 	private TargetMarkerManager targetMarkerManager;
 
 	private Vector2 currentSelectedCardStartPosition;
+
+	private EnemyGauge enemyGauge;
 	
 	protected override void Init(object param)
 	{
@@ -35,6 +38,8 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
 		NoticeSystem.Instance.Subscribe<SkillHandCardHoverNotice>(OnHandCardHover);
 		NoticeSystem.Instance.Subscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
+		NoticeSystem.Instance.Subscribe<EnemyIconHoverNotice>(OnEnemyCardHover);
+		NoticeSystem.Instance.Subscribe<EnemyIconRemoveHoverNotice>(OnEnemyCardRemoveHover);
 		NoticeSystem.Instance.Subscribe<TargetingCardAimedNotice>(OnAimed);
 		NoticeSystem.Instance.Subscribe<TargetingCardAimRemovedNotice>(OnAimRemoved);
 		NoticeSystem.Instance.Subscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
@@ -42,12 +47,49 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
 		NoticeSystem.Instance.Subscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
 		
+		NoticeSystem.Instance.Subscribe<BattleObjectDestroyedNotice>(OnBoDestroy);
+		NoticeSystem.Instance.Subscribe<EnemyCardRegisteredNotice>(OnEnemyCardRegister);
+		NoticeSystem.Instance.Subscribe<CurrentUsedCostChangeNotice>(OnCostChange);
+		NoticeSystem.Instance.Subscribe<SkillCardActionTriggerNotice>(OnActionTrigger);
+		
 		inputHandler = ((BattleUIGenState)param).InputHandler;
 		
 		//todo: child 구현하면 수정
 		arrowDrawer = Game.Instance.UIManager.GenerateUI<ArrowDrawer>();
 		targetMarkerManager = Game.Instance.UIManager.GenerateUI<TargetMarkerManager>();
-		
+		enemyGauge = Game.Instance.UIManager.GenerateUI<EnemyGauge>();
+	}
+
+	private void OnEnemyCardHover(EnemyIconHoverNotice m)
+	{
+		targetMarkerManager.SetTargetMarkerTo(m.Target.TargetCard.Action.Targets, m.Target);
+		tint.SetActive(true);
+	}
+
+	private void OnEnemyCardRemoveHover(EnemyIconRemoveHoverNotice m)
+	{
+		targetMarkerManager.RemoveTargetMarker(m.Target);
+		tint.SetActive(false);
+	}
+
+	private void OnBoDestroy(BattleObjectDestroyedNotice m)
+	{
+		enemyGauge.SetCardDisable(m.Target);
+	}
+
+	private void OnActionTrigger(SkillCardActionTriggerNotice m)
+	{
+		enemyGauge.SetCardUse(m.TargetAction);
+	}
+
+	private void OnCostChange(CurrentUsedCostChangeNotice m)
+	{
+		enemyGauge.SetFill(m.CurrentUsedCost);
+	}
+
+	private void OnEnemyCardRegister(EnemyCardRegisteredNotice m)
+	{
+		enemyGauge.InitializeBar(m.TotalCost, m.CumCost, m.CardList);
 	}
 
 	private void OnAimed(TargetingCardAimedNotice m)
@@ -153,24 +195,42 @@ public class BattleUI : UIInstance
 
 	public void OpenDrawPanel(bool isEnemy)
 	{
-		Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+		if (isEnemy)
 		{
-			cardInfoList = 
-				isEnemy
-				? Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyCardPool.GetShuffled()
-				: Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Deck.GetShuffled()
-		});
+			Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+			{
+				enemyCardInfoList = Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyCardPool.GetShuffled()
+			});
+			
+		}
+		else
+		{
+			Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+			{
+				cardInfoList =  Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.Deck.GetShuffled()
+			});
+			
+		}
 	}
 
 	public void OpenDiscardPanel(bool isEnemy)
 	{
-		Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+		if (isEnemy)
 		{
-			cardInfoList = 
-				isEnemy
-					? Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyDropCardList.GetShuffled()
-					: Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCardList.GetShuffled()
-		});
+			Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+			{
+				enemyCardInfoList = Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.EnemyDropCardList.GetShuffled()
+			});
+			
+		}
+		else
+		{
+			Game.Instance.UIManager.GenerateUI<BattleCardListPanel>(new BattleCardListPanelGenState()
+			{
+				cardInfoList =  Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCardList.GetShuffled()
+			});
+			
+		}
 	}
 
 	public void OpenExhaustionCardPanel()
@@ -190,11 +250,18 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Unsubscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardHoverNotice>(OnHandCardHover);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
+		NoticeSystem.Instance.Unsubscribe<EnemyIconHoverNotice>(OnEnemyCardHover);
+		NoticeSystem.Instance.Unsubscribe<EnemyIconRemoveHoverNotice>(OnEnemyCardRemoveHover);
 		NoticeSystem.Instance.Unsubscribe<TargetingCardAimedNotice>(OnAimed);
 		NoticeSystem.Instance.Unsubscribe<TargetingCardAimRemovedNotice>(OnAimRemoved);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnHandCardStartUse);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardTargetingUpdateNotice>(OnTargetingUpdate);
+		
+		NoticeSystem.Instance.Unsubscribe<BattleObjectDestroyedNotice>(OnBoDestroy);
+		NoticeSystem.Instance.Unsubscribe<EnemyCardRegisteredNotice>(OnEnemyCardRegister);
+		NoticeSystem.Instance.Unsubscribe<CurrentUsedCostChangeNotice>(OnCostChange);
+		NoticeSystem.Instance.Unsubscribe<SkillCardActionTriggerNotice>(OnActionTrigger);
 	}
 }

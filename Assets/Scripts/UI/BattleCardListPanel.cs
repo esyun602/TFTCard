@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleCardListPanelGenState
 {
 	public List<BattleCardObjectInHand> cardInfoList;
+	public List<EnemySkillCardObject> enemyCardInfoList;
 }
 
 public class BattleCardListPanel : UIInstance
@@ -45,31 +46,38 @@ public class BattleCardListPanel : UIInstance
 		allyUnitSkillPool.transform.SetParent(transform);
 		tacticsPool.transform.SetParent(transform);
 		enemyUnitSkillPool.transform.SetParent(transform);
-		for (var i = 0; i < genState.cardInfoList.Count; i++)
+		if (genState.cardInfoList != null)
 		{
-			var card = genState.cardInfoList[i];
-			PooledUnityObject po = null;
-			if (card.TargetCard is UnitSkillCard)
+			for (var i = 0; i < genState.cardInfoList.Count; i++)
 			{
-				if (card.CardType == ObjectType.Enemy)
-				{
-					po = enemyUnitSkillPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
-				}
-				else
+				var card = genState.cardInfoList[i];
+				PooledUnityObject po = null;
+				if (card.TargetCard is UnitSkillCard)
 				{
 					po = allyUnitSkillPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
 				}
-			}
-			else if(card.TargetCard is TacticsCard)
-			{
-				po = tacticsPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
-			}
+				else if(card.TargetCard is TacticsCard)
+				{
+					po = tacticsPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
+				}
 
-			po.AddComponent<BattleUICard>().Initialize(card);
+				po.AddComponent<BattleUICard>().Initialize(card);
 			
-			poList.Add(po);
+				poList.Add(po);
+			}
 		}
-
+		else
+		{
+			for (var i = 0; i < genState.enemyCardInfoList.Count; i++)
+			{
+				var card = genState.enemyCardInfoList[i];
+				PooledUnityObject po = null;
+				po = enemyUnitSkillPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
+				po.AddComponent<BattleUICard>().InitializeForEnemy(card);
+			
+				poList.Add(po);
+			}
+		}
 		ExpandContentArea();
 	}
 

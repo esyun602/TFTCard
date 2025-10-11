@@ -24,6 +24,10 @@ public class UnitCardRangeAttackAction : UnitCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			owner.AnimationController.RunAttackMotion();
+		}
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
@@ -64,8 +68,6 @@ public class UnitCardRangeAttackAction : UnitCardActionBase
 
 	protected override void OnTrigger()
 	{
-		owner.AnimationController.RunAttackMotion();
-		
 		timePassed = 0f;
 	}
 

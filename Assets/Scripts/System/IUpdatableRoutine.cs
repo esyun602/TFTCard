@@ -5,7 +5,9 @@ public interface IUpdatableRoutine
 	public void Initialize();
 	public void UpdateFrame(float dt, out bool routineDone);
 	public void AddChain(IUpdatableRoutine routine);
+	public void AddChainAtInitialize(IUpdatableRoutine routine);
 	public void AddInterrupt(IUpdatableRoutine routine);
+	public void AddInterruptAtInitialize(IUpdatableRoutine routine);
 }
 
 public static class IUpdatableRoutineExtensions

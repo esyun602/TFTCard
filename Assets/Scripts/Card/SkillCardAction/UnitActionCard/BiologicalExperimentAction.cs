@@ -27,6 +27,10 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunAttackMotion();
+		}
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
@@ -63,7 +67,6 @@ public class BiologicalExperimentAction : UnitSkillCardActionBase
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		BattleStat.Owner.AnimationController.RunAttackMotion();
 	}
 
 	protected override void OnCancel()

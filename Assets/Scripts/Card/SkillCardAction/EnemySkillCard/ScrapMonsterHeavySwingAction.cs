@@ -23,6 +23,10 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunAttackMotion();
+		}
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
@@ -43,8 +47,8 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 				}
 			}
 			
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateUnitSkillCardInstance(
-				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner), true);
+			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateEnemySkillCardInstance(
+				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner));
 		}
 		else if (timePassed > 1.5f)
 		{
@@ -61,7 +65,6 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 
 	protected override void OnTrigger()
 	{
-		BattleStat.Owner.AnimationController.RunAttackMotion();
 		timePassed = 0f;
 	}
 

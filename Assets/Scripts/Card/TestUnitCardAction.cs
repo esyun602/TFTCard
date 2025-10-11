@@ -27,6 +27,10 @@ public class TestUnitCardAction : UnitCardActionBase
 	{
 		routineDone = false;
 
+		if (timePassed == 0)
+		{
+			owner.AnimationController.RunAttackMotion();
+		}
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
@@ -67,8 +71,6 @@ public class TestUnitCardAction : UnitCardActionBase
 
 	protected override void OnTrigger()
 	{
-		owner.AnimationController.RunAttackMotion();
-		
 		timePassed = 0f;
 	}
 

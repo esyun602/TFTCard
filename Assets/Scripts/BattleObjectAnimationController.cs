@@ -20,7 +20,6 @@ public class BattleObjectAnimationController : IMessageReceiver
     public BattleObjectAnimationController(IBattleObject owner)
     {
         this.owner = owner;
-        
     }
 
     public void RunDieAction()

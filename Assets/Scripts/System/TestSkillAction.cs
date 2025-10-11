@@ -30,13 +30,16 @@ public class TestSkillAction : TacticsCardActionBase
 		routineDone = false;
 		
 		timePassed += dt;
-		if (timePassed > 0.35f)
+		if (timePassed >= 0.35f && timePassed - dt < 0.35f)
 		{
 			//todo: sender 수정
 			target.Damage(new DamageInfo()
 			{
 				Dmg = Stat.GetValueByValueType(SkillValueType.Damage)
 			});
+		}
+		else if (timePassed > 1.5f)
+		{
 			routineDone = true;
 		}
 	}

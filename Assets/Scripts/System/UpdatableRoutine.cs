@@ -12,6 +12,9 @@ public class UpdatableRoutine : IUpdatableRoutine
 	private Queue<IUpdatableRoutine> chainQueue;
 	private UpdatableRoutineDelegate baseRoutine;
 
+	private Queue<IUpdatableRoutine> interruptQueueForInitialize = new();
+	private Queue<IUpdatableRoutine> chainQueueForInitialize = new();
+	
 	private UpdatableRoutineDelegate currentSubRoutine;
 
 	private Action initializeAction;
@@ -32,6 +35,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 		currentSubRoutine = baseRoutine;
 		interruptQueue = new();
 		chainQueue = new();
+		(chainQueue, chainQueueForInitialize) = (chainQueueForInitialize, chainQueue);
+		(interruptQueue, interruptQueueForInitialize) = (interruptQueueForInitialize, interruptQueue);
 
 		if (triggerCondition != null && !triggerCondition.Invoke())
 		{
@@ -40,8 +45,13 @@ public class UpdatableRoutine : IUpdatableRoutine
 		}
 		else
 		{
-			updateFunc = CommonRoutine;
+			if (interruptQueue.TryDequeue(out var routine))
+			{
+				currentInterruptRoutine = routine;
+				routine.Initialize();
+			}
 			
+			updateFunc = CommonRoutine;
 		}
 
 		
@@ -113,6 +123,11 @@ public class UpdatableRoutine : IUpdatableRoutine
 		chainQueue.Enqueue(routine);
 	}
 
+	public void AddChainAtInitialize(IUpdatableRoutine routine)
+	{
+		chainQueueForInitialize.Enqueue(routine);
+	}
+
 	public void AddInterrupt(IUpdatableRoutine routine)
 	{
 		if (currentInterruptRoutine == null)
@@ -124,5 +139,10 @@ public class UpdatableRoutine : IUpdatableRoutine
 		{
 			interruptQueue.Enqueue(routine);
 		}
+	}
+	
+	public void AddInterruptAtInitialize(IUpdatableRoutine routine)
+	{
+		interruptQueueForInitialize.Enqueue(routine);
 	}
 }

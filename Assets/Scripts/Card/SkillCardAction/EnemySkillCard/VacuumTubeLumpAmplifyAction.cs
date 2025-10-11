@@ -19,6 +19,10 @@ public class VacuumTubeLumpAmplifyAction : UnitSkillCardActionBase
 			return;
 		}
 
+		if (timePassed == 0)
+		{
+			BattleStat.Owner.AnimationController.RunGaugeMotion("적 카드 추가!");
+		}
 		routineDone = false;
 
 		timePassed += dt;
@@ -38,7 +42,6 @@ public class VacuumTubeLumpAmplifyAction : UnitSkillCardActionBase
 	protected override void OnTrigger()
 	{
 		//todo: 스트링키
-		BattleStat.Owner.AnimationController.RunGaugeMotion("적 카드 추가!");
 		timePassed = 0f;
 	}
 
