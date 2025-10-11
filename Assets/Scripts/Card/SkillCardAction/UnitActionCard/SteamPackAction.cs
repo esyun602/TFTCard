@@ -25,16 +25,42 @@ public class SteamPackAction : UnitSkillCardActionBase
 			return;
 		}
 
-		routineDone = false;
-
 		timePassed += dt;
-		if (timePassed > 0f)
+		routineDone = currentRoutine.Invoke(dt);
+	}
+
+	private Func<float, bool> currentRoutine;
+
+	private bool AddBurnPhase(float dt)
+	{
+		if (timePassed > 0.2f)
 		{
 			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
-			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Attack, BattleStat.GetValueByValueType(UnitValueType.Attack));
-			
-			routineDone = true;
+			currentRoutine = AddAttackPhase;
+			timePassed = 0f;
 		}
+		return false;
+	}
+
+	private bool AddAttackPhase(float dt)
+	{
+		if (timePassed > 0.5f)
+		{
+			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Attack, BattleStat.GetValueByValueType(UnitValueType.Attack));
+			currentRoutine = PostPhase;
+			timePassed = 0f;
+		}
+		return false;
+	}
+
+	private bool PostPhase(float dt)
+	{
+		if (timePassed > 0.8f)
+		{
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -42,6 +68,7 @@ public class SteamPackAction : UnitSkillCardActionBase
 	{
 		timePassed = 0f;
 		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
+		currentRoutine = AddBurnPhase;
 	}
 
 	protected override void OnCancel()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Coroutine;
 using DG.Tweening;
 using MessageSystem;
 using TMPro;
@@ -24,6 +25,8 @@ public class BattleObjectAnimationController : IMessageReceiver
 
     public void RunDieAction()
     {
+        UnityObjectPool.GetOrCreatePool("Fx", "DieFx").Instantiate(owner.Position, quaternion.identity, followTarget: owner.Transform);
+        
         int id = Shader.PropertyToID("_Lerp");
         var grayScaleMaterials = owner.FrameTransform.GetComponentsInChildren<MeshRenderer>().SelectMany(x => x.materials).Where(x => x.HasProperty(id));
         var tmpros = owner.FrameTransform.GetComponentsInChildren<TextMeshPro>();
@@ -41,7 +44,9 @@ public class BattleObjectAnimationController : IMessageReceiver
             lastCallback += () => material.SetFloat("_Lerp", 0);
         }
 
-        seq.AppendInterval(0);
+        seq.Join(DOVirtual.DelayedCall(0.7f, () => SfxManager.Instance.PlayAt("death", owner.Position)));
+        seq.AppendInterval(0.2f);
+        seq.AppendCallback(() => SfxManager.Instance.PlayAt("deathburn", owner.Position));
         foreach (var material in grayScaleMaterials)
         {
             seq.Join(DOTween.To(
@@ -66,6 +71,7 @@ public class BattleObjectAnimationController : IMessageReceiver
     
     public void RunHitAction()
     {
+        SfxManager.Instance.PlayAt("hit", owner.Position);
         onAnimation++;
         var movSeq = DOTween.Sequence();
         movSeq.Append(owner.FrameTransform
@@ -127,20 +133,25 @@ public class BattleObjectAnimationController : IMessageReceiver
         rotSeq.Play();
     }
     
-    public void RunGaugeMotion()
+    //todo: 기본값 변경
+    public void RunGaugeMotion(string key = "!!!!!")
     {
         var movSeq = DOTween.Sequence();
-        movSeq.Append(owner.FrameTransform.DOPunchScale(Vector3.one * 0.2f, 0.4f, 0, 0));
+        movSeq.Append(owner.FrameTransform.DOPunchScale(Vector3.one * 0.2f, 0.6f, 0, 0));
         
         var textSeq = DOTween.Sequence();
-        var text = UnityObjectPool.GetOrCreatePool("Fx", "TextFx", 5f)
+        var text = UnityObjectPool.GetOrCreatePool("Fx", "TextFx")
             .Instantiate(owner.Position.GetX0z(5f) + Vector3.forward * 1f, parent: owner.Transform);
         var tmp = text.GetComponentInChildren<TextMeshPro>();
-        tmp.text = "준비중...";
+        tmp.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(key);
         textSeq.Append(tmp.DOFade(0f, 1.5f));
         textSeq.Join(text.transform.DOLocalMoveY(1.5f, 1f).SetEase(Ease.OutQuart));
         textSeq.AppendInterval(5f);
-        textSeq.AppendCallback(() => tmp.alpha = 1f);
+        textSeq.AppendCallback(() =>
+        {
+            tmp.alpha = 1f;
+            text.Dispose();
+        });
         
         movSeq.Play();
         textSeq.Play();

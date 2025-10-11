@@ -28,7 +28,7 @@ public class TestUnitCardAction : UnitCardActionBase
 		routineDone = false;
 
 		timePassed += dt;
-		if (timePassed > 0.15f && timePassed - dt < 0.15f)
+		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
 			var targetTile = GetTarget();
 			if (targetTile != null)

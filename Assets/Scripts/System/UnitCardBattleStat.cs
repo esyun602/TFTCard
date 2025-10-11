@@ -117,20 +117,24 @@ public class UnitCardBattleStat : IBattleObjectStat
 
 	public void Purify()
 	{
+		SfxManager.Instance.PlayAt("SFX_LightSpellImpactv2", Owner.Position);
+		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager
+			.RegisterFx(Owner, UnityObjectPool.GetOrCreatePool("Fx", "PurifyFx", 5f));
+
 		for (var i = buffList.Count - 1; i >= 0; i--)
 		{
-			if (!buffList[i].BuffType.IsAny(BuffType.Positive | BuffType.Definite) && buffRequester[buffList[i]] == null)
+			if (!buffList[i].BuffType.IsAny(BuffType.Positive | BuffType.Definite) &&
+			    buffRequester[buffList[i]] == null)
 			{
 				RemoveBuff(buffList[i]);
 			}
 		}
-		
-		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager.RegisterFx(Owner, UnityObjectPool.GetOrCreatePool("Fx", "PurifyFx", 5f));
 	}
 
 
 	public void AddBuff(IBuff targetBuff, object requester = null)
 	{
+		if (Owner.IsDead()) return;
 		if (targetBuff.BuffType.IsAny(BuffType.BlockOptionAdd) && requester != null) throw new InvalidOperationException();
 
 		int prevValue;

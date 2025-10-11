@@ -30,7 +30,7 @@ public class TestSkillAction : TacticsCardActionBase
 		routineDone = false;
 		
 		timePassed += dt;
-		if (timePassed > 0f)
+		if (timePassed > 0.35f)
 		{
 			//todo: sender 수정
 			target.Damage(new DamageInfo()
@@ -44,8 +44,9 @@ public class TestSkillAction : TacticsCardActionBase
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-
+		
 		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
+		SfxManager.Instance.PlayAt("gun", target.Position);
 	}
 
 	protected override void OnCancel()

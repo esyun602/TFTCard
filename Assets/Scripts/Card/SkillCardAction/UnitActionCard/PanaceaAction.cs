@@ -23,11 +23,15 @@ public class PanaceaAction : UnitSkillCardActionBase
 
 		routineDone = false;
 
-		timePassed += dt;
-		if (timePassed > 0f)
+		if (timePassed == 0f)
 		{
 			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Regeneration, BattleStat.GetValueByValueType(UnitValueType.Attack));
-			
+		}
+		
+		timePassed += dt;
+
+		if (timePassed > 1.5f)
+		{
 			routineDone = true;
 		}
 	}

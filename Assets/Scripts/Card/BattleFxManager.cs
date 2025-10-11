@@ -8,7 +8,7 @@ public class BattleFxManager : IUpdatable
 	{
 		private float fxInterval;
 		private float timePassed;
-		private Queue<UnityObjectPool> buffFxQueue;
+		private Queue<(UnityObjectPool, string)> buffFxQueue;
 		private IBattleObject bo;
 
 		public FxInfo(IBattleObject bo, float fxInterval = 0.5f)
@@ -23,30 +23,33 @@ public class BattleFxManager : IUpdatable
 		{
 			var keywordInfo = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(buff.Keyword);
 			UnityObjectPool pool = null;
+			string sfxName = null;
 			if (buff.Level > 0)
 			{
 				pool = UnityObjectPool.GetOrCreatePool("Fx",
 					keywordInfo.PoolName, disposeTime: 5f);
+				sfxName = keywordInfo.SfxName;
 			}
 			else if(buff.Level < 0)
 			{
 				pool = UnityObjectPool.GetOrCreatePool("Fx",
 					keywordInfo.ReducePoolName, disposeTime: 5f);
+				sfxName = keywordInfo.ReduceSfxName;
 			}
 			
 			if (pool == null) return;
 			
-			AddQueueFx(pool);
+			AddQueueFx(pool, sfxName);
 		}
-		public void AddQueueFx(UnityObjectPool pool)
+		public void AddQueueFx(UnityObjectPool pool, string sfxName)
 		{
-			buffFxQueue.Enqueue(pool);
+			buffFxQueue.Enqueue((pool, sfxName));
 		}
 
 		public void AddShield()
 		{
 			var keywordInfo = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword("Shield");
-			AddQueueFx(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f));
+			AddQueueFx(UnityObjectPool.GetOrCreatePool("Fx", keywordInfo.PoolName, disposeTime: 5f), keywordInfo.SfxName);
 		}
 		
 		public void UpdateFrame(float dt)
@@ -60,8 +63,9 @@ public class BattleFxManager : IUpdatable
 			if (timePassed > fxInterval)
 			{
 				timePassed = 0f;
-				var info = buffFxQueue.Dequeue();
+				var (info, sfxName) = buffFxQueue.Dequeue();
 				info.Instantiate(bo.Position, quaternion.identity, followTarget: bo.Transform);
+				SfxManager.Instance.PlayAt(sfxName, bo.Position);
 			}
 		}
 	}
@@ -91,16 +95,16 @@ public class BattleFxManager : IUpdatable
 		}
 	}
 
-	public void RegisterFx(IBattleObject bo, UnityObjectPool pool)
+	public void RegisterFx(IBattleObject bo, UnityObjectPool pool, string sfxName = null)
 	{
 		if (fxDict.TryGetValue(bo, out var info))
 		{
-			info.AddQueueFx(pool);
+			info.AddQueueFx(pool, sfxName);
 		}
 		else
 		{
 			fxDict[bo] = new FxInfo(bo);
-			fxDict[bo].AddQueueFx(pool);
+			fxDict[bo].AddQueueFx(pool, sfxName);
 		}
 		
 	}

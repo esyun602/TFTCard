@@ -17,6 +17,11 @@ public class RegenerationBuff : BuffBase
 
     private void OnTurnEnd(PlayerTurnEndNotice m)
     {
+        Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterAutoTurnRoutine(IUpdatableRoutineExtensions.GenerateRunAfterTime(1f, Regenerate));
+    }
+
+    private void Regenerate()
+    {
         target.Heal(new HealInfo()
         {
             HealAmount = Level--,

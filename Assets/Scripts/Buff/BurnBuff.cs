@@ -18,6 +18,11 @@ public class BurnBuff : BuffBase
 
 	private void OnTurnEnd(PlayerTurnEndNotice m)
 	{
+		Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterAutoTurnRoutine(IUpdatableRoutineExtensions.GenerateRunAfterTime(1f, Burn));
+	}
+
+	private void Burn()
+	{
 		if (Level <= 0)
 		{
 			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
@@ -28,7 +33,7 @@ public class BurnBuff : BuffBase
 			Dmg = Level--,
 		});
 	}
-
+	
 	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnTurnEnd);

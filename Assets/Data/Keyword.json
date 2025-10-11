@@ -8,7 +8,9 @@
     "NameKey": "keyword_catalyst",
     "DescKey": "keyword_catalyst_desc",
     "PoolName": "CatalystFx",
-    "ReducePoolName": ""
+    "ReducePoolName": "",
+    "SfxName": "SFX_FireAndCrystalReleasev1",
+    "ReduceSfxName": ""
   },
   {
     "Name": "Healban",
@@ -19,7 +21,9 @@
     "NameKey": "keyword_healban",
     "DescKey": "keyword_healban_desc",
     "PoolName": "",
-    "ReducePoolName": ""
+    "ReducePoolName": "",
+    "SfxName": "",
+    "ReduceSfxName": ""
   },
   {
     "Name": "HpAdded",
@@ -30,7 +34,9 @@
     "NameKey": "keyword_hpadded",
     "DescKey": "keyword_hpadded_desc",
     "PoolName": "",
-    "ReducePoolName": ""
+    "ReducePoolName": "",
+    "SfxName": "",
+    "ReduceSfxName": ""
   },
   {
     "Name": "Burn",
@@ -41,7 +47,9 @@
     "NameKey": "keyword_burn",
     "DescKey": "keyword_burn_desc",
     "PoolName": "BurnFx",
-    "ReducePoolName": ""
+    "ReducePoolName": "",
+    "SfxName": "SFX_FireSpellCastv1",
+    "ReduceSfxName": ""
   },
   {
     "Name": "AttackAdded",
@@ -52,7 +60,9 @@
     "NameKey": "keywoord_attackadded",
     "DescKey": "keywoord_attackadded_desc",
     "PoolName": "TestAttackAddFx",
-    "ReducePoolName": "WeakFx"
+    "ReducePoolName": "WeakFx",
+    "SfxName": "SFX_CastOnlyv1",
+    "ReduceSfxName": "SFX_DarkFrostImpactv1"
   },
   {
     "Name": "Shield",
@@ -63,7 +73,9 @@
     "NameKey": "keyword_shield",
     "DescKey": "keyword_shield_desc",
     "PoolName": "ShieldFx",
-    "ReducePoolName": ""
+    "ReducePoolName": "",
+    "SfxName": "Sword 7",
+    "ReduceSfxName": ""
   },
   {
     "Name": "Regeneration",
@@ -74,6 +86,8 @@
     "NameKey": "keyword_regeneration",
     "DescKey": "keyword_regeneration_desc",
     "PoolName": "RegenerationFx",
-    "ReducePoolName": ""
+    "ReducePoolName": "",
+    "SfxName": "Potion and Alchemy 07",
+    "ReduceSfxName": ""
   }
 ]

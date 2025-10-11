@@ -140,6 +140,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 		if (cardObjectStateMachine.CurrentState is not CardObjectNormalInHandState { IsHovered: true } ||
 		    eventData.button != PointerEventData.InputButton.Left) return;
 
+		SfxManager.Instance.Play2D("cardclick");
 		if (IsTargeting)
 		{
 			ChangeState(new TargetingSkillCardSelectedInHandState(this));
@@ -214,6 +215,10 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		public void SetHover()
 		{
+			SfxManager.Instance.PlayAt(new SfxInfo(SfxManager.Instance.GetClip("cardhover"))
+			{
+				volume = 0.7f
+			}, owner.hoverTargetPos);
 			NoticeSystem.Instance.Publish(new SkillHandCardHoverNotice(owner));
 			isHovered = true;
 			hoverTarget = originalScale * 1.1f;
@@ -519,6 +524,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		public void Enter(IState prevState)
 		{
+			SfxManager.Instance.Play2D("carduse");
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
 			timePassed = 0f;
 			
@@ -531,6 +537,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
 			}
 			
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(owner.TargetCard.Action.UpdatableRoutine);
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
 
@@ -555,6 +562,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 
 		public void Enter(IState prevState)
 		{
+			SfxManager.Instance.Play2D("carduse");
 			NoticeSystem.Instance.Publish(new SkillHandCardStartUseNotice(owner));
 			timePassed = 0f;
 						
@@ -567,6 +575,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DropCard(owner);
 			}
 			
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(owner.TargetCard.Action.UpdatableRoutine);
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
 		}

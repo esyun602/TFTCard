@@ -28,7 +28,7 @@ public class AutoMailAction : UnitSkillCardActionBase
 		routineDone = false;
 
 		timePassed += dt;
-		if (timePassed > 0f)
+		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
 			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			target.Damage(new DamageInfo()
@@ -37,7 +37,9 @@ public class AutoMailAction : UnitSkillCardActionBase
 				Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage),
 				Sender = BattleStat.Owner
 			});
-			
+		}
+		else if(timePassed > 1.5f)
+		{
 			routineDone = true;
 		}
 	}

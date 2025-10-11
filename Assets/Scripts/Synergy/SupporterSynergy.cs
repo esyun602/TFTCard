@@ -26,8 +26,13 @@ public class SupporterSynergy : IBattleSynergy
     {
         if (m.Target.ObjectType == ObjectType.Ally)
         {
-            m.Target.UnitCardBattleStat.Purify();
+            UpdatableRoutine.CurrentRoutine.AddInterrupt(() => ExecutePurify(m.Target), 1f);
         }
+    }
+
+    private void ExecutePurify(IBattleObject target)
+    {
+        target.UnitCardBattleStat.Purify();
     }
 
     public void Deactivate()

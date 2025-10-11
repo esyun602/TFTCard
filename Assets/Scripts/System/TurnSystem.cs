@@ -5,7 +5,6 @@ using MessageSystem;
 
 public class TurnSystem
 {
-	private ITurnObject currentObject;
 	public int CurrentTurnCount => playerTurn.CurrentTurnCount;
 
 	private int phase;
@@ -41,11 +40,16 @@ public class TurnSystem
 		currentUsableCosts.Add(-card.Stat.GetValueByValueType(SkillValueType.Cost));
 		currentCostCumulative.Add((currentCostCumulative.Count == 0 ? 0 : currentCostCumulative[^1]) + currentUsableCosts[^1]);
 	}
-
-	private Queue<ITurnObject> candidates;
+	
 	private Action<float> currentUpdateRoutine;
 	private Queue<IUpdatableRoutine> priorityRoutine;
 	private PlayerTurn playerTurn;
+	private UpdatableRoutine autoTurn;
+
+	private void UpdateFrameForAutoTurn(float dt, out bool done)
+	{
+		done = true;
+	}
 
 	public void Initialize()
 	{
@@ -54,7 +58,6 @@ public class TurnSystem
 		NoticeSystem.Instance.Subscribe<TurnEndClickNotice>(OnTurnEndButtonClick);
 
 		priorityRoutine = new();
-		candidates = new();
 
 		currentUsableCosts = new();
 		currentCostCumulative = new();
@@ -63,6 +66,8 @@ public class TurnSystem
 
 		playerTurn = new PlayerTurn();
 		playerTurn.Initialize();
+
+		autoTurn = new UpdatableRoutine(UpdateFrameForAutoTurn);
 	}
 	
 	private void OnTurnEndButtonClick(TurnEndClickNotice m)
@@ -78,24 +83,21 @@ public class TurnSystem
 		currentUpdateRoutine = UpdatePlayerTurn;
 	}
 
+	private void StartPlayerTurn()
+	{
+		//todo: fix
+		cardList.Clear();
+		currentUsableCosts.Clear();
+		currentCostCumulative.Clear();
+		phase = 0;
+		currentUsedCost = 0;
+			
+		playerTurn.StartTurn();
+		currentUpdateRoutine = UpdatePlayerTurn;
+	}
+	
 	public void StartAutoTurn()
 	{
-		if (candidates.Count == 0)
-		{
-			//todo: fix
-			cardList.Clear();
-			currentUsableCosts.Clear();
-			currentCostCumulative.Clear();
-			phase = 0;
-			currentUsedCost = 0;
-			
-			playerTurn.StartTurn();
-			currentUpdateRoutine = UpdatePlayerTurn;
-			return;
-		}
-
-		currentObject = candidates.Dequeue();
-		currentObject.StartTurn();
 		currentUpdateRoutine = UpdateAutoTurn;
 	}
 
@@ -127,6 +129,8 @@ public class TurnSystem
 		playerTurn.UpdatableCurrentRoutine.UpdateFrame(dt, out var done);
 		if (done)
 		{
+			autoTurn.Initialize();
+			autoTurn.UpdateFrame(0, out var _);
 			NoticeSystem.Instance.PublishSync(new PlayerTurnEndNotice(playerTurn));
 			StartAutoTurn();
 		}
@@ -134,33 +138,24 @@ public class TurnSystem
 
 	private void UpdateAutoTurn(float dt)
 	{
-		//todo: start 전에 update가 불리는 경우 방지
-		currentObject.UpdatableRoutine.UpdateFrame(dt, out var routineDone);
-		if (routineDone)
+		autoTurn.UpdateFrame(dt, out var done);
+		if (done)
 		{
-			if (candidates.Count > 0)
-			{
-				currentObject = candidates.Dequeue();
-				currentObject.StartTurn();
-			}
-			else
-			{
-				playerTurn.StartTurn();
-				currentUpdateRoutine = UpdatePlayerTurn;
-			}
+			StartPlayerTurn();
+			playerTurn.UpdatableCurrentRoutine.UpdateFrame(0, out var _);
 		}
 	}
-
-	public void Register(ITurnObject obj)
-	{
-		candidates.Enqueue(obj);
-	}
-
+	
 	public void RegisterPlayerTurnRoutine(IUpdatableRoutine routine)
 	{
 		playerTurn.UpdatableCurrentRoutine.AddInterrupt(routine);
 	}
 
+	public void RegisterAutoTurnRoutine(IUpdatableRoutine routine)
+	{
+		autoTurn.AddInterrupt(routine);
+	}
+	
 	public void RegisterPriorityRoutine(IUpdatableRoutine routine)
 	{
 		priorityRoutine.Enqueue(routine);

@@ -18,6 +18,8 @@ public class KeywordInfo
 	public IconCategory IconCategory { get; private set; }
 	public string PoolName { get; private set; }
 	public string ReducePoolName { get; private set; }
+	public string SfxName { get; private set; }
+	public string ReduceSfxName { get; private set; }
 	
 	private KeywordInfo()
 	{
@@ -39,6 +41,8 @@ public class KeywordInfo
 		info.DescKey = param.GetString(nameof(DescKey));
 		info.PoolName = param.GetString(nameof(PoolName));
 		info.ReducePoolName = param.GetString(nameof(ReducePoolName));
+		info.SfxName = param.GetString(nameof(SfxName));
+		info.ReduceSfxName = param.GetString(nameof(ReduceSfxName));
 		if (Enum.TryParse(param.GetString(nameof(IconCategory)), out IconCategory iconCategory))
 		{
 			info.IconCategory = iconCategory;

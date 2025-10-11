@@ -51,18 +51,17 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 
 	public void Heal(HealInfo healInfo)
 	{
+		SfxManager.Instance.PlayAt("Potion and Alchemy 13", owner.Position);
+		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager.RegisterFx(owner, UnityObjectPool.GetOrCreatePool("Fx", "HealFx", 5f));
 		if (owner.UnitCardBattleStat.GetValueByValueType(UnitValueType.HealBan) == 0 && healInfo.HealAmount != 0)
 		{
 			owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Hp, healInfo.HealAmount);
 			NoticeSystem.Instance.Publish(new HealNotice(healInfo, owner));
 		}
-		
-		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager.RegisterFx(owner, UnityObjectPool.GetOrCreatePool("Fx", "HealFx", 5f));
 	}
-
+	
 	public void Die(IBattleObject sender)
 	{
-		UnityObjectPool.GetOrCreatePool("Fx", "DieFx").Instantiate(owner.Position, quaternion.identity, followTarget: owner.Transform);
 		owner.AnimationController.RunDieAction();
 		UpdatableRoutine.CurrentRoutine.AddInterrupt(() => RunDieRoutine(sender), 2f);
 	}

@@ -24,7 +24,7 @@ public class DesmondAction : UnitSkillCardActionBase
         routineDone = false;
 
         timePassed += dt;
-        if (timePassed > 0f)
+        if (timePassed > 0.2f && timePassed - dt < 0.2f)
         {
             target.Damage(new DamageInfo()
             {
@@ -41,6 +41,9 @@ public class DesmondAction : UnitSkillCardActionBase
             {
                 BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Attack, BattleStat.GetValuesByValueType(SkillValueType.AttackAdd)[1]);
             }
+        }
+        else if (timePassed > 1.5f)
+        {
             routineDone = true;
         }
     }

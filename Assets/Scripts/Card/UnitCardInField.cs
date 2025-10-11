@@ -117,6 +117,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		if (cardObjectStateMachine.CurrentState is CardObjectNormalInFieldState { IsHovered: true } &&
 		    eventData.button == PointerEventData.InputButton.Left)
 		{
+			SfxManager.Instance.Play2D("cardclick");
 			ChangeState(new CardObjectSelectedInFieldState(this));
 		}
 	}
