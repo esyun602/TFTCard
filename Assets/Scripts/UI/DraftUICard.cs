@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using MessageSystem;
 using UnityEngine;
@@ -50,6 +51,13 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 		{
 			normalState.SetHover();
 		}
+
+		OnPointerEnterImpl();
+	}
+
+	protected virtual void OnPointerEnterImpl()
+	{
+		
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
@@ -60,8 +68,15 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 		{
 			normalState.RemoveHover();
 		}
+		
+		OnPointerExitImpl();
 	}
 
+
+	protected virtual void OnPointerExitImpl()
+	{
+		
+	}
 
 	private void Update()
 	{
@@ -94,6 +109,7 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 			hoverTarget = originalScale * 1.3f;
 			owner.tint.DOKill();
 			owner.tint.DOFade(0, 0.2f);
+			owner.transform.SetAsLastSibling();
 			RestartHover();
 		}
 
