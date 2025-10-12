@@ -3,7 +3,7 @@ using System.Collections;
 using Coroutine;
 using MessageSystem;
 
-public abstract class StageGameMode : IGameMode
+public class StageGameMode : IGameMode
 {
 	private readonly IStage currentStage;
 

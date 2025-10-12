@@ -16,7 +16,12 @@ public class FlowGameMode : IGameMode
 		{
 			FlowInfo = Game.Instance.GetPlayer().CurrentPlayInfo.CurrentFlowInfo
 		});
-		Game.Instance.UIManager.GenerateUI<InGameInteraction>();
+		
+		if (InGameInteraction.Instance == null)
+		{
+			Game.Instance.UIManager.GenerateUI<InGameInteraction>();
+		}
+		
 		var curNode = Game.Instance.GetPlayer().CurrentPlayInfo.CurrentSelectedNode;
 		if (curNode?.NodeState == FlowNodeState.Cleared)
 		{
@@ -35,7 +40,7 @@ public class FlowGameMode : IGameMode
 		}
 		else
 		{
-			Game.Instance.ChangeGameMode(new UnitScoutStageGameMode(stage));
+			Game.Instance.ChangeGameMode(new StageGameMode(stage));
 		}
 	}
 

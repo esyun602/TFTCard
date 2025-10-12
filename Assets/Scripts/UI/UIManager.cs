@@ -8,36 +8,6 @@ using UnityEngine.InputSystem.UI;
 
 public class UIManager
 {
-	/// <summary>
-	/// 
-	/// UI usecase
-	/// 특정 UI의 생성
-	/// -> UI 타입에 따라 constant position(screen space 기반 박혀있는 값), position 가 존재할 수 있음
-	/// ---> constant position이 존재한다면 position과 무시됨
-	/// ---> parent가 존재한다면 position은 screen pos 기반으로, 존재한다면 paren
-	/// 
-	/// -> 특정 UI 타입이 cascade되어 여러개가 생성될 수 있음
-	/// -> UI Instance는 각자의 UI 종류에 따라 property를 가짐
-	/// ---> UI instance의 property는 각각 Notice를 받든 하여 Update해줌
-	/// 
-	/// 특정 UI의 제거
-	/// -> UI instance의 ID를 제공하여 제거하거나
-	/// -> UI Type를 받아 일괄적 제거
-	/// ---> UI Type에 따라 cascade되어 여러개가 동시에 제거될 수 있음
-	/// 
-	/// 특정 UI의 클릭 관리 ( 마우스 enter, exit, clickdown, clickup, drag 등등 )
-	/// 특정 UI의 상태 변화 ( position, size, rotation, material 등등) ==> 있어야됨
-	/// 
-	/// Player는 자신의 행위에 따라 UI가 실시간으로 변화하는 것을 직접 볼 수 있어야됨
-	/// ex) 버프 UI의 경우 생성, 타이머에 따른 색 변화, 제거 등의 행동을 할 수 있어야됨
-	/// ex) 플레이어 메뉴 UI의 경우 생성, 제거가 구현되어 있어야됨
-	/// 
-	/// 모든 UI의 제거
-	/// 
-	/// 특정 UI의 Hide
-	/// Hide된 UI의 Activation
-	/// 
-	/// </summary>
 	private Dictionary<UIType, Canvas> canvasMap;
 
 	private Transform UIRoot;
@@ -117,6 +87,12 @@ public class UIManager
 		{
 			canvas.planeDistance = Constant.StageCameraHeight;
 		}
+
+		if (type == UIType.DontDestroyUI)
+		{
+			canvas.sortingOrder = 5;
+		}
+		
 		return canvas;
 	}
 

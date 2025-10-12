@@ -34,8 +34,7 @@ public class NormanAction : UnitSkillCardActionBase
             
             if (target.IsDead())
             {
-                Game.Instance.GetPlayer().CurrentPlayInfo.Gold +=
-                    BattleStat.GetValueByValueType(SkillValueType.GoldAdd);
+                Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(BattleStat.GetValueByValueType(SkillValueType.GoldAdd));
             }
             routineDone = true;
         }

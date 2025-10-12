@@ -57,7 +57,7 @@ public class RewardUIPanel : UIInstance
 	public void OnGoldClick()
 	{
 		//todo: 골드값 임시
-		Game.Instance.GetPlayer().CurrentPlayInfo.Gold += 50;
+		Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(50);
 		selectPanel.SetActive(false);
 		OnEnd();
 	}

@@ -21,7 +21,35 @@ public class DeployInfo
 
 public class PlayInfo
 {
-	public int Gold { get; set; }
+	private int gold;
+	public int Gold
+	{
+		get => gold;
+		private set
+		{
+			gold = value;
+			NoticeSystem.Instance.Publish(new GoldUpdateNotice(gold));
+		}
+	}
+
+	public void GainGold(int val)
+	{
+		if (val <= 0) return;
+		Gold += val;
+	}
+
+	public bool TryUseGold(int val)
+	{
+		if (Gold > val)
+		{
+			Gold -= val;
+			return true;
+		}
+
+		return false;
+	}
+	
+	
 	private List<UnitCard> bagUnitCardList = new();
 	public IEnumerable<UnitCard> BagUnitCardList => bagUnitCardList;
 

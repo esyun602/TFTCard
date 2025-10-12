@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class ShopUIPanelGenState
 {
-	public int rollCount { get; set; }
 	public Action doneAction { get; set; }
 }
 
@@ -20,15 +19,15 @@ public class ShopUIPanel : UIInstance
 
 	private List<TacticsCardSpec> cardDataList;
 	[SerializeField] private List<DraftUISkillCard> cardist;
-	[SerializeField] private TextMeshProUGUI rollCountUI;
-
+	[SerializeField] private GameObject shopMainPanel;
+	
 	protected override void Init(object param)
 	{
-		rollCount = ((ShopUIPanelGenState)param).rollCount;
 		cancelAction = ((ShopUIPanelGenState)param).doneAction;
 
-		UpdateRollCountText();
 		RenewCandidates();
+		
+		shopMainPanel.SetActive(false);
 		
 		NoticeSystem.Instance.Subscribe<DraftUICardSelectedNotice>(OnCardClick);
 	}
@@ -57,24 +56,29 @@ public class ShopUIPanel : UIInstance
 		OnEnd();
 	}
 
-	public void OnRollClick()
+	public void OnShopEnter()
 	{
-		RenewCandidates();
-		rollCount--;
-		UpdateRollCountText();
+		shopMainPanel.SetActive(true);
 	}
 
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	private void UpdateRollCountText()
+	public void OnShopExit()
 	{
-		rollCountUI.text = $"Roll\nCount\n{rollCount}";
+		ExitShopPanel();
 	}
 
+	public void ExitShopPanel()
+	{
+		shopMainPanel.SetActive(false);
+	}
+	
+	//todo:fix gold
 	public void OnCardClick(DraftUICardSelectedNotice notice)
 	{
 		//todo: fix
-		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
-		OnEnd();
+		if (Game.Instance.GetPlayer().CurrentPlayInfo.TryUseGold(20))
+		{
+			Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
+		}
 	}
 
 	private void OnEnd()

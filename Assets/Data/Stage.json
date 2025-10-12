@@ -14,6 +14,11 @@
     "CamSize": 8.0
   },
   {
+    "StageName": "Shop",
+    "ClassName": "ShopStage",
+    "CamSize": 8.0
+  },
+  {
     "StageName": "TestStage2",
     "ClassName": "BattleStage",
     "MapData": "TestMap",
