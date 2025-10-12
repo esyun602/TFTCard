@@ -142,6 +142,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem.Dispose();
 		SynergySystem.Dispose();
 		BattleFxManager.Dispose();
+		
+		Game.Instance.UIManager.HideUI<BattleUI>();
 	}
 
 	public void UpdateFrame(float dt)

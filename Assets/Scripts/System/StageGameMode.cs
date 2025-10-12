@@ -1,10 +1,12 @@
 
+using System;
 using System.Collections;
 using Coroutine;
 using MessageSystem;
 
 public class StageGameMode : IGameMode
 {
+	public bool LoadComplete { get; private set; }
 	private readonly IStage currentStage;
 
 	public StageGameMode(IStage targetStage)
@@ -19,6 +21,7 @@ public class StageGameMode : IGameMode
 
 	public void Initialize()
 	{
+		LoadComplete = false;
 		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
 	}
 
@@ -28,6 +31,7 @@ public class StageGameMode : IGameMode
 		//todo: fix
 		OnInitialize();
 		CoroutineManager.Instance.StartCoroutine(StartStage());
+		LoadComplete = true;
 	}
 
 	//todo: 싹다 코루틴으로?

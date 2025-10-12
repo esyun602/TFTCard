@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class FlowGameMode : IGameMode
 {
+	public bool LoadComplete { get; private set; }
+
 	public void Initialize()
 	{
+		LoadComplete = false;
 		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
 		NoticeSystem.Instance.Subscribe<FlowNodeSelectNotice>(StartTestStage);
 	}
@@ -27,6 +30,8 @@ public class FlowGameMode : IGameMode
 		{
 			//클리어 루틴?
 		}
+
+		LoadComplete = true;
 	}
 
 	//todo: 메서드 type을 이렇게 나눌 필요가 있나?
@@ -47,7 +52,5 @@ public class FlowGameMode : IGameMode
 	public void Dispose()
 	{
 		NoticeSystem.Instance.Unsubscribe<FlowNodeSelectNotice>(StartTestStage);
-		//todo: remove?
-		Game.Instance.UIManager.HideUI<FlowPanel>();
 	}
 }

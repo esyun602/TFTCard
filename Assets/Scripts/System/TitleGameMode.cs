@@ -1,7 +1,9 @@
 public class TitleGameMode : IGameMode
 {
+	public bool LoadComplete { get; private set; }
 	public void Initialize()
 	{
+		LoadComplete = false;
 		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
 	}
 
@@ -11,6 +13,7 @@ public class TitleGameMode : IGameMode
 		{
 			GameStartAction = StartGame,
 		});
+		LoadComplete = true;
 	}
 
 	private void StartGame()

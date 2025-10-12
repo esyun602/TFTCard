@@ -4,6 +4,8 @@ using UnityEngine;
 #if UNITY_EDITOR
 public class TestGameMode : IGameMode
 {
+	public bool LoadComplete { get; private set; }
+
 	public void Initialize()
 	{
 		Game.Instance.GetPlayer().CurrentPlayInfo.CurrentFlowInfo =	GameDataSystem.Instance.GetGameData<FlowGenData>().GetFlowSpec("TestFlow").GenerateFlow();
@@ -13,6 +15,7 @@ public class TestGameMode : IGameMode
 		}
 		
 		Game.Instance.ChangeGameMode(new FlowGameMode());
+		LoadComplete = true;
 	}
 
 	public void Dispose()

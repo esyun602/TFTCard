@@ -1,7 +1,9 @@
 public class DraftGameMode : IGameMode
 {
+	public bool LoadComplete { get; private set; }
 	public void Initialize()
 	{
+		LoadComplete = false;
 		Game.Instance.SceneHandler.SetTransitionToNewScene(OnTransitionDone);
 	}
 
@@ -13,6 +15,7 @@ public class DraftGameMode : IGameMode
 			CardPerDraft = 2,
 			DoneAction = ReturnToMap
 		});
+		LoadComplete = true;
 	}
 
 	public void ReturnToMap()

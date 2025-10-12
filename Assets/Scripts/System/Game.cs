@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Coroutine;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -33,6 +35,7 @@ public class Game : MonoBehaviour
 		UIManager = new();
 		player = new();
 		player.Initialize();
+		UIManager.GenerateUI<DefaultSceneTransitionUI>();
 	}
 
 	private void Start()
@@ -43,11 +46,19 @@ public class Game : MonoBehaviour
 	
 	public void ChangeGameMode(IGameMode gameMode)
 	{
-		//todo: null check?
-		//todo: transition을 넣도록 동작 수정 필요
+		CoroutineManager.Instance.StartCoroutine(ChangeGameModeRoutine(gameMode));
+	}
+
+	private IEnumerator ChangeGameModeRoutine(IGameMode gameMode)
+	{
+		DefaultSceneTransitionUI.Instance.Set();
+		yield return new Coroutine.WaitForSeconds(1f);
 		currentGameMode?.Dispose();
 		currentGameMode = gameMode;
 		currentGameMode.Initialize();
+		while (!currentGameMode.LoadComplete) yield return null;
+		yield return new Coroutine.WaitForSeconds(1f);
+		DefaultSceneTransitionUI.Instance.Unset();
 	}
 
 	public void ResetProgressInfo()
