@@ -58,7 +58,7 @@ public class EnemyGauge : UIInstance
             var icon = po.GetComponent<EnemyCardIcon>();
             iconList.Add(icon);
             icon.CardObject = cardObjectInHands[i];
-            icon.SetUse(false, true);
+            icon.SetUse(idx <= currentFill, true);
         }
         
         

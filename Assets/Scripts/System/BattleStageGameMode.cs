@@ -109,6 +109,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		else if(m.Target.ObjectType == ObjectType.Enemy && m.Target is UnitCardInField unitCard)
 		{
 			DeckSystem.OnEnemyRemove(unitCard);
+			TurnSystem.OnEnemyRemove(unitCard);
 		}
 		
 	}

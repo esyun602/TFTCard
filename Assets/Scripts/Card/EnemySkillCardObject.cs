@@ -18,7 +18,8 @@ public class EnemySkillCardObject : MonoBehaviour
 {
 	public UnitSkillCard TargetCard { get; private set; }
 	public UnitSkillCardBattleStat Stat { get; private set; }
-
+	public bool IsDead { get; set; }
+	
 	public void Activate()
 	{
 		gameObject.SetActive(true);
@@ -46,7 +47,8 @@ public class EnemySkillCardObject : MonoBehaviour
         cardObject.TargetCard = targetSkillCard;
         cardObject.Stat = skillCardStat;
         cardObject.TargetCard.Action.SetCardBattleStat(skillCardStat);
-
+        cardObject.IsDead = false;
+        
         return cardObject;
     }
 }

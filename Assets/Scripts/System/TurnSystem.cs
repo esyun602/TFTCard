@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MessageSystem;
 using UnityEngine;
 
@@ -22,17 +23,24 @@ public class TurnSystem
 		{
 			if (phase < currentCostCumulative.Count && currentCostCumulative[phase] <= value)
 			{
-				//todo: 죽었을 때? 데미지만 먼저 적용? 
-				var routine = cardList[phase].TargetCard.Action.UpdatableRoutine;
-				routine.AddChainAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.3f, () => CurrentUsedCost = value));
-				routine.AddInterruptAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
-				RegisterPlayerTurnRoutine(routine);
+				if (!cardList[phase].IsDead)
+				{
+					var routine = cardList[phase].TargetCard.Action.UpdatableRoutine;
+					routine.AddChainAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.3f, () => CurrentUsedCost = value));
+					routine.AddInterruptAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
+					RegisterPlayerTurnRoutine(routine);
 
-				//todo: fix
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(cardList[phase]);
-				currentUsedCost = currentCostCumulative[phase];
-				
-				phase++;
+					//todo: fix
+					Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(cardList[phase]);
+					currentUsedCost = currentCostCumulative[phase];
+					phase++;
+				}
+				else
+				{
+					phase++;
+					CurrentUsedCost = value;
+					return;
+				}
 			}
 			else
 			{
@@ -53,6 +61,16 @@ public class TurnSystem
 		
 		NoticeSystem.Instance.Publish(new EnemyCardRegisteredNotice(CurrentTotalCost, currentCostCumulative, cardList));
 	}
+
+	public void OnEnemyRemove(IBattleObject obj)
+	{
+		var cards = cardList.Where(x => (x.Stat).Owner == obj);
+		foreach (var card in cards)
+		{
+			card.IsDead = true;
+		}
+	}
+	
 	
 	private Action<float> currentUpdateRoutine;
 	private Queue<IUpdatableRoutine> priorityRoutine;

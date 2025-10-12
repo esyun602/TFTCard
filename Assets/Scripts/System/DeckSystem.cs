@@ -193,6 +193,11 @@ public class DeckSystem
 		{
 			cardObject.Dispose();
 		}
+
+		foreach (var cardObject in enemyTotalList)
+		{
+			cardObject.Dispose();
+		}
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectNotice>(OnHandCardSelect);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardSelectCancelNotice>(OnHandCardSelectCancel);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardStartUseNotice>(OnCardStartUse);
@@ -458,8 +463,10 @@ public class DeckSystem
 
 		foreach (var card in removeCardList)
 		{
+			card.IsDead = true;
 			RemoveEnemyCard(card);
 		}
+
 		
 		ShuffleEnemyDeck();
 	}

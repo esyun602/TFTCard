@@ -25,10 +25,10 @@ public class BattleCardListPanel : UIInstance
 	[SerializeField] private RectTransform contentRect;
 	private BattleCardListPanelGenState genState;
 	
-	private int CardRowCount => 
-		genState.cardInfoList.Count == 0 
+	private int CardRowCount =>
+		(genState.cardInfoList?.Count ?? genState.enemyCardInfoList.Count) == 0 
 			? 0 
-			: (genState.cardInfoList.Count - 1) / cardCountPerRow + 1;
+			: (genState.cardInfoList?.Count ?? genState.enemyCardInfoList.Count - 1) / cardCountPerRow + 1;
 	
 	protected override void Init(object param)
 	{
