@@ -6,17 +6,14 @@
     "CamSize": 8.0,
     "WaveGridList": [
       "test_wave_1"
-    ]
+    ],
+    "StageIcon": "StageIcon_1"
   },
   {
     "StageName": "Scout",
     "ClassName": "UnitScoutStage",
-    "CamSize": 8.0
-  },
-  {
-    "StageName": "Shop",
-    "ClassName": "ShopStage",
-    "CamSize": 8.0
+    "CamSize": 8.0,
+    "StageIcon": "StageIcon_2_1"
   },
   {
     "StageName": "TestStage2",
@@ -25,7 +22,8 @@
     "CamSize": 8.0,
     "WaveGridList": [
       "test_wave_2"
-    ]
+    ],
+    "StageIcon": "StageIcon_1"
   },
   {
     "StageName": "TestStage3",
@@ -34,7 +32,8 @@
     "CamSize": 8.0,
     "WaveGridList": [
       "test_wave_3"
-    ]
+    ],
+    "StageIcon": "StageIcon_1"
   },
   {
     "StageName": "StageForTest",
@@ -43,6 +42,13 @@
     "CamSize": 8.0,
     "WaveGridList": [
       "wave_for_test"
-    ]
+    ],
+    "StageIcon": "StageIcon_1"
+  },
+  {
+    "StageName": "Shop",
+    "ClassName": "ShopStage",
+    "CamSize": 8.0,
+    "StageIcon": "StageIcon_2_2"
   }
 ]

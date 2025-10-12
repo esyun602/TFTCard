@@ -77,7 +77,7 @@ public class EnemyGauge : UIInstance
             .SetTarget(fill);
         
         //todo: fix?
-        if (idx == 0)
+        if (idx == 0 && idx < currentFill)
         {
             foreach (var icon in iconList)
             {

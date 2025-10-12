@@ -10,6 +10,7 @@ public abstract class StageSpec
 	public float CamSize { get; private set; }
 	public abstract IStage InstantiateStage();
 	public abstract StageType StageType { get; }
+	public Sprite StageIcon { get; private set; }
 
 	protected StageSpec()
 	{
@@ -25,6 +26,8 @@ public abstract class StageSpec
 		
 		spec.CamSize = param.GetFloat(nameof(CamSize));
 		spec.Initialize(param);
+
+		spec.StageIcon = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(StageIcon)));
 
 		return spec;
 	}

@@ -820,9 +820,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2800000, guid: de9e72a0125142c4796edcdebee143eb, type: 3}
+      - m_Target: {fileID: 7541347035688118503}
         m_TargetAssemblyTypeName: RewardUIPanel, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnGoldClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1028,9 +1028,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2800000, guid: 56145e5de0ffaad4a997b2276e28913b, type: 3}
+      - m_Target: {fileID: 7541347035688118503}
         m_TargetAssemblyTypeName: RewardUIPanel, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: OnSelectCardClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

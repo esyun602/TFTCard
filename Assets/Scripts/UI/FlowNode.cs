@@ -7,8 +7,18 @@ using UnityEngine.UI;
 public class FlowNode : MonoBehaviour
 {
 	//todo: fix
-	public FlowNodeInfo TargetInfo { get; set; }
+	private FlowNodeInfo targetInfo;
 
+	public FlowNodeInfo TargetInfo
+	{
+		get => targetInfo;
+		set
+		{
+			targetInfo = value;
+			image.sprite = targetInfo.TargetStageSpec.StageIcon;
+		}
+	}
+	[SerializeField] private Image image;
 	
 	public void OpenNode()
 	{
@@ -40,16 +50,16 @@ public class FlowNode : MonoBehaviour
 		switch (TargetInfo.NodeState)
 		{
 			case FlowNodeState.Closed:
-				GetComponentInChildren<Image>().color = Color.black;
+				GetComponentInChildren<Image>().color = Color.gray;
 				break;
 			case FlowNodeState.Opened:
-				GetComponentInChildren<Image>().color = Color.red;
+				GetComponentInChildren<Image>().color = Color.white;
 				break;
 			case FlowNodeState.Cleared:
-				GetComponentInChildren<Image>().color = Color.blue;
+				GetComponentInChildren<Image>().color = Color.black;
 				break;
 			case FlowNodeState.Selected:
-				GetComponentInChildren<Image>().color = Color.yellow;
+				GetComponentInChildren<Image>().color = Color.white;
 				break;
 		}
 	}

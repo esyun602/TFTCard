@@ -12,9 +12,12 @@
       2
     ],
     "EventStagePool": {
-      "AllowDuplicate": true,
+      "AllowDuplicate": false,
       "PoolList": [
-        "Scout"
+        "Scout",
+        "Scout",
+        "Shop",
+        "Shop"
       ]
     },
     "BattleStagePool": {

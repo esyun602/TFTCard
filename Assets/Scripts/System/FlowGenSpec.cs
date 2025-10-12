@@ -95,7 +95,7 @@ public class FlowGenSpec
 			}
 			else
 			{
-				spec.stagePoolDict[value] = new NonReplacementStagePoolInfo(param.GetStringArray("PoolList").ToList());
+				spec.stagePoolDict[value] = new NonReplacementStagePoolInfo(poolInfo.GetStringArray("PoolList").ToList());
 			}
 		}
 
