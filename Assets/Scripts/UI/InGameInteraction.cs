@@ -20,6 +20,8 @@ public class InGameInteraction : UIInstance
 
 		goldText.text = GetGoldText(Game.Instance.GetPlayer().CurrentPlayInfo.Gold);
 		NoticeSystem.Instance.Subscribe<GoldUpdateNotice>(OnGoldUpdate);
+		
+		transform.parent.SetAsFirstSibling();
 	}
 
 	protected override void OnRemove()

@@ -32,7 +32,7 @@ public class FlowPanel : UIInstance
 			flowInfo = state.FlowInfo;
 		}
 		InstantiateNodes();
-		UnityObjectPool.GetOrCreateUIPool("FlowEdge").transform.SetParent(transform);
+		UnityObjectPool.GetOrCreateUIPool("FlowEdge").transform.SetParent(transform, false);
 		edgePoList = new();
 	}
 
@@ -47,7 +47,7 @@ public class FlowPanel : UIInstance
 	private void InstantiateNodes()
 	{
 		var pool = UnityObjectPool.GetOrCreateUIPool("FlowNode");
-		pool.transform.SetParent(transform);
+		pool.transform.SetParent(transform, false);
 		foreach (var nodeInfo in flowInfo.MapNodeInfos)
 		{
 			if (nodeList.Count <= nodeInfo.GenIdx)

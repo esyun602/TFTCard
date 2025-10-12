@@ -41,9 +41,9 @@ public abstract class UIInstance : MonoBehaviour
 		var pooledObject = pool.Instantiate(position, rotation, scale, followTarget);
 		var instance = pooledObject.GetComponent<T>();
 		instance.id = unchecked(++lastAllocatedId);
-		instance.Init(param);
 		instance.pooledObject = pooledObject;
 		pool.transform.SetParent(GetParent(instance), false);
+		instance.Init(param);
 		return instance;
 	}
 
