@@ -28,7 +28,7 @@ public class DefaultSceneTransitionUI : UIInstance
 		color.a = 0;
 		image.color = color;
 		image.DOKill();
-		image.DOFade(1f, 0.5f);
+		image.DOFade(1f, 0.3f);
 	}
 
 	
@@ -37,7 +37,7 @@ public class DefaultSceneTransitionUI : UIInstance
 	{
 		var seq = DOTween.Sequence();
 		image.DOKill();
-		seq.Append(image.DOFade(0f, 0.5f));
+		seq.Append(image.DOFade(0f, 0.3f));
 		seq.AppendCallback(() => image.gameObject.SetActive(false));
 		seq.SetTarget(image);
 		

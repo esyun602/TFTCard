@@ -52,12 +52,12 @@ public class Game : MonoBehaviour
 	private IEnumerator ChangeGameModeRoutine(IGameMode gameMode)
 	{
 		DefaultSceneTransitionUI.Instance.Set();
-		yield return new Coroutine.WaitForSeconds(1f);
+		yield return new Coroutine.WaitForSeconds(0.5f);
 		currentGameMode?.Dispose();
 		currentGameMode = gameMode;
 		currentGameMode.Initialize();
 		while (!currentGameMode.LoadComplete) yield return null;
-		yield return new Coroutine.WaitForSeconds(1f);
+		yield return new Coroutine.WaitForSeconds(0.5f);
 		DefaultSceneTransitionUI.Instance.Unset();
 	}
 

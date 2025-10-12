@@ -5,7 +5,6 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
-	private IBattleObject target;
 
 	public override bool CanUse(ITile targetTile)
 	{
@@ -17,7 +16,7 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		get
 		{
 			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap;
-			return map.GetAllTilesInRow(ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo), ObjectType.Enemy);
+			return map.GetAllTilesInRow(GetTarget(), ObjectType.Enemy);
 		}
 	}
 
@@ -37,40 +36,46 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 		routineDone = false;
 
 		timePassed += dt;
-		if (timePassed > 0f)
+		if (timePassed >= 0.15f && timePassed - dt < 0.15f)
 		{
-			var dmg = BattleStat.GetValueByValueType(UnitValueType.Attack);
-
-			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.BattleMap;
-
-			var targetList = new List<IBattleObject>();
-			var (row, col) = map.GetTileCoord(map.GetTileOfBattleObject(target));
-
-			for (var i = 4; i <= 7; i++)
+			var targetTile = GetTarget();
+			if (targetTile != null)
 			{
-				if(i == col) continue;
-				var obj = map.GetBattleObjectOfTile(map.GetTileAt(row, i));
-				if (obj != null)
+				var dmg = BattleStat.GetValueByValueType(UnitValueType.Attack);
+				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+				var target = map.GetBattleObjectOfTile(targetTile);
+				
+				var targetList = new List<IBattleObject>();
+				var (row, col) = map.GetTileCoord(map.GetTileOfBattleObject(target));
+
+				for (var i = 4; i <= 7; i++)
 				{
-					targetList.Add(obj);
+					if(i == col) continue;
+					var obj = map.GetBattleObjectOfTile(map.GetTileAt(row, i));
+					if (obj != null)
+					{
+						targetList.Add(obj);
+					}
 				}
-			}
 			
-			target.Damage(new DamageInfo()
-			{
-				Sender = BattleStat.Owner,
-				Dmg = dmg
-			});
-			foreach (var obj in targetList)
-			{
-				obj.Damage(new DamageInfo()
+				target.Damage(new DamageInfo()
 				{
 					Sender = BattleStat.Owner,
-					Dmg = dmg / 2,
-					DamageType = DamageType.Bomb
+					Dmg = dmg
 				});
+				foreach (var obj in targetList)
+				{
+					obj.Damage(new DamageInfo()
+					{
+						Sender = BattleStat.Owner,
+						Dmg = dmg / 2,
+						DamageType = DamageType.Bomb
+					});
+				}
 			}
-			
+		}
+		else if (timePassed > 1.5f)
+		{
 			routineDone = true;
 		}
 	}
@@ -78,9 +83,15 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
-		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
+	
+	private ITile GetTarget()
+	{
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 
+		return map.GetAttackTargetTile(BattleStat.Owner);
+	}
+	
 	protected override void OnCancel()
 	{
 		canceled = true;
