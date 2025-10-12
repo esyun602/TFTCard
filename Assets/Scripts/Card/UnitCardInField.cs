@@ -28,7 +28,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public IDamagedBehaviour DamagedBehaviour { get; private set; }
 	public BattleObjectAnimationController AnimationController { get; private set; }
 
-	private FieldCardFxHandler fxHandler;
+	private IFieldCardFxHandler fxHandler;
 	
 	private void Awake()
 	{
@@ -187,7 +187,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 		cardObject.UpdateBlockInput(InputBlockFlag.Select);
 		cardObject.ChangeState(new CardObjectNormalInFieldState(cardObject));
 
-		cardObject.fxHandler = new FieldCardFxHandler(cardObject);
+		cardObject.fxHandler = new EnemyCardFxHandler(cardObject);
 		cardObject.fxHandler.Initialize();
 		cardObject.GetComponentInChildren<ICardInfoHandler>().Initialize(targetUnitCard, unitCardBattleStat, () => cardObject.fxHandler.ActivateFx);
 		cardObject.GetComponentInChildren<BoxCollider>().size = Vector3.one;

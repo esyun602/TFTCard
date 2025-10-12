@@ -77,6 +77,7 @@ public class ShopUIPanel : UIInstance
 		//todo: fix
 		if (Game.Instance.GetPlayer().CurrentPlayInfo.TryUseGold(20))
 		{
+			notice.SelectedCard.gameObject.SetActive(false);
 			Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
 		}
 	}

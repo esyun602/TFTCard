@@ -96,19 +96,7 @@ Shader "Unlit/Test1"
                 float2 dir = normalize(i.uv - float2(0.5, 0.5)) * _NoiseScale * 0.1;
                 i.uv = i.uv + dir * (noise.r - 0.5) * 0.5;
                 
-                fixed2 dist;
-                if (i.uv.y > 0.7)
-                {
-                    dist = get_circle_dist(i.uv);
-                }
-                else if (i.uv.y < 0.6)
-                {
-                    dist = get_squre_dist(i.uv);
-                }
-                else
-                {
-                    dist = lerp(get_squre_dist(i.uv),  get_circle_dist(i.uv), (i.uv.y - 0.6) / 0.1);
-                }
+                fixed2 dist = get_circle_dist(i.uv);
 
                 fixed m_dist = clamp(dist, _InLimit, _OutLimit);
 

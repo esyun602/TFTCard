@@ -83,6 +83,13 @@ Shader "Unlit/Test2"
                 return pow(pow(p.x, P) + pow(p.y, P), 1.0 / P);
             }
             
+            fixed get_lower_dist(float2 pos)
+            {
+                float2 p = abs(pos - float2(0.5, 0.33));
+                float P = 1.4;
+                return pow(pow(p.x, P) + pow(p.y * 2.3, P), 1.0 / P);
+            }
+            
             v2f vert(appdata v)
             {
                 v2f o;
@@ -103,15 +110,23 @@ Shader "Unlit/Test2"
                 {
                     dist = get_upper_dist(i.uv);
                 }
-                else if (i.uv.y < 0.65)
-                {
-                    dist = get_squre_dist(i.uv);
-                }
-                else
+                else if (i.uv.y >= 0.65)
                 {
                     dist = lerp(get_squre_dist(i.uv),  get_upper_dist(i.uv), (i.uv.y - 0.65) / 0.1);
                 }
-
+                else if (i.uv.y >= 0.35)
+                {
+                    dist = get_squre_dist(i.uv);
+                }
+                else if(i.uv.y >= 0.25)
+                {
+                    dist = lerp(get_lower_dist(i.uv),  get_squre_dist(i.uv), (i.uv.y - 0.25) / 0.1);
+                }
+                else
+                {
+                    dist = get_lower_dist(i.uv);
+                }
+                
                 fixed m_dist = clamp(dist, _InLimit, _OutLimit);
 
                 // sample the texture

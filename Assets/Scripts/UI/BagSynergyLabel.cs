@@ -62,6 +62,7 @@ namespace UI
 		public void OnPointerEnter(PointerEventData eventData)
 		{
 			synergyDescPanel.gameObject.SetActive(true);
+			transform.parent.parent.SetAsLastSibling();
 		}
 
 		public void OnPointerExit(PointerEventData eventData)

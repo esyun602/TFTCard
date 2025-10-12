@@ -17,7 +17,6 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	[SerializeField] private TextMeshPro atk;
 	[SerializeField] private TextMeshPro hp;
 	[SerializeField] private TextMeshPro nameText;
-	[SerializeField] private TextMeshPro desc;
 	[SerializeField] private MeshRenderer TextureRenderer;
 	[SerializeField] private TextMeshPro shield;
 	[SerializeField] private MeshRenderer backGround;
@@ -46,7 +45,6 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 
 		targetCard = card;
 		nameText.text = card.Name;
-		desc.text = card.Desc;
 		if (card.CardStaticSpec.CardResource != null)
 		{
 			TextureRenderer.material.SetTexture("_BaseMap", card.CardStaticSpec.CardResource.texture);
@@ -198,8 +196,6 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		targetText.text = $"{stat.GetValueByValueType(m.Type)}";
 		targetText.transform.localScale = Vector3.one * 2f;
 		targetText.transform.DOScale(Vector3.one,  0.5f);
-
-		desc.text = targetCard.Desc;
 	}
 
 	private void OnBattleShieldChange(UnitBattleValueChangeNotice m)
