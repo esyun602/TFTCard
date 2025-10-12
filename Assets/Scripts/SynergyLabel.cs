@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class SynergyLabel : MonoBehaviour
 {
 	private SynergySpec targetCategorySpec;
-
+	[SerializeField] private Image icon;
 	private int synergyCount;
 
 	public int SynergyCount
@@ -30,6 +30,7 @@ public class SynergyLabel : MonoBehaviour
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 		targetCategorySpec = spec;
 		synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
+		icon.sprite = spec.TargetSprite;
 	}
 
 	private string GetSynergyCountString()

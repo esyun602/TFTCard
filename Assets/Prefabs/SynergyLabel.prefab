@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32be66aa3081dc245a0c45e60685146d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  icon: {fileID: 2149752922841763307}
   synergyName: {fileID: 1535112115055680091}
   synergyCountInfo: {fileID: 6366092582878201503}
 --- !u!222 &5388053745200266603

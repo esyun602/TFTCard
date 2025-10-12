@@ -99,7 +99,7 @@ public class PlayInfo
 	public int CurrentUsingDeploySlot => FieldDeployLocationInfo.Count((x) => !x.IsFixed);
 	public List<DeployInfo> FieldDeployLocationInfo { get; } = new();
 	public List<DeployInfo> SpecialDeployLocationInfo { get; } = new();
-	private Dictionary<SynergyCategory, int> synergyNumDict = new();
+	public Dictionary<SynergyCategory, int> SynergyNumDict { get; } = new();
 	private Dictionary<SynergyCategory, IGlobalSynergy> activatedByDeploySynergyDict { get; } = new();
 	public FlowInfo CurrentFlowInfo { get; set; }
 
@@ -199,9 +199,9 @@ public class PlayInfo
 			//var unitSkillCard = targetCard.UnitSkillCard;
 			foreach (var synergy in targetCard.Stat.synergyList)
 			{
-				if (!synergyNumDict.TryAdd(synergy, 1))
+				if (!SynergyNumDict.TryAdd(synergy, 1))
 				{
-					synergyNumDict[synergy]++;
+					SynergyNumDict[synergy]++;
 				}
 				
 				
@@ -241,7 +241,7 @@ public class PlayInfo
 
 		foreach (var synergy in targetCard.Stat.synergyList)
 		{
-			synergyNumDict[synergy]--;
+			SynergyNumDict[synergy]--;
 			
 			if (activatedByDeploySynergyDict.TryGetValue(synergy, out var synergyInstance))
 			{
@@ -285,12 +285,12 @@ public class PlayInfo
 
 	private void RefreshSynergyList()
 	{
-		var kvps = synergyNumDict.ToList();
+		var kvps = SynergyNumDict.ToList();
 		foreach (var kvp in kvps)
 		{
 			if (kvp.Value == 0)
 			{
-				synergyNumDict.Remove(kvp.Key);
+				SynergyNumDict.Remove(kvp.Key);
 				if (activatedByDeploySynergyDict.TryGetValue(kvp.Key, out var synergy))
 				{
 					synergy.Dispose();
@@ -298,6 +298,8 @@ public class PlayInfo
 				}
 			}
 		}
+		
+		NoticeSystem.Instance.Publish(new BagSynergyUpdateNotice(SynergyNumDict));
 	}
 
 	private void NormalizeLocationInfos()

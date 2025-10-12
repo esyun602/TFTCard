@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MessageSystem;
 using NUnit.Framework;
+using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -32,6 +33,10 @@ public class PlayerBagPanel : UIInstance
 
 	[SerializeField] private float originHeight;
 
+	[SerializeField] private Transform synergyArea;
+
+	private List<PooledUnityObject> synergyLabelList;
+	
 	public Vector3 LeftTopOffset;
 	public float horizontalSpace;
 	public float verticalSpace;
@@ -57,12 +62,47 @@ public class PlayerBagPanel : UIInstance
 		NoticeSystem.Instance.Subscribe<BagUICardPlaceNotice>(OnCardDeploy);
 		NoticeSystem.Instance.Subscribe<BagUICardUnPlaceNotice>(OnCardUnDeploy);
 		NoticeSystem.Instance.Subscribe<UnitSkillCardUpdateNotice>(OnUnitSkillCardChange);
+		NoticeSystem.Instance.Subscribe<BagSynergyUpdateNotice>(OnSynergyUpdate);
 		InitializeBagUnitCards();
 		InitializeDeckCards();
 		InitializeField();
 		
 		skillCardDivider.transform.localPosition = GetSkillCardDividerPos();
 		ExpandBagArea();
+		//todo: fix
+
+		synergyLabelList = new();
+		UnityObjectPool.GetOrCreateUIPool("BagSynergyLabel").transform.SetParent(transform);
+		UpdateSynergyArea(Game.Instance.GetPlayer().CurrentPlayInfo.SynergyNumDict);
+	}
+
+	private void OnSynergyUpdate(BagSynergyUpdateNotice m)
+	{
+		UpdateSynergyArea(m.SynergyInfo);
+	}
+	
+	private void UpdateSynergyArea(Dictionary<SynergyCategory, int> dictionary)
+	{
+		DisposeAllSynergy();
+		foreach (var kvp in dictionary)
+		{
+			var category = kvp.Key;
+			var count = kvp.Value;
+
+			var pool = UnityObjectPool.GetOrCreateUIPool("BagSynergyLabel").Instantiate(parent: synergyArea);
+			synergyLabelList.Add(pool);
+			pool.GetComponent<BagSynergyLabel>().Initialize(category, count);
+		}
+	}
+
+	private void DisposeAllSynergy()
+	{
+		foreach (var po in synergyLabelList)
+		{
+			po.Dispose();	
+		}
+		
+		synergyLabelList.Clear();
 	}
 
 	public void OnClose()
@@ -76,6 +116,8 @@ public class PlayerBagPanel : UIInstance
 		NoticeSystem.Instance.Unsubscribe<BagUICardPlaceNotice>(OnCardDeploy);
 		NoticeSystem.Instance.Unsubscribe<BagUICardUnPlaceNotice>(OnCardUnDeploy);
 		NoticeSystem.Instance.Unsubscribe<UnitSkillCardUpdateNotice>(OnUnitSkillCardChange);
+		NoticeSystem.Instance.Unsubscribe<BagSynergyUpdateNotice>(OnSynergyUpdate);
+		DisposeAllSynergy();
 		foreach (var kvp in cardDictionary)
 		{
 			var card = kvp.Value;

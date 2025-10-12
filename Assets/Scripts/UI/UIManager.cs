@@ -92,6 +92,10 @@ public class UIManager
 		{
 			canvas.sortingOrder = 5;
 		}
+		else if (type == UIType.Popup)
+		{
+			canvas.sortingOrder = 10;
+		}
 		
 		return canvas;
 	}
