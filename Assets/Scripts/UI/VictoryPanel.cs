@@ -26,9 +26,8 @@ public class VictoryPanel : UIInstance
 	
     public void OnCloseClick()
     {
-        Game.Instance.UIManager.GenerateUI<ShopUIPanel>(new ShopUIPanelGenState()
+        Game.Instance.UIManager.GenerateUI<RewardUIPanel>(new RewardUIPanelGenState()
         {
-            rollCount = 3,
             doneAction = genState.ReturnToMapAction
         });
         Hide();

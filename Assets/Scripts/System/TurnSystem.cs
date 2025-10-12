@@ -25,14 +25,20 @@ public class TurnSystem
 			{
 				if (!cardList[phase].IsDead)
 				{
-					var routine = cardList[phase].TargetCard.Action.UpdatableRoutine;
-					routine.AddChainAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.3f, () => CurrentUsedCost = value));
+					currentUsedCost = currentCostCumulative[phase];
+					NoticeSystem.Instance.Publish(new CurrentUsedCostChangeNotice(currentUsedCost));
+
+					var targetCard = cardList[phase];
+					var routine = targetCard.TargetCard.Action.UpdatableRoutine;
+					routine.AddChainAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.3f, () =>
+					{
+						if(!targetCard.IsDead) Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(targetCard);
+						CurrentUsedCost = value;
+					}));
 					routine.AddInterruptAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
 					RegisterPlayerTurnRoutine(routine);
 
 					//todo: fix
-					Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(cardList[phase]);
-					currentUsedCost = currentCostCumulative[phase];
 					phase++;
 				}
 				else
@@ -45,9 +51,8 @@ public class TurnSystem
 			else
 			{
 				currentUsedCost = Mathf.Min(value, CurrentTotalCost);
+				NoticeSystem.Instance.Publish(new CurrentUsedCostChangeNotice(currentUsedCost));
 			}
-			
-			NoticeSystem.Instance.Publish(new CurrentUsedCostChangeNotice(currentUsedCost));
 		}
 	}
 

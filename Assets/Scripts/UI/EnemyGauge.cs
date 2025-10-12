@@ -59,6 +59,10 @@ public class EnemyGauge : UIInstance
             iconList.Add(icon);
             icon.CardObject = cardObjectInHands[i];
             icon.SetUse(idx <= currentFill, true);
+            if (cardObjectInHands[i].IsDead)
+            {
+                icon.gameObject.SetActive(false);
+            }
         }
         
         
@@ -84,16 +88,16 @@ public class EnemyGauge : UIInstance
 
     public void SetCardDisable(IBattleObject bo)
     {
-        var cards = cardList.Where(x => ((UnitSkillCardBattleStat)x.Stat).Owner == bo);
-        foreach (var card in cards)
+        var cards = cardList.Select((x, idx) => (x, idx)).Where(x => x.x.Stat.Owner == bo);
+        foreach (var (_, idx) in cards)
         {
-            iconList[cardList.IndexOf(card)].gameObject.SetActive(false);
+            iconList[idx].gameObject.SetActive(false);
         }
     }
 
     public void SetCardUse(IAction action)
     {
-        var card = cardList.Find(x => x.TargetCard.Action == action);
+        var card = cardList.FindLast(x => x.TargetCard.Action == action);
         if (card == null) return;
         iconList[cardList.IndexOf(card)].SetUse(true);
     }

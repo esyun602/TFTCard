@@ -15,7 +15,7 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 
 	private void Awake()
 	{
-		infoHandler = GetComponentInChildren<ICardInfoHandler>();
+		infoHandler = GetComponentInChildren<ICardInfoHandler>(true);
 	}
 	
 	public void Initialize(ICardSpec targetCard)
