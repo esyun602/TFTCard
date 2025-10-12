@@ -72,7 +72,6 @@ public class EnemyGauge : UIInstance
 
     public void SetFill(int idx)
     {
-        currentFill = idx;
         DOTween.To(() => fill.offsetMax, x => fill.offsetMax = x, endValue: GetFillOffsetMax(idx), 0.25f)
             .SetTarget(fill);
         
@@ -84,6 +83,7 @@ public class EnemyGauge : UIInstance
                 icon.gameObject.SetActive(false);
             }
         }
+        currentFill = idx;
     }
 
     public void SetCardDisable(IBattleObject bo)
