@@ -131,11 +131,11 @@
   },
   {
     "Name": "MechanizedSlaveActionStat",
-    "Cost": -2
+    "Cost": -3
   },
   {
     "Name": "SlaveGuardActionStat",
-    "Cost": -1
+    "Cost": -2
   },
   {
     "Name": "WorkshopSupervisorActionStat",
