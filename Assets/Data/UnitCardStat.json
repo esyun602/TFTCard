@@ -192,15 +192,15 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 3,
-    "MaxHp": 4
+    "Attack": 2,
+    "MaxHp": 3
   },
   {
     "Name": "EnemyHiredGangsterStat",
     "SynergyList": [
       ""
     ],
-    "Attack": 5,
+    "Attack": 3,
     "MaxHp": 6
   },
   {
@@ -224,8 +224,8 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 6,
-    "MaxHp": 10
+    "Attack": 5,
+    "MaxHp": 8
   },
   {
     "Name": "EnemySlaveGuardStat",
@@ -241,7 +241,7 @@
       ""
     ],
     "Attack": 4,
-    "MaxHp": 8
+    "MaxHp": 6
   },
   {
     "Name": "EnemyScrapMonsterStat",

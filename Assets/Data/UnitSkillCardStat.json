@@ -131,7 +131,7 @@
   },
   {
     "Name": "MechanizedSlaveActionStat",
-    "Cost": -2
+    "Cost": -3
   },
   {
     "Name": "SlaveGuardActionStat",
