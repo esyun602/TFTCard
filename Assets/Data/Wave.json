@@ -124,22 +124,54 @@
       {
         "Row": 2,
         "Col": 4,
-        "UnitCardName": "ScrapMonster"
+        "UnitCardName": "PatrolMachine"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "easy_wave_1",
+    "CellList": [
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "HiredGangster"
+      },
+      {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "GuardAutomaton"
       },
       {
         "Row": 1,
         "Col": 4,
-        "UnitCardName": "BrassMonster"
+        "UnitCardName": "PatrolMachine"
       },
       {
         "Row": 1,
-        "Col": 6,
-        "UnitCardName": "VacuumTubeLump"
+        "Col": 5,
+        "UnitCardName": "GuardAutomaton"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "easy_wave_2",
+    "CellList": [
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "RepairMachine"
       },
       {
         "Row": 0,
         "Col": 4,
-        "UnitCardName": "ScrapMonster"
+        "UnitCardName": "MechanizedSlave"
       }
     ],
     "PrepareTurn": 1

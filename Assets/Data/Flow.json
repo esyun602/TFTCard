@@ -24,8 +24,7 @@
       "AllowDuplicate": true,
       "PoolList": [
         "TestStage",
-        "TestStage2",
-        "TestStage3"
+        "TestStage2"
       ]
     }
   },

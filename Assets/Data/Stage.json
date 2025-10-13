@@ -5,7 +5,7 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "test_wave_1"
+      "easy_wave_1"
     ],
     "StageIcon": "StageIcon_1"
   },
@@ -21,7 +21,7 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "test_wave_2"
+      "easy_wave_2"
     ],
     "StageIcon": "StageIcon_1"
   },
