@@ -9,7 +9,7 @@ public class TargetMarkerManager : UIInstance
 	protected override void Init(object param)
 	{
 		markerRequests = new();
-		UnityObjectPool.GetOrCreateUIPool("TargetMarker").transform.SetParent(transform);
+		UnityObjectPool.GetOrCreateUIPool("TargetMarker").transform.SetParent(transform, false);
 	}
 	
 	public void SetTargetMarkerTo(ITile target, object requester)
