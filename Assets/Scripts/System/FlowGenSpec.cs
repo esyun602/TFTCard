@@ -21,6 +21,10 @@ public abstract class StagePoolInfoBase
 		this.stagePoolList = stagePoolList;
 	}
 
+	public virtual void Initialize()
+	{
+		
+	}
 	public abstract StageSpec GetRandomStageSpec();
 }
 
@@ -37,9 +41,15 @@ public class ReplacementStagePoolInfo : StagePoolInfoBase
 }
 public class NonReplacementStagePoolInfo : StagePoolInfoBase
 {
+	private List<string> stagePoolListCopy;
+	public override void Initialize()
+	{
+		stagePoolListCopy = new(stagePoolList);
+	}
+
 	public override StageSpec GetRandomStageSpec()
 	{
-		return GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec(stagePoolList.GetAndRemoveRandomElement());
+		return GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec(stagePoolListCopy.GetAndRemoveRandomElement());
 	}
 
 	public NonReplacementStagePoolInfo(List<string> stagePoolList) : base(stagePoolList)
@@ -62,8 +72,8 @@ public class FlowGenSpec
 	/// </summary>
 	public List<int> BranchParams { get; private set; }
 
-	public Dictionary<StageType, StagePoolInfoBase> stagePoolDict;
-
+	private Dictionary<StageType, StagePoolInfoBase> stagePoolDict;
+	
 	private int currentGeneratingIdx;
 	
 	public static FlowGenSpec Create(Dictionary<string, object> param)
@@ -101,9 +111,18 @@ public class FlowGenSpec
 
 		return spec;
 	}
+
+	private void InitializePoolInfos()
+	{
+		foreach (var kvp in stagePoolDict)
+		{
+			kvp.Value.Initialize();
+		}
+	}
 	
 	public FlowInfo GenerateFlow()
 	{
+		InitializePoolInfos();
 		currentGeneratingIdx = 0;
 		var flowInfo = new FlowInfo();
 		flowInfo.AddStartNodes(GenerateFlowNodes(StageTypeOrder[0]));

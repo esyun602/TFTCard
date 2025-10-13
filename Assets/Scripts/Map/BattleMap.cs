@@ -189,7 +189,7 @@ public class BattleMap : IMap
 
 	private Dictionary<(int, int), ITile> tilePosCache;
 	private List<ITile> tileList;
-	private Vector3 tileSize = new Vector3(1.5f, 100f, 2f);
+	private Vector3 tileSize = new Vector3(1.5f, 400f, 2f);
 
 	public BattleMap(GameObject mapObject)
 	{

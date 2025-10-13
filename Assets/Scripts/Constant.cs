@@ -22,9 +22,9 @@ public class Constant : GameData
 	public const float HandIndexYOffset = 1f;
 	public const float HandHoverYPos = 30f;
 	
-	public const float SelectYPos = 40f;
 	public const float AttackYPos = 50f;
 	public const float HighlightYPos = 60f;
+	public const float SelectYPos = 70f;
 
 	public const float StageCameraHeight = 200f;
 
