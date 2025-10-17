@@ -4,7 +4,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "alchemist_symbol",
     "SynergyNameKey": "synergy_alchemist",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "연금술사의 행동카드는 대상 적에게 촉매를 부여합니다. \\n(2) 촉매 1 부여 \\n(5) 촉매 2 부여",
     "SynergyCountList": [
       2,
       5
@@ -22,7 +22,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "steamengine_symbol",
     "SynergyNameKey": "synergy_steamengine",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "증기기관 유닛은 화상을 입을 때마다 강화됩니다. \\n(2) 화상이 부여될 때, 강화 1을 얻습니다. \\n(4) 화상이 부여될 때, 강화 2를 얻습니다. \\n(6) 증기기관 유닛은 화상 피해를 받지 않습니다.",
     "SynergyCountList": [
       2,
       4,
@@ -40,7 +40,7 @@
     "SynergyCategory": "Clock",
     "TargetSprite": "watchmaker_symbol",
     "SynergyNameKey": "synergy_watchmaker",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "캐비노티에는 시간을 다루는 놀라운 기술로 아군 유닛을 부활시킵니다. \\n(1) 전투에서 최초로 사망한 아군 유닛의 시간을 되돌려 처음 상태로 부활시킵니다.",
     "SynergyCountList": [
       1
     ],
@@ -55,7 +55,7 @@
     "SynergyCategory": "Aeronaut",
     "TargetSprite": "aeronaut_symbol",
     "SynergyNameKey": "synergy_aeronaut",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "유능한 에어로넛 유닛들의 지휘 아래, 거대 비행선 유닛을 소환합니다. \\n(2) 거대 비행선이 유닛 목록에 추가됩니다.",
     "SynergyCountList": [
       2
     ],
@@ -70,7 +70,7 @@
     "SynergyCategory": "Secret",
     "TargetSprite": "secret_symbol",
     "SynergyNameKey": "synergy_secret",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "필드에 비밀결사 유닛이 정확히 하나 또는 넷 있을 때, 비밀결사의 행동 카드가 강화됩니다. \\n(1) 비밀결사의 행동 카드 강화 \\n(4) 비밀결사의 행동 카드 강화",
     "SynergyCountList": [
       1,
       2,
@@ -87,7 +87,7 @@
     "SynergyCategory": "Noble",
     "TargetSprite": "noble_symbol",
     "SynergyNameKey": "synergy_noble",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "귀족은 전투에 승리할 때마다 더 많은 보수를 줍니다. \\n(2) 전투 승리 골드 +10 \\n(4) 전투 승리 골드 +20 \\n(5) 전투 승리 골드 +30",
     "SynergyCountList": [
       2,
       4,
@@ -105,7 +105,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "assault_symbol",
     "SynergyNameKey": "synergy_vanguard",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "돌격병은 최전방에서 전투할 때 더욱 강력해집니다. \\n(2) 1열에 있을 때, 강화 2를 얻습니다.",
     "SynergyCountList": [
       2
     ],
@@ -122,7 +122,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "guard_symbol",
     "SynergyNameKey": "synergy_warden",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "파수꾼은 최전방에서 피해를 받아내는 것에 특화된 유닛입니다. \\n(2) 피격 시 방어도를 1 획득합니다.",
     "SynergyCountList": [
       2
     ],
@@ -138,7 +138,7 @@
     "SynergyCategory": "Strategy",
     "TargetSprite": "strategy_symbol",
     "SynergyNameKey": "synergy_strategist",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "카드 운용에 전반적인 이점을 얻습니다. \\n(3) 매 턴 처음으로 사용하는 카드의 비용이 1 감소합니다.(최소 비용: 0)",
     "SynergyCountList": [
       3
     ],
@@ -154,7 +154,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "gunslinger_symbol",
     "SynergyNameKey": "synergy_gunman",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "안전한 위치에서 일방적인 공격을 가하는 유닛입니다. \\n(2) 최대 체력일 때, 강화 2를 얻습니다.",
     "SynergyCountList": [
       2
     ],
@@ -170,7 +170,7 @@
     "SynergyCategory": "Bomber",
     "TargetSprite": "bomber_symbol",
     "SynergyNameKey": "synergy_bomber",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "범위 공격에 특화된 유닛입니다. \\n(2) 폭발 전문가 유닛이 가하는 폭발 피해가 1 증가합니다.",
     "SynergyCountList": [
       2
     ],
@@ -186,7 +186,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "mechanic_symbol",
     "SynergyNameKey": "synergy_engineer",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "기계공 유닛은 같은 행 최전방의 유닛에게 방어도를 제공합니다. \\n(2) 기계공의 행동 카드 사용 시 최전방 유닛에게 방어도 1 부여",
     "SynergyCountList": [
       2
     ],
@@ -202,7 +202,7 @@
     "SynergyCategory": "Supporter",
     "TargetSprite": "supporter_symbol",
     "SynergyNameKey": "synergy_supporter",
-    "CommonDescKey": "todo",
+    "CommonDescKey": "체력 회복의 이점을 강화합니다. \\n(3) 체력 회복이 부정적인 효과를 정화합니다.",
     "SynergyCountList": [
       3
     ],
