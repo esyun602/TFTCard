@@ -35,7 +35,7 @@ public class BattleUI : UIInstance
 	protected override void Init(object param)
 	{
 		NoticeSystem.Instance.Subscribe<EnergyChangeNotice>(OnEnergyChange);
-		NoticeSystem.Instance.Subscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Subscribe<BagSynergyUpdateNotice>(OnSynergyUpdate);
 		NoticeSystem.Instance.Subscribe<SkillHandCardHoverNotice>(OnHandCardHover);
 		NoticeSystem.Instance.Subscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
 		NoticeSystem.Instance.Subscribe<EnemyIconHoverNotice>(OnEnemyCardHover);
@@ -58,6 +58,8 @@ public class BattleUI : UIInstance
 		arrowDrawer = Game.Instance.UIManager.GenerateUI<ArrowDrawer>();
 		targetMarkerManager = Game.Instance.UIManager.GenerateUI<TargetMarkerManager>();
 		enemyGauge = Game.Instance.UIManager.GenerateUI<EnemyGauge>();
+
+		InitializeSynergyInfo(Game.Instance.GetPlayer().CurrentPlayInfo.SynergyNumDict);
 	}
 
 	private void OnEnemyCardHover(EnemyIconHoverNotice m)
@@ -161,23 +163,28 @@ public class BattleUI : UIInstance
 		targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
 	}
 
-	private void OnSynergyUpdate(SynergyInfoUpdateNotice m)
+	private void InitializeSynergyInfo(Dictionary<SynergyCategory, int> dict)
 	{
-		if (m.Count <= 0)
+		foreach (var kvp in synergyLabelMap)
 		{
-			synergyLabelMap[m.TargetSynergyCategory] = null;
-
-			return;
+			Destroy(kvp.Value.gameObject);
 		}
+		synergyLabelMap.Clear();
 		
-		if (!synergyLabelMap.TryGetValue(m.TargetSynergyCategory, out var label))
+		
+		foreach (var kvp in dict)
 		{
-			label = Instantiate(synergyLabelPrefab, synergyContentTransform);
-			label.Initialize(m.TargetSynergyCategory);
-			synergyLabelMap[m.TargetSynergyCategory] = label;
+			var category = kvp.Key;
+			var num = kvp.Value;
+			
+			synergyLabelMap[category] = Instantiate(synergyLabelPrefab, synergyContentTransform);
+			synergyLabelMap[category].Initialize(category, num);
 		}
-		
-		label.SynergyCount = m.Count;
+	}
+	
+	private void OnSynergyUpdate(BagSynergyUpdateNotice m)
+	{
+		InitializeSynergyInfo(m.SynergyInfo);
 	}
 
 	private void OnEnergyChange(EnergyChangeNotice m)
@@ -247,7 +254,7 @@ public class BattleUI : UIInstance
 	protected override void OnRemove()
 	{
 		NoticeSystem.Instance.Unsubscribe<EnergyChangeNotice>(OnEnergyChange);
-		NoticeSystem.Instance.Unsubscribe<SynergyInfoUpdateNotice>(OnSynergyUpdate);
+		NoticeSystem.Instance.Unsubscribe<BagSynergyUpdateNotice>(OnSynergyUpdate);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardHoverNotice>(OnHandCardHover);
 		NoticeSystem.Instance.Unsubscribe<SkillHandCardRemoveHoverNotice>(OnHandCardRemove);
 		NoticeSystem.Instance.Unsubscribe<EnemyIconHoverNotice>(OnEnemyCardHover);

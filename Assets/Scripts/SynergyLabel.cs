@@ -18,19 +18,23 @@ public class SynergyLabel : MonoBehaviour
 		set
 		{
 			synergyCount = value;
+			synergyCountText.text = $"{synergyCount}";
 			synergyCountInfo.text = GetSynergyCountString();
 		}
 	}
 
+	[SerializeField] private TextMeshProUGUI synergyCountText;
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
 
-	public void Initialize(SynergyCategory targetSynergyCategory)
+	public void Initialize(SynergyCategory targetSynergyCategory, int count)
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 		targetCategorySpec = spec;
 		synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
 		icon.sprite = spec.TargetSprite;
+
+		SynergyCount = count;
 	}
 
 	private string GetSynergyCountString()

@@ -534,6 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 2149752922841763307}
+  synergyCountText: {fileID: 1930087657355292129}
   synergyName: {fileID: 1535112115055680091}
   synergyCountInfo: {fileID: 6366092582878201503}
 --- !u!222 &5388053745200266603
