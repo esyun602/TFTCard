@@ -47,7 +47,7 @@ public class SynergyLabel : MonoBehaviour
 #endif
 
 		var strBuilder = new StringBuilder();
-		strBuilder.Append("<color=#5E999E>");
+		strBuilder.Append("<color=#c5ae80>");
 		bool found = false;
 		
 		for (var i = 0; i < targetCategorySpec.SynergyCountList.Length; i++)
@@ -65,12 +65,12 @@ public class SynergyLabel : MonoBehaviour
 			         (i + 1 >= targetCategorySpec.SynergyCountList.Length || targetCategorySpec.SynergyCountList[i + 1] > synergyCount))
 			{
 				found = true;
-				strBuilder.Append($"<color=#335764>{targetCategorySpec.SynergyCountList[i]}</color> ");
+				strBuilder.Append($"<color=#392d17>{targetCategorySpec.SynergyCountList[i]}</color> ");
 				
 			}
 			else
 			{
-				strBuilder.Append($"<color=#335764>{targetCategorySpec.SynergyCountList[i]}</color> ");
+				strBuilder.Append($"<color=#392d17>{targetCategorySpec.SynergyCountList[i]}</color> ");
 			}
 		}
 
