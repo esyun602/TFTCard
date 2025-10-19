@@ -6,7 +6,6 @@ using DG.Tweening;
 using MessageSystem;
 using TMPro;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BattleObjectAnimationController : IMessageReceiver
@@ -59,7 +58,9 @@ public class BattleObjectAnimationController : IMessageReceiver
         foreach (var text in tmpros)
         {
             seq.Join(text.DOFade(0, 0.5f));
-            lastCallback += () => text.color = text.color.WithAlpha(1f);
+            var color = text.color;
+            color.a = 1;
+            lastCallback += () => text.color = color;
         }
 
         seq.AppendInterval(0.5f);
