@@ -76,7 +76,8 @@
   },
   {
     "Name": "DerrickActionPlusStat",
-    "Cost": 4
+    "Cost": 4,
+    "BurnAdd": 2
   },
   {
     "Name": "DustinActionPlusStat",
@@ -94,7 +95,8 @@
   {
     "Name": "PositiveFeedbackStat",
     "Cost": 2,
-    "CatalystAdd": 1
+    "CatalystAdd": 1,
+    "Damage": 0
   },
   {
     "Name": "ChainReactionStat",

@@ -245,7 +245,7 @@
   },
   {
     "StringKey": "act_skill_normanaction_desc",
-    "KorString": "노먼이 선택한 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면 골드를 {$attack} 얻습니다."
+    "KorString": "노먼이 선택한 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면 골드를 {$goldAdd} 얻습니다."
   },
   {
     "StringKey": "act_skill_dawsonaction",
@@ -317,7 +317,7 @@
   },
   {
     "StringKey": "act_skill_biological_experiment_desc",
-    "KorString": "알레가 적에게 {$attack}의 피해를 주고, 촉매를 {$catalystAdd} 부여합니다."
+    "KorString": "근접. 알레가 적에게 {$attack}의 피해를 주고, 촉매를 {$catalystAdd} 부여합니다."
   },
   {
     "StringKey": "act_skill_equivalent_exchange",
@@ -333,7 +333,7 @@
   },
   {
     "StringKey": "act_skill_positive_feedback_desc",
-    "KorString": "포지가 선택한 적에게 촉매를 {$catalystAdd} 부여합니다. 이 카드를 사용할 때마다 부여하는 촉매가 {$attack} 증가합니다."
+    "KorString": "포지가 선택한 적에게 촉매를 {$catalystAdd} 부여하고, 피해를 0 줍니다. 이 카드를 사용할 때마다 부여하는 촉매가 {$attack} 증가합니다."
   },
   {
     "StringKey": "act_skill_chain_reaction",
