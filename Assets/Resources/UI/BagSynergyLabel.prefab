@@ -173,6 +173,7 @@ MonoBehaviour:
   synergyDescPanel: {fileID: 4587731211110423569}
   synergyDesc: {fileID: 2785522637415845147}
   countText: {fileID: 7394615308814044490}
+  frameImage: {fileID: 4622996821245420738}
 --- !u!1 &4233596626335088656
 GameObject:
   m_ObjectHideFlags: 0

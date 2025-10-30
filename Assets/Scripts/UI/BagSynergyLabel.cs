@@ -17,8 +17,9 @@ namespace UI
 		[SerializeField] private Image synergyDescPanel;
 		[SerializeField] private TextMeshProUGUI synergyDesc;
 		[SerializeField] private TextMeshProUGUI countText;
-
-		private int NextCount
+		[SerializeField] private Image frameImage;
+		
+		private int NextIndex
 		{
 			get
 			{
@@ -38,9 +39,12 @@ namespace UI
 						right = mid;
 				}
 
-				return targetCategorySpec.SynergyCountList[left];
+				return left;
 			}
+			
 		}
+		
+		private int NextCount => NextIndex == -1 ? -1 : targetCategorySpec.SynergyCountList[NextIndex];
 
 		private int count;
 
@@ -57,6 +61,7 @@ namespace UI
 			icon.sprite = spec.TargetSprite;
 			var next = NextCount;
 			countText.text = next == -1 ? $"{count}" : $"{count}/{next}";
+			frameImage.sprite = spec.GetBagTierResource(count);
 		}
 
 		public void OnPointerEnter(PointerEventData eventData)

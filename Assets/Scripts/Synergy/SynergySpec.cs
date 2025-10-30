@@ -5,6 +5,14 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+public enum SynergyTier
+{
+	Disabled,
+	Bronze,
+	Silver,
+	Gold,
+}
+
 //todo: 접근성 수정
 public abstract class SynergySpec
 {
@@ -15,6 +23,7 @@ public abstract class SynergySpec
 	public int[] SynergyCountList { get; private set; }
 	public string[] DescKey { get; private set; }
 	public Color SymbolColor { get; private set; }
+	public List<SynergyTier> SynergyTier { get; private set; }
 
 	public abstract bool TryGenerateGlobalSynergyInstance(out IGlobalSynergy globalSynergy);
 	public abstract bool TryGenerateBattleSynergyInstance(out IBattleSynergy battleSynergy);
@@ -39,6 +48,13 @@ public abstract class SynergySpec
 			spec.SymbolColor = color;
 		}
 
+		var tierStr = param.GetStringArray(nameof(SynergyTier));
+		spec.SynergyTier = new();
+		foreach (var str in tierStr)
+		{
+			spec.SynergyTier.Add(Enum.Parse<SynergyTier>(str, true)); 
+		}
+
 		spec.Initialize(param);
 		
 		return spec;
@@ -60,5 +76,46 @@ public abstract class SynergySpec
 		}
 
 		return 0;
+	}
+}
+
+public static class SynergySpecExtensions
+{
+	public static Sprite GetBagTierResource(this SynergySpec spec, int count)
+	{
+		return Constant.BagSynergyTierFrame[spec.GetCurrentSynergyTier(count)];
+	}
+		
+	public static Sprite GetBattleTierResource(this SynergySpec spec, int count)
+	{
+		return Constant.BattleSynergyTierFrame[spec.GetCurrentSynergyTier(count)];
+	}
+
+	public static SynergyTier GetCurrentSynergyTier(this SynergySpec spec, int count)
+	{
+		if (count >= spec.SynergyCountList[^1])
+		{
+			return spec.SynergyTier[^1];
+		}
+		
+		int left = 0;
+		int right = spec.SynergyCountList.Length;
+		while (left < right)
+		{
+			int mid = (left + right) / 2;
+			if (spec.SynergyCountList[mid] <= count)
+				left = mid + 1;
+			else
+				right = mid;
+		}
+		
+		if (left == 0)
+		{
+			return SynergyTier.Disabled;
+		}
+		else
+		{
+			return spec.SynergyTier[left - 1];
+		}
 	}
 }

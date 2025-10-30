@@ -129,6 +129,7 @@ public abstract class BagUICard : MonoBehaviour, IPointerClickHandler, IPointerE
 
 		public void SetHover()
 		{
+			owner.transform.parent.SetAsLastSibling();
 			owner.transform.SetAsLastSibling();
 			isHovered = true;
 			hoverTarget = originalScale * 1.8f;

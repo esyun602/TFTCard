@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -35,6 +36,8 @@ public class Constant : GameData
 	public static string AllyCardDefaultFrameName { get; private set; }
 	public static string EnemyCardDefaultFrameName { get; private set; }
 	public static string BossCardDefaultFrameName { get; private set; }
+	public static Dictionary<SynergyTier, Sprite> BagSynergyTierFrame { get; private set; }
+	public static Dictionary<SynergyTier, Sprite> BattleSynergyTierFrame { get; private set; }
 	
 	public override void Initialize()
 	{
@@ -46,6 +49,18 @@ public class Constant : GameData
 		DefaultEnergy = param.GetInt(nameof(DefaultEnergy));
 		DefaultMinEnergy = param.GetInt(nameof(DefaultMinEnergy));
 		DefaultMaxEnergy = param.GetInt(nameof(DefaultMaxEnergy));
+
+		BagSynergyTierFrame = new();
+		BagSynergyTierFrame[SynergyTier.Bronze] = Resources.Load<Sprite>("Sprites/BagSynergyFrame/" + param.GetString("BronzeSynergyFrame"));
+		BagSynergyTierFrame[SynergyTier.Silver] = Resources.Load<Sprite>("Sprites/BagSynergyFrame/" + param.GetString("SilverSynergyFrame"));
+		BagSynergyTierFrame[SynergyTier.Gold] = Resources.Load<Sprite>("Sprites/BagSynergyFrame/" + param.GetString("GoldSynergyFrame"));
+		BagSynergyTierFrame[SynergyTier.Disabled] = Resources.Load<Sprite>("Sprites/BagSynergyFrame/" + param.GetString("DisabledSynergyFrame"));
+
+		BattleSynergyTierFrame = new();
+		BattleSynergyTierFrame[SynergyTier.Bronze] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("BronzeSynergyFrame"));
+		BattleSynergyTierFrame[SynergyTier.Silver] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("SilverSynergyFrame"));
+		BattleSynergyTierFrame[SynergyTier.Gold] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("GoldSynergyFrame"));
+		BattleSynergyTierFrame[SynergyTier.Disabled] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("DisabledSynergyFrame"));
 	}
 
 	public override void Dispose()

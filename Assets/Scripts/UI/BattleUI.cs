@@ -163,7 +163,7 @@ public class BattleUI : UIInstance
 		targetMarkerManager.RemoveTargetMarker(m.SelectedCard);
 	}
 
-	private void InitializeSynergyInfo(Dictionary<SynergyCategory, int> dict)
+	private void InitializeSynergyInfo(IEnumerable<KeyValuePair<SynergyCategory, int>> dict)
 	{
 		foreach (var kvp in synergyLabelMap)
 		{

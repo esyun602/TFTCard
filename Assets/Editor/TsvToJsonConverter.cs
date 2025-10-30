@@ -152,7 +152,7 @@ public class TsvToJsonWindow : EditorWindow
 
             foreach (var cell in cellList)
             {
-                list.Add(Cast(cell, typeString.Substring(0, typeString.Length - 2)));
+                list.Add(Cast(cell.Trim(), typeString.Substring(0, typeString.Length - 2)));
             }
 
             return list;
@@ -237,15 +237,15 @@ public class TsvToJsonWindow : EditorWindow
 
                 if (headers[c].Contains("Key"))
                 {
-                    key = cells[c];
+                    key = cells[c].Trim();
                 }
                 else if (headers[c].Contains("Type"))
                 {
-                    type = cells[c];
+                    type = cells[c].Trim();
                 }
                 else if (headers[c].Contains("Value"))
                 {
-                    value = cells[c];
+                    value = cells[c].Trim();
                 }
             }
             

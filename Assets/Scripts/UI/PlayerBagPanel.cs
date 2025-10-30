@@ -81,7 +81,7 @@ public class PlayerBagPanel : UIInstance
 		UpdateSynergyArea(m.SynergyInfo);
 	}
 	
-	private void UpdateSynergyArea(Dictionary<SynergyCategory, int> dictionary)
+	private void UpdateSynergyArea(IEnumerable<KeyValuePair<SynergyCategory, int>> dictionary)
 	{
 		DisposeAllSynergy();
 		foreach (var kvp in dictionary)

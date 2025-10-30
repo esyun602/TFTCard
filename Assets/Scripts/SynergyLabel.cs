@@ -3,10 +3,11 @@ using System.Text;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class SynergyLabel : MonoBehaviour
+public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	private SynergySpec targetCategorySpec;
 	[SerializeField] private Image icon;
@@ -26,7 +27,8 @@ public class SynergyLabel : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI synergyCountText;
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
-
+	[SerializeField] private Image frame;
+	
 	public void Initialize(SynergyCategory targetSynergyCategory, int count)
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
@@ -34,6 +36,7 @@ public class SynergyLabel : MonoBehaviour
 		synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
 		icon.sprite = spec.TargetSprite;
 
+		frame.sprite = spec.GetBattleTierResource(count);
 		SynergyCount = count;
 	}
 
@@ -77,5 +80,13 @@ public class SynergyLabel : MonoBehaviour
 		strBuilder.Append("</color>");
 
 		return strBuilder.ToString();
+	}
+
+	public void OnPointerEnter(PointerEventData eventData)
+	{
+	}
+
+	public void OnPointerExit(PointerEventData eventData)
+	{
 	}
 }
