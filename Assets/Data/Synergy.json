@@ -15,7 +15,12 @@
       "todo"
     ],
     "SymbolColor": "#F1EDAD",
-    "OptionName": "AlchemistOption"
+    "OptionName": "AlchemistOption",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "SteamEngine",
@@ -34,7 +39,12 @@
       "todo"
     ],
     "SymbolColor": "#B4A0D6",
-    "OptionName": "SteamEngineOption"
+    "OptionName": "SteamEngineOption",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Clock",
@@ -49,7 +59,12 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#B4A0D6"
+    "SymbolColor": "#B4A0D6",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Aeronaut",
@@ -64,7 +79,12 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#B4A0D6"
+    "SymbolColor": "#B4A0D6",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Secret",
@@ -81,7 +101,12 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#D6A0BB"
+    "SymbolColor": "#D6A0BB",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Noble",
@@ -98,7 +123,12 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#EDBB8B "
+    "SymbolColor": "#EDBB8B ",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Assault",
@@ -115,7 +145,12 @@
       "todo"
     ],
     "SymbolColor": "#B4A0D6",
-    "OptionName": "AssaultOption"
+    "OptionName": "AssaultOption",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Guard",
@@ -132,7 +167,12 @@
       "todo"
     ],
     "SymbolColor": "#B4A0D6",
-    "OptionName": "GuardOption"
+    "OptionName": "GuardOption",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Strategy",
@@ -147,7 +187,12 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#B4A0D6"
+    "SymbolColor": "#B4A0D6",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Gunslinger",
@@ -164,7 +209,12 @@
       "todo"
     ],
     "SymbolColor": "#B4A0D6",
-    "OptionName": "GunslingerOption"
+    "OptionName": "GunslingerOption",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Bomber",
@@ -179,7 +229,12 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#B4A0D6"
+    "SymbolColor": "#B4A0D6",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Mechanic",
@@ -196,7 +251,12 @@
       "todo"
     ],
     "SymbolColor": "#B4A0D6",
-    "OptionName": "MechanicOption"
+    "OptionName": "MechanicOption",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   },
   {
     "SynergyCategory": "Supporter",
@@ -211,6 +271,11 @@
       "todo",
       "todo"
     ],
-    "SymbolColor": "#B4A0D6"
+    "SymbolColor": "#B4A0D6",
+    "SynergyTier": [
+      "bronze",
+      "silver",
+      "gold"
+    ]
   }
 ]

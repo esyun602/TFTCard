@@ -5,6 +5,10 @@
     "BossCardDefaultFrameName": "SomeValue",
     "DefaultEnergy": 0,
     "DefaultMinEnergy": 0,
-    "DefaultMaxEnergy": 6
+    "DefaultMaxEnergy": 6,
+    "BronzeSynergyFrame": "bronze_frame",
+    "SilverSynergyFrame": "silver_frame",
+    "GoldSynergyFrame": "gold_frame",
+    "DisabledSynergyFrame": "disabled_frame"
   }
 ]
