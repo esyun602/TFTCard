@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-	[SerializeField] private Image tint;
+	[SerializeField] protected Image tint;
 	public abstract ICard TargetCard { get; }
 	protected ICardInfoHandler infoHandler;
 	private SimpleStateMachine stateMachine;
@@ -21,20 +21,27 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 	
 	public void Initialize(ICardSpec targetCard)
 	{
+		transform.DOKill();
 		stateMachine = new SimpleStateMachine();
 		ChangeState(new DraftUICardNormalState(this));
-		
 		OnInitialize(targetCard);
 	}
 	
 	public abstract void OnInitialize(ICardSpec targetCard);
 	
-	private void ChangeState(IState nextState)
+	protected void ChangeState(IState nextState)
 	{
 		stateMachine.ChangeState(nextState);
 	}
+
+	public void ResetState()
+	{
+		ChangeState(new DraftUICardNormalState(this));
+	}
+
+	protected IState CurrentState => stateMachine.CurrentState;
 	
-	public void OnPointerClick(PointerEventData eventData)
+	public virtual void OnPointerClick(PointerEventData eventData)
 	{
 		if ((BlockInput & InputBlockFlag.Select) != InputBlockFlag.None) return;
 		if (eventData.button == PointerEventData.InputButton.Left)
@@ -42,8 +49,8 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 			NoticeSystem.Instance.Publish(new DraftUICardSelectedNotice(this));
 		}
 	}
-
-	public void OnPointerEnter(PointerEventData eventData)
+	
+	public virtual void OnPointerEnter(PointerEventData eventData)
 	{
 		if ((BlockInput & InputBlockFlag.Hover) != InputBlockFlag.None) return;
 
@@ -51,16 +58,9 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 		{
 			normalState.SetHover();
 		}
-
-		OnPointerEnterImpl();
 	}
 
-	protected virtual void OnPointerEnterImpl()
-	{
-		
-	}
-
-	public void OnPointerExit(PointerEventData eventData)
+	public virtual void OnPointerExit(PointerEventData eventData)
 	{
 		if ((BlockInput & InputBlockFlag.Hover) != InputBlockFlag.None) return;
 
@@ -68,14 +68,6 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 		{
 			normalState.RemoveHover();
 		}
-		
-		OnPointerExitImpl();
-	}
-
-
-	protected virtual void OnPointerExitImpl()
-	{
-		
 	}
 
 	private void Update()

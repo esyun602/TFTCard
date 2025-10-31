@@ -14,6 +14,7 @@ public class StartDraftGenState
 
 public class StartDraft : UIInstance
 {
+	[SerializeField] private DraftSelectPanel selectPanel;
 	[SerializeField] private int cardPerDraft;
 	[SerializeField] private int draftCount;
 	[SerializeField] private List<string> draftCandidatesStrings;
@@ -86,7 +87,9 @@ public class StartDraft : UIInstance
 			var pos = candidatePosList[i];
 			var instance = cardPool.Instantiate(pos);
 			currentCardList.Add(instance);
-			instance.GetComponent<DraftUIUnitCard>().Initialize(randomCard);
+			var duuc = instance.GetComponent<DraftUIUnitCard>();
+			duuc.Initialize(randomCard);
+			duuc.SetSelectPanel(selectPanel);
 		}
 	}
 
