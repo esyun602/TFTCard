@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using MessageSystem;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class StartDraftGenState
@@ -19,6 +22,8 @@ public class StartDraft : UIInstance
 	[SerializeField] private int draftCount;
 	[SerializeField] private List<string> draftCandidatesStrings;
 	[SerializeField] private GameObject endButton;
+	[SerializeField] private Image titleText;
+	[SerializeField] private Image titleLabel;
 	private int currentDraftCount;
 	private UnityObjectPool cardPool;
 	private List<PooledUnityObject> currentCardList = new();
@@ -44,7 +49,12 @@ public class StartDraft : UIInstance
 
 		NoticeSystem.Instance.Subscribe<DraftUICardSelectedNotice>(OnSelected);
 
-		ShowDraft();
+		var seq = DOTween.Sequence();
+		seq.AppendInterval(1f);
+		seq.Append(titleText.DOFade(1f, 1f));
+		seq.Join(titleLabel.DOFade(1f, 1f));
+		seq.AppendCallback(ShowDraft);
+		seq.Play();
 	}
 
 	protected override void OnRemove()

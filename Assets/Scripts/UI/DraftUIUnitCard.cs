@@ -4,6 +4,7 @@ using MessageSystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class DraftUIUnitCard : DraftUICard
 {
@@ -13,6 +14,7 @@ public class DraftUIUnitCard : DraftUICard
 
     protected DraftSelectPanel selectPanel;
     private float originPosX;
+    private float originPosY;
 
     public void SetSelectPanel(DraftSelectPanel selectPanel)
     {
@@ -22,7 +24,15 @@ public class DraftUIUnitCard : DraftUICard
     public override void OnInitialize(ICardSpec targetCard)
     {
         originPosX = transform.position.x;
+        originPosY = transform.position.y;
         unitCard = new UnitCard((UnitCardSpec)targetCard);
+        transform.position += Vector3.right * (Screen.width / 2 + 400f);
+
+        var seq = DOTween.Sequence();
+        seq.Append(transform.DOMoveX(originPosX, 0.8f));
+        seq.Insert((originPosX / Screen.width) * 0.2f, transform.DOMoveY(originPosY + 50f, 0.08f).SetLoops(8, LoopType.Yoyo));
+        seq.SetTarget(transform);
+        seq.Play();
         SetInfo();
     }
 
@@ -105,6 +115,7 @@ public class DraftUIUnitCard : DraftUICard
 			SetHover();
 			RestartHover();
 			owner.transform.DOKill();
+			owner.transform.position = owner.transform.position.GetX0z(owner.originPosY);
 			//todo: fix 
 
 			owner.selectPanel.Activate(owner);
