@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class FlowInfo
 {
+	public FlowInfo(List<AnimationCurve> idxList)
+	{
+		FlowCurveList = new(idxList);
+	}
 	private HashSet<FlowNodeInfo> startNodeList = new();
-
+	public List<AnimationCurve> FlowCurveList { get; }
 	/// <summary>
 	/// preorder traverse
 	/// </summary>
@@ -23,6 +27,17 @@ public class FlowInfo
 				}
 			}
 		}
+	}
+
+	private Dictionary<(int, int), float> progOffset = new();
+	public float GetProgOffset((int,int) idxPair)
+	{
+		if (progOffset.TryGetValue(idxPair, out var v))
+		{
+			return v;
+		}
+
+		return progOffset[idxPair] = (Random.value - 0.5f) * 0.1f;
 	}
 
 	public void AddStartNode(FlowNodeInfo nodeInfo)

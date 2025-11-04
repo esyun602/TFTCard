@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class FlowPanelGenState
 {
@@ -16,13 +17,13 @@ public class FlowPanel : UIInstance
 	public RectTransform TestNodeEnd;
 	public RectTransform TestNodeTop;
 	public RectTransform TestNodeBottom;
-	
+
+	[SerializeField]
+	private FlowEdgeDrawer edgeDrawer;
 	private FlowInfo flowInfo;
 	private List<List<FlowNode>> nodeList = new();
 	
 	private List<PooledUnityObject> nodePoList = new();
-	private List<PooledUnityObject> edgePoList;
-	
 	public override UIType UIType => UIType.SceneUI;
 	protected override void Init(object param)
 	{
@@ -31,16 +32,12 @@ public class FlowPanel : UIInstance
 			flowInfo = state.FlowInfo;
 		}
 		InstantiateNodes();
-		UnityObjectPool.GetOrCreateUIPool("FlowEdge").transform.SetParent(transform, false);
-		edgePoList = new();
 	}
 
 	protected override void OnRemove()
 	{
 		DisposeEdges();
 		DisposeNodes();
-		UnityObjectPool.GetOrCreateUIPool("FlowEdge").transform.SetParent(null);
-		
 	}
 
 	private void InstantiateNodes()
@@ -78,12 +75,12 @@ public class FlowPanel : UIInstance
 			{
 				var targetNode = nodeList[i][j];
 				var rt = targetNode.GetComponent<RectTransform>();
+				var prog = (float) i / (Mathf.Max(nodeList.Count - 1, 1)) + flowInfo.GetProgOffset((i,j));
 				rt.localPosition = new Vector3(
 					Mathf.Lerp(TestNodeStart.localPosition.x,
-						TestNodeEnd.localPosition.x, (float)i / (Mathf.Max(nodeList.Count - 1, 1))),
-					Mathf.Lerp(TestNodeBottom.localPosition.y,
-						TestNodeTop.localPosition.y, (float)(j+1) / (nodeList[i].Count + 1)),
-				TestNodeStart.localPosition.z
+						TestNodeEnd.localPosition.x, prog),
+					flowInfo.FlowCurveList[j].Evaluate(prog) * Constant.MapEdgeCurveModifier
+					,TestNodeStart.localPosition.z
 					);
 			}
 		}
@@ -93,36 +90,21 @@ public class FlowPanel : UIInstance
 
 	private void GenerateEdges()
 	{
-		var pool = UnityObjectPool.GetOrCreateUIPool("FlowEdge");
-		pool.transform.SetAsLastSibling();
+		edgeDrawer.transform.SetAsLastSibling();
 		UnityObjectPool.GetOrCreateUIPool("FlowNode").transform.SetAsLastSibling();
 		
-		
-		for (int i = 0; i < nodeList.Count; i++)
+		//todo: fix - 중간에서 갈라지는 경우는 없다고 우선 가정
+		var count = GetChildrenOf(nodeList[0][0]).Count;
+		for (var i = 0; i < count; i++)
 		{
-			for (int j = 0; j < nodeList[i].Count; j++)
-			{
-				var targetNode = nodeList[i][j];
-				var children = GetChildrenOf(targetNode);
-				if (children == null) return;
-				
-				foreach (var child in children)
-				{
-					var obj = pool.Instantiate();
-					edgePoList.Add(obj);
-					obj.GetComponent<FlowEdgeDrawer>().SetPosition(targetNode.transform.position, child.transform.position);
-				}
-			}
+			edgeDrawer.SetPosition(nodeList[0][0].transform.position, nodeList[^1][0].transform.position, 
+				flowInfo.FlowCurveList[i]);
 		}
 	}
 
 	private void DisposeEdges()
 	{
-		foreach (var edge in edgePoList)
-		{
-			edge.Dispose();
-		}
-		edgePoList.Clear();
+		edgeDrawer.Dispose();
 	}
 
 	private void DisposeNodes()

@@ -35,6 +35,54 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1003925949794480202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3819921965008313710}
+  - component: {fileID: 6752430420630639566}
+  m_Layer: 0
+  m_Name: FlowEdgeDrawer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3819921965008313710
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003925949794480202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8206808294240396699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6752430420630639566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003925949794480202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624dd4cf24dc4ab6a1bec5945374890e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2201187925463525543
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,6 +295,7 @@ RectTransform:
   - {fileID: 7926732683796490263}
   - {fileID: 7883270164957933494}
   - {fileID: 4330527736068297610}
+  - {fileID: 3819921965008313710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -308,6 +357,7 @@ MonoBehaviour:
   TestNodeEnd: {fileID: 7883270164957933494}
   TestNodeTop: {fileID: 8314130865725430737}
   TestNodeBottom: {fileID: 7926732683796490263}
+  edgeDrawer: {fileID: 6752430420630639566}
 --- !u!1 &5332350039390360882
 GameObject:
   m_ObjectHideFlags: 0

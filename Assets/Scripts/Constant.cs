@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 [Serializable]
@@ -8,6 +9,11 @@ public class Constant : GameData
 	public AnimationCurve CardReturnAnimationCurve;
 	public AnimationCurve CardFollowingSpeedCurve;
 	public AnimationCurve HandCardVerticalOffsetCurve;
+	[SerializeField]
+	private List<AnimationCurve> mapEdgeCurveList;
+
+	public List<List<AnimationCurve>> MapEdgeCurveList = new();
+	public  const float MapEdgeCurveModifier = 300f;
 	public const float Epsilon = 0.001f;
 	public static int DefaultEnergy { get; private set; }
 	public static int DefaultMinEnergy { get; private set; }
@@ -61,6 +67,19 @@ public class Constant : GameData
 		BattleSynergyTierFrame[SynergyTier.Silver] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("SilverSynergyFrame"));
 		BattleSynergyTierFrame[SynergyTier.Gold] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("GoldSynergyFrame"));
 		BattleSynergyTierFrame[SynergyTier.Disabled] = Resources.Load<Sprite>("Sprites/BattleSynergyFrame/" + param.GetString("DisabledSynergyFrame"));
+
+		for (var i = 0; i < mapEdgeCurveList.Count; i++)
+		{
+			if (i % 2 == 0)
+			{
+				MapEdgeCurveList.Add(new());
+				MapEdgeCurveList[^1].Add(mapEdgeCurveList[i]);
+			}
+			else
+			{
+				MapEdgeCurveList[^1].Add(mapEdgeCurveList[i]);
+			}
+		}
 	}
 
 	public override void Dispose()

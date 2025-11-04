@@ -430,6 +430,89 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 0
       m_RotationOrder: 4
+    mapEdgeCurveList:
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 6.036675
+        outSlope: 6.036675
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.068869874
+      - serializedVersion: 3
+        time: 0.33333334
+        value: 1
+        inSlope: 0.04824205
+        outSlope: 0.04824205
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.24415313
+      - serializedVersion: 3
+        time: 0.642033
+        value: 0.6666667
+        inSlope: -0.531642
+        outSlope: -0.531642
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.2759718
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -2.9449034
+        outSlope: -2.9449034
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.109005295
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    - serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: -11.199037
+        outSlope: -11.199037
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.04309705
+      - serializedVersion: 3
+        time: 0.33263868
+        value: -0.63934964
+        inSlope: 4.4615426
+        outSlope: 4.4615426
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.16406938
+      - serializedVersion: 3
+        time: 0.658331
+        value: -0.890375
+        inSlope: -4.1079993
+        outSlope: -4.1079993
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.22325653
+        outWeight: 0.07474477
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   gameDataParamList:
   - {fileID: 4900000, guid: e6cd57c8bf9437543a1c73ebfa569f83, type: 3}
   - {fileID: 4900000, guid: 28a9d65cb801eab44baa9829e280070a, type: 3}

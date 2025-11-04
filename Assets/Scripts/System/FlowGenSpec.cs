@@ -123,7 +123,7 @@ public class FlowGenSpec
 	{
 		InitializePoolInfos();
 		currentGeneratingIdx = 0;
-		var flowInfo = new FlowInfo();
+		var flowInfo = new FlowInfo(GameDataSystem.Instance.GetGameData<Constant>().MapEdgeCurveList.GetRandomElement());
 		flowInfo.AddStartNodes(GenerateFlowNodes(StageTypeOrder[0]));
 		
 		for(var i = 1; i < StageTypeOrder.Count; i++)
