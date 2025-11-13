@@ -44,4 +44,9 @@ public class InGameInteraction : UIInstance
 	{
 		Game.Instance.UIManager.GenerateUI<PlayerBagPanel>();
 	}
+
+	public void OpenGiveUpPanel()
+	{
+		Game.Instance.UIManager.GenerateUI<GiveUpPanel>();
+	}
 }
