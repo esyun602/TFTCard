@@ -33,8 +33,7 @@ public class Game : MonoBehaviour
 
 		SceneHandler = new();
 		UIManager = new();
-		player = new();
-		player.Initialize();
+		RenewPlayer();
 		UIManager.GenerateUI<DefaultSceneTransitionUI>();
 	}
 
@@ -64,8 +63,7 @@ public class Game : MonoBehaviour
 	public void ResetProgressInfo()
 	{
 		//todo: 수정 필요
-		player = new();
-		player.Initialize();
+		RenewPlayer();
 		ChangeGameMode(new TitleGameMode());
 	}
 
@@ -77,6 +75,13 @@ public class Game : MonoBehaviour
 	public Player GetPlayer()
 	{
 		return player;
+	}
+
+	private void RenewPlayer()
+	{
+		player?.Dispose();
+		player = new();
+		player.Initialize();
 	}
 
 	private void Update()

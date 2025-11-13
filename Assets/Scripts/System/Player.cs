@@ -9,6 +9,12 @@ public class Player
 		CurrentPlayInfo.Initialize();
 	}
 
+	public void Dispose()
+	{
+		CurrentPlayInfo.Dispose();
+		CurrentPlayInfo = null;
+	}
+
 	//todo: save infos
 	public PlayInfo CurrentPlayInfo { get; private set; }
 }
