@@ -4,10 +4,12 @@ using System.Linq;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleUIGenState
 {
 	public BlockInputHandler InputHandler { get; set; }
+	public Sprite bgSprite { get; set; }
 }
 
 public class BattleUI : UIInstance
@@ -24,6 +26,7 @@ public class BattleUI : UIInstance
 	[SerializeField] 
 	private Transform synergyContentTransform;
 	public override UIType UIType => UIType.SceneCameraUI;
+	[SerializeField] private Image bg;
 
 	private ArrowDrawer arrowDrawer;
 	private TargetMarkerManager targetMarkerManager;
@@ -53,6 +56,7 @@ public class BattleUI : UIInstance
 		NoticeSystem.Instance.Subscribe<SkillCardActionTriggerNotice>(OnActionTrigger);
 		
 		inputHandler = ((BattleUIGenState)param).InputHandler;
+		bg.sprite = ((BattleUIGenState)param).bgSprite;
 		
 		//todo: child 구현하면 수정
 		arrowDrawer = Game.Instance.UIManager.GenerateUI<ArrowDrawer>();

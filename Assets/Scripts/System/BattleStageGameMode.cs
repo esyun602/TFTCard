@@ -36,7 +36,8 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	{
 		Game.Instance.UIManager.GenerateUI<BattleUI>(new BattleUIGenState()
 		{
-			InputHandler = this.DeckSystem.BlockInputHandler
+			InputHandler = this.DeckSystem.BlockInputHandler,
+			bgSprite = ((BattleStageSpec)BattleStage.StageSpec).BattleStageBg
 		});
 		
 		NoticeSystem.Instance.Subscribe<BattleObjectGeneratedNotice>(OnBattleObjectGenerate);

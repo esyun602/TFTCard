@@ -1475,3 +1475,4 @@ MonoBehaviour:
   energy: {fileID: 8980002014786047806}
   synergyLabelPrefab: {fileID: 3558901122198794310, guid: 9d14e331e94ae76458d74ccf9484d0bc, type: 3}
   synergyContentTransform: {fileID: 744312203732943350}
+  bg: {fileID: 846866395854083567}
