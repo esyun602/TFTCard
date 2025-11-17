@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class MainMenuPanelGenState
 {
@@ -11,6 +12,8 @@ public class MainMenuPanel : UIInstance
 	public override UIType UIType { get; } = UIType.SceneUI;
 	private MainMenuPanelGenState state;
 
+	[SerializeField] private GameObject storyBook;
+	
 	protected override void Init(object param)
 	{
 		if (param is MainMenuPanelGenState state)
@@ -21,9 +24,14 @@ public class MainMenuPanel : UIInstance
 
 	public void OnStartButtonClick()
 	{
-		state.GameStartAction?.Invoke();
+		storyBook.SetActive(true);
 	}
 
+	public void OnStoryEnd()
+	{
+		state.GameStartAction?.Invoke();
+	}
+	
 	public void OnLoadButtonClick()
 	{
 	}
