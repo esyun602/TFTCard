@@ -173,7 +173,7 @@
   },
   {
     "StringKey": "act_skill_overheat_propulsion_desc",
-    "KorString": "근접. 월터가 자신에게 화상을 {$burnAdd} 부여하고, 적에게 피해를 {$attack} 줍니다."
+    "KorString": "<b>근접</b>. 월터가 자신에게\\n<color=#CC0000>화상</color>을 {$burnAdd} 부여하고,\\n적에게 피해를\\n{$attack}만큼 줍니다."
   },
   {
     "StringKey": "act_skill_flamethrower",
@@ -181,7 +181,7 @@
   },
   {
     "StringKey": "act_skill_flamethrower_desc",
-    "KorString": "근접. 파이어뱃이 적에게 화상을 {$attack} 부여합니다."
+    "KorString": "<b>근접</b>.\\n파이어뱃이 적에게\\n<color=#CC0000>화상</color>을 {$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_vaperaction",
@@ -189,7 +189,7 @@
   },
   {
     "StringKey": "act_skill_vaperaction_desc",
-    "KorString": "카드를 {$draw}장 뽑습니다. 베이퍼가 거대 비행선에게 강화를 {$attack} 부여합니다."
+    "KorString": "카드를 {$draw}장 뽑습니다.\\n베이퍼가 거대\\n비행선에게 <b>강화</b>를\\n{$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_high_pressure_bomb",
@@ -197,7 +197,7 @@
   },
   {
     "StringKey": "act_skill_high_pressure_bomb_desc",
-    "KorString": "근접. 코울이 적에게 {$attack}의 피해를, 같은 행의 나머지 적 모두에게 {$attack/2}의 폭발 피해를 줍니다."
+    "KorString": "<b>근접</b>. 코울이 적에게\\n{$attack}의 피해를, 같은 행의\\n나머지 적 모두에게\\n절반의 폭발 피해를\\n줍니다."
   },
   {
     "StringKey": "act_skill_automail",
@@ -205,7 +205,7 @@
   },
   {
     "StringKey": "act_skill_automail_desc",
-    "KorString": "거티가 선택한 아군에게 관통 피해를 {$damage} 주고, 방어도를 {$attack} 부여합니다."
+    "KorString": "거티가 선택한 아군에게\\n관통 피해를 {$damage} 주고,\\n<b>방어도</b>를 {$attack} 줍니다."
   },
   {
     "StringKey": "act_skill_steampack",
@@ -213,7 +213,7 @@
   },
   {
     "StringKey": "act_skill_steampack_desc",
-    "KorString": "벨라가 선택한 아군에게 화상을 {$burnAdd} 부여하고, 강화를 {$attack} 부여합니다."
+    "KorString": "벨라가 선택한 아군에게\\n<color=#CC0000>화상</color>을 {$burnAdd} 부여하고,\\n자신의 공격력({$attack})만큼\\n<b>강화</b>를 부여합니다."
   },
   {
     "StringKey": "act_skill_vilhelmaction",
@@ -221,7 +221,7 @@
   },
   {
     "StringKey": "act_skill_vilhelmaction_desc",
-    "KorString": "근접. 빌헬름이 적에게 피해를 {$attack + $hp} 줍니다."
+    "KorString": "<b>근접</b>. 빌헬름이 적에게\\n공격력과 체력을 더한\\n피해를 줍니다.\\n(현재 피해: {$attack + $hp})"
   },
   {
     "StringKey": "act_skill_collectoraction",
@@ -229,7 +229,7 @@
   },
   {
     "StringKey": "act_skill_collectoraction_desc",
-    "KorString": "버린 카드 더미에서 무작위 카드 {$draw}장을 손으로 가져옵니다."
+    "KorString": "버린 카드 더미에서\\n무작위 카드 {$draw}장을\\n손으로 가져옵니다."
   },
   {
     "StringKey": "act_skill_grahamaction",
@@ -237,7 +237,7 @@
   },
   {
     "StringKey": "act_skill_grahamaction_desc",
-    "KorString": "카드를 {$draw}장 뽑습니다. 이번 전투에서 무차별 폭격의 공격 횟수가 {$attack} 증가합니다."
+    "KorString": "카드를 {$draw}장 뽑습니다. 이번 전투에서 무차별 폭격의 공격 횟수가\\n{$attack} 증가합니다."
   },
   {
     "StringKey": "act_skill_normanaction",
@@ -245,7 +245,7 @@
   },
   {
     "StringKey": "act_skill_normanaction_desc",
-    "KorString": "노먼이 선택한 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면 골드를 {$goldAdd} 얻습니다."
+    "KorString": "노먼이 선택한 적에게\\n피해를 {$attack} 줍니다. 이\\n공격으로 적이 죽으면\\n<color=#FFB700>골드</color>를 {$goldAdd} 얻습니다."
   },
   {
     "StringKey": "act_skill_dawsonaction",
@@ -253,7 +253,7 @@
   },
   {
     "StringKey": "act_skill_dawsonaction_desc",
-    "KorString": "근접. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 뽑을 카드 더미의 맨 위에 놓습니다."
+    "KorString": "<b>근접</b>. 도슨이 적에게 피해를\\n{$attack} 주고, 다음\\n사용하는 카드를 뽑을\\n카드 더미의 맨 위에\\n놓습니다."
   },
   {
     "StringKey": "act_skill_dawsonactionplus",
@@ -261,7 +261,7 @@
   },
   {
     "StringKey": "act_skill_dawsonactionplus_desc",
-    "KorString": "근접. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 다시 손으로 가져옵니다."
+    "KorString": "<b>근접</b>. 도슨이 적에게 피해를\\n{$attack} 주고, 다음\\n사용하는 카드를 다시\\n손으로 가져옵니다."
   },
   {
     "StringKey": "act_skill_desmondaction",
@@ -269,7 +269,7 @@
   },
   {
     "StringKey": "act_skill_desmondaction_desc",
-    "KorString": "데스몬드가 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면, 강화를 3 얻습니다. 적을 죽이지 못하면, 약화를 3 얻습니다."
+    "KorString": "데스몬드가 적에게\\n피해를 {$attack} 줍니다. 이\\n공격으로 적이 죽으면,\\n<b>강화</b>를 3 얻습니다.\n적을 죽이지 못하면,\\n약화를 3 얻습니다."
   },
   {
     "StringKey": "act_skill_desmondactionplus",
@@ -277,7 +277,7 @@
   },
   {
     "StringKey": "act_skill_desmondactionplus_desc",
-    "KorString": "데스몬드가 적에게 피해를 {$attack} 줍니다. 이 공격으로 적이 죽으면, 강화를 3 얻습니다."
+    "KorString": "데스몬드가 적에게\\n피해를 {$attack} 줍니다. 이\\n공격으로 적이 죽으면,\\n<b>강화</b>를 3 얻습니다."
   },
   {
     "StringKey": "act_skill_derrickaction",
@@ -285,7 +285,7 @@
   },
   {
     "StringKey": "act_skill_derrickaction_desc",
-    "KorString": "데릭이 선택한 적과 같은 열의 모두에게 {$attack}의 폭발 피해를 줍니다."
+    "KorString": "데릭이 선택한 적과\\n같은 열의 모두에게\\n폭발 피해를 {$attack} 줍니다."
   },
   {
     "StringKey": "act_skill_derrickactionplus",
@@ -293,7 +293,7 @@
   },
   {
     "StringKey": "act_skill_derrickactionplus_desc",
-    "KorString": "데릭이 선택한 적과 같은 열의 모두에게 {$attack}의 폭발 피해를 주고, 화상을 {$burnAdd} 부여합니다."
+    "KorString": "데릭이 선택한 적과\\n같은 열의 모두에게\\n폭발 피해를 {$attack} 주고, <color=#CC0000>화상</color>을 {$burnAdd}\\n부여합니다."
   },
   {
     "StringKey": "act_skill_dustinaction",
@@ -301,7 +301,7 @@
   },
   {
     "StringKey": "act_skill_dustinaction_desc",
-    "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {$attack} 부여합니다."
+    "KorString": "더스틴이\\n선택한 아군에게\\n<b>강화</b> 또는 <b>방어도</b> 중\\n무작위 효과를 {$attack}\\n부여합니다."
   },
   {
     "StringKey": "act_skill_dustinactionplus",
@@ -309,7 +309,7 @@
   },
   {
     "StringKey": "act_skill_dustinactionplus_desc",
-    "KorString": "더스틴이 선택한 아군에게 강화 또는 방어도 중 무작위 효과를 {$attack} 부여합니다."
+    "KorString": "더스틴이\\n선택한 아군에게\\n<b>강화</b> 또는 <b>방어도</b> 중\\n무작위 효과를 {$attack}\\n부여합니다."
   },
   {
     "StringKey": "act_skill_biological_experiment",
@@ -317,7 +317,7 @@
   },
   {
     "StringKey": "act_skill_biological_experiment_desc",
-    "KorString": "근접. 알레가 적에게 {$attack}의 피해를 주고, 촉매를 {$catalystAdd} 부여합니다."
+    "KorString": "<b>근접</b>. 알레가 적에게\\n{$attack}의 피해를 주고,\\n<color=#B57EDC>촉매</color>를 {$catalystAdd} 부여합니다."
   },
   {
     "StringKey": "act_skill_equivalent_exchange",
@@ -325,7 +325,7 @@
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
-    "KorString": "근접. 적에게 피해를 {$attack} 준 다음, 자신의 공격력과 체력을 서로 바꿉니다."
+    "KorString": "<b>근접</b>.\\n적에게 피해를 {$attack} 준\\n다음, 자신의 공격력과\\n체력을 서로 바꿉니다."
   },
   {
     "StringKey": "act_skill_positive_feedback",
@@ -333,7 +333,7 @@
   },
   {
     "StringKey": "act_skill_positive_feedback_desc",
-    "KorString": "포지가 선택한 적에게 촉매를 {$catalystAdd} 부여하고, 피해를 0 줍니다. 이 카드를 사용할 때마다 부여하는 촉매가 {$attack} 증가합니다."
+    "KorString": "포지가 선택한 적에게\\n<color=#B57EDC>촉매</color>를 {$catalystAdd} 부여하고,\\n피해를 0 줍니다. 이\\n카드를 사용할 때마다\\n부여하는 <color=#B57EDC>촉매</color>가 {$attack}\\n증가합니다."
   },
   {
     "StringKey": "act_skill_chain_reaction",
@@ -341,7 +341,7 @@
   },
   {
     "StringKey": "act_skill_chain_reaction_desc",
-    "KorString": "다케인이 촉매가 부여된 모든 적에게 {$attack + $damage}의 폭발 피해를 줍니다."
+    "KorString": "다케인이 <color=#B57EDC>촉매</color>가\\n부여된 모든 적에게\\n폭발 피해를 {$attack} 줍니다."
   },
   {
     "StringKey": "act_skill_panacea",
@@ -349,7 +349,7 @@
   },
   {
     "StringKey": "act_skill_panacea_desc",
-    "KorString": "파나가 선택한 아군에게 재생을 {$attack} 부여합니다."
+    "KorString": "파나가\\n선택한 아군에게\\n<color=#2E9B2E>재생</color>을 {$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_cabinotieraction",
@@ -357,7 +357,7 @@
   },
   {
     "StringKey": "act_skill_cabinotieraction_desc",
-    "KorString": "캐비노티에가 손에 있는 카드의 비용을 {$attack}만큼 감소시킵니다. (최소 비용: 0)"
+    "KorString": "캐비노티에가 손에\\n있는 카드의 비용을\\n{$attack}만큼 감소시킵니다.\\n(최소 비용: 0)"
   },
   {
     "StringKey": "act_skill_airshipaction",
@@ -381,7 +381,7 @@
   },
   {
     "StringKey": "skill_forging_desc",
-    "KorString": "선택한 대상에게 강화를 {$attackAdd} 부여합니다."
+    "KorString": "선택한 대상에게\\n<b>강화</b>를 {$attackAdd} 부여합니다."
   },
   {
     "StringKey": "skill_planb",
@@ -389,7 +389,7 @@
   },
   {
     "StringKey": "skill_planb_desc",
-    "KorString": "카드를 {$draw}장 뽑고, 손패에서 카드를 {$drop}장 선택하여 버립니다."
+    "KorString": "카드를 {$draw}장 뽑고,\\n손패에서 카드를 {$drop}장\\n선택하여 버립니다."
   },
   {
     "StringKey": "skill_damage",
@@ -397,7 +397,7 @@
   },
   {
     "StringKey": "skill_damage_desc",
-    "KorString": "적에게 피해를 {$damage} 줍니다."
+    "KorString": "적에게 피해를\\n{$damage} 줍니다."
   },
   {
     "StringKey": "skill_shield",
@@ -405,7 +405,7 @@
   },
   {
     "StringKey": "skill_shield_desc",
-    "KorString": "방어도를 {$shieldAdd} 부여합니다."
+    "KorString": "<b>방어도</b>를\\n{$shieldAdd}만큼 부여합니다."
   },
   {
     "StringKey": "skill_quick_motion",
@@ -421,7 +421,7 @@
   },
   {
     "StringKey": "skill_repose_desc",
-    "KorString": "아군 하나를 빈 자리로 이동시킵니다."
+    "KorString": "선택한 아군 하나를\n이동시킵니다."
   },
   {
     "StringKey": "skill_fire_arrow",
@@ -429,7 +429,7 @@
   },
   {
     "StringKey": "skill_fire_arrow_desc",
-    "KorString": "대상에게 화상을 {$burnAdd} 부여합니다."
+    "KorString": "대상에게 <color=#CC0000>화상</color>을\\n{$burnAdd} 부여합니다."
   },
   {
     "StringKey": "skill_bread_supply",
@@ -706,5 +706,141 @@
   {
     "StringKey": "range_attack_desc",
     "KorString": "원거리"
+  },
+  {
+    "StringKey": "synergy_steamengine_desc_common",
+    "KorString": "증기기관 유닛은 화상을 입을 때마다 강화됩니다."
+  },
+  {
+    "StringKey": "synergy_steamengine_desc_1",
+    "KorString": "(2) 화상이 부여될 때, 강화 1을 얻습니다."
+  },
+  {
+    "StringKey": "synergy_steamengine_desc_2",
+    "KorString": "(4) 화상이 부여될 때, 강화 2를 얻습니다."
+  },
+  {
+    "StringKey": "synergy_steamengine_desc_3",
+    "KorString": "(6) 증기기관 유닛은 화상 피해를 받지 않습니다."
+  },
+  {
+    "StringKey": "synergy_alchemist_desc_common",
+    "KorString": "연금술사의 행동카드는 대상 적에게 촉매를 부여합니다."
+  },
+  {
+    "StringKey": "synergy_alchemist_desc_1",
+    "KorString": "(2) 촉매 1 부여"
+  },
+  {
+    "StringKey": "synergy_alchemist_desc_2",
+    "KorString": "(4) 촉매 2 부여"
+  },
+  {
+    "StringKey": "synergy_alchemist_desc_3",
+    "KorString": "(5) 촉매 3 부여"
+  },
+  {
+    "StringKey": "synergy_watchmaker_desc_common",
+    "KorString": "캐비노티에는 시간을 다루는 놀라운 기술로 아군 유닛을 부활시킵니다."
+  },
+  {
+    "StringKey": "synergy_watchmaker_desc_1",
+    "KorString": "(1) 전투에서 최초로 사망한 아군 유닛의 시간을 되돌려 처음 상태로 부활시킵니다."
+  },
+  {
+    "StringKey": "synergy_aeronaut_desc_common",
+    "KorString": "유능한 에어로넛 유닛들의 지휘 아래, 거대 비행선 유닛을 소환합니다."
+  },
+  {
+    "StringKey": "synergy_aeronaut_desc_1",
+    "KorString": "(2) 거대 비행선이 유닛 목록에 추가됩니다."
+  },
+  {
+    "StringKey": "synergy_secret_desc_common",
+    "KorString": "필드에 비밀결사 유닛이 정확히 하나 또는 넷 있을 때, 비밀결사의 행동 카드가 강화됩니다."
+  },
+  {
+    "StringKey": "synergy_secret_desc_1",
+    "KorString": "(1) 비밀결사의 행동 카드 강화"
+  },
+  {
+    "StringKey": "synergy_secret_desc_disabled",
+    "KorString": ""
+  },
+  {
+    "StringKey": "synergy_secret_desc_2",
+    "KorString": "(4) 비밀결사의 행동 카드 강화"
+  },
+  {
+    "StringKey": "synergy_noble_desc_common",
+    "KorString": "귀족은 전투에 승리할 때마다 더 많은 보수를 줍니다."
+  },
+  {
+    "StringKey": "synergy_noble_desc_1",
+    "KorString": "(2) 전투 승리 골드 +10"
+  },
+  {
+    "StringKey": "synergy_noble_desc_2",
+    "KorString": "(4) 전투 승리 골드 +20"
+  },
+  {
+    "StringKey": "synergy_noble_desc_3",
+    "KorString": "(5) 전투 승리 골드 +30"
+  },
+  {
+    "StringKey": "synergy_vanguard_desc_common",
+    "KorString": "돌격병은 최전방에서 전투할 때 더욱 강력해집니다."
+  },
+  {
+    "StringKey": "synergy_vanguard_desc_1",
+    "KorString": "(2) 1열에 있을 때, 강화 2를 얻습니다."
+  },
+  {
+    "StringKey": "synergy_warden_desc_common",
+    "KorString": "파수꾼은 최전방에서 피해를 받아내는 것에 특화된 유닛입니다."
+  },
+  {
+    "StringKey": "synergy_warden_desc_1",
+    "KorString": "(2) 피격 시 방어도를 1 획득합니다."
+  },
+  {
+    "StringKey": "synergy_strategist_desc_common",
+    "KorString": "카드 운용에 전반적인 이점을 얻습니다."
+  },
+  {
+    "StringKey": "synergy_strategist_desc_1",
+    "KorString": "(3) 매 턴 처음으로 사용하는 카드의 비용이 1 감소합니다.(최소 비용: 0)"
+  },
+  {
+    "StringKey": "synergy_gunman_desc_common",
+    "KorString": "안전한 위치에서 일방적인 공격을 가하는 유닛입니다."
+  },
+  {
+    "StringKey": "synergy_gunman_desc_1",
+    "KorString": "(2) 최대 체력일 때, 강화 2를 얻습니다."
+  },
+  {
+    "StringKey": "synergy_bomber_desc_common",
+    "KorString": "범위 공격에 특화된 유닛입니다."
+  },
+  {
+    "StringKey": "synergy_bomber_desc_1",
+    "KorString": "(2) 폭발 전문가 유닛이 가하는 폭발 피해가 1 증가합니다."
+  },
+  {
+    "StringKey": "synergy_engineer_desc_common",
+    "KorString": "기계공 유닛은 같은 행 최전방의 유닛에게 방어도를 제공합니다."
+  },
+  {
+    "StringKey": "synergy_engineer_desc_1",
+    "KorString": "(2) 기계공의 행동 카드 사용 시 최전방 유닛에게 방어도 1 부여"
+  },
+  {
+    "StringKey": "synergy_supporter_desc_common",
+    "KorString": "체력 회복의 이점을 강화합니다."
+  },
+  {
+    "StringKey": "synergy_supporter_desc_1",
+    "KorString": "(3) 체력 회복이 부정적인 효과를 정화합니다."
   }
 ]
