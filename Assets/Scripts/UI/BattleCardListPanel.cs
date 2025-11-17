@@ -11,7 +11,7 @@ public class BattleCardListPanelGenState
 
 public class BattleCardListPanel : UIInstance
 {
-	public override UIType UIType => UIType.SceneUI;
+	public override UIType UIType => UIType.Popup;
 	
 	[SerializeField] private float bottomOffsetHeight;
 
@@ -54,11 +54,11 @@ public class BattleCardListPanel : UIInstance
 				PooledUnityObject po = null;
 				if (card.TargetCard is UnitSkillCard)
 				{
-					po = allyUnitSkillPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
+					po = allyUnitSkillPool.Instantiate(CalculatePosWithIdx(i));
 				}
 				else if(card.TargetCard is TacticsCard)
 				{
-					po = tacticsPool.Instantiate(CalculatePosWithIdx(i), useLocalPos: true);
+					po = tacticsPool.Instantiate(CalculatePosWithIdx(i));
 				}
 
 				po.AddComponent<BattleUICard>().Initialize(card);

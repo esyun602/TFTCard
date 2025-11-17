@@ -622,7 +622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomOffsetHeight: 30
   originHeight: 880
-  leftTopOffset: {x: 150, y: -250, z: 0}
+  leftTopOffset: {x: 150, y: 830, z: 0}
   horizontalSpace: 180
   verticalSpace: 270
   cardCountPerRow: 6
