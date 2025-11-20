@@ -81,6 +81,14 @@ public class CardData : GameData
 		return unitSkillCardSpecList.Find(x => x.Name == str);
 	}
 	
+
+	public List<UnitCardSpec> GetSynergyMembers(SynergyCategory synergyCategory)
+	{
+		var statData = GameDataSystem.Instance.GetGameData<StatData>();
+		return unitCardSpecList.FindAll(x =>
+			statData.GetUnitStatByName(x.StatSpecName).SynergyList.Contains(synergyCategory));
+	}
+	
 	//todo: 별도로 dit 만들어서
 	public UnitCardSpec GetUnitCardSpecByName(string str)
 	{

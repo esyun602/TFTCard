@@ -45,7 +45,7 @@ public class StartDraft : UIInstance
 		cardPool = UnityObjectPool.GetOrCreateUIPool("DraftCardPrefab");
 		cardPool.transform.SetParent(transform);
 
-		candidatePosList = rectTransform.GetHorizontalDivisions(cardPerDraft + 2, -80f);
+		candidatePosList = rectTransform.GetHorizontalDivisions(cardPerDraft + 2, -10f);
 
 		NoticeSystem.Instance.Subscribe<DraftUICardSelectedNotice>(OnSelected);
 

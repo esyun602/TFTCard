@@ -7,6 +7,7 @@ public class BattleStageSpec : StageSpec
 {
 	public List<string> WaveGridList { get; private set; }
 	public MapData MapData { get; private set; }
+	public Sprite BattleStageBg { get; private set; }
 	
 	public override IStage InstantiateStage()
 	{
@@ -20,5 +21,7 @@ public class BattleStageSpec : StageSpec
 		WaveGridList = new List<string>(param.GetStringArray(nameof(WaveGridList)));
 		var mapName = param.GetString(nameof(MapData));
 		MapData = Resources.Load<MapData>("Map/" + mapName);
+		var bgName = param.GetString(nameof(BattleStageBg)) ?? "battleUIFieldBg";
+		BattleStageBg = Resources.Load<Sprite>("Sprites/" + bgName);
 	}
 }
