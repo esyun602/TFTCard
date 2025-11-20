@@ -13,7 +13,7 @@ public class Constant : GameData
 	private List<AnimationCurve> mapEdgeCurveList;
 
 	public List<List<AnimationCurve>> MapEdgeCurveList = new();
-	public  const float MapEdgeCurveModifier = 300f;
+	public  const float MapEdgeCurveModifier = 150f;
 	public const float Epsilon = 0.001f;
 	public static int DefaultEnergy { get; private set; }
 	public static int DefaultMinEnergy { get; private set; }

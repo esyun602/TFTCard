@@ -37,7 +37,7 @@ public class FlowInfo
 			return v;
 		}
 
-		return progOffset[idxPair] = (Random.value - 0.5f) * 0.1f;
+		return progOffset[idxPair] = (Random.value - 0.5f) * 0.03f;
 	}
 
 	public void AddStartNode(FlowNodeInfo nodeInfo)

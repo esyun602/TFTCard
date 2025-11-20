@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "Name": "Event1",
+    "CategoryKey": "event1",
+    "TargetSprite": "enemy_mutatedslave_default",
+    "Desc": "event1_desc",
+    "EndDesc": "event1_end",
+    "ContinueEventInfo": null
+  },
+  {
+    "Name": "Event2",
+    "CategoryKey": "event2",
+    "TargetSprite": "enemy_patrolmachine_default",
+    "Desc": "event2_desc",
+    "EndDesc": "event2_end",
+    "ContinueEventInfo": null
+  },
+  {
+    "Name": "Event3",
+    "CategoryKey": "event3",
+    "TargetSprite": "enemy_powerrepeater_default",
+    "Desc": "event3_desc",
+    "EndDesc": "event3_end",
+    "ContinueEventInfo": null
+  }
+]

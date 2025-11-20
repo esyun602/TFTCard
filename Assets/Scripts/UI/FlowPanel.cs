@@ -18,10 +18,14 @@ public class FlowPanel : UIInstance
 	public RectTransform TestNodeTop;
 	public RectTransform TestNodeBottom;
 
+	[SerializeField] private float defaultHeight = -300;
+	[SerializeField] private Transform scrollContent;
+	
 	[SerializeField]
 	private FlowEdgeDrawer edgeDrawer;
 	private FlowInfo flowInfo;
 	private List<List<FlowNode>> nodeList = new();
+	private List<int> midPoints = new();
 	
 	private List<PooledUnityObject> nodePoList = new();
 	public override UIType UIType => UIType.SceneUI;
@@ -43,7 +47,7 @@ public class FlowPanel : UIInstance
 	private void InstantiateNodes()
 	{
 		var pool = UnityObjectPool.GetOrCreateUIPool("FlowNode");
-		pool.transform.SetParent(transform, false);
+		pool.transform.SetParent(scrollContent, false);
 		foreach (var nodeInfo in flowInfo.MapNodeInfos)
 		{
 			if (nodeList.Count <= nodeInfo.GenIdx)
@@ -57,6 +61,14 @@ public class FlowPanel : UIInstance
 			node.TargetInfo = nodeInfo;
 			nodeList[nodeInfo.GenIdx].Add(node);
 		}
+		
+		for (int i = 0; i < nodeList.Count; i++)
+		{
+			if (nodeList[i].Count == 1)
+			{
+				midPoints.Add(i);
+			}
+		}
 	}
 
 	/// <summary>
@@ -69,37 +81,59 @@ public class FlowPanel : UIInstance
 
 	private void AlignNodes()
 	{
-		for (int i = 0; i < nodeList.Count; i++)
+		for (var p = 0; p < midPoints.Count - 1; p++)
 		{
-			for (int j = 0; j < nodeList[i].Count; j++)
+			var cur = midPoints[p];
+			var next = midPoints[p + 1];
+			
+			var curProg = GetProg(cur);
+			var nextProg = GetProg(next);
+			
+			for (int i = cur; i <= next; i++)
 			{
-				var targetNode = nodeList[i][j];
-				var rt = targetNode.GetComponent<RectTransform>();
-				var prog = (float) i / (Mathf.Max(nodeList.Count - 1, 1)) + (i == 0 || i == nodeList.Count - 1 ? 0: flowInfo.GetProgOffset((i,j)));
-				rt.localPosition = new Vector3(
-					Mathf.Lerp(TestNodeStart.localPosition.x,
-						TestNodeEnd.localPosition.x, prog),
-					flowInfo.FlowCurveList[j].Evaluate(prog) * Constant.MapEdgeCurveModifier
-					,TestNodeStart.localPosition.z
+				for (int j = 0; j < nodeList[i].Count; j++)
+				{
+					var targetNode = nodeList[i][j];
+					var rt = targetNode.GetComponent<RectTransform>();
+					var progOffset = flowInfo.GetProgOffset((i, j));
+					var prog = GetProg(i) + (i == cur || i == next ? 0: progOffset);
+					var localProg = (prog - curProg) / (nextProg - curProg);
+					rt.position = new Vector3(
+						Mathf.Lerp(TestNodeStart.position.x,
+							TestNodeEnd.position.x, prog),
+						defaultHeight + flowInfo.FlowCurveList[j].Evaluate(localProg) * Constant.MapEdgeCurveModifier
+						,TestNodeStart.position.z
 					);
+				}
 			}
 		}
 
 		GenerateEdges();
 	}
 
+	private float GetProg(int idx)
+	{
+		return (float) idx/ (Mathf.Max(nodeList.Count - 1, 1));
+	}
+	
+	
 	private void GenerateEdges()
 	{
 		edgeDrawer.transform.SetAsLastSibling();
 		UnityObjectPool.GetOrCreateUIPool("FlowNode").transform.SetAsLastSibling();
-		
-		//todo: fix - 중간에서 갈라지는 경우는 없다고 우선 가정
-		var count = GetChildrenOf(nodeList[0][0]).Count;
-		for (var i = 0; i < count; i++)
+
+		for (var i = 0; i < midPoints.Count-1; i++)
 		{
-			edgeDrawer.SetPosition(nodeList[0][0].transform.position, nodeList[^1][0].transform.position, 
-				flowInfo.FlowCurveList[i]);
+			var cur = midPoints[i];
+			var next = midPoints[i + 1];
+			var count = GetChildrenOf(nodeList[cur][0]).Count;
+			for (var j = 0; j < count; j++)
+			{
+				edgeDrawer.SetPosition(nodeList[cur][0].transform.position, nodeList[next][0].transform.position, 
+					flowInfo.FlowCurveList[j], (next-cur) * 5);
+			}
 		}
+		
 	}
 
 	private void DisposeEdges()

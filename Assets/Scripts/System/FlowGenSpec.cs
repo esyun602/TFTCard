@@ -11,6 +11,13 @@ public enum EventStageGenType
 	StaticNumberSequence = 2,
 }
 
+public enum EventPoolType
+{
+	Sequence,
+	RandomReplace,
+	RandomNonReplace,
+}
+
 public abstract class StagePoolInfoBase
 {
 	protected List<string> stagePoolList;
@@ -24,12 +31,30 @@ public abstract class StagePoolInfoBase
 	{
 		
 	}
-	public abstract StageSpec GetRandomStageSpec();
+	public abstract StageSpec GetStageSpec();
+}
+
+public class SequenceStagePoolInfo : StagePoolInfoBase
+{
+	private int idx;
+	public override StageSpec GetStageSpec()
+	{
+		return GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec(stagePoolList[idx++]);
+	}
+
+	public override void Initialize()
+	{
+		idx = 0;
+	}
+
+	public SequenceStagePoolInfo(List<string> stagePoolList) : base(stagePoolList)
+	{
+	}
 }
 
 public class ReplacementStagePoolInfo : StagePoolInfoBase
 {
-	public override StageSpec GetRandomStageSpec()
+	public override StageSpec GetStageSpec()
 	{
 		return GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec(stagePoolList.GetRandomElement());
 	}
@@ -46,7 +71,7 @@ public class NonReplacementStagePoolInfo : StagePoolInfoBase
 		stagePoolListCopy = new(stagePoolList);
 	}
 
-	public override StageSpec GetRandomStageSpec()
+	public override StageSpec GetStageSpec()
 	{
 		return GameDataSystem.Instance.GetGameData<StageData>().GetStageSpec(stagePoolListCopy.GetAndRemoveRandomElement());
 	}
@@ -97,14 +122,19 @@ public class FlowGenSpec
 		{
 			var poolInfo = param.GetObject(value.ToString() + "Pool");
 			if (poolInfo == null) continue;
-			
-			if (poolInfo.GetBool("AllowDuplicate"))
+
+			var poolType = Enum.Parse<EventPoolType>(poolInfo.GetString("PoolType"));
+			switch (poolType)
 			{
-				spec.stagePoolDict[value] = new ReplacementStagePoolInfo(poolInfo.GetStringArray("PoolList").ToList());
-			}
-			else
-			{
-				spec.stagePoolDict[value] = new NonReplacementStagePoolInfo(poolInfo.GetStringArray("PoolList").ToList());
+				case EventPoolType.Sequence:
+					spec.stagePoolDict[value] = new SequenceStagePoolInfo(poolInfo.GetStringArray("PoolList").ToList());
+					break;
+				case EventPoolType.RandomReplace:
+					spec.stagePoolDict[value] = new ReplacementStagePoolInfo(poolInfo.GetStringArray("PoolList").ToList());
+					break;
+				case EventPoolType.RandomNonReplace:
+					spec.stagePoolDict[value] = new NonReplacementStagePoolInfo(poolInfo.GetStringArray("PoolList").ToList());
+					break;
 			}
 		}
 
@@ -162,7 +192,7 @@ public class FlowGenSpec
 		}
 		else if (type == StageType.BattleStage)
 		{
-			var randomSpec = stagePoolDict[StageType.BattleStage].GetRandomStageSpec();
+			var randomSpec = stagePoolDict[StageType.BattleStage].GetStageSpec();
 
 			var node = new FlowNodeInfo(randomSpec, currentGeneratingIdx);
 			return new List<FlowNodeInfo>(){ node };
@@ -177,7 +207,7 @@ public class FlowGenSpec
 
 		for (var i = 0; i < targetNum; i++)
 		{
-			var randomSpec = stagePoolDict[StageType.EventStage].GetRandomStageSpec();
+			var randomSpec = stagePoolDict[StageType.EventStage].GetStageSpec();
 				
 			list.Add(new FlowNodeInfo(randomSpec, currentGeneratingIdx));
 		}

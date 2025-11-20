@@ -49,10 +49,13 @@ public class EventSpec
         spec.ContinueEventInfos = new();
         
         var jsonList = param.GetObjectArray(nameof(ContinueEventInfo));
-        foreach (var obj in jsonList)
+        if (jsonList != null)
         {
-            ContinueEventInfo info = new ContinueEventInfo(obj.GetString("Desc"), obj.GetString("NextEventName"));
-            spec.ContinueEventInfos.Add(info);
+            foreach (var obj in jsonList)
+            {
+                ContinueEventInfo info = new ContinueEventInfo(obj.GetString("Desc"), obj.GetString("NextEventName"));
+                spec.ContinueEventInfos.Add(info);
+            }
         }
 
         return spec;

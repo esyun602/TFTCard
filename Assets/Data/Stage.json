@@ -5,9 +5,10 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "easy_wave_1"
+      "test_wave_1"
     ],
-    "StageIcon": "StageIcon_1"
+    "StageIcon": "StageIcon_1",
+    "BattleStageBg": "battleUIFieldBg"
   },
   {
     "StageName": "Scout",
@@ -21,9 +22,10 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "easy_wave_2"
+      "test_wave_2"
     ],
-    "StageIcon": "StageIcon_1"
+    "StageIcon": "StageIcon_1",
+    "BattleStageBg": "battleUIFieldBg"
   },
   {
     "StageName": "TestStage3",
@@ -33,7 +35,8 @@
     "WaveGridList": [
       "test_wave_3"
     ],
-    "StageIcon": "StageIcon_1"
+    "StageIcon": "StageIcon_1",
+    "BattleStageBg": "battleUIFieldBg"
   },
   {
     "StageName": "StageForTest",
@@ -43,12 +46,34 @@
     "WaveGridList": [
       "wave_for_test"
     ],
-    "StageIcon": "StageIcon_1"
+    "StageIcon": "StageIcon_1",
+    "BattleStageBg": "battleUIFieldBg"
   },
   {
     "StageName": "Shop",
     "ClassName": "ShopStage",
     "CamSize": 8.0,
     "StageIcon": "StageIcon_2_2"
+  },
+  {
+    "StageName": "Event1",
+    "ClassName": "EventStage",
+    "CamSize": 8.0,
+    "StageIcon": "StageIcon_2_1",
+    "EventName": "Event1"
+  },
+  {
+    "StageName": "Event2",
+    "ClassName": "EventStage",
+    "CamSize": 8.0,
+    "StageIcon": "StageIcon_2_1",
+    "EventName": "Event2"
+  },
+  {
+    "StageName": "Event3",
+    "ClassName": "EventStage",
+    "CamSize": 8.0,
+    "StageIcon": "StageIcon_2_1",
+    "EventName": "Event3"
   }
 ]

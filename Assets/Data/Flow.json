@@ -5,23 +5,32 @@
       "BattleStage",
       " EventStage",
       " EventStage",
+      " BattleStage",
+      " EventStage",
+      " EventStage",
+      " BattleStage",
+      " EventStage",
       " BattleStage"
     ],
-    "EventStageGenType": "StaticNumber",
+    "EventStageGenType": "StaticNumberSequence",
     "BranchParams": [
-      2
+      1,1,2,1,1,2,1,2
     ],
     "EventStagePool": {
-      "AllowDuplicate": false,
+      "PoolType": "Sequence",
       "PoolList": [
+        "Event1",
+        "Shop",
         "Scout",
+        "Event2",
         "Scout",
         "Shop",
-        "Shop"
+        "Shop",
+        "Scout"
       ]
     },
     "BattleStagePool": {
-      "AllowDuplicate": true,
+      "PoolType": "RandomReplace",
       "PoolList": [
         "TestStage",
         "TestStage2"
@@ -31,20 +40,38 @@
   {
     "Name": "TestFlow",
     "StageTypeOrder": [
-      "BattleStage"
+      "BattleStage",
+      " EventStage",
+      " EventStage",
+      " BattleStage",
+      " EventStage",
+      " EventStage",
+      " BattleStage",
+      " EventStage",
+      " BattleStage"
     ],
-    "EventStageGenType": "StaticNumber",
+    "EventStageGenType": "StaticNumberSequence",
     "BranchParams": [
-      2
+      1,1,2,1,1,2,1,2
     ],
     "EventStagePool": {
-      "AllowDuplicate": true,
-      "PoolList": []
+      "PoolType": "Sequence",
+      "PoolList": [
+        "Event1",
+        "Shop",
+        "Scout",
+        "Event2",
+        "Scout",
+        "Shop",
+        "Shop",
+        "Scout"
+      ]
     },
     "BattleStagePool": {
-      "AllowDuplicate": true,
+      "PoolType": "RandomReplace",
       "PoolList": [
-        "StageForTest"
+        "TestStage",
+        "TestStage2"
       ]
     }
   }
