@@ -63,7 +63,7 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 	public void Die(IBattleObject sender)
 	{
 		owner.AnimationController.RunDieAction();
-		UpdatableRoutine.CurrentRoutine.AddInterrupt(() => RunDieRoutine(sender), 2f);
+		UpdatableRoutine.CurrentRoutine.AddInterrupt(() => RunDieRoutine(sender), 2f, true);
 	}
 
 	private void RunDieRoutine(IBattleObject sender)
