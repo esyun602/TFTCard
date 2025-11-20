@@ -699,6 +699,8 @@ MonoBehaviour:
   - {fileID: 5474020675462529510}
   - {fileID: 4259248522595738399}
   - {fileID: 9021122125595641517}
+  goldButton: {fileID: 6804818515993734976}
+  unitButton: {fileID: 7545142716180980623}
 --- !u!1 &6804818515993734976
 GameObject:
   m_ObjectHideFlags: 0

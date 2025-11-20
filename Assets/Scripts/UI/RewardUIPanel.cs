@@ -23,12 +23,17 @@ public class RewardUIPanel : UIInstance
 	
 	[SerializeField] private List<DraftUISkillCard> cardist;
 
+	[SerializeField] private GameObject goldButton;
+	[SerializeField] private GameObject unitButton;
+	
 	protected override void Init(object param)
 	{
 		cancelAction = ((RewardUIPanelGenState)param).doneAction;
 
 		cardRewardPanel.SetActive(false);
 		selectPanel.SetActive(true);
+		goldButton.SetActive(true);
+		unitButton.SetActive(true);
 		
 		RenewCandidates();
 		
@@ -58,13 +63,13 @@ public class RewardUIPanel : UIInstance
 	{
 		//todo: 골드값 임시
 		Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(50);
-		selectPanel.SetActive(false);
-		OnEnd();
+		goldButton.SetActive(false);
 	}
 	
 	public void OnSelectCardClick()
 	{
 		selectPanel.SetActive(false);
+		unitButton.SetActive(false);
 		cardRewardPanel.SetActive(true);
 	}
 
@@ -78,7 +83,7 @@ public class RewardUIPanel : UIInstance
 		//todo: fix
 		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
 		cardRewardPanel.SetActive(false);
-		OnEnd();
+		selectPanel.SetActive(true);
 	}
 
 	private void OnEnd()
