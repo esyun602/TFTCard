@@ -39,7 +39,6 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 		frame.sprite = spec.GetBattleTierResource(count);
 		SynergyCount = count;
-		initialized = false;
 		
 		descPanel.gameObject.SetActive(false);
 		descPanel.Initialize(targetCategorySpec.SynergyCategory);
