@@ -8,6 +8,7 @@ public class EventStage : StageBase
     protected override void OnLoad()
     {
         Game.Instance.UIManager.GenerateUI<EventPanel>(new EventPanelGenState(spec.EventName, StageDone));
+        BgmManager.Instance.ChangeBgm("story");
     }
     
     private void StageDone()

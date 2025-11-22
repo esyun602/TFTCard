@@ -44,11 +44,15 @@ public class StageGameMode : IGameMode
 
 	public void ClearStage()
 	{
+		SfxManager.Instance.Play2D("win_battle");
+		BgmManager.Instance.ChangeBgm("");
 		NoticeSystem.Instance.Publish(new StageClearNotice());
 	}
 
 	public void GameOver()
 	{
+		SfxManager.Instance.Play2D("game_over");
+		BgmManager.Instance.ChangeBgm("");
 		NoticeSystem.Instance.Publish(new GameOverNotice());
 	}
 

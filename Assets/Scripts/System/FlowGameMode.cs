@@ -31,6 +31,7 @@ public class FlowGameMode : IGameMode
 			//클리어 루틴?
 		}
 
+		BgmManager.Instance.ChangeBgm("flow");
 		LoadComplete = true;
 	}
 

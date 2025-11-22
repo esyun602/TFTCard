@@ -5,12 +5,24 @@ using UnityEngine;
 
 public class BgmManager : MonoBehaviour
 {
+    public static BgmManager Instance { get; private set; }
     [SerializeField] private List<AudioSource> src;
     [SerializeField] private List<AudioClip> clips;
     private Dictionary<string, AudioClip> clipDict = new();
 
     private AudioSource currentSrc;
     private AudioSource otherSrc;
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
     
     private void Start()
     {
@@ -28,13 +40,13 @@ public class BgmManager : MonoBehaviour
 
     public void ChangeBgm(string name)
     {
-        otherSrc.clip = clipDict[name];
+        otherSrc.clip = clipDict.GetValueOrDefault(name);
         otherSrc.Play();
         var seq = DOTween.Sequence();
-        seq.Append(otherSrc.DOFade(0, 1f));
-        seq.AppendCallback(otherSrc.Stop);
+        seq.Append(currentSrc.DOFade(0, 1f));
+        seq.AppendCallback(currentSrc.Stop);
         seq.Play();
-        currentSrc.DOFade(0, 1f);
+        otherSrc.DOFade(1, 1f);
         (currentSrc, otherSrc) = (otherSrc, currentSrc);
     }
 }

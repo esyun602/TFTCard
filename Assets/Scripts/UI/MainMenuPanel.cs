@@ -25,6 +25,7 @@ public class MainMenuPanel : UIInstance
 	public void OnStartButtonClick()
 	{
 		storyBook.SetActive(true);
+		BgmManager.Instance.ChangeBgm("story");
 	}
 
 	public void OnStoryEnd()

@@ -9,6 +9,7 @@ public class ShopStage : StageBase
 		{
 			doneAction = StageDone
 		});
+		BgmManager.Instance.ChangeBgm("shop");
 	}
     
 	private void StageDone()

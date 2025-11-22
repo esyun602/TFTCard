@@ -49,6 +49,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		BattleFieldSystem.Initialize();
 		SynergySystem.Initialize();
 		BattleFxManager.Initialize();
+		BgmManager.Instance.ChangeBgm("battle");
 	}
 
 	protected override void OnStageStart()

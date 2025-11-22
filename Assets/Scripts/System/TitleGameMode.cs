@@ -13,6 +13,7 @@ public class TitleGameMode : IGameMode
 		{
 			GameStartAction = StartGame,
 		});
+		BgmManager.Instance.ChangeBgm("main");
 		LoadComplete = true;
 	}
 
