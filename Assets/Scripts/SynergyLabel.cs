@@ -28,8 +28,7 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	[SerializeField] private TextMeshProUGUI synergyName;
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
 	[SerializeField] private Image frame;
-	[SerializeField] private Image synergyDescPanel;
-	[SerializeField] private TextMeshProUGUI synergyDesc;
+	[SerializeField] private SynergyDescUI descPanel;
 	
 	public void Initialize(SynergyCategory targetSynergyCategory, int count)
 	{
@@ -40,11 +39,10 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 		frame.sprite = spec.GetBattleTierResource(count);
 		SynergyCount = count;
+		initialized = false;
 		
-		synergyDesc.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.CommonDescKey);
-		var size = synergyDescPanel.rectTransform.sizeDelta;
-		size.y = synergyDesc.preferredHeight + 50;
-		synergyDescPanel.rectTransform.sizeDelta = size;
+		descPanel.gameObject.SetActive(false);
+		descPanel.Initialize(targetCategorySpec.SynergyCategory);
 	}
 
 	private string GetSynergyCountString()
@@ -91,17 +89,17 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		synergyDescPanel.gameObject.SetActive(true);
-		synergyDescPanel.transform.position = synergyDescPanel.transform.position.GetX0z(Constant.HighlightYPos);
+		descPanel.gameObject.SetActive(true);
+		descPanel.transform.position = descPanel.transform.position.GetX0z(Constant.HighlightYPos);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		synergyDescPanel.gameObject.SetActive(false);
+		descPanel.gameObject.SetActive(false);
 	}
 
 	private void OnDisable()
 	{
-		synergyDescPanel.gameObject.SetActive(false);
+		descPanel.gameObject.SetActive(false);
 	}
 }

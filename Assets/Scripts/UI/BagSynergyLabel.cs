@@ -13,9 +13,7 @@ namespace UI
 		[SerializeField] private Image icon;
 		private int synergyCount;
 
-		[SerializeField] private TextMeshProUGUI synergyName;
-		[SerializeField] private Image synergyDescPanel;
-		[SerializeField] private TextMeshProUGUI synergyDesc;
+		[SerializeField] private SynergyDescUI descPanel;
 		[SerializeField] private TextMeshProUGUI countText;
 		[SerializeField] private Image frameImage;
 		
@@ -53,11 +51,7 @@ namespace UI
 			this.count = count;
 			var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 			targetCategorySpec = spec;
-			synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
-			synergyDesc.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.CommonDescKey);
-			var size = synergyDescPanel.rectTransform.sizeDelta;
-			size.y = synergyDesc.preferredHeight + 100;
-			synergyDescPanel.rectTransform.sizeDelta = size;
+			descPanel.Initialize(targetSynergyCategory);
 			icon.sprite = spec.TargetSprite;
 			var next = NextCount;
 			countText.text = next == -1 ? $"{count}" : $"{count}/{next}";
@@ -66,18 +60,18 @@ namespace UI
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{
-			synergyDescPanel.gameObject.SetActive(true);
+			descPanel.gameObject.SetActive(true);
 			transform.parent.parent.SetAsLastSibling();
 		}
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
-			synergyDescPanel.gameObject.SetActive(false);
+			descPanel.gameObject.SetActive(false);
 		}
 
 		private void OnDisable()
 		{
-			synergyDescPanel.gameObject.SetActive(false);
+			descPanel.gameObject.SetActive(false);
 		}
 	}
 }
