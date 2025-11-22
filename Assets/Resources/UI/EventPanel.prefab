@@ -179,8 +179,8 @@ RectTransform:
   - {fileID: 3873591911363438636}
   - {fileID: 3974308428522678215}
   - {fileID: 5197526695720735430}
-  - {fileID: 2869649250753377924}
   - {fileID: 8868877617469339751}
+  - {fileID: 2869649250753377924}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -391,8 +391,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289786107
+  m_fontColor: {r: 0.9843137, g: 0.9411765, b: 0.6901961, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
