@@ -74,7 +74,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 440, y: 0}
-  m_SizeDelta: {x: 630.06, y: 590.7}
+  m_SizeDelta: {x: 640, y: 590}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7662756465136385182
 CanvasRenderer:
@@ -111,15 +111,15 @@ MonoBehaviour:
     \uC228\uACA8\uC9C4 \uC9C4\uC2E4\uC744 \uD30C\uD5E4\uCE58\uACE0\n\uC655\uAD6D\uC5D0
     \uD3C9\uD654\uB97C \uB418\uCC3E\uAE30 \uC704\uD55C \uC5EC\uC815\uC744 \uB5A0\uB0A9\uB2C8\uB2E4."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 77fa0514326864449829996885ec0268, type: 2}
+  m_sharedMaterial: {fileID: -5444773268399463138, guid: 77fa0514326864449829996885ec0268, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279704623
+  m_fontColor: {r: 0.18431373, g: 0.10980392, b: 0.09019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 52
+  m_lineSpacing: 8
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2097,7 +2097,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 440, y: 0}
-  m_SizeDelta: {x: 630.06, y: 590.7}
+  m_SizeDelta: {x: 640, y: 590}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6705262959177353167
 CanvasRenderer:
@@ -2132,15 +2132,15 @@ MonoBehaviour:
     \uC2DC\uAC04\uC744 \uC54C\uB824\uC8FC\uB294\n\uAC70\uB300\uD55C \uC2DC\uACC4\uD0D1\uC774
     \uC788\uC5C8\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 77fa0514326864449829996885ec0268, type: 2}
+  m_sharedMaterial: {fileID: -5444773268399463138, guid: 77fa0514326864449829996885ec0268, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279704623
+  m_fontColor: {r: 0.18431373, g: 0.10980392, b: 0.09019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2169,7 +2169,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 52
+  m_lineSpacing: 8
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -2505,7 +2505,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 440, y: 0}
-  m_SizeDelta: {x: 630.06, y: 590.7}
+  m_SizeDelta: {x: 640, y: 590}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7514432323876698205
 CanvasRenderer:
@@ -2535,20 +2535,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC655\uC790\uB294 \uC2DC\uACC4\uD0D1\uACFC \uD568\uAC8C \uC544\uB730\uB9AC\uC5D0\uC5D0\uC11C
+  m_text: "\uC655\uC790\uB294 \uC2DC\uACC4\uD0D1\uACFC \uD568\uAC8C \"\uC544\uB730\uB9AC\uC5D0\"\uC5D0\uC11C
     \uB9CC\uB4E4\uC5B4\uC838\n\uC655\uAC00 \uB300\uB300\uB85C \uB0B4\uB824\uC624\uB294
     \uD68C\uC911\uC2DC\uACC4\uB97C \uB9E4\uB9CC\uC9C0\uBA70,\n\uD55C\uAC00\uB85C\uC774
     \uCC3D\uBC16\uC758 \uC2DC\uACC4\uD0D1\uC744 \uBC14\uB77C\uBCF4\uACE0 \uC788\uC5C8\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 77fa0514326864449829996885ec0268, type: 2}
+  m_sharedMaterial: {fileID: -5444773268399463138, guid: 77fa0514326864449829996885ec0268, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279704623
+  m_fontColor: {r: 0.18431373, g: 0.10980392, b: 0.09019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2577,7 +2577,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 52
+  m_lineSpacing: 8
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -3408,7 +3408,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 440, y: 0}
-  m_SizeDelta: {x: 630.06, y: 590.7}
+  m_SizeDelta: {x: 640, y: 590}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3799494687884445763
 CanvasRenderer:
@@ -3438,20 +3438,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD3C9\uD654\uB85C\uC6B4 \uC2DC\uAC04\uB3C4 \uC7A0\uC2DC, \uD391 \uD558\uB294
-    \uC18C\uB9AC\uC640 \uD568\uAED8\n\uC2DC\uACC4\uD0D1\uC774 \uC758\uBB38\uC758
+  m_text: "\uD3C9\uD654\uB85C\uC6B4 \uC2DC\uAC04\uB3C4 \uC7A0\uC2DC, \"\uD391-\"
+    \uD558\uB294 \uC18C\uB9AC\uC640 \uD568\uAED8\n\uC2DC\uACC4\uD0D1\uC774 \uC758\uBB38\uC758
     \uD3ED\uBC1C\uACFC \uD568\uAED8 \uBA48\uCD94\uACE0\n\uC218\uB9CE\uC740 \uC218\uC778\uB4E4\uC774
     \uC774\uC131\uC744 \uC783\uC740 \uCC44\n\uD3ED\uC8FC\uD558\uAE30 \uC2DC\uC791\uD588\uC2B5\uB2C8\uB2E4."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 77fa0514326864449829996885ec0268, type: 2}
+  m_sharedMaterial: {fileID: -5444773268399463138, guid: 77fa0514326864449829996885ec0268, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279704623
+  m_fontColor: {r: 0.18431373, g: 0.10980392, b: 0.09019608, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3480,7 +3480,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 52
+  m_lineSpacing: 8
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
