@@ -82,6 +82,57 @@ public class Constant : GameData
 		}
 	}
 
+	public static string GetFullSynergyName(string name, SynergyTier tier)
+	{
+		switch (tier)
+		{
+			case SynergyTier.Gold:
+				return "<color=#fffdd7>" + name + "</color>";
+			case SynergyTier.Silver:
+				return "<color=#d7ffff>" + name + "</color>";
+			case SynergyTier.Bronze:
+				return "<color=#ffdcd7>" + name + "</color>";
+			case SynergyTier.Disabled:
+				return "<color=#d7ffff>" + name + "</color>";
+			default:
+				return name;
+		}
+	}
+
+	public static string GetFullSynergyCount(string name, SynergyTier tier)
+	{
+		switch (tier)
+		{
+			case SynergyTier.Gold:
+				return "<color=#87754d>" + name + "</color>";
+			case SynergyTier.Silver:
+				return "<color=#588286>" + name + "</color>";
+			case SynergyTier.Bronze:
+				return "<color=#866458>" + name + "</color>";
+			case SynergyTier.Disabled:
+				return "<color=#588486>" + name + "</color>";
+			default:
+				return name;
+		}
+	}
+	
+	public static string GetFullSynergyTotalCount(string name, SynergyTier tier)
+	{
+		switch (tier)
+		{
+			case SynergyTier.Gold:
+				return "<color=#ffe786>" + name + "</color>";
+			case SynergyTier.Silver:
+				return "<color=#adf1ff>" + name + "</color>";
+			case SynergyTier.Bronze:
+				return "<color=#f9c0b1>" + name + "</color>";
+			case SynergyTier.Disabled:
+				return "<color=#719c9c>" + name + "</color>";
+			default:
+				return name;
+		}
+	}
+
 	public override void Dispose()
 	{
 	}

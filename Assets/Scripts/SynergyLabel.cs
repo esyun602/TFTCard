@@ -19,7 +19,7 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 		set
 		{
 			synergyCount = value;
-			synergyCountText.text = $"{synergyCount}";
+			synergyCountText.text = Constant.GetFullSynergyCount($"{synergyCount}", tier);
 			synergyCountInfo.text = GetSynergyCountString();
 		}
 	}
@@ -29,12 +29,15 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 	[SerializeField] private TextMeshProUGUI synergyCountInfo;
 	[SerializeField] private Image frame;
 	[SerializeField] private SynergyDescUI descPanel;
+	private SynergyTier tier;
 	
 	public void Initialize(SynergyCategory targetSynergyCategory, int count)
 	{
 		var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
+		tier = spec.GetCurrentSynergyTier(count);
+
 		targetCategorySpec = spec;
-		synergyName.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey);
+		synergyName.text = Constant.GetFullSynergyName(GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.SynergyNameKey), tier);
 		icon.sprite = spec.TargetSprite;
 
 		frame.sprite = spec.GetBattleTierResource(count);
@@ -54,7 +57,6 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 #endif
 
 		var strBuilder = new StringBuilder();
-		strBuilder.Append("<color=#c5ae80>");
 		bool found = false;
 		
 		for (var i = 0; i < targetCategorySpec.SynergyCountList.Length; i++)
@@ -72,18 +74,16 @@ public class SynergyLabel : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 			         (i + 1 >= targetCategorySpec.SynergyCountList.Length || targetCategorySpec.SynergyCountList[i + 1] > synergyCount))
 			{
 				found = true;
-				strBuilder.Append($"<color=#392d17>{targetCategorySpec.SynergyCountList[i]}</color> ");
+				strBuilder.Append($"{targetCategorySpec.SynergyCountList[i]} ");
 				
 			}
 			else
 			{
-				strBuilder.Append($"<color=#392d17>{targetCategorySpec.SynergyCountList[i]}</color> ");
+				strBuilder.Append($"{targetCategorySpec.SynergyCountList[i]} ");
 			}
 		}
-
-		strBuilder.Append("</color>");
-
-		return strBuilder.ToString();
+		
+		return Constant.GetFullSynergyTotalCount(strBuilder.ToString(), tier);
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
