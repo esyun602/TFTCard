@@ -97,6 +97,7 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 
 		public void SetHover()
 		{
+			SfxManager.Instance.Play2D("cardhover");
 			isHovered = true;
 			hoverTarget = originalScale * 1.3f;
 			owner.tint.DOKill();

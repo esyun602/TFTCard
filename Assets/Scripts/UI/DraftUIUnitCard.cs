@@ -149,6 +149,7 @@ public class DraftUIUnitCard : DraftUICard
 
 		public void Enter(IState prevState)
 		{
+			SfxManager.Instance.Play2D("cardclick");
 			SetHover();
 			RestartHover();
 			owner.transform.DOKill();

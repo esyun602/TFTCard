@@ -61,13 +61,15 @@ public class RewardUIPanel : UIInstance
 
 	public void OnGoldClick()
 	{
-		//todo: 골드값 임시
+		//todo: 골드값 임시1
+		SfxManager.Instance.Play2D("Coins 07");
 		Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(50);
 		goldButton.SetActive(false);
 	}
 	
 	public void OnSelectCardClick()
 	{
+		SfxManager.Instance.Play2D("cardhover");
 		selectPanel.SetActive(false);
 		unitButton.SetActive(false);
 		cardRewardPanel.SetActive(true);
@@ -81,6 +83,7 @@ public class RewardUIPanel : UIInstance
 	public void OnCardClick(DraftUICardSelectedNotice notice)
 	{
 		//todo: fix
+		SfxManager.Instance.Play2D("cardclick");
 		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard((TacticsCard)notice.SelectedCard.TargetCard);
 		cardRewardPanel.SetActive(false);
 		selectPanel.SetActive(true);

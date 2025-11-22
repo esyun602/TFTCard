@@ -9,6 +9,7 @@ public class DraftSelectPanel : MonoBehaviour
     [SerializeField] private Transform button;
     public void Activate(DraftUICard target)
     {
+        SfxManager.Instance.Play2D("cardclick");
         transform.SetAsLastSibling();
         this.target = target;
         targetParent = target.transform.parent;

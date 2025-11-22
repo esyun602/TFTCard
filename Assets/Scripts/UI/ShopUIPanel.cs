@@ -75,6 +75,7 @@ public class ShopUIPanel : UIInstance
 	public void OnCardClick(DraftUICardSelectedNotice notice)
 	{
 		//todo: fix
+		SfxManager.Instance.Play2D("Coins 07");
 		if (Game.Instance.GetPlayer().CurrentPlayInfo.TryUseGold(20))
 		{
 			notice.SelectedCard.gameObject.SetActive(false);

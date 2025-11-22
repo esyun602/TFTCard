@@ -64,6 +64,7 @@ public class StartDraft : UIInstance
 
 	private void OnSelected(DraftUICardSelectedNotice m)
 	{
+		SfxManager.Instance.Play2D("cardclick");
 		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(m.SelectedCard.TargetCard);
 		for (var i = currentCardList.Count - 1; i >= 0; i--)
 		{
