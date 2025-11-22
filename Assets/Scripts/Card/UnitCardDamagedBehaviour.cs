@@ -47,6 +47,10 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 				}
 			}
 		}
+		else
+		{
+			SfxManager.Instance.PlayAt("hit", owner.Position);
+		}
 	}
 
 	public void Heal(HealInfo healInfo)
