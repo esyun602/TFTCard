@@ -21,13 +21,13 @@ public class DraftUIUnitCard : DraftUICard
     protected DraftSelectPanel selectPanel;
     private float originPosX;
     private float originPosY;
-
+    
     public void SetSelectPanel(DraftSelectPanel selectPanel)
     {
 	    this.selectPanel = selectPanel;
     }
     
-    public override void OnInitialize(ICardSpec targetCard)
+    public override void OnInitialize(ICardSpec targetCard, DraftAnimationType animationType)
     {
 	    foreach (var ui in usingSynergyDescUIList)
 	    {
@@ -35,18 +35,31 @@ public class DraftUIUnitCard : DraftUICard
 	    }
 	    usingSynergyDescUIList.Clear();
 	    synergyDescUIPool = synergyDescUIPoolTr.GetComponentsInChildren<SynergyDescUI>(true);
+	    unitCard = new UnitCard((UnitCardSpec)targetCard);
 	    
-        originPosX = transform.position.x;
-        originPosY = transform.position.y;
-        unitCard = new UnitCard((UnitCardSpec)targetCard);
-        transform.position += Vector3.right * (Screen.width / 2 + 400f);
+	    originPosX = transform.position.x;
+	    originPosY = transform.position.y;
+	    
+	    SetInfo();
+	    RunAnimation(animationType);
+    }
+    
+    private void RunAnimation(DraftAnimationType animationType)
+    {
+	    switch (animationType)
+	    {
+		    case DraftAnimationType.Pub:
+			    break;
+		    case DraftAnimationType.Start:
+			    transform.position += Vector3.right * (Screen.width / 2 + 400f);
 
-        var seq = DOTween.Sequence();
-        seq.Append(transform.DOMoveX(originPosX, 0.8f));
-        seq.Insert((originPosX / Screen.width) * 0.2f, transform.DOMoveY(originPosY + 50f, 0.08f).SetLoops(8, LoopType.Yoyo));
-        seq.SetTarget(transform);
-        seq.Play();
-        SetInfo();
+			    var seq = DOTween.Sequence();
+			    seq.Append(transform.DOMoveX(originPosX, 0.8f));
+			    seq.Insert((originPosX / Screen.width) * 0.2f, transform.DOMoveY(originPosY + 50f, 0.08f).SetLoops(8, LoopType.Yoyo));
+			    seq.SetTarget(transform);
+			    seq.Play();
+			    break;
+	    }
     }
 
     private void SetHighlight(bool active)
@@ -105,7 +118,7 @@ public class DraftUIUnitCard : DraftUICard
     private void SetUse(SynergyDescUI ui, SynergyCategory synergy)
     {
 	    usingSynergyDescUIList.Add(ui);
-	    ui.transform.SetParent(usingSynergyDescUITr);
+	    ui.transform.SetParent(usingSynergyDescUITr, false);
 	    ui.Initialize(synergy);
     }
 

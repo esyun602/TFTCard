@@ -3,7 +3,7 @@ public class DraftUISkillCard : DraftUICard
     public override ICard TargetCard => tacticsCard;
     private TacticsCard tacticsCard;
     
-    public override void OnInitialize(ICardSpec targetCard)
+    public override void OnInitialize(ICardSpec targetCard, DraftAnimationType type)
     {
         tacticsCard = new TacticsCard((TacticsCardSpec)targetCard);
         SetInfo();

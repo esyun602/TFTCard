@@ -62,8 +62,11 @@ public abstract class StageBase : IStage
 		}
 		camera.transform.SetParent(StageGameObject.transform);
 		camera.tag = "MainCamera";
-		camera.transform.rotation = Quaternion.Euler(90, 0, 0);
-		camera.transform.position = new Vector3(9f, Constant.StageCameraHeight, 5f);
+		if (StageType == StageType.BattleStage || StageType == StageType.BossStage)
+		{
+			camera.transform.rotation = Quaternion.Euler(90, 0, 0);
+			camera.transform.position = new Vector3(9f, Constant.StageCameraHeight, 5f);
+		}
 
 		Game.Instance.UIManager.CurrentUICamera = camComponent;
 		

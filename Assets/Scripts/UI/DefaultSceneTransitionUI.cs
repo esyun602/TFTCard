@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using MessageSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,11 @@ public class DefaultSceneTransitionUI : UIInstance
 		var seq = DOTween.Sequence();
 		image.DOKill();
 		seq.Append(image.DOFade(0f, 0.3f));
-		seq.AppendCallback(() => image.gameObject.SetActive(false));
+		seq.AppendCallback(() =>
+		{
+			image.gameObject.SetActive(false);
+			NoticeSystem.Instance.Publish(new TransitionMotionDoneNotice());
+		});
 		seq.SetTarget(image);
 		
 		seq.Play();

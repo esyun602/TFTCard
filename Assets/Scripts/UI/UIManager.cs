@@ -50,10 +50,10 @@ public class UIManager
 		//Tool.ToolBox.Instance.LateUpdateCallback += LateUpdate;
 	}
 
-	public T GenerateUI<T>(object param = null, Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null, Transform followTarget = null) where T : UIInstance
+	public T GenerateUI<T>(object param = null, Vector3? position = null, Quaternion? rotation = null, Vector3? scale = null, Transform followTarget = null, string variantName = null) where T : UIInstance
 	{
 		var instance =
-			UIInstance.Instantiate<T>(param, position, rotation, scale, followTarget, (instance) => GetTargetCanvasByType(instance.UIType).transform);
+			UIInstance.Instantiate<T>(param, position, rotation, scale, followTarget, (instance) => GetTargetCanvasByType(instance.UIType).transform, variantName);
 		uiInstanceList.Add(instance);
 		return instance;
 	}

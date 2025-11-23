@@ -11,6 +11,7 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 	public abstract ICard TargetCard { get; }
 	protected ICardInfoHandler infoHandler;
 	private SimpleStateMachine stateMachine;
+	protected float defaultScale;
 
 	public static InputBlockFlag BlockInput { get; set; }
 
@@ -19,15 +20,16 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 		infoHandler = GetComponentInChildren<ICardInfoHandler>(true);
 	}
 	
-	public void Initialize(ICardSpec targetCard)
+	public void Initialize(ICardSpec targetCard, DraftAnimationType type = DraftAnimationType.None, float cardScale = 1f)
 	{
+		defaultScale = cardScale;
 		transform.DOKill();
 		stateMachine = new SimpleStateMachine();
 		ChangeState(new DraftUICardNormalState(this));
-		OnInitialize(targetCard);
+		OnInitialize(targetCard, type);
 	}
 	
-	public abstract void OnInitialize(ICardSpec targetCard);
+	public abstract void OnInitialize(ICardSpec targetCard, DraftAnimationType type);
 	
 	protected void ChangeState(IState nextState)
 	{
@@ -87,7 +89,7 @@ public abstract class DraftUICard : MonoBehaviour, IPointerClickHandler, IPointe
 		private float hoverTime = 0.2f;
 		private Vector3 hoverTarget;
 		private Vector3 startScale;
-		private Vector3 originalScale = Vector3.one;
+		private Vector3 originalScale => Vector3.one * owner.defaultScale;
 
 		public DraftUICardNormalState(DraftUICard owner)
 		{

@@ -13,7 +13,8 @@ public class DraftGameMode : IGameMode
 		{
 			DraftCount = 3,
 			CardPerDraft = 2,
-			DoneAction = ReturnToMap
+			DoneAction = ReturnToMap,
+			AnimationType = DraftAnimationType.Start
 		});
 		LoadComplete = true;
 	}

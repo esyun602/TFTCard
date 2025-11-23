@@ -9,8 +9,9 @@ public class UnitScoutStage : StageBase
         {
             DraftCount = 1,
             CardPerDraft = 3,
-            DoneAction = StageDone
-        });
+            DoneAction = StageDone,
+            AnimationType = DraftAnimationType.Pub
+        }, variantName: "Pub");
     }
     
     private void StageDone()
