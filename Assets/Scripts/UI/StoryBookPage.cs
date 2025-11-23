@@ -12,8 +12,9 @@ public class StoryBookPage : MonoBehaviour
 	private void OnEnable()
 	{
 		SfxManager.Instance.Play2D("Page 05");
-		image.color = new Color(1, 1, 1, 0);
-		text.color = new Color(1, 1, 1, 0);
+		var color = text.color;
+		color.a = 0;
+		text.color = color;
 
 		image.DOKill();
 		text.DOKill();
