@@ -68,7 +68,7 @@ MonoBehaviour:
   m_text: descdescdescdescdescdescdescdesc
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 24d4f5f79e761634eaf11ceb742e25a0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_text: daaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 24d4f5f79e761634eaf11ceb742e25a0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 9ee9db08df453ef4d87349fd79588d35, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_text: name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
-  m_sharedMaterial: {fileID: -673544223428325255, guid: b9f1538081bc04c40afd8accb89922bb, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 24d4f5f79e761634eaf11ceb742e25a0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
