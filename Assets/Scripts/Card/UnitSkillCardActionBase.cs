@@ -9,7 +9,7 @@ public abstract class UnitSkillCardActionBase : SkillCardActionBase
 	{
 		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 		var tile = map.GetTileOfBattleObject(BattleStat.Owner);
-		return base.CanUse(targetTile) && targetTile.HasSameRow(tile);
+		return base.CanUse(targetTile); //&& targetTile.HasSameRow(tile);
 	}
 
 	public override void SetCardStat(SkillCardStat stat)
