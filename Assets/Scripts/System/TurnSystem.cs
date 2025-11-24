@@ -30,11 +30,14 @@ public class TurnSystem
 
 					var targetCard = cardList[phase];
 					var routine = targetCard.TargetCard.Action.UpdatableRoutine;
-					routine.AddChainAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.3f, () =>
+					
+					routine.AddOnCompleteOnce(() =>
 					{
 						if(!targetCard.IsDead) Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(targetCard);
 						CurrentUsedCost = value;
-					}));
+					});
+					routine.AddOnFailOnce(() => CurrentUsedCost = value);
+					
 					routine.AddInterruptAtInitialize(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
 					RegisterPlayerTurnRoutine(routine);
 

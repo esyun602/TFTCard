@@ -19,6 +19,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 	private Action initializeAction;
 	private Action completeAction;
+	private Action disposableFailAction;
+	private Action disposableCompleteAction;
 	private Func<bool> triggerCondition;
 
 	private UpdatableRoutineDelegate updateFunc;
@@ -40,11 +42,13 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 		if (triggerCondition != null && !triggerCondition.Invoke())
 		{
+			disposableCompleteAction = null;
 			updateFunc = TriggerFailRoutine;
 			return;
 		}
 		else
 		{
+			disposableFailAction = null;
 			if (interruptQueue.TryDequeue(out var routine))
 			{
 				currentInterruptRoutine = routine;
@@ -74,6 +78,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 		{
 			routineDone = true;
 			CurrentRoutine = null;
+			disposableCompleteAction?.Invoke();
+			disposableCompleteAction = null;
 			completeAction?.Invoke();
 			return;
 		}
@@ -115,6 +121,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 	private void TriggerFailRoutine(float dt, out bool routineDone)
 	{
+		disposableFailAction?.Invoke();
+		disposableFailAction = null;
 		routineDone = true;
 	}
 
@@ -144,5 +152,15 @@ public class UpdatableRoutine : IUpdatableRoutine
 	public void AddInterruptAtInitialize(IUpdatableRoutine routine)
 	{
 		interruptQueueForInitialize.Enqueue(routine);
+	}
+
+	public void AddOnFailOnce(Action failAction)
+	{
+		this.disposableFailAction += failAction;
+	}
+
+	public void AddOnCompleteOnce(Action completeAction)
+	{
+		this.disposableCompleteAction += completeAction;
 	}
 }

@@ -10,6 +10,8 @@ public interface IUpdatableRoutine
 	public void AddChainAtInitialize(IUpdatableRoutine routine);
 	public void AddInterrupt(IUpdatableRoutine routine);
 	public void AddInterruptAtInitialize(IUpdatableRoutine routine);
+	public void AddOnFailOnce(Action failAction);
+	public void AddOnCompleteOnce(Action failAction);
 }
 
 public static class IUpdatableRoutineExtensions
