@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class FlowPanelGenState
@@ -18,6 +19,9 @@ public class FlowPanel : UIInstance
 	public RectTransform TestNodeTop;
 	public RectTransform TestNodeBottom;
 
+	private float firstOpenPosX;
+
+	[SerializeField] private ScrollRect scrollRect;
 	[SerializeField] private float defaultHeight = -300;
 	[SerializeField] private Transform scrollContent;
 	
@@ -77,10 +81,13 @@ public class FlowPanel : UIInstance
 	private void Start()
 	{
 		AlignNodes();
+		//todo: fix value later
+		scrollRect.horizontalNormalizedPosition = Mathf.Clamp((firstOpenPosX - 960) / 3840f, 0, 1);
 	}
 
 	private void AlignNodes()
 	{
+		firstOpenPosX = float.MaxValue;
 		for (var p = 0; p < midPoints.Count - 1; p++)
 		{
 			var cur = midPoints[p];
@@ -104,6 +111,11 @@ public class FlowPanel : UIInstance
 						defaultHeight + flowInfo.FlowCurveList[j].Evaluate(localProg) * Constant.MapEdgeCurveModifier
 						,TestNodeStart.position.z
 					);
+
+					if (targetNode.TargetInfo.NodeState == FlowNodeState.Opened && firstOpenPosX >= rt.position.x)
+					{
+						firstOpenPosX = rt.position.x;
+					}
 				}
 			}
 		}
