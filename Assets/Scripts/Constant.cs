@@ -99,7 +99,7 @@ public class Constant : GameData
 		}
 	}
 
-	public static string GetFullSynergyCount(string name, SynergyTier tier)
+	public static string GetFullSynergyTotalCount(string name, SynergyTier tier)
 	{
 		switch (tier)
 		{
@@ -116,7 +116,7 @@ public class Constant : GameData
 		}
 	}
 	
-	public static string GetFullSynergyTotalCount(string name, SynergyTier tier)
+	public static string GetFullSynergyCount(string name, SynergyTier tier)
 	{
 		switch (tier)
 		{
