@@ -23,6 +23,8 @@ public class EventPanel : UIInstance
     private Image mainImage;
     [SerializeField]
     private Transform buttonParent;
+
+    [SerializeField] private RectTransform content;
     [SerializeField]
     private TextMeshProUGUI descText;
     public override UIType UIType => UIType.SceneUI;
@@ -57,9 +59,9 @@ public class EventPanel : UIInstance
         mainImage.sprite = spec.TargetSprite;
         descText.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(spec.Desc);
         
-        var size = descText.rectTransform.sizeDelta;
+        var size = content.sizeDelta;
         size.y = descText.preferredHeight + 100;
-        descText.rectTransform.sizeDelta = size;
+        content.sizeDelta = size;
 
         foreach (var info in spec.ContinueEventInfos)
         {

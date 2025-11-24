@@ -9,6 +9,6 @@ public class EventButton : MonoBehaviour
 
     public void SetText(string text)
     {
-        textUI.text = text;
+        textUI.text = GameDataSystem.Instance.GetGameData<GameString>().GetString(text);
     }
 }

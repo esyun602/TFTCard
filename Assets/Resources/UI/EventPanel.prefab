@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 8674355317127374428}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
@@ -241,6 +241,7 @@ MonoBehaviour:
   categoryText: {fileID: 8547185765079963306}
   mainImage: {fileID: 5710594484911963937}
   buttonParent: {fileID: 5197526695720735430}
+  content: {fileID: 8674355317127374428}
   descText: {fileID: 3288316302323968358}
 --- !u!1 &3010813717948477236
 GameObject:
