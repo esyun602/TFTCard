@@ -12,6 +12,7 @@ public class UnitScoutStage : StageBase
             DoneAction = StageDone,
             AnimationType = DraftAnimationType.Pub
         }, variantName: "Pub");
+        BgmManager.Instance.ChangeBgm("pub");
     }
     
     private void StageDone()
