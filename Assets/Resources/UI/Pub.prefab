@@ -418,7 +418,7 @@ MonoBehaviour:
   - {fileID: 819062460229100270}
   - {fileID: 453985892389446653}
   - {fileID: 1187002961363978557}
-  cardScale: 0.9
+  cardScale: 0.8
 --- !u!1 &1187002961363978557
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,7 +949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5459194250681961289
 RectTransform:
   m_ObjectHideFlags: 0
