@@ -29,12 +29,10 @@ public class ClockSynergy : IBattleSynergy
 
     private void AddOptionToObject(IBattleObject obj)
     {
-        obj.UnitCardBattleStat.AddOption(new AlchemistOption(Level));
     }
 
     private void RemoveOptionFromObject(IBattleObject obj)
     {
-        obj.UnitCardBattleStat.RemoveOption<AlchemistOption>();
     }
 
     public void AddMember(IBattleObject obj)

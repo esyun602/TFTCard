@@ -101,7 +101,7 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 		
 		var keyword = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(m.Buff.Keyword);
 		//todo: 일단은 버프에 keyword 하나라고 가정
-		iconDict[keyword].Value += m.Diff;
+		iconDict[keyword].Value = m.Buff.Level;
 		
 		UpdateIcon();
 	}

@@ -24,7 +24,7 @@ public class AlchemistOption : IOption
 	
 	private void OnDamage(DamageNotice m)
 	{
-		if (m.DamageInfo.Sender == target && (m.DamageInfo.DamageType & DamageType.NormalAttack) != 0)
+		if (m.DamageInfo.Sender == target)
 		{
 			//todo: 스펙값으로
 			m.Target.UnitCardBattleStat.AddBuff(new CatalystBuff(Level));

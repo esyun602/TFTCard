@@ -51,7 +51,7 @@ public class DerrickAction : UnitSkillCardActionBase
                 {
                     DamageType = DamageType.Bomb,
                     Sender = BattleStat.Owner,
-                    Dmg = dmg
+                    Dmg = dmg + BattleStat.GetValueByValueType(SkillValueType.BombDamage)
                 });
             }
 			

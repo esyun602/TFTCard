@@ -55,7 +55,7 @@ public class DerrickActionPlus : UnitSkillCardActionBase
                 {
                     DamageType = DamageType.Bomb,
                     Sender = BattleStat.Owner,
-                    Dmg = dmg
+                    Dmg = dmg + BattleStat.GetValueByValueType(SkillValueType.BombDamage)
                 });
                 
                 targetObj.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
