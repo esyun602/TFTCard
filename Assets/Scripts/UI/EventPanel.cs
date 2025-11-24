@@ -24,6 +24,7 @@ public class EventPanel : UIInstance
     [SerializeField]
     private Transform buttonParent;
 
+    [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private RectTransform content;
     [SerializeField]
     private TextMeshProUGUI descText;
@@ -45,6 +46,7 @@ public class EventPanel : UIInstance
         endAction = state.OnRoutineEnd;
         
         ApplyEventSpec(state.EventSpec);
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private void ApplyEventSpec(EventSpec spec)

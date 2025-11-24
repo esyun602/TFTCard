@@ -26,6 +26,7 @@ public class BurnBuff : BuffBase
 		if (Level <= 0)
 		{
 			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
+			return;
 		}
 		
 		target.Damage(new DamageInfo()

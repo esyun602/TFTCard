@@ -8,7 +8,7 @@
       "test_wave_1"
     ],
     "StageIcon": "StageIcon_1",
-    "BattleStageBg": "battleUIFieldBg"
+    "BattleStageBg": "battlefirst"
   },
   {
     "StageName": "Scout",
@@ -25,7 +25,7 @@
       "test_wave_2"
     ],
     "StageIcon": "StageIcon_1",
-    "BattleStageBg": "battleUIFieldBg"
+    "BattleStageBg": "battlefactory"
   },
   {
     "StageName": "TestStage3",
@@ -36,7 +36,7 @@
       "test_wave_3"
     ],
     "StageIcon": "StageIcon_1",
-    "BattleStageBg": "battleUIFieldBg"
+    "BattleStageBg": "battleEnd"
   },
   {
     "StageName": "StageForTest",

@@ -32,10 +32,12 @@
       ]
     },
     "BattleStagePool": {
-      "PoolType": "RandomReplace",
+      "PoolType": "Sequence",
       "PoolList": [
         "TestStage",
-        "TestStage2"
+        "TestStage2",
+        "TestStage2",
+        "TestStage3"
       ]
     }
   },
