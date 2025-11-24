@@ -10,12 +10,13 @@
       " EventStage",
       " BattleStage",
       " EventStage",
+      " EventStage",
       " BattleStage",
       " EventStage"
     ],
     "EventStageGenType": "StaticNumberSequence",
     "BranchParams": [
-      1,1,2,1,1,2,1,2,1,1
+      1,1,2,1,1,2,1,2,1,1,1
     ],
     "EventStagePool": {
       "PoolType": "Sequence",
@@ -28,6 +29,7 @@
         "Shop",
         "Shop",
         "Scout",
+        "Event3",
         "Event3"
       ]
     },
