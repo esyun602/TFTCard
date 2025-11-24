@@ -84,7 +84,7 @@
     "ContinueEventInfo": [
       {
         "Desc": "event2_opt4",
-        "NextEvent": "Event2_5"
+        "NextEventName": "Event2_5"
       }
     ],
     "EndDesc": [],
