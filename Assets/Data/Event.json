@@ -2,12 +2,12 @@
   {
     "Name": "Event1_1",
     "CategoryKey": "event1",
-    "TargetSprite": "enemy_mutatedslave_default",
+    "TargetSprite": "eventImage1",
     "Desc": "event1_1_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event1_opt1",
-        "NextEvent": "Event1_2"
+        "NextEventName": "Event1_2"
       }
     ],
     "EndDesc": [
@@ -20,12 +20,12 @@
   {
     "Name": "Event1_2",
     "CategoryKey": "event1",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage2",
     "Desc": "event1_2_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event1_opt3",
-        "NextEvent": "Event1_3"
+        "NextEventName": "Event1_3"
       }
     ],
     "EndDesc": [],
@@ -34,7 +34,7 @@
   {
     "Name": "Event1_3",
     "CategoryKey": "event1",
-    "TargetSprite": "enemy_powerrepeater_default",
+    "TargetSprite": "eventImage2",
     "Desc": "event1_3_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
@@ -47,12 +47,12 @@
   {
     "Name": "Event2_1",
     "CategoryKey": "event2",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage3",
     "Desc": "event2_1_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event2_opt1",
-        "NextEvent": "Event2_2"
+        "NextEventName": "Event2_2"
       }
     ],
     "EndDesc": [],
@@ -61,16 +61,16 @@
   {
     "Name": "Event2_2",
     "CategoryKey": "event2",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage4",
     "Desc": "event2_2_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event2_opt2",
-        "NextEvent": "Event2_3"
+        "NextEventName": "Event2_3"
       },
       {
         "Desc": "event2_opt3",
-        "NextEvent": "Event2_4"
+        "NextEventName": "Event2_4"
       }
     ],
     "EndDesc": [],
@@ -79,7 +79,7 @@
   {
     "Name": "Event2_3",
     "CategoryKey": "event2",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage5",
     "Desc": "event2_3_desc",
     "ContinueEventInfo": [
       {
@@ -93,7 +93,7 @@
   {
     "Name": "Event2_4",
     "CategoryKey": "event2",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage5",
     "Desc": "event2_4_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
@@ -106,7 +106,7 @@
   {
     "Name": "Event2_5",
     "CategoryKey": "event2",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage4",
     "Desc": "event2_5_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
@@ -119,16 +119,16 @@
   {
     "Name": "Event3_1",
     "CategoryKey": "event3",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage6",
     "Desc": "event3_1_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event3_opt1",
-        "NextEvent": "Event3_2"
+        "NextEventName": "Event3_2"
       },
       {
         "Desc": "event3_opt2",
-        "NextEvent": "Event3_4"
+        "NextEventName": "Event3_4"
       }
     ],
     "EndDesc": [],
@@ -137,12 +137,12 @@
   {
     "Name": "Event3_2",
     "CategoryKey": "event3",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage7",
     "Desc": "event3_2_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event3_opt3",
-        "NextEvent": "Event3_3"
+        "NextEventName": "Event3_3"
       }
     ],
     "EndDesc": [],
@@ -151,12 +151,12 @@
   {
     "Name": "Event3_3",
     "CategoryKey": "event3",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage8",
     "Desc": "event3_3_desc",
     "ContinueEventInfo": [
       {
         "Desc": "event3_opt4",
-        "NextEvent": "Event3_4"
+        "NextEventName": "Event3_4"
       }
     ],
     "EndDesc": [],
@@ -165,7 +165,7 @@
   {
     "Name": "Event3_4",
     "CategoryKey": "event3",
-    "TargetSprite": "enemy_patrolmachine_default",
+    "TargetSprite": "eventImage8",
     "Desc": "event3_4_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
