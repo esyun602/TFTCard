@@ -88,6 +88,13 @@ public class RewardUIPanel : UIInstance
 		cardRewardPanel.SetActive(false);
 		selectPanel.SetActive(true);
 	}
+	
+	public void OnSelectPanelCloseClick()
+	{
+		selectPanel.SetActive(true);
+		unitButton.SetActive(true);
+		cardRewardPanel.SetActive(false);
+	}
 
 	private void OnEnd()
 	{

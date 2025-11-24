@@ -171,6 +171,7 @@ public class DraftUIUnitCard : DraftUICard
 
 			owner.selectPanel.Activate(owner);
 			owner.transform.DOMoveX(Screen.width / 2f - 200f, 0.2f);
+			owner.transform.DOMoveY(Screen.height / 2f, 0.2f);
 			owner.SetHighlight(true);
 			returnAnimationCurve = GameDataSystem.Instance.GetGameData<Constant>().CardReturnAnimationCurve;
 		}
@@ -180,6 +181,7 @@ public class DraftUIUnitCard : DraftUICard
 			if (isHovered) RemoveHover();
 			owner.transform.DOKill();
 			owner.transform.DOMoveX(owner.originPosX, 0.2f);
+			owner.transform.DOMoveY(owner.originPosY, 0.2f);
 			owner.SetHighlight(false);
 		}
 
