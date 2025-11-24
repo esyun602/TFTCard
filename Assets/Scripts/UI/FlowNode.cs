@@ -19,28 +19,13 @@ public class FlowNode : MonoBehaviour
 		}
 	}
 	[SerializeField] private Image image;
+	[SerializeField] private GameObject check; 
 	
-	public void OpenNode()
-	{
-		//todo:fix
-		TargetInfo.OpenNode();
-		GetComponentInChildren<Image>().color = Color.red;
-	}
-
 	public void SelectNode()
 	{
 		//todo:fix
 		//todo: 아예 클릭이 안되게
 		TargetInfo.SelectNode();
-		GetComponentInChildren<Image>().color = Color.yellow;
-		
-	}
-
-	public void ClearNode()
-	{
-		//todo:fix
-		TargetInfo.ClearNode();
-		GetComponentInChildren<Image>().color = Color.blue;
 		
 	}
 	
@@ -50,16 +35,17 @@ public class FlowNode : MonoBehaviour
 		switch (TargetInfo.NodeState)
 		{
 			case FlowNodeState.Closed:
-				GetComponentInChildren<Image>().color = Color.gray;
+				image.color = Color.gray;
 				break;
 			case FlowNodeState.Opened:
-				GetComponentInChildren<Image>().color = Color.white;
+				image.color = Color.white;
 				break;
 			case FlowNodeState.Cleared:
-				GetComponentInChildren<Image>().color = Color.black;
+				image.color = Color.gray;
+				check.SetActive(true);
 				break;
 			case FlowNodeState.Selected:
-				GetComponentInChildren<Image>().color = Color.white;
+				image.color = Color.gray;
 				break;
 		}
 	}
