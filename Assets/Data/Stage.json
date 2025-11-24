@@ -60,20 +60,20 @@
     "ClassName": "EventStage",
     "CamSize": 8.0,
     "StageIcon": "StageIcon_2_1",
-    "EventName": "Event1"
+    "EventName": "Event1_1"
   },
   {
     "StageName": "Event2",
     "ClassName": "EventStage",
     "CamSize": 8.0,
     "StageIcon": "StageIcon_2_1",
-    "EventName": "Event2"
+    "EventName": "Event2_1"
   },
   {
     "StageName": "Event3",
     "ClassName": "EventStage",
     "CamSize": 8.0,
     "StageIcon": "StageIcon_2_1",
-    "EventName": "Event3"
+    "EventName": "Event3_1"
   }
 ]

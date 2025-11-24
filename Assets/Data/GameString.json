@@ -245,7 +245,7 @@
   },
   {
     "StringKey": "act_skill_normanaction_desc",
-    "KorString": "노먼이 선택한 적에게\\n피해를 {$attack} 줍니다. 이\\n공격으로 적이 죽으면\\n<color=#FFB700>골드</color>를 {$goldAdd} 얻습니다."
+    "KorString": "노먼이 선택한 적에게\\n피해를 {$attack} 줍니다. 이\\n공격으로 적이 죽으면\\n<color=#88662a>골드</color>를 {$goldAdd} 얻습니다."
   },
   {
     "StringKey": "act_skill_dawsonaction",
@@ -317,7 +317,7 @@
   },
   {
     "StringKey": "act_skill_biological_experiment_desc",
-    "KorString": "<b>근접</b>. 알레가 적에게\\n{$attack}의 피해를 주고,\\n<color=#B57EDC>촉매</color>를 {$catalystAdd} 부여합니다."
+    "KorString": "<b>근접</b>. 알레가 적에게\\n{$attack}의 피해를 주고,\\n<color=#672f71>촉매</color>를 {$catalystAdd} 부여합니다."
   },
   {
     "StringKey": "act_skill_equivalent_exchange",
@@ -333,7 +333,7 @@
   },
   {
     "StringKey": "act_skill_positive_feedback_desc",
-    "KorString": "포지가 선택한 적에게\\n<color=#B57EDC>촉매</color>를 {$catalystAdd} 부여하고,\\n피해를 0 줍니다. 이\\n카드를 사용할 때마다\\n부여하는 <color=#B57EDC>촉매</color>가 {$attack}\\n증가합니다."
+    "KorString": "포지가 선택한 적에게\\n<color=#672f71>촉매</color>를 {$catalystAdd} 부여하고,\\n피해를 0 줍니다. 이\\n카드를 사용할 때마다\\n부여하는 <color=#672f71>촉매</color>가 {$attack}\\n증가합니다."
   },
   {
     "StringKey": "act_skill_chain_reaction",
@@ -341,7 +341,7 @@
   },
   {
     "StringKey": "act_skill_chain_reaction_desc",
-    "KorString": "다케인이 <color=#B57EDC>촉매</color>가\\n부여된 모든 적에게\\n폭발 피해를 {$attack} 줍니다."
+    "KorString": "다케인이 <color=#672f71>촉매</color>가\\n부여된 모든 적에게\\n폭발 피해를 {$attack} 줍니다."
   },
   {
     "StringKey": "act_skill_panacea",
@@ -349,7 +349,7 @@
   },
   {
     "StringKey": "act_skill_panacea_desc",
-    "KorString": "파나가\\n선택한 아군에게\\n<color=#2E9B2E>재생</color>을 {$attack} 부여합니다."
+    "KorString": "파나가\\n선택한 아군에게\\n<color=#3f6f2c>재생</color>을 {$attack} 부여합니다."
   },
   {
     "StringKey": "act_skill_cabinotieraction",
@@ -842,5 +842,209 @@
   {
     "StringKey": "synergy_supporter_desc_1",
     "KorString": "(3) 체력 회복이 부정적인 효과를 정화합니다."
+  },
+  {
+    "StringKey": "event1",
+    "KorString": "시계공과의 만남"
+  },
+  {
+    "StringKey": "event2",
+    "KorString": "수상한 공장"
+  },
+  {
+    "StringKey": "event3",
+    "KorString": "최종 전투"
+  },
+  {
+    "StringKey": "event4",
+    "KorString": ""
+  },
+  {
+    "StringKey": "event1_1_desc",
+    "KorString": "마을의 침입자들을 무찌른 후, 당신은 회중시계에 대해 자세히 알아보고자 시계점을 찾습니다.\\n 골목길의 작은 시계점에 들어서자, 집사 차림의 인형이 점잖게 인사를 건넵니다.\\n <i>\"시계 점검이 필요하십니까?\"</i>\\n 그의 어깨 너머로 보이는 태엽 열쇠가 느릿하게 움직입니다..."
+  },
+  {
+    "StringKey": "event1_2_desc",
+    "KorString": "집사가 잠시 회중시계를 들여다보더니, 이내 당신에게 묻습니다.\\n <i>\"점주님께서도 시계를 보고싶어하실 것 같습니다. 모셔와도 되겠습니까?</i>\"\\n 연녹색 빛이 드러나진 않았지만, 단순히 시간이 빠른 시계가 아님을 알아챈 듯 합니다.\\n 가볍게 고개를 끄덕인 당신은, 곧이어 모습을 드러낸 거북이 수인을 마주합니다.\\n <i>\"왕실의 물건이군요, 왕자님을 뵙습니다.\"</i>\\n 당신은 시계공의 첫마디에 흠칫 놀랐지만, 애써 담담한 체하며 그걸 어떻게 알았는지 묻습니다.\\n <i>\"저도 왕실의 공방, 아뜰리에에 잠시나마 몸담았던 적이 있습니다.</i>\\n <i>이 작품을 직접 보는 것은 처음이지만, 전해진 대로 정교하군요.\"</i>"
+  },
+  {
+    "StringKey": "event1_3_desc",
+    "KorString": "회중시계의 능력에 대해 설명하자, 이번엔 시계공이 제법 놀란 표정을 짓습니다.\\n <i>\"최근에서야 시간 역행 이론이 증명되었는데, 이미 미래를 보는 시계가 존재했다니...</i>\\n <i>초대 아틀리에의 기술력은 정말 믿기 어렵군요.\"</i>\\n 시계공은 회중시계를 활용하는 것에 도움이 될 것이라며, 동행을 청합니다.\\n <i>\"왕성으로 향하신다 들었습니다. 일행으로 거두어주실 수 있으십니까?\"<i/>"
+  },
+  {
+    "StringKey": "event1_opt1",
+    "KorString": "회중시계를 건네본다."
+  },
+  {
+    "StringKey": "event1_opt2",
+    "KorString": "떠난다."
+  },
+  {
+    "StringKey": "event1_opt3",
+    "KorString": "다음"
+  },
+  {
+    "StringKey": "event1_opt4",
+    "KorString": "수락한다."
+  },
+  {
+    "StringKey": "event2_1_desc",
+    "KorString": "당신과 동료들은 공장 지역을 천천히 돌파해나가고 있습니다.\\n 왕성에 가까워질수록, 더 많은 방해꾼들이 앞을 막아섭니다.\\n 출처를 알 수 없는 명령을 받는 기계들과, 원래의 모습을 찾기 힘들만큼 난폭해진 일꾼들.\\n 당신은 이 모든 일들이 갑자기, 그리고 우연히 일어날 수 없다고는 생각하지만,\\n 평화로웠던 왕국의 물밑에서 무언가 일어나고 있었다는 것도 믿기가 어렵습니다..."
+  },
+  {
+    "StringKey": "event2_2_desc",
+    "KorString": "당신과 일행은 잠시 빈 건물에 자리를 잡고 휴식을 취하고 있었습니다.\\n 그때, 창밖으로 두건을 쓴 누군가가 의식 잃은 일꾼을 끌고가는 모습을 발견합니다.\\n 안전한 곳으로 데려가는 걸까요, 아니면...?"
+  },
+  {
+    "StringKey": "event2_3_desc",
+    "KorString": "당신은 동료 몇몇을 데리고 수상한 이를 따라 들어간 공장에서 충격적인 광경을 목격합니다.\\n"
+  },
+  {
+    "StringKey": " 수많은 일꾼들이 철창에 갇혀있었고, 채찍을 든 기계들과 수인들이 감시하는 모습은 감옥과 같았습니다.\\n"
+  },
+  {
+    "StringKey": " 심지어, 갇혀있는 일꾼들은 모두 몸 일부가 기계로 되어 있었습니다...\\n"
+  },
+  {
+    "StringKey": " 당신은 혼자서 밖으로 나서는 간수 하나를 낚아챕니다.",
+    "KorString": ""
+  },
+  {
+    "StringKey": "event2_4_desc",
+    "KorString": "대수롭지 않게 생각한 당신은 다음 구역으로 나아갑니다."
+  },
+  {
+    "StringKey": "event2_5_desc",
+    "KorString": "<i>\"아는 건 다, 다 말하겠습니다! 살려만 주십시오!\"</i>\\n 비굴한 목소리로 애원하던 간수는 이내 모든 것을 실토합니다.\\n <i>\"이곳은 기계 신체를 만드는 공장이었습니다. 마, 만들기만 하는 곳이었는데...\\n 몇 년 전부터, 다친 일꾼들이 이곳으로 보내져 저희가 직접 신체 교체 수술을 하도록 지시가 내려왔습니다...!\\n 초반엔 괜찮았는데 언제부턴가 공정이 바뀌었는지, 저는 기술자가 아니라 잘 모르지만,\\n 수술받은 일꾼들이 이성을 잃는 일이 많아졌고, 문제가 생겼다는 건 비밀로 하고 일꾼들을 여기 가두기 시작했습니다...\\n 윗선, 그, 그러니까, 저는 알 수 없을 만큼 높은 분의 지시라는 것만 알고 있습니다!\"</i>\\n \\n 필요한 정보를 모두 들은 당신은 간수를 기절시키고, 다시 일행에게 돌아가 공장을 소탕할 준비를 합니다..."
+  },
+  {
+    "StringKey": "event2_opt1",
+    "KorString": "다음"
+  },
+  {
+    "StringKey": "event2_opt2",
+    "KorString": "몰래 따라간다."
+  },
+  {
+    "StringKey": "event2_opt3",
+    "KorString": "무시한다."
+  },
+  {
+    "StringKey": "event2_opt4",
+    "KorString": "공장에 대해 심문한다."
+  },
+  {
+    "StringKey": "event2_opt5",
+    "KorString": "다음"
+  },
+  {
+    "StringKey": "event2_opt6",
+    "KorString": "다음"
+  },
+  {
+    "StringKey": "event3_1_desc",
+    "KorString": "왕성에 도착한 일행. 도망친 날처럼 여전히 솟아오르는 불길과 폐허로 가득한 거리.\\n"
+  },
+  {
+    "StringKey": " 과거의 아름다움을 찾아볼 수 없는 모습에 당신의 가슴 한 켠이 아려옵니다.\\n"
+  },
+  {
+    "StringKey": " 시계탑에 다다르자, 중상을 입은 아틀리에의 장인이 당신을 힘겹게 부릅니다.\\n"
+  },
+  {
+    "StringKey": " <i>\"왕자님, 살아계셨군요.. 아티산을... 아니, 그는 더이상 아틀리에를 이끌던 아티산이 아닙니다...\\n"
+  },
+  {
+    "StringKey": " 그는 괴물입니다!! 괴물을 막아주십시오, 왕자님...\"</i>",
+    "KorString": ""
+  },
+  {
+    "StringKey": "event3_2_desc",
+    "KorString": "<i>\"아티산은 몇 년 전 시간 역행이 가능하다는 사실을 증명해낸 후로 갑자기 윤리를 저버렸습니다...\\n"
+  },
+  {
+    "StringKey": " 어떤 시간역행자가 자신의 마음대로 세상을 주무르고 있다는 말도 안되는 피해망상에 빠져,\\n"
+  },
+  {
+    "StringKey": " 모두의 자유를 명분삼아 일꾼들이 버틸 수 없는 생체실험들을 비밀리에 강행했습니다.\\n"
+  },
+  {
+    "StringKey": " 그리고 결국 자신의 몸을 기계에 옮겨 정말로 괴물이 되었습니다...!\"</i>",
+    "KorString": ""
+  },
+  {
+    "StringKey": "event3_3_desc",
+    "KorString": "<i>\"그는 마지막으로, 기계 몸체를 영구적으로 움직이기 위해 시계탑의 동력원을 탈취하려고 합니다.\\n"
+  },
+  {
+    "StringKey": " 아티산이 시계탑에 들어서는 것을 아틀리에의 모두가 막으려고 했지만 저희로는 역부족이었습니다...\\n"
+  },
+  {
+    "StringKey": " 지금쯤 이미 탑의 최상층에 도달했겠지만, 동력을 모두 흡수하기까지는 아직 시간이 있습니다.\\n"
+  },
+  {
+    "StringKey": " 그가 동력을 모두 흡수하고 나면, 존재하지도 않는 시간역행자를 찾아내기 위해 왕국을 전복시킬 겁니다!\\n"
+  },
+  {
+    "StringKey": " 부탁드립니다, 왕자님. 늦기 전에 아티산을 따라가 그의 만행을 막아주십시오...\"</i>\\n"
+  },
+  {
+    "StringKey": " \\n"
+  },
+  {
+    "StringKey": " 그 말을 끝으로 기절한 장인을 안전한 곳에 눕힌 당신은 시계탑의 최상층을 향합니다.",
+    "KorString": ""
+  },
+  {
+    "StringKey": "event3_4_desc",
+    "KorString": "당신은 시계탑의 최정상에 올라, 거대한 금속 괴물을 마주합니다.\\n"
+  },
+  {
+    "StringKey": " 머리와 상체를 구분할 수 없는 톱니바퀴 덩어리가 천천히 움직이는 모습이 당신을 쳐다보는 것처럼 느껴집니다.\\n"
+  },
+  {
+    "StringKey": " 이내 괴물에게서 소름끼치는 목소리가 들려옵니다.\\n"
+  },
+  {
+    "StringKey": " <i>\"...조금만 기다리시지요, 왕자님... 곧...모두에게 시간으로부터의 자유를...\\n"
+  },
+  {
+    "StringKey": " 아티산으로서... 왕국에게 바치는 선물입니다...\"</i>\\n"
+  },
+  {
+    "StringKey": " 괴물과 두꺼운 전선으로 연결된 시계탑의 동력원에서 스파크가 튀고 있습니다.\\n"
+  },
+  {
+    "StringKey": " 당신이 전투 태세를 갖추자, 괴물도 몸뚱이를 일으킵니다.\\n"
+  },
+  {
+    "StringKey": " <i>\"...왕국을 위해서입니다... 왕자님께서 어째서...\\n"
+  },
+  {
+    "StringKey": " 막으려고 하신다면... 어쩔 수 없이...\"</i>\\n"
+  },
+  {
+    "StringKey": " 두서없는 기계음을 뱉으며 괴물이 위협적으로 다가옵니다...",
+    "KorString": ""
+  },
+  {
+    "StringKey": "event3_opt1",
+    "KorString": "무슨 일이 있던 거야?"
+  },
+  {
+    "StringKey": "event3_opt2",
+    "KorString": "바로 이동한다."
+  },
+  {
+    "StringKey": "event3_opt3",
+    "KorString": "말도 안돼!"
+  },
+  {
+    "StringKey": "event3_opt4",
+    "KorString": "다음"
+  },
+  {
+    "StringKey": "event3_opt5",
+    "KorString": "전투 개시!"
   }
 ]
