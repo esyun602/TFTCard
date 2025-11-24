@@ -21,6 +21,7 @@
     "TargetSprite": "enemy_powerrepeater_default",
     "Desc": "event3_desc",
     "EndDesc": "event3_end",
+    "GameEventType": "Ending",
     "ContinueEventInfo": null
   }
 ]

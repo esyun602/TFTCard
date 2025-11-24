@@ -333,6 +333,7 @@ public class PlayInfo
 	{
 		NoticeSystem.Instance.Subscribe<FlowNodeSelectNotice>(OnMapNodeSelect);
 		NoticeSystem.Instance.Subscribe<StageClearNotice>(OnStageClear);
+		Gold = 0;
 	}
 
 	private void OnMapNodeSelect(FlowNodeSelectNotice m)

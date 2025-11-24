@@ -7,7 +7,23 @@ public class EventStage : StageBase
     private EventStageSpec spec;
     protected override void OnLoad()
     {
-        Game.Instance.UIManager.GenerateUI<EventPanel>(new EventPanelGenState(spec.EventName, StageDone));
+        Action doneAction;
+        var targetEvent = GameDataSystem.Instance.GetGameData<EventData>().GetEvent(spec.EventName);
+        
+        switch (targetEvent.GameEventType)
+        {
+            case GameEventType.Story:
+                doneAction = StageDone;
+                break;
+            case GameEventType.Ending:
+                doneAction = Game.Instance.ResetProgressInfo;
+                break;
+            default:
+                doneAction = StageDone;
+                break;
+        }
+        
+        Game.Instance.UIManager.GenerateUI<EventPanel>(new EventPanelGenState(targetEvent, doneAction));
         BgmManager.Instance.ChangeBgm("story");
     }
     

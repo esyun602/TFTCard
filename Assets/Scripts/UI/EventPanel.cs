@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class EventPanelGenState
 {
-    public EventPanelGenState(string name, Action onRoutineEnd)
+    public EventPanelGenState(EventSpec spec, Action onRoutineEnd)
     {
-        Name = name;
+        EventSpec = spec;
         OnRoutineEnd = onRoutineEnd;
     }
 
-    public string Name { get; }
+    public EventSpec EventSpec { get; }
     public Action OnRoutineEnd { get; }
 }
 
@@ -42,8 +42,7 @@ public class EventPanel : UIInstance
         UnityObjectPool.GetOrCreateUIPool("EventButton").transform.SetParent(transform);
         endAction = state.OnRoutineEnd;
         
-        var target = GameDataSystem.Instance.GetGameData<EventData>().GetEvent(state.Name);
-        ApplyEventSpec(target);
+        ApplyEventSpec(state.EventSpec);
     }
 
     private void ApplyEventSpec(EventSpec spec)

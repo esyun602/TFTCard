@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameEventType
+{
+    Story,
+    Ending,
+}
+
 public class EventSpec
 {
     public class ContinueEventInfo
@@ -32,6 +38,7 @@ public class EventSpec
     public string Desc { get; private set; }
     public EndInfo EndInfoInstance { get; private set; }
     public List<ContinueEventInfo> ContinueEventInfos { get; private set; }
+    public GameEventType GameEventType { get; private set; }
 
     public static EventSpec Create(Dictionary<string, object> param)
     {
@@ -47,6 +54,8 @@ public class EventSpec
         }
 
         spec.ContinueEventInfos = new();
+
+        spec.GameEventType = Enum.Parse<GameEventType>(param.GetString(nameof(GameEventType)) ?? "Story");
         
         var jsonList = param.GetObjectArray(nameof(ContinueEventInfo));
         if (jsonList != null)
