@@ -27,15 +27,6 @@
     "CardUseType": "Targeting"
   },
   {
-    "Id": 3,
-    "Name": "QuickMotion",
-    "NameKey": "skill_quick_motion",
-    "StatSpecName": "QuickMotionStat",
-    "CardResource": "quickmotion_default",
-    "ActionSpecName": "QuickMotion",
-    "CardUseType": "Targeting"
-  },
-  {
     "Id": 4,
     "Name": "Repose",
     "NameKey": "skill_repose",
@@ -51,15 +42,6 @@
     "StatSpecName": "ShieldStat",
     "CardResource": "shield_default",
     "ActionSpecName": "Shield",
-    "CardUseType": "Targeting"
-  },
-  {
-    "Id": 6,
-    "Name": "SteamEngineProtection",
-    "NameKey": "skill_steamengine_protection",
-    "StatSpecName": "SteamEngineProtectionStat",
-    "CardResource": "steamengineprotection_default",
-    "ActionSpecName": "SteamEngineProtection",
     "CardUseType": "Targeting"
   },
   {
