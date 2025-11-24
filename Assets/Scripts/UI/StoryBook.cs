@@ -12,6 +12,7 @@ public class StoryBook : MonoBehaviour
 	[SerializeField] private GameObject end;
 	private int currentIdx;
 	private int MaxIdx => pages.Length - 1;
+	
 	private void Start()
 	{
 		currentIdx = 0;

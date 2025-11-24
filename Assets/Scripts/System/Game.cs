@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Coroutine;
+using DG.Tweening;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -30,6 +31,9 @@ public class Game : MonoBehaviour
 	{
 		//todo:fix
 		Screen.SetResolution(1920, 1080, true);
+		
+		DOTween.Init();
+		DOTween.SetTweensCapacity(200, 10);
 
 		SceneHandler = new();
 		UIManager = new();

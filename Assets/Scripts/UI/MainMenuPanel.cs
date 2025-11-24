@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenuPanelGenState
@@ -20,6 +22,12 @@ public class MainMenuPanel : UIInstance
 		{
 			this.state = state;
 		}
+	}
+
+	private IEnumerator Start()
+	{
+		yield return null;
+		storyBook.SetActive(false);
 	}
 
 	public void OnStartButtonClick()
