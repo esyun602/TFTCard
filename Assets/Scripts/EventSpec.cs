@@ -36,7 +36,7 @@ public class EventSpec
     public string CategoryKey { get; private set; }
     public Sprite TargetSprite { get; private set; }
     public string Desc { get; private set; }
-    public EndInfo EndInfoInstance { get; private set; }
+    public List<EndInfo> EndInfos { get; private set; }
     public List<ContinueEventInfo> ContinueEventInfos { get; private set; }
     public GameEventType GameEventType { get; private set; }
 
@@ -47,10 +47,14 @@ public class EventSpec
         spec.TargetSprite = Resources.Load<Sprite>("Sprites/" + param.GetString(nameof(TargetSprite)));
         spec.Desc = param.GetString(nameof(Desc));
         spec.CategoryKey = param.GetString(nameof(CategoryKey));
-        var endString = param.GetString("EndDesc");
-        if (!string.IsNullOrEmpty(endString))
+        spec.EndInfos = new();
+        var ends = param.GetObjectArray("EndDesc");
+        if (ends != null)
         {
-            spec.EndInfoInstance = new EndInfo(endString);
+            foreach (var end in ends)
+            {
+                spec.EndInfos.Add(new EndInfo(end.GetString("Desc")));
+            }
         }
 
         spec.ContinueEventInfos = new();

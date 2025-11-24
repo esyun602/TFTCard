@@ -4,7 +4,9 @@
     "CategoryKey": "event1",
     "TargetSprite": "enemy_mutatedslave_default",
     "Desc": "event1_desc",
-    "EndDesc": "event1_end",
+    "EndDesc": {
+      "Desc": "event1_end"
+    },
     "ContinueEventInfo": null
   },
   {
@@ -12,7 +14,9 @@
     "CategoryKey": "event2",
     "TargetSprite": "enemy_patrolmachine_default",
     "Desc": "event2_desc",
-    "EndDesc": "event2_end",
+    "EndDesc": {
+      "Desc": "event1_end"
+    },
     "ContinueEventInfo": null
   },
   {
@@ -20,7 +24,9 @@
     "CategoryKey": "event3",
     "TargetSprite": "enemy_powerrepeater_default",
     "Desc": "event3_desc",
-    "EndDesc": "event3_end",
+    "EndDesc": {
+      "Desc": "event1_end"
+    },
     "GameEventType": "Ending",
     "ContinueEventInfo": null
   }

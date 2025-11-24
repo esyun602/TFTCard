@@ -77,19 +77,16 @@ public class EventPanel : UIInstance
             });
         }
 
-        if (spec.EndInfoInstance != null)
+        foreach (var endInfo in spec.EndInfos)
         {
             var po = UnityObjectPool.GetOrCreateUIPool("EventButton").Instantiate(parent: buttonParent);
             buttonPoList.Add(po);
             var button = po.GetComponent<Button>();
             var eventButton = po.GetComponent<EventButton>();
-            
-            eventButton.SetText(spec.EndInfoInstance.Desc);
+
+            eventButton.SetText(endInfo.Desc);
             button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() =>
-            {
-                endAction?.Invoke();
-            });
+            button.onClick.AddListener(() => { endAction?.Invoke(); });
         }
     }
 }

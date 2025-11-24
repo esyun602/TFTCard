@@ -15,12 +15,10 @@ public class StoryBookPage : MonoBehaviour
 		var color = text.color;
 		color.a = 0;
 		text.color = color;
-		image.color = new Color(1, 1, 1, 0);
 
 		image.DOKill();
 		text.DOKill();
 
-		image.DOFade(1, 1);
 		text.DOFade(1, 1);
 	}
 
