@@ -93,7 +93,7 @@
   {
     "Name": "Event2_4",
     "CategoryKey": "event2",
-    "TargetSprite": "eventImage5",
+    "TargetSprite": "eventImage4",
     "Desc": "event2_4_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
@@ -106,7 +106,7 @@
   {
     "Name": "Event2_5",
     "CategoryKey": "event2",
-    "TargetSprite": "eventImage4",
+    "TargetSprite": "eventImage5",
     "Desc": "event2_5_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
@@ -167,12 +167,67 @@
     "CategoryKey": "event3",
     "TargetSprite": "eventImage8",
     "Desc": "event3_4_desc",
+    "ContinueEventInfo": [
+      {
+        "Desc": "event3_opt5",
+        "NextEventName": "Event3_5"
+      }
+    ],
+    "EndDesc": [],
+    "GameEventType": "Story"
+  },
+  {
+    "Name": "Event3_5",
+    "CategoryKey": "event3",
+    "TargetSprite": "eventImage9",
+    "Desc": "event3_5_desc",
     "ContinueEventInfo": [],
     "EndDesc": [
       {
-        "Desc": "event3_opt5"
+        "Desc": "event3_opt6"
       }
     ],
     "GameEventType": "Story"
+  },
+  {
+    "Name": "Event4_1",
+    "CategoryKey": "event4",
+    "TargetSprite": "eventImage8",
+    "Desc": "event4_1_desc",
+    "ContinueEventInfo": [
+      {
+        "Desc": "event4_opt1",
+        "NextEventName": "Event4_2"
+      }
+    ],
+    "EndDesc": [],
+    "GameEventType": "Story"
+  },
+  {
+    "Name": "Event4_2",
+    "CategoryKey": "event4",
+    "TargetSprite": "eventImage8",
+    "Desc": "event4_2_desc",
+    "ContinueEventInfo": [
+      {
+        "Desc": "event4_opt2",
+        "NextEventName": "Event4_3"
+      }
+    ],
+    "EndDesc": [],
+    "GameEventType": "Story"
+  },
+  {
+    "Name": "Event4_3",
+    "CategoryKey": "event4",
+    "TargetSprite": "eventImage8",
+    "Desc": "event4_3_desc",
+    "ContinueEventInfo": [],
+    "EndDesc": [
+      {
+        "Desc": "event4_opt3"
+      }
+    ],
+    "GameEventType": "Ending"
   }
 ]

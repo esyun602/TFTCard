@@ -75,5 +75,12 @@
     "CamSize": 8.0,
     "StageIcon": "StageIcon_2_1",
     "EventName": "Event3_1"
+  },
+  {
+    "StageName": "Event4",
+    "ClassName": "EventStage",
+    "CamSize": 8.0,
+    "StageIcon": "StageIcon_2_1",
+    "EventName": "Event4_1"
   }
 ]
