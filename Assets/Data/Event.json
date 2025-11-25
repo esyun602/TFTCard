@@ -201,7 +201,7 @@
       }
     ],
     "EndDesc": [],
-    "GameEventType": "Story"
+    "GameEventType": "Ending"
   },
   {
     "Name": "Event4_2",
@@ -215,7 +215,7 @@
       }
     ],
     "EndDesc": [],
-    "GameEventType": "Story"
+    "GameEventType": "Ending"
   },
   {
     "Name": "Event4_3",
