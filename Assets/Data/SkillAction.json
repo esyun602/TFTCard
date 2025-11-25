@@ -226,7 +226,7 @@
   {
     "Name": "ScrapMonsterSmiteAction",
     "ClassName": "ScrapMonsterSmiteAction",
-    "DescKey": "e_act_skill_smheavyswingaction_desc"
+    "DescKey": "e_act_skill_smsmite_desc"
   },
   {
     "Name": "BrassMonsterPrepareAction",
@@ -236,7 +236,7 @@
   {
     "Name": "BrassMonsterSmashAction",
     "ClassName": "BrassMonsterSmashAction",
-    "DescKey": "e_act_skill_bmprepareaction_desc"
+    "DescKey": "e_act_skill_bmsmashaction_desc"
   },
   {
     "Name": "MagnetMonsterAttractionAction",

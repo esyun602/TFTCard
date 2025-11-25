@@ -672,8 +672,16 @@
     "KorString": "$name%particle% 피해를 {$attack} 줍니다."
   },
   {
+    "StringKey": "e_act_skill_smsmite_desc",
+    "KorString": "$name%particle% 피해를 {$attack * 2} 줍니다.\\n<b>소멸</b>"
+  },
+  {
     "StringKey": "e_act_skill_bmprepareaction_desc",
-    "KorString": "$name%particle% 피해를 {$attack} 줍니다."
+    "KorString": "톱니 괴물이 내려찍기를 준비합니다."
+  },
+  {
+    "StringKey": "e_act_skill_bmsmashaction_desc",
+    "KorString": "$name%particle% 피해를 {$attack + $hp} 줍니다.\\n<b>소멸</b>"
   },
   {
     "StringKey": "e_act_skill_mmattractionaction_desc",
