@@ -173,7 +173,7 @@
   },
   {
     "StringKey": "act_skill_overheat_propulsion_desc",
-    "KorString": "<b>근접</b>. 월터가 자신에게\\n<color=#CC0000>화상</color>을 {$burnAdd} 부여하고,\\n적에게 피해를\\n{$attack}만큼 줍니다."
+    "KorString": "<b>근접</b>. 월터가 적에게 피해를\\n{$attack}만큼 주고, 자신에게 <color=#CC0000>화상</color>을 {$burnAdd} 부여합니다."
   },
   {
     "StringKey": "act_skill_flamethrower",
@@ -325,7 +325,7 @@
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
-    "KorString": "<b>근접</b>.\\n적에게 피해를 {$attack} 준\\n다음, 자신의 공격력과\\n체력을 서로 바꿉니다."
+    "KorString": "에퀴녹스가 적들에게 총 {$attack}만큼의 <color=#672f71>촉매</color>를 무작위로 나눠 부여합니다. 무작위 아군 하나에게 {$attack}만큼의 촉매를 부여합니다."
   },
   {
     "StringKey": "act_skill_positive_feedback",

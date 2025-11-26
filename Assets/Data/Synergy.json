@@ -4,7 +4,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "alchemist_symbol",
     "SynergyNameKey": "synergy_alchemist",
-    "CommonDescKey": "연금술사의 행동카드는 대상 적에게 촉매를 부여합니다. \\n(2) 촉매 1 부여 \\n(5) 촉매 2 부여",
+    "CommonDescKey": "연금술사 유닛은 공격 대상에게 촉매를 부여합니다. \\n(2) 촉매 1 부여 \\n(5) 촉매 2 부여",
     "SynergyCountList": [
       2,
       5
@@ -104,7 +104,7 @@
     "SymbolColor": "#D6A0BB",
     "SynergyTier": [
       "bronze",
-      "silver",
+      "disabled",
       "gold"
     ]
   },
