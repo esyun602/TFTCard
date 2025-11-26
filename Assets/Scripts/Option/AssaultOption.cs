@@ -11,6 +11,14 @@ public class AssaultOption : IOption
     {
         this.target = target;
         NoticeSystem.Instance.Subscribe<BattleObjectPosUpdatedNotice>(OnPosUpdate);
+        
+        var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+        var tile = map.GetTileOfBattleObject(target);
+        if (map.GetOrderInRow(tile) == 1)
+        {
+            isAdded = true;
+            AddBuff();
+        }
     }
 
     public void OnRemove()
