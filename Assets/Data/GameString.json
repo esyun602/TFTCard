@@ -229,7 +229,7 @@
   },
   {
     "StringKey": "act_skill_collectoraction_desc",
-    "KorString": "버린 카드 더미에서\\n무작위 카드 {$draw}장을\\n손으로 가져옵니다."
+    "KorString": "버린 카드 더미에서\\n무작위 카드 {$attack}장을\\n손으로 가져옵니다."
   },
   {
     "StringKey": "act_skill_grahamaction",

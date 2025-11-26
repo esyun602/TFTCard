@@ -313,7 +313,8 @@ public class DeckSystem
 		else if (dropCardList.Contains(card)) dropCardList.Remove(card);
 		else return;
 		
-		PlayerHand.CardList.Add(card);
+		card.Activate();
+		PlayerHand.AddCard(card);
 	}
 
 	public void ReturnHandCardToDeck(BattleCardObjectInHand card)
