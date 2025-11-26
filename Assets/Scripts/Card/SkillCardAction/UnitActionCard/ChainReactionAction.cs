@@ -8,6 +8,8 @@ public class ChainReactionAction : UnitSkillCardActionBase
 {
 	private float timePassed;
 	private bool canceled;
+	private IBattleObject target;
+
 
 	public ChainReactionAction(ChainReactionActionSpec spec) : base(spec)
 	{
@@ -17,10 +19,9 @@ public class ChainReactionAction : UnitSkillCardActionBase
 	{
 		get
 		{
-			var gameMode = Game.Instance.GetGameMode<BattleStageGameMode>();
-			return gameMode.BattleFieldSystem
-				.GetAllObjectOfType(ObjectType.Enemy).Where(x =>
-					x.UnitCardBattleStat.GetValueByValueType(UnitValueType.Catalyst) > 0).Select(x => gameMode.BattleStage.BattleMap.GetTileOfBattleObject(x));
+			target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
+			var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+			return GetTargets().Select(x => map.GetTileOfBattleObject(x));
 		}
 	}
 
@@ -37,9 +38,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			var enumerator = Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem
-				.GetAllObjectOfType(ObjectType.Enemy).Where(x =>
-					x.UnitCardBattleStat.GetValueByValueType(UnitValueType.Catalyst) > 0);
+			var enumerator = GetTargets();
 
 			foreach (var bo in enumerator)
 			{
@@ -55,9 +54,65 @@ public class ChainReactionAction : UnitSkillCardActionBase
 		}
 	}
 
+	private IEnumerable<IBattleObject> GetTargets()
+	{
+		var q = new Queue<IBattleObject>();
+		var targets = new List<IBattleObject>();
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+		q.Enqueue(target);
+		targets.Add(target);
+
+		while (q.Count != 0)
+		{
+			var toCheck = q.Dequeue();
+			var tile = map.GetTileOfBattleObject(toCheck);
+			var (row, _) = map.GetTileCoord(tile);
+
+			var nextCandidate = new List<IBattleObject>();
+			if (row != 0)
+			{
+				var dTile = map.GetDownwardTile(tile);
+				nextCandidate.Add(map.GetBattleObjectOfTile(dTile));
+			}
+
+			if (row != 2)
+			{
+				var uTile = map.GetUpwardTile(tile);
+				nextCandidate.Add(map.GetBattleObjectOfTile(uTile));
+			}
+
+			if (map.GetOrderInRow(tile) != 1)
+			{
+				var fTile = map.GetForwardTile(tile);
+				nextCandidate.Add(map.GetBattleObjectOfTile(fTile));
+			}
+
+			if (map.GetOrderInRow(tile) != 4)
+			{
+				var bTile = map.GetBackwardTile(tile);
+				nextCandidate.Add(map.GetBattleObjectOfTile(bTile));
+			}
+
+			foreach (var candidate in nextCandidate)
+			{
+				if(candidate == null) continue;
+				
+				if (candidate.UnitCardBattleStat.GetValueByValueType(UnitValueType.Catalyst) != 0 
+				    && !targets.Contains(candidate))
+				{
+					targets.Add(candidate);
+					q.Enqueue(candidate);
+				}
+			}
+		}
+
+		return targets;
+	}
+
 	protected override void OnTrigger()
 	{
 		timePassed = 0f;
+		target = ActionUtils.GetTargetObjectWithTargetingInfo(triggerInfo);
 	}
 
 	protected override void OnCancel()
