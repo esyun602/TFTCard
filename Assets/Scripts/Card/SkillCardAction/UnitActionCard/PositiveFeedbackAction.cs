@@ -28,11 +28,20 @@ public class PositiveFeedbackAction : UnitSkillCardActionBase
 		routineDone = false;
 
 		timePassed += dt;
-		if (timePassed > 0f)
+		if (timePassed > 0f && timePassed - dt <= 0f)
 		{
 			target.UnitCardBattleStat.AddBuff(new CatalystBuff(BattleStat.GetValueByValueType(SkillValueType.CatalystAdd)));
 			BattleStat.AddValueByValueType(SkillValueType.CatalystAdd, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			
+		}
+		else if (timePassed > 0.5f)
+		{
+			target.Damage(new DamageInfo()
+			{
+				Sender = BattleStat.Owner,
+				Dmg = 0
+				
+			});
 			routineDone = true;
 		}
 	}
