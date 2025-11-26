@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EquivalentExchangeAction : UnitSkillCardActionBase
 {
@@ -26,20 +28,26 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
-			//todo: owner가 있으면 그냥 스탯에 owner 스탯을 합쳐버리는 방향으로 수정
-			var handLimit = Constant.PlayerHandMax;
-			var toDraw = handLimit - Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.PlayerHand.CardList.Count;
-
-			for (var i = 0; i < toDraw; i++)
+			var totalEnemyList = Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetAllObjectOfType(ObjectType.Enemy);
+			var catalystCountList = new List<int>();
+			
+			for (var i = 0; i < totalEnemyList.Count; i++)
 			{
-				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
+				catalystCountList.Add(0);
 			}
 
-			BattleStat.Owner.Damage(new DamageInfo()
+			for (var i = 0; i < BattleStat.GetValueByValueType(UnitValueType.Attack); i++)
 			{
-				Sender = BattleStat.Owner,
-				Dmg = toDraw
-			});
+				catalystCountList[Random.Range(0, catalystCountList.Count)]++;
+			}
+			
+			for (var i = 0; i < catalystCountList.Count; i++)
+			{
+				if(catalystCountList[i] == 0) continue;
+				totalEnemyList[i].UnitCardBattleStat.AddValueByValueType(UnitValueType.Catalyst, catalystCountList[i]); 
+			}
+			
+			Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetRandomBattleObject(ObjectType.Ally).UnitCardBattleStat.AddValueByValueType(UnitValueType.Catalyst, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			
 			routineDone = true;
 		}
