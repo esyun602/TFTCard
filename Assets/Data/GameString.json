@@ -341,7 +341,7 @@
   },
   {
     "StringKey": "act_skill_chain_reaction_desc",
-    "KorString": "다케인이 <color=#672f71>촉매</color>가\\n부여된 모든 적에게\\n폭발 피해를 {$attack} 줍니다."
+    "KorString": "다케인이 선택한 대상\n에게 폭발 피해를 {$attack}\n줍니다. 이미 <color=#672f71>촉매</color>가\n부여된 대상이라면,\n<color=#672f71>촉매</color>가 부여된 인접한\n적에게 반복합니다."
   },
   {
     "StringKey": "act_skill_panacea",
