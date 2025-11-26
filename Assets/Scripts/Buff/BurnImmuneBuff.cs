@@ -2,10 +2,11 @@ public class BurnImmuneBuff : BuffBase
 {
     public BurnImmuneBuff()
     {
+        Level = 1;
     }
 
     public override BuffType DefaultType => BuffType.Positive;
-    public override UnitValueType ControlUnitValueType => UnitValueType.Burn;
+    public override UnitValueType ControlUnitValueType => UnitValueType.BurnImmune;
 
     protected override void OnAdd()
     {
@@ -22,5 +23,5 @@ public class BurnImmuneBuff : BuffBase
         return canStack;
     }
 
-    public override string Keyword => "BurnImmune";
+    public override string Keyword => null;
 }

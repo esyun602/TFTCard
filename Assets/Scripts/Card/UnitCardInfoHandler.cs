@@ -108,7 +108,10 @@ public class UnitCardInfoHandler : MonoBehaviour, ICardInfoHandler
 
 	private void OnBuffAdd(BuffAddNotice m)
 	{
+		if (String.IsNullOrEmpty(m.Buff.Keyword)) return;
+		
 		if (m.Target.UnitCardBattleStat != stat) return;
+		
 		var keyword = GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(m.Buff.Keyword);
 		if (iconDict.TryGetValue(keyword, out var icon))
 		{

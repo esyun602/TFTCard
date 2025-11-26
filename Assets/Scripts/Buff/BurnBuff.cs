@@ -28,11 +28,18 @@ public class BurnBuff : BuffBase
 			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();
 			return;
 		}
-		
-		target.Damage(new DamageInfo()
+
+		if (target.UnitCardBattleStat.GetValueByValueType(UnitValueType.BurnImmune) == 0)
 		{
-			Dmg = Level--,
-		});
+			target.Damage(new DamageInfo()
+			{
+				Dmg = Level--,
+			});
+		}
+		else
+		{
+			Level--;
+		}
 	}
 	
 	protected override void OnRemove()

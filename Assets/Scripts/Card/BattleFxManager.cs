@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MessageSystem;
 using Unity.Mathematics;
@@ -112,6 +113,11 @@ public class BattleFxManager : IUpdatable
 
 	private void OnBuffAdd(BuffAddNotice m)
 	{
+		if (String.IsNullOrEmpty(m.Buff.Keyword))
+		{
+			return;
+		}
+		
 		if (fxDict.TryGetValue(m.Target, out var info))
 		{
 			info.AddQueueBuff(m.Buff);
@@ -125,6 +131,11 @@ public class BattleFxManager : IUpdatable
 
 	private void OnBuffStackNotice(BuffStackSuccessNotice m)
 	{
+		if (String.IsNullOrEmpty(m.StackedBuff.Keyword))
+		{
+			return;
+		}
+		
 		if (fxDict.TryGetValue(m.Target, out var info))
 		{
 			info.AddQueueBuff(m.StackedBuff);

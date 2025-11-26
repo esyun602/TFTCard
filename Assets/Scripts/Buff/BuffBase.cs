@@ -6,7 +6,6 @@ public abstract class BuffBase : IBuff
 	public abstract BuffType DefaultType { get; }
 	public BuffType BuffType => DefaultType | additionalType;
 	private BuffType additionalType;
-	private UnityObjectPool pool;
 	public void SetAdditionalType(BuffType type)
 	{
 		additionalType |= type;
@@ -14,8 +13,6 @@ public abstract class BuffBase : IBuff
 
 	protected BuffBase()
 	{
-		pool = UnityObjectPool.GetOrCreatePool("Fx", GameDataSystem.Instance.GetGameData<KeywordData>().GetKeyword(Keyword)
-			.PoolName, disposeTime: 2f);
 	}
 
 	public abstract UnitValueType ControlUnitValueType { get; }
