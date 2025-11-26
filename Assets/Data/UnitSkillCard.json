@@ -195,7 +195,7 @@
     "StatSpecName": "ChainReactionStat",
     "CardResource": "skill_chainreaction_default",
     "ActionSpecName": "ChainReaction",
-    "CardUseType": "Global"
+    "CardUseType": "Targeting"
   },
   {
     "Id": 22,
