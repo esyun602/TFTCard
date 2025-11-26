@@ -319,17 +319,20 @@ public class DeckSystem
 
 	public void ReturnHandCardToDeck(BattleCardObjectInHand card)
 	{
-		if (PlayerHand.CardList.Remove(card))
+		if (PlayerHand.RemoveCard(card))
 		{
+			card.Deactivate();
 			deck.Add(card);
 		}
 	}
 
 	public void ReturnHandCardToHand(BattleCardObjectInHand card)
 	{
-		if (PlayerHand.CardList.Remove(card))
+		if (PlayerHand.RemoveCard(card))
 		{
-			PlayerHand.CardList.Add(card);
+			card.Deactivate();
+			PlayerHand.AddCard(card);
+			card.Activate();
 		}
 	}
 	
@@ -367,6 +370,13 @@ public class DeckSystem
 	//todo: hand 말고 다른 곳에서 버릴 때
 	public void DropCard(BattleCardObjectInHand target)
 	{
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.DropBlockAction
+		    .TryDequeue(out var action))
+		{
+			action.Invoke(target);
+			return;
+		}
+		
 		if (PlayerHand.CardList.Count == 0)
 		{
 			return;
