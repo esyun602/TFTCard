@@ -24,7 +24,7 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 		
 		this.CalculateDamageFromStat(ref info);
 		//dmg = 0 일 때 별도 연출 처리
-		if (info.Dmg != 0)
+		if (info.Dmg != 0 && (info.DamageType & DamageType.Pierce) == DamageType.None)
 		{
 			ProcessShield(ref info);
 		}

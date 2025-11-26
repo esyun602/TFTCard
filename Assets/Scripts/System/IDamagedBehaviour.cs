@@ -4,10 +4,11 @@ using UnityEngine;
 [Flags]
 public enum DamageType
 {
-	SkillAttack = 0,
-	NormalAttack = 1,
-	Pierce = 2,
-	Bomb = 3,
+	None = 0,
+	SkillAttack = 1<<0,
+	NormalAttack = 1<<1,
+	Pierce = 1<<2,
+	Bomb = 1<<3,
 }
 
 public struct DamageInfo
