@@ -45,7 +45,7 @@ public class ChainReactionAction : UnitSkillCardActionBase
 				bo.Damage(new DamageInfo()
 				{
 					Sender = BattleStat.Owner,
-					Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack),
+					Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(SkillValueType.BombDamage),
 					DamageType = DamageType.Bomb
 				});
 			}
