@@ -264,11 +264,13 @@ public class PlayInfo
 		{
 			bagUnitCardList.Add(unitCard);
 			bagUnitCardList.Sort((x,y) => x.UnitCardStaticSpec.Id.CompareTo(y.UnitCardStaticSpec.Id));
+			NoticeSystem.Instance.Publish(new UnitCardAddNotice());
 		}
 		else if (card is TacticsCard tacticsCard)
 		{
 			tacticsCardList.Add(tacticsCard);
 			tacticsCardList.Sort((x,y) => x.SkillCardStaticSpec.Id.CompareTo(y.SkillCardStaticSpec.Id));
+			NoticeSystem.Instance.Publish(new UnitCardRemoveNotice());
 		}
 	}
 
