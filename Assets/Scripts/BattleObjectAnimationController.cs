@@ -79,6 +79,7 @@ public class BattleObjectAnimationController : IMessageReceiver
                 0.15f).SetEase(Ease.InQuart));
         movSeq.Append(owner.FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
 
+        DamageMaterial.DOKill(true);
         DamageMaterial.DOFade(1, 0.15f).SetLoops(2, LoopType.Yoyo);
 		
         movSeq.AppendCallback(() => 
