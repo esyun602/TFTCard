@@ -14,7 +14,7 @@
     "StageName": "Scout",
     "ClassName": "UnitScoutStage",
     "CamSize": 8.0,
-    "StageIcon": "StageIcon_2_1"
+    "StageIcon": "mappubicon"
   },
   {
     "StageName": "TestStage2",
@@ -35,7 +35,7 @@
     "WaveGridList": [
       "test_wave_3"
     ],
-    "StageIcon": "StageIcon_1",
+    "StageIcon": "mapbossicon",
     "BattleStageBg": "battleEnd"
   },
   {
