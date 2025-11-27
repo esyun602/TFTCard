@@ -6,8 +6,8 @@ public class GunslingerOption : IOption
     public int Level { get; set; }
     private bool isAdded;
 
-    private bool IsMaxHp => target.UnitCardBattleStat.GetValuesByValueType(UnitValueType.Hp) ==
-                            target.UnitCardBattleStat.GetValuesByValueType(UnitValueType.MaxHp);
+    private bool IsMaxHp => target.UnitCardBattleStat.GetValueByValueType(UnitValueType.Hp) ==
+                            target.UnitCardBattleStat.GetValueByValueType(UnitValueType.MaxHp);
     
     public void OnAdd(IBattleObject target)
     {
