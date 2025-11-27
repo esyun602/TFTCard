@@ -243,7 +243,7 @@
     "SynergyNameKey": "synergy_engineer",
     "CommonDescKey": "기계공 유닛은 같은 행 최전방의 유닛에게 방어도를 제공합니다. \\n(2) 기계공의 행동 카드 사용 시 최전방 유닛에게 방어도 1 부여",
     "SynergyCountList": [
-      2
+      1
     ],
     "DescKey": [
       "todo",
