@@ -553,7 +553,7 @@
   },
   {
     "StringKey": "unit_enemy_mechanizedslave",
-    "KorString": "광폭화한 노예"
+    "KorString": "광폭화한 일꾼"
   },
   {
     "StringKey": "unit_enemy_mechanizedslave_desc",
@@ -561,7 +561,7 @@
   },
   {
     "StringKey": "unit_enemy_slaveguard",
-    "KorString": "노예 간수"
+    "KorString": "작업장 간수"
   },
   {
     "StringKey": "unit_enemy_slaveguard_desc",
@@ -609,7 +609,7 @@
   },
   {
     "StringKey": "unit_enemy_mutatedslave",
-    "KorString": "변형된 노예"
+    "KorString": "변형된 일꾼"
   },
   {
     "StringKey": "unit_enemy_mutatedslave_desc",
@@ -637,6 +637,74 @@
   },
   {
     "StringKey": "unit_enemy_betrayergunman_desc",
+    "KorString": ""
+  },
+  {
+    "StringKey": "unit_enemy_patrolmachinehit",
+    "KorString": "가벼운 타격"
+  },
+  {
+    "StringKey": "unit_enemy_hiredgangsterhit",
+    "KorString": "불의의 타격"
+  },
+  {
+    "StringKey": "unit_enemy_guardautomatonhit",
+    "KorString": "휘두르기"
+  },
+  {
+    "StringKey": "unit_enemy_repairmachineheal",
+    "KorString": "수리"
+  },
+  {
+    "StringKey": "unit_enemy_mechanizedslavehit",
+    "KorString": "할퀴기"
+  },
+  {
+    "StringKey": "unit_enemy_slaveguardhit",
+    "KorString": "채찍 타격"
+  },
+  {
+    "StringKey": "unit_enemy_workshopsupervisorshoot",
+    "KorString": "사격"
+  },
+  {
+    "StringKey": "unit_enemy_scrapmonsterswing",
+    "KorString": "묵직한 휘두르기"
+  },
+  {
+    "StringKey": "unit_enemy_scrapmonstersmite",
+    "KorString": "강타"
+  },
+  {
+    "StringKey": "unit_enemy_brassmonsterprepare",
+    "KorString": "팔 들기"
+  },
+  {
+    "StringKey": "unit_enemy_brassmonstersmash",
+    "KorString": "내려찍기"
+  },
+  {
+    "StringKey": "unit_enemy_vacuumtubelumpamplify",
+    "KorString": "증폭"
+  },
+  {
+    "StringKey": "unit_enemy_magnetmonsterattraction",
+    "KorString": "인력"
+  },
+  {
+    "StringKey": "unit_enemy_mutatedslavebutcher",
+    "KorString": "난도질"
+  },
+  {
+    "StringKey": "unit_enemy_fumacegolemcombustion",
+    "KorString": "연소"
+  },
+  {
+    "StringKey": "unit_enemy_powerrepeaterallocate",
+    "KorString": "동력 할당"
+  },
+  {
+    "StringKey": "unit_enemy_betrayergunmanrapidfire",
     "KorString": ""
   },
   {
