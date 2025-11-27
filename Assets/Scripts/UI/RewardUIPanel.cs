@@ -25,6 +25,9 @@ public class RewardUIPanel : UIInstance
 
 	[SerializeField] private GameObject goldButton;
 	[SerializeField] private GameObject unitButton;
+
+	[SerializeField] private GameObject additionalGoldButton;
+	[SerializeField] private TextMeshProUGUI additionalGoldText;
 	
 	protected override void Init(object param)
 	{
@@ -36,6 +39,17 @@ public class RewardUIPanel : UIInstance
 		unitButton.SetActive(true);
 		
 		RenewCandidates();
+
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.RewardGoldAdd != 0)
+		{
+			additionalGoldButton.SetActive(true);
+			additionalGoldText.text =
+				$"추가 골드 (+{Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.RewardGoldAdd}G)";
+		}
+		else
+		{
+			additionalGoldButton.SetActive(false);
+		}
 		
 		NoticeSystem.Instance.Subscribe<DraftUICardSelectedNotice>(OnCardClick);
 	}
@@ -59,6 +73,14 @@ public class RewardUIPanel : UIInstance
 		}
 	}
 
+	public void OnAdditionalGoldClick()
+	{
+		//todo: 골드값 임시1
+		SfxManager.Instance.Play2D("Coins 07");
+		Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.RewardGoldAdd);
+		additionalGoldButton.SetActive(false);
+	}
+	
 	public void OnGoldClick()
 	{
 		//todo: 골드값 임시1
