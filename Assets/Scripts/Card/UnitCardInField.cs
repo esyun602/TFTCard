@@ -15,6 +15,8 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	public UnitCard TargetUnitCard => targetUnitCard;
 	private const string allyCardPrefabPath = "Card/CardPrefab";
 	private const string enemyCardPrefabPath = "Card/EnemyCardPrefab";
+	private const string bossCardPrefabPath = "Card/BossCardPrefab";
+
 
 	public string Name => TargetUnitCard.Name;
 	public ObjectType ObjectType => objectType;
@@ -170,7 +172,7 @@ public class UnitCardInField : MonoBehaviour, IPointerClickHandler, IPointerEnte
 	private static UnitCardInField InstantiateForEnemy(UnitCard targetUnitCard, ITile targetTile, ObjectType objectType)
 	{
 		var cardObject = GameObject
-			.Instantiate(Resources.Load(enemyCardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
+			.Instantiate(Resources.Load((targetUnitCard.UnitCardStaticSpec.ExtraParams?.GetBool("IsBoss") ?? false) ? bossCardPrefabPath : enemyCardPrefabPath), targetTile.GetPosition(), Camera.main.transform.localRotation)
 			.AddComponent<UnitCardInField>();
 		cardObject.targetUnitCard = targetUnitCard;
 		cardObject.DamagedBehaviour = new UnitCardDamagedBehaviour();

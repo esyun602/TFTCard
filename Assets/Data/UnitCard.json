@@ -335,7 +335,9 @@
     "TargetSkillCardSpecName": [
       "BrassMonsterPrepare"
     ],
-    "ExtraParams": null
+    "ExtraParams": {
+      "IsBoss" : true
+    }
   },
   {
     "Id": 30,
