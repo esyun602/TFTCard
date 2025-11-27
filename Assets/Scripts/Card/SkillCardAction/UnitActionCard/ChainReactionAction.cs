@@ -59,8 +59,12 @@ public class ChainReactionAction : UnitSkillCardActionBase
 		var q = new Queue<IBattleObject>();
 		var targets = new List<IBattleObject>();
 		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
-		q.Enqueue(target);
 		targets.Add(target);
+
+		if (target.UnitCardBattleStat.GetValueByValueType(UnitValueType.Catalyst) != 0)
+		{
+			q.Enqueue(target);
+		}
 
 		while (q.Count != 0)
 		{
