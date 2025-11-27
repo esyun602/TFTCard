@@ -5,10 +5,10 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "test_wave_1"
+      "real_wave_1"
     ],
     "StageIcon": "StageIcon_1",
-    "BattleStageBg": "battlefirst"
+    "BattleStageBg": "battlefirst1"
   },
   {
     "StageName": "Scout",
@@ -22,10 +22,10 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "test_wave_2"
+      "real_wave_2"
     ],
     "StageIcon": "StageIcon_1",
-    "BattleStageBg": "battlefactory"
+    "BattleStageBg": "battlefirst"
   },
   {
     "StageName": "TestStage3",
@@ -33,7 +33,21 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "test_wave_3"
+      "real_wave_3_1",
+      "real_wave_3_2"
+    ],
+    "StageIcon": "StageIcon_1",
+    "BattleStageBg": "battlefactory"
+  },
+  {
+    "StageName": "TestStage4",
+    "ClassName": "BattleStage",
+    "MapData": "TestMap",
+    "CamSize": 8.0,
+    "WaveGridList": [
+      "boss_wave_1",
+      "boss_wave_2",
+      "boss_wave_3"
     ],
     "StageIcon": "mapbossicon",
     "BattleStageBg": "battleEnd"
