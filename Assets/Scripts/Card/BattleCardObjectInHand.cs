@@ -40,18 +40,18 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 	public abstract ObjectType CardType { get; }
 
 	//todo: 스탯이 없는 카드
-	public abstract IStat Stat { get; }
+	public abstract SkillCardBattleStat Stat { get; }
 
 	protected virtual bool CanSelect()
 	{
 		//todo: access fix?
 		//todo: for test
-		if (Stat.GetValueByValueType(SkillValueType.Cost) < 0)
+		if (Stat.GetCostValueWithModifier() < 0)
 		{
 			return false;
 		}
 		var turnSystem = Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem;
-		if (turnSystem.CurrentUsedCost + Stat.GetValueByValueType(SkillValueType.Cost) > turnSystem.CurrentTotalCost)
+		if (turnSystem.CurrentUsedCost + Stat.GetCostValueWithModifier() > turnSystem.CurrentTotalCost)
 		{
 			return false;
 		}
@@ -539,7 +539,8 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(owner.TargetCard.Action.UpdatableRoutine);
-			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost +=
+				owner.Stat.GetCostValueWithModifier();
 
 		}
 
@@ -577,7 +578,8 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(IUpdatableRoutineExtensions.GenerateRunAfterTime(0.5f));
 			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.RegisterPlayerTurnRoutine(owner.TargetCard.Action.UpdatableRoutine);
-			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost += owner.Stat.GetValueByValueType(SkillValueType.Cost);
+			Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CurrentUsedCost +=
+				owner.Stat.GetCostValueWithModifier();
 		}
 
 		public void Exit(IState nextState)

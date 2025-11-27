@@ -8,7 +8,7 @@ public class UnitSkillCardInHand : BattleCardObjectInHand
 	private UnitSkillCard unitSkillCard;
 	public override SkillCardBase TargetCard => unitSkillCard;
 	public override ObjectType CardType => battleStat.Owner.ObjectType;
-	public override IStat Stat => battleStat;
+	public override SkillCardBattleStat Stat => battleStat;
 	private UnitSkillCardBattleStat battleStat;
 
 	/*public void SetOwner(IBattleObject bo)

@@ -82,7 +82,69 @@ public class SkillCardInfoHandler : MonoBehaviour, ICardInfoHandler
 	private void Update()
 	{
 		//todo: test
+		UpdateCost();
 		desc.text = targetCard.Desc;
 		bgFx.SetActive(isFxOn?.Invoke() ?? false);
+	}
+
+	private void UpdateCost()
+	{
+		if (stat is UnitSkillCardBattleStat us)
+		{
+			var costValue = stat.GetValueByValueType(SkillValueType.Cost);
+			if (costValue >= 0)
+			{
+				costValue = us.GetCostValueWithModifier();
+			}
+			cost.text = $"{Mathf.Abs(costValue)}";
+			
+			if (costValue > 0)
+			{
+				costFF.SetActive(false);
+				costRW.SetActive(true);
+				costStop.SetActive(false);
+			}
+			else if (costValue == 0)
+			{
+				costFF.SetActive(false);
+				costRW.SetActive(false);
+				costStop.SetActive(true);
+			
+			}
+			else
+			{
+				costFF.SetActive(true);
+				costRW.SetActive(false);
+				costStop.SetActive(false);
+			
+			}
+		}
+		else if (stat is TacticsCardBattleStat ts)
+		{
+			var costValue = ts.GetCostValueWithModifier();
+			cost.text = $"{Mathf.Abs(costValue)}";
+			
+			if (costValue > 0)
+			{
+				costFF.SetActive(false);
+				costRW.SetActive(true);
+				costStop.SetActive(false);
+			}
+			else if (costValue == 0)
+			{
+				costFF.SetActive(false);
+				costRW.SetActive(false);
+				costStop.SetActive(true);
+			
+			}
+			else
+			{
+				costFF.SetActive(true);
+				costRW.SetActive(false);
+				costStop.SetActive(false);
+			
+			}
+		}
+		
 	}
 }

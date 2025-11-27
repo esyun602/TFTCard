@@ -27,3 +27,12 @@ public abstract class SkillCardBattleStat : IStat
 		valueDict[type] = newValues;
 	}
 }
+
+public static class SkillCardBattleStatExtensions
+{
+	public static int GetCostValueWithModifier(this SkillCardBattleStat stat)
+	{
+		return Mathf.Max(0, stat.GetValueByValueType(SkillValueType.Cost) +
+		                    (Game.Instance.GetGameMode<BattleStageGameMode>()?.BattleGlobalModifier.CardCostAdd ?? 0));
+	}
+}

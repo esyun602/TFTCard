@@ -7,7 +7,7 @@ public class TacticsCardInHand : BattleCardObjectInHand
 	public override SkillCardBase TargetCard => targetCard;
 	private TacticsCard targetCard;
 	public override ObjectType CardType => ObjectType.Ally;
-	public override IStat Stat => battleStat;
+	public override SkillCardBattleStat Stat => battleStat;
 	private TacticsCardBattleStat battleStat;
 
 	private TacticsCardInHand()
