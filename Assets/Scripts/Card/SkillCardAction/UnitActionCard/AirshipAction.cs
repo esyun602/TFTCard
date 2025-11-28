@@ -15,7 +15,7 @@ public class AirshipAction : UnitSkillCardActionBase
         routineDone = false;
         
         timePassed += dt;
-        if (timePassed > 0.5f && timePassed - dt < 0.5f)
+        if (timePassed > 0.5f && timePassed - dt < 0.5f && currentIdx < BattleStat.GetValueByValueType(SkillValueType.AttackCount))
         {
             var target = Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetRandomBattleObject(BattleStat.Owner.ObjectType.GetOpposite());
             target?.Damage(new DamageInfo()
@@ -24,6 +24,7 @@ public class AirshipAction : UnitSkillCardActionBase
                 Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack),
                 Sender = BattleStat.Owner
             });
+            
             if (++currentIdx < BattleStat.GetValueByValueType(SkillValueType.AttackCount))
             {
                 timePassed = 0;

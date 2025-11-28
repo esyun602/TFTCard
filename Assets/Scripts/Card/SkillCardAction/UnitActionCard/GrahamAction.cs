@@ -38,7 +38,10 @@ public class GrahamAction : UnitSkillCardActionBase
         timePassed += dt;
         if (timePassed > 0f)
         {
-            Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
+            for (var i = 0; i < BattleStat.GetValueByValueType(SkillValueType.Draw); i++)
+            {
+                Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.DrawPlayerCard();
+            }
             var airShip = GetAirshipBo();
             if (airShip != null && !airShip.IsDead())
             {
