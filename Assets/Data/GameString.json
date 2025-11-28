@@ -205,7 +205,7 @@
   },
   {
     "StringKey": "act_skill_automail_desc",
-    "KorString": "거티가 자신에게 <color=#CC0000>화상</color>을 {$burnAdd} 부여하고, 선택한 아군에게 <b>방어도</b>를 {$attack} 줍니다."
+    "KorString": "거티가 자신에게 <color=#CC0000>화상</color>을 {$burnAdd} 부여하고, 선택한\n아군에게 자신의 공격력({$attack})만큼 <b>방어도</b>를\n부여합니다."
   },
   {
     "StringKey": "act_skill_steampack",
@@ -684,6 +684,14 @@
     "KorString": "내려찍기"
   },
   {
+    "StringKey": "unit_enemy_brassmonstersmash_a",
+    "KorString": "내려찍기A"
+  },
+  {
+    "StringKey": "unit_enemy_brassmonstersmash_b",
+    "KorString": "내려찍기B"
+  },
+  {
     "StringKey": "unit_enemy_vacuumtubelumpamplify",
     "KorString": "증폭"
   },
@@ -750,6 +758,14 @@
   {
     "StringKey": "e_act_skill_bmsmashaction_desc",
     "KorString": "$name%particle% 피해를 {$attack + $hp} 줍니다.\\n<b>소멸</b>"
+  },
+  {
+    "StringKey": "e_act_skill_bmsmashaction_a_desc",
+    "KorString": "$name%particle% 1열의 적 모두에게 피해를 {$attack} 줍니다.\\n<b>소멸</b>"
+  },
+  {
+    "StringKey": "e_act_skill_bmsmashaction_b_desc",
+    "KorString": "$name%particle% 선택한 행의 모두에게 피해를 {$attack} 줍니다.\\n<b>소멸</b>"
   },
   {
     "StringKey": "e_act_skill_mmattractionaction_desc",
