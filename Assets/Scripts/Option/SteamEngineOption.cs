@@ -42,13 +42,6 @@ public class SteamEngineOption : IOption
 
 	private void ExecuteReinforce()
 	{
-		if (Level <= 2)
-		{
-			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(Level));
-		}
-		else if(Level >= 3)
-		{
-			target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(2));
-		}
+		target.UnitCardBattleStat.AddBuff(new ValueAddAttackBuff(Level));
 	}
 }
