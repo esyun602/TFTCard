@@ -78,6 +78,7 @@ public abstract class BattleCardObjectInHand : MonoBehaviour, IPointerClickHandl
 			collider = GetComponentInChildren<BoxCollider>();
 		}
 
+		transform.position = Vector3.zero;
 		gameObject.SetActive(true);
 		transform.forward = Camera.main.transform.forward;
 		ChangeState(new CardObjectNormalInHandState(this));
