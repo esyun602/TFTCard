@@ -7,6 +7,7 @@ using MessageSystem;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BattleObjectAnimationController : IMessageReceiver
 {
@@ -157,8 +158,7 @@ public class BattleObjectAnimationController : IMessageReceiver
         movSeq.Play();
         textSeq.Play();
     }
-
-	
+    
     public void RunDodgeAction()
     {
         var movSeq = DOTween.Sequence();
@@ -167,6 +167,21 @@ public class BattleObjectAnimationController : IMessageReceiver
                 0.15f).SetEase(Ease.InQuart));
         movSeq.Append(owner.FrameTransform.DOLocalMove(Vector3.zero, 0.5f).SetEase(Ease.OutQuart));
 		
+        movSeq.Play();
+    }
+    	
+    public void RunEnemySpawnAction()
+    {
+        onAnimation++;
+        var movSeq = DOTween.Sequence();
+        var localPos = owner.FrameTransform.localPosition;
+        localPos.x += 20f;
+        owner.FrameTransform.localPosition = localPos;
+
+        movSeq.Append(owner.FrameTransform.DOLocalMoveX(0, 0.75f));
+        movSeq.Insert(Random.value * 0.16f, owner.FrameTransform.DOLocalMoveY(0.5f, 0.08f).SetLoops(8, LoopType.Yoyo));
+        movSeq.AppendCallback(() => onAnimation--);
+        
         movSeq.Play();
     }
 

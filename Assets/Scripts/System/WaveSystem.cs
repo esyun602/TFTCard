@@ -9,6 +9,7 @@ public class WaveSystem
 	private IUpdatableRoutine spawnNextWaveRoutine;
 	private List<WaveSpec> waveData;
 	private List<UnitCardInField> currentEnemyObjects;
+	private List<UnitCardInField> currentSpawnedEnemyObjects;
 	private BlockInputHandler blockInputHandler = new();
 	private Transform waveParentTransform;
 	private int WaveSpawnedTurnCount;
@@ -21,7 +22,8 @@ public class WaveSystem
 	public void Initialize()
 	{
 		currentEnemyObjects = new();
-		spawnNextWaveRoutine = new UpdatableRoutine(UpdateSpawnNextWave);
+		currentSpawnedEnemyObjects = new();
+		spawnNextWaveRoutine = new UpdatableRoutine(UpdateSpawnNextWave, InitializeSpawnWaveRoutine);
 		blockInputHandler.BlockInputs(InputBlockFlag.All, this);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);		
@@ -96,8 +98,18 @@ public class WaveSystem
 		return true;
 	}
 
+	private void InitializeSpawnWaveRoutine()
+	{
+		spawnTimePassed = 0f;
+		foreach (var enemy in currentSpawnedEnemyObjects)
+		{
+			enemy.AnimationController.RunEnemySpawnAction();
+		}
+	}
+
 	private void SpawnWaveImpl(WaveSpec spec)
 	{
+		currentSpawnedEnemyObjects.Clear();
 		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 		bool carryOver = false;
 		foreach (var cellInfo in spec.CellList)
@@ -124,6 +136,7 @@ public class WaveSystem
 				}
 				var card = UnitCardInField.Instantiate(cardSpec, tile, ObjectType.Enemy);
 				card.transform.SetParent(waveParentTransform);
+				currentSpawnedEnemyObjects.Add(card);
 				currentEnemyObjects.Add(card);
 				currentEnemyObjects[^1].UpdateBlockInput(blockInputHandler.BlockInput);
 			}
@@ -196,9 +209,11 @@ public class WaveSystem
 
 	public bool IsInLastWave => currentWaveIdx == waveData.Count - 1;
 
+	private float spawnTimePassed = 0f;
 	private void UpdateSpawnNextWave(float dt, out bool done)
 	{
-		done = true;
+		spawnTimePassed += dt;
+		done = spawnTimePassed > 1f;
 	}
 
 	public void Dispose()

@@ -33,7 +33,6 @@ public class Game : MonoBehaviour
 		Screen.SetResolution(1920, 1080, true);
 		
 		DOTween.Init();
-		DOTween.SetTweensCapacity(200, 10);
 
 		SceneHandler = new();
 		UIManager = new();

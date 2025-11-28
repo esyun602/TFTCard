@@ -167,7 +167,6 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 		public void Enter(IState prevState)
 		{
 			//todo: check
-			routine.Initialize();
 		}
 
 		public void Exit(IState nextState)
