@@ -11,7 +11,7 @@ public class DraftGameMode : IGameMode
 	{
 		Game.Instance.UIManager.GenerateUI<StartDraft>(new StartDraftGenState()
 		{
-			DraftCount = 3,
+			DraftCount = 4,
 			CardPerDraft = 2,
 			DoneAction = ReturnToMap,
 			AnimationType = DraftAnimationType.Start
