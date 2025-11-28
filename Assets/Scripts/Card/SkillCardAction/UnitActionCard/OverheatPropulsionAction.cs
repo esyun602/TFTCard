@@ -29,13 +29,14 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
 	{
 		routineDone = false;
 
-		if (timePassed == 0)
-		{
-			BattleStat.Owner.AnimationController.RunAttackMotion();
-		}
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
+			BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
+		}
+		else if (timePassed > 0.6f && timePassed - dt < 0.6f)
+		{
+			BattleStat.Owner.AnimationController.RunAttackMotion();
 			var targetTile = GetTarget();
 			if (targetTile != null)
 			{
@@ -44,7 +45,6 @@ public class OverheatPropulsionAction : UnitSkillCardActionBase
 
 				if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
 				{
-					BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
 					target.Damage(new DamageInfo()
 					{
 						DamageType = DamageType.NormalAttack,
