@@ -66,7 +66,7 @@ public class BattleFxManager : IUpdatable
 				timePassed = 0f;
 				var (info, sfxName) = buffFxQueue.Dequeue();
 				info.Instantiate(bo.Position, quaternion.identity, followTarget: bo.Transform);
-				SfxManager.Instance.PlayAt(sfxName, bo.Position);
+				SfxManager.Instance.PlayAt(sfxName, bo.Position, true);
 			}
 		}
 	}

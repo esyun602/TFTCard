@@ -24,6 +24,7 @@ public class SfxManager : MonoBehaviour
     readonly HashSet<SfxSource> _used = new HashSet<SfxSource>();
     readonly Dictionary<SfxInfo, float> _cooldowns = new Dictionary<SfxInfo, float>();
     readonly Dictionary<SfxInfo, int> _activeCount = new Dictionary<SfxInfo, int>();
+    readonly Dictionary<string, List<SfxSource>> sourceMap = new();
 
     Transform _poolRoot;
 
@@ -171,13 +172,38 @@ public class SfxManager : MonoBehaviour
         s.followTarget = null;
         s.Play(info, worldPos, false);
         MarkPlayed(info);
+        
+        if (!sourceMap.TryGetValue(info.clip.name, out var list))
+        {
+            list = sourceMap[info.clip.name] = new List<SfxSource>();
+        }
+        list.Add(s);
+        var name = info.clip.name;
+        s.onFinished += (_) =>
+        {
+            if (sourceMap != null && sourceMap.ContainsKey(name) && sourceMap[name] != null)
+            {
+                sourceMap[name].Remove(s);
+            }
+        };
+        
         return s;
     }
     
-    public SfxSource PlayAt(string name, Vector3 worldPos)
+    public SfxSource PlayAt(string name, Vector3 worldPos, bool useUnique = false)
     {
         var clip = GetClip(name);
         if (clip == null) return null;
+
+        if (useUnique && sourceMap.TryGetValue(name, out var list))
+        {
+            for (var i = list.Count - 1; i >= 0; i--)
+            {
+                list[i].StopImmediate();
+            }
+            list.Clear();
+        }
+
         return PlayAt(new SfxInfo(clip), worldPos);
     }
     
