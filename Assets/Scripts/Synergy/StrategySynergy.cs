@@ -20,13 +20,9 @@ public class StrategySynergy : IBattleSynergy
     {
         if (Level >= 1)
         {
-            cardCostActivated = true;
-            Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.CardCostAdd -= 1;
-        }
-        
-        NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
-        NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnCardUse);
-        
+     	    NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
+            NoticeSystem.Instance.Subscribe<SkillHandCardStartUseNotice>(OnCardUse);
+        }   
     }
 
     private void OnPlayerTurnStart(PlayerTurnStartNotice m)
@@ -49,6 +45,7 @@ public class StrategySynergy : IBattleSynergy
 
     public void Deactivate()
     {
+	if(Level < 1) return;
         if (cardCostActivated)
         {
             cardCostActivated = true;
