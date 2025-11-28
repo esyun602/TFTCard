@@ -6,20 +6,20 @@
   },
   {
     "Name": "FlamethrowerStat",
-    "Cost": 3
+    "Cost": 2
   },
   {
     "Name": "VaperActionStat",
-    "Cost": 2,
-    "Draw": 1
+    "Cost": 1,
+    "Draw": 2
   },
   {
     "Name": "HighPressureBombStat",
-    "Cost": 4
+    "Cost": 3
   },
   {
     "Name": "AutoMailStat",
-    "Cost": 2,
+    "Cost": 1,
     "Damage": 1
   },
   {
@@ -29,21 +29,21 @@
   },
   {
     "Name": "VilhelmActionStat",
-    "Cost": 2
+    "Cost": 3
   },
   {
     "Name": "CollectorActionStat",
-    "Cost": 0
+    "Cost": 1
   },
   {
     "Name": "GrahamActionStat",
-    "Cost": 2,
-    "Draw": 1
+    "Cost": 1,
+    "Draw": 2
   },
   {
     "Name": "NormanActionStat",
     "Cost": 2,
-    "GoldAdd": 4
+    "GoldAdd": 5
   },
   {
     "Name": "DawsonActionStat",
@@ -53,8 +53,8 @@
     "Name": "DesmondActionStat",
     "Cost": 3,
     "AttackAdd": [
-      3,
-      -3
+      5,
+      -5
     ]
   },
   {
@@ -63,7 +63,7 @@
   },
   {
     "Name": "DustinActionStat",
-    "Cost": 1
+    "Cost": 2
   },
   {
     "Name": "DawsonActionPlusStat",
@@ -72,7 +72,7 @@
   {
     "Name": "DesmondActionPlusStat",
     "Cost": 3,
-    "AttackAdd": 3
+    "AttackAdd": 5
   },
   {
     "Name": "DerrickActionPlusStat",
@@ -81,7 +81,7 @@
   },
   {
     "Name": "DustinActionPlusStat",
-    "Cost": 0
+    "Cost": 1
   },
   {
     "Name": "BiologicalExperimentStat",
@@ -90,7 +90,7 @@
   },
   {
     "Name": "EquivalentExchangeStat",
-    "Cost": 0
+    "Cost": 1
   },
   {
     "Name": "PositiveFeedbackStat",
