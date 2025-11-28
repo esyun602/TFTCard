@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using MessageSystem;
 using TMPro;
 using UnityEngine;
@@ -258,7 +259,14 @@ public class BattleUI : UIInstance
 		else
 		{
 			energy.transform.parent.gameObject.SetActive(true);
-			energy.text = Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn.ToString();
+			if (energy.text != Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn
+				    .ToString())
+			{
+				energy.text = Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn.ToString();
+				energy.DOKill(true);
+				energy.transform.localScale = Vector3.one * 2;
+				energy.transform.DOScale(Vector3.one, 0.5f);
+			}
 		}
 	}
 
