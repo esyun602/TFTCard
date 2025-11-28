@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class UnitCardDamagedBehaviour : IDamagedBehaviour
 {
+	private bool dieInProgress;
 	private IBattleObject owner;
 	public void AttachTo(IBattleObject obj)
 	{
+		dieInProgress = false;
 		owner = obj;
 	}
 
@@ -17,6 +19,8 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 
 	public void Damage(DamageInfo info)
 	{
+		if (dieInProgress) return;
+		
 		if (ProcessDodge(info.Sender))
 		{
 			return;
@@ -55,6 +59,8 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 
 	public void Heal(HealInfo healInfo)
 	{
+		if (dieInProgress) return;
+		
 		SfxManager.Instance.PlayAt("Potion and Alchemy 13", owner.Position);
 		Game.Instance.GetGameMode<BattleStageGameMode>().BattleFxManager.RegisterFx(owner, UnityObjectPool.GetOrCreatePool("Fx", "HealFx", 5f));
 		if (owner.UnitCardBattleStat.GetValueByValueType(UnitValueType.HealBan) == 0 && healInfo.HealAmount != 0)
@@ -66,6 +72,8 @@ public class UnitCardDamagedBehaviour : IDamagedBehaviour
 	
 	public void Die(IBattleObject sender)
 	{
+		if (dieInProgress) return;
+		
 		owner.AnimationController.RunDieAction();
 		UpdatableRoutine.CurrentRoutine.AddInterrupt(() => RunDieRoutine(sender), 2f, true);
 	}
