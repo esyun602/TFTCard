@@ -192,7 +192,7 @@
   {
     "Name": "Event4_1",
     "CategoryKey": "event4",
-    "TargetSprite": "eventImage8",
+    "TargetSprite": "eventImage12",
     "Desc": "event4_1_desc",
     "ContinueEventInfo": [
       {
@@ -206,7 +206,7 @@
   {
     "Name": "Event4_2",
     "CategoryKey": "event4",
-    "TargetSprite": "eventImage8",
+    "TargetSprite": "eventImage10",
     "Desc": "event4_2_desc",
     "ContinueEventInfo": [
       {
@@ -220,7 +220,7 @@
   {
     "Name": "Event4_3",
     "CategoryKey": "event4",
-    "TargetSprite": "eventImage8",
+    "TargetSprite": "eventImage11",
     "Desc": "event4_3_desc",
     "ContinueEventInfo": [],
     "EndDesc": [

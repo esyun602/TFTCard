@@ -227,7 +227,7 @@
   {
     "Id": 25,
     "Name": "PatrolMachineLightDamage",
-    "NameKey": "unit_enemy_patrolmachine",
+    "NameKey": "unit_enemy_patrolmachinehit",
     "StatSpecName": "PatrolMachineActionStat",
     "CardResource": "skill_enemy_patrolmachine_default",
     "ActionSpecName": "PatrolMachineLightDamageAction",
@@ -236,7 +236,7 @@
   {
     "Id": 26,
     "Name": "HiredGangsterUnexpectedDamage",
-    "NameKey": "unit_enemy_hiredgangster",
+    "NameKey": "unit_enemy_hiredgangsterhit",
     "StatSpecName": "HiredGangsterActionStat",
     "CardResource": "skill_enemy_hiredgangster_default",
     "ActionSpecName": "HiredGangsterUnexpectedDamageAction",
@@ -245,7 +245,7 @@
   {
     "Id": 27,
     "Name": "GuardAutomatonSwing",
-    "NameKey": "unit_enemy_guardautomaton",
+    "NameKey": "unit_enemy_guardautomatonhit",
     "StatSpecName": "GuardAutomatonActionStat",
     "CardResource": "skill_enemy_guardautomaton_default",
     "ActionSpecName": "GuardAutomatonSwingAction",
@@ -254,7 +254,7 @@
   {
     "Id": 28,
     "Name": "RepairMachineRepair",
-    "NameKey": "unit_enemy_repairmachine",
+    "NameKey": "unit_enemy_repairmachineheal",
     "StatSpecName": "RepairMachineActionStat",
     "CardResource": "skill_enemy_repairmachine_default",
     "ActionSpecName": "RepairMachineRepairAction",
@@ -263,7 +263,7 @@
   {
     "Id": 29,
     "Name": "MechanizedSlaveBlow",
-    "NameKey": "unit_enemy_mechanizedslave",
+    "NameKey": "unit_enemy_mechanizedslavehit",
     "StatSpecName": "MechanizedSlaveActionStat",
     "CardResource": "skill_enemy_mechanizedslave_default",
     "ActionSpecName": "MechanizedSlaveBlowAction",
@@ -272,7 +272,7 @@
   {
     "Id": 30,
     "Name": "SlaveGuardWhip",
-    "NameKey": "unit_enemy_slaveguard",
+    "NameKey": "unit_enemy_slaveguardhit",
     "StatSpecName": "SlaveGuardActionStat",
     "CardResource": "skill_enemy_slaveguard_default",
     "ActionSpecName": "SlaveGuardWhipAction",
@@ -281,7 +281,7 @@
   {
     "Id": 31,
     "Name": "WorkshopSupervisorShoot",
-    "NameKey": "unit_enemy_workshopsupervisor",
+    "NameKey": "unit_enemy_workshopsupervisorshoot",
     "StatSpecName": "WorkshopSupervisorActionStat",
     "CardResource": "skill_enemy_workshopsupervisor_default",
     "ActionSpecName": "WorkshopSupervisorShootAction",
@@ -290,7 +290,7 @@
   {
     "Id": 32,
     "Name": "ScrapMonsterHeavySwing",
-    "NameKey": "unit_enemy_scrapmonster",
+    "NameKey": "unit_enemy_scrapmonsterswing",
     "StatSpecName": "ScrapMonsterActionStat",
     "CardResource": "skill_enemy_scrapmonster_default",
     "ActionSpecName": "ScrapMonsterHeavySwingAction",
@@ -299,7 +299,7 @@
   {
     "Id": 33,
     "Name": "ScrapMonsterSmite",
-    "NameKey": "unit_enemy_scrapmonster",
+    "NameKey": "unit_enemy_scrapmonstersmite",
     "StatSpecName": "ScrapMonsterSmiteActionStat",
     "CardResource": "skill_enemy_scrapmonster_2_default",
     "ActionSpecName": "ScrapMonsterSmiteAction",
@@ -308,7 +308,7 @@
   {
     "Id": 34,
     "Name": "BrassMonsterPrepare",
-    "NameKey": "unit_enemy_brassmonster",
+    "NameKey": "unit_enemy_brassmonsterprepare",
     "StatSpecName": "BrassMonsterActionStat",
     "CardResource": "skill_enemy_brassmonster_default",
     "ActionSpecName": "BrassMonsterPrepareAction",
@@ -317,7 +317,7 @@
   {
     "Id": 35,
     "Name": "BrassMonsterSmash",
-    "NameKey": "unit_enemy_brassmonster",
+    "NameKey": "unit_enemy_brassmonstersmash",
     "StatSpecName": "BrassMonsterSmashActionStat",
     "CardResource": "skill_enemy_brassmonster_2_default",
     "ActionSpecName": "BrassMonsterSmashAction",
@@ -326,7 +326,7 @@
   {
     "Id": 36,
     "Name": "VacuumTubeLumpAmplify",
-    "NameKey": "unit_enemy_vacuumtubelump",
+    "NameKey": "unit_enemy_vacuumtubelumpamplify",
     "StatSpecName": "VacuumTubeLumpActionStat",
     "CardResource": "skill_enemy_vacuumtubelump_default",
     "ActionSpecName": "VacuumTubeLumpAmplifyAction",

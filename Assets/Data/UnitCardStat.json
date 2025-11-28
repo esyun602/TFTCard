@@ -6,7 +6,7 @@
       " Assault"
     ],
     "Attack": 4,
-    "MaxHp": 8
+    "MaxHp": 16
   },
   {
     "Name": "FirebatStat",
@@ -15,7 +15,7 @@
       " Guard"
     ],
     "Attack": 4,
-    "MaxHp": 11
+    "MaxHp": 22
   },
   {
     "Name": "VaperStat",
@@ -24,7 +24,7 @@
       " Aeronaut"
     ],
     "Attack": 2,
-    "MaxHp": 5
+    "MaxHp": 10
   },
   {
     "Name": "CowlStat",
@@ -33,7 +33,7 @@
       " Bomber"
     ],
     "Attack": 4,
-    "MaxHp": 10
+    "MaxHp": 20
   },
   {
     "Name": "GuttieStat",
@@ -42,7 +42,7 @@
       " Mechanic"
     ],
     "Attack": 6,
-    "MaxHp": 6
+    "MaxHp": 12
   },
   {
     "Name": "BellaStat",
@@ -51,7 +51,7 @@
       " Supporter"
     ],
     "Attack": 2,
-    "MaxHp": 4
+    "MaxHp": 8
   },
   {
     "Name": "VilhelmStat",
@@ -60,7 +60,7 @@
       " Guard"
     ],
     "Attack": 1,
-    "MaxHp": 10
+    "MaxHp": 20
   },
   {
     "Name": "CollectorStat",
@@ -69,7 +69,7 @@
       " Strategy"
     ],
     "Attack": 2,
-    "MaxHp": 8
+    "MaxHp": 16
   },
   {
     "Name": "GrahamStat",
@@ -78,7 +78,7 @@
       " Aeronaut"
     ],
     "Attack": 2,
-    "MaxHp": 6
+    "MaxHp": 12
   },
   {
     "Name": "NormanStat",
@@ -87,7 +87,7 @@
       " Gunslinger"
     ],
     "Attack": 5,
-    "MaxHp": 5
+    "MaxHp": 10
   },
   {
     "Name": "DawsonStat",
@@ -96,7 +96,7 @@
       " Strategy"
     ],
     "Attack": 2,
-    "MaxHp": 8
+    "MaxHp": 16
   },
   {
     "Name": "DesmondStat",
@@ -105,7 +105,7 @@
       " Gunslinger"
     ],
     "Attack": 3,
-    "MaxHp": 3
+    "MaxHp": 6
   },
   {
     "Name": "DerrickStat",
@@ -114,7 +114,7 @@
       " Bomber"
     ],
     "Attack": 5,
-    "MaxHp": 6
+    "MaxHp": 12
   },
   {
     "Name": "DustinStat",
@@ -123,7 +123,7 @@
       " Supporter"
     ],
     "Attack": 3,
-    "MaxHp": 8
+    "MaxHp": 16
   },
   {
     "Name": "AlleStat",
@@ -132,7 +132,7 @@
       " Assault"
     ],
     "Attack": 4,
-    "MaxHp": 11
+    "MaxHp": 22
   },
   {
     "Name": "EquinoxStat",
@@ -141,7 +141,7 @@
       " Strategy"
     ],
     "Attack": 2,
-    "MaxHp": 13
+    "MaxHp": 26
   },
   {
     "Name": "PosiStat",
@@ -150,7 +150,7 @@
       " Gunslinger"
     ],
     "Attack": 2,
-    "MaxHp": 5
+    "MaxHp": 10
   },
   {
     "Name": "DacaneStat",
@@ -158,8 +158,8 @@
       "Alchemist",
       " Bomber"
     ],
-    "Attack": 0,
-    "MaxHp": 8
+    "Attack": 1,
+    "MaxHp": 16
   },
   {
     "Name": "PanaStat",
@@ -168,7 +168,7 @@
       " Supporter"
     ],
     "Attack": 3,
-    "MaxHp": 4
+    "MaxHp": 8
   },
   {
     "Name": "CabinotierStat",
@@ -177,7 +177,7 @@
       " Mechanic"
     ],
     "Attack": 3,
-    "MaxHp": 12
+    "MaxHp": 24
   },
   {
     "Name": "AirshipStat",
@@ -185,7 +185,7 @@
       ""
     ],
     "Attack": 0,
-    "MaxHp": 15
+    "MaxHp": 30
   },
   {
     "Name": "EnemyPatrolMachineStat",
@@ -193,7 +193,7 @@
       ""
     ],
     "Attack": 2,
-    "MaxHp": 3
+    "MaxHp": 6
   },
   {
     "Name": "EnemyHiredGangsterStat",
@@ -201,7 +201,7 @@
       ""
     ],
     "Attack": 3,
-    "MaxHp": 6
+    "MaxHp": 12
   },
   {
     "Name": "EnemyRepairMachineStat",
@@ -209,7 +209,7 @@
       ""
     ],
     "Attack": 2,
-    "MaxHp": 3
+    "MaxHp": 6
   },
   {
     "Name": "EnemyGuardAutomatonStat",
@@ -217,7 +217,7 @@
       ""
     ],
     "Attack": 1,
-    "MaxHp": 5
+    "MaxHp": 10
   },
   {
     "Name": "EnemyMechanizedSlaveStat",
@@ -225,7 +225,7 @@
       ""
     ],
     "Attack": 5,
-    "MaxHp": 8
+    "MaxHp": 16
   },
   {
     "Name": "EnemySlaveGuardStat",
@@ -233,7 +233,7 @@
       ""
     ],
     "Attack": 3,
-    "MaxHp": 5
+    "MaxHp": 10
   },
   {
     "Name": "EnemyWorkshopSupervisorStat",
@@ -241,7 +241,7 @@
       ""
     ],
     "Attack": 4,
-    "MaxHp": 6
+    "MaxHp": 12
   },
   {
     "Name": "EnemyScrapMonsterStat",
@@ -249,7 +249,7 @@
       ""
     ],
     "Attack": 6,
-    "MaxHp": 20
+    "MaxHp": 40
   },
   {
     "Name": "EnemyBrassMonsterStat",
@@ -257,7 +257,7 @@
       ""
     ],
     "Attack": 2,
-    "MaxHp": 30
+    "MaxHp": 60
   },
   {
     "Name": "EnemyMagnetMonsterStat",
@@ -265,7 +265,7 @@
       ""
     ],
     "Attack": 2,
-    "MaxHp": 15
+    "MaxHp": 30
   },
   {
     "Name": "EnemyVacuumTubeLumpStat",
@@ -273,7 +273,7 @@
       ""
     ],
     "Attack": 1,
-    "MaxHp": 1
+    "MaxHp": 2
   },
   {
     "Name": "EnemyMutatedSlaveStat",
@@ -281,7 +281,7 @@
       ""
     ],
     "Attack": 2,
-    "MaxHp": 10
+    "MaxHp": 20
   },
   {
     "Name": "EnemyFurnaceGolemStat",
@@ -289,7 +289,7 @@
       ""
     ],
     "Attack": 3,
-    "MaxHp": 16
+    "MaxHp": 32
   },
   {
     "Name": "EnemyPowerRepeaterStat",
@@ -297,7 +297,7 @@
       ""
     ],
     "Attack": 1,
-    "MaxHp": 8
+    "MaxHp": 16
   },
   {
     "Name": "EnemyBetrayerGunmanStat",
@@ -305,6 +305,6 @@
       ""
     ],
     "Attack": 4,
-    "MaxHp": 7
+    "MaxHp": 14
   }
 ]

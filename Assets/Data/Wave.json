@@ -161,7 +161,131 @@
       {
         "Row": 2,
         "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "RepairMachine"
+      },
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "real_wave_1",
+    "CellList": [
+      {
+        "Row": 0,
+        "Col": 4,
         "UnitCardName": "PatrolMachine"
+      },
+      {
+        "Row": 0,
+        "Col": 5,
+        "UnitCardName": "RepairMachine"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "HiredGangster"
+      },
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "PatrolMachine"
+      },
+      {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "RepairMachine"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "real_wave_2",
+    "CellList": [
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "MechanizedSlave"
+      },
+      {
+        "Row": 0,
+        "Col": 5,
+        "UnitCardName": "SlaveGuard"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "GuardAutomaton"
+      },
+      {
+        "Row": 1,
+        "Col": 7,
+        "UnitCardName": "WorkshopSupervisor"
+      },
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "MutatedSlave"
+      },
+      {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "SlaveGuard"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "real_wave_3_1",
+    "CellList": [
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "RepairMachine"
+      },
+      {
+        "Row": 0,
+        "Col": 5,
+        "UnitCardName": "RepairMachine"
+      },
+      {
+        "Row": 0,
+        "Col": 6,
+        "UnitCardName": "RepairMachine"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "MagnetMonster"
+      },
+      {
+        "Row": 1,
+        "Col": 5,
+        "UnitCardName": "ScrapMonster"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "real_wave_3_2",
+    "CellList": [
+      {
+        "Row": 1,
+        "Col": 7,
+        "UnitCardName": "VacuumTubeLump"
+      },
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "RepairMachine"
       },
       {
         "Row": 2,
@@ -169,21 +293,74 @@
         "UnitCardName": "RepairMachine"
       },
       {
-        "Row": 1,
-        "Col": 4,
-        "UnitCardName": "MechanizedSlave"
-      },
-      {
-        "Row": 1,
-        "Col": 5,
-        "UnitCardName": "SlaveGuard"
-      },
+        "Row": 2,
+        "Col": 6,
+        "UnitCardName": "RepairMachine"
+      }
+    ],
+    "PrepareTurn": 4
+  },
+  {
+    "Name": "boss_wave_1",
+    "CellList": [
       {
         "Row": 0,
         "Col": 4,
-        "UnitCardName": "PatrolMachine"
+        "UnitCardName": "VacuumTubeLump"
+      },
+      {
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "VacuumTubeLump"
+      },
+      {
+        "Row": 1,
+        "Col": 6,
+        "UnitCardName": "BrassMonster"
+      },
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "VacuumTubeLump"
       }
     ],
     "PrepareTurn": 1
+  },
+  {
+    "Name": "boss_wave_2",
+    "CellList": [
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "FurnaceGolem"
+      },
+      {
+        "Row": 0,
+        "Col": 6,
+        "UnitCardName": "PowerRepeater"
+      }
+    ],
+    "PrepareTurn": 4
+  },
+  {
+    "Name": "boss_wave_3",
+    "CellList": [
+      {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "GuardAutomaton"
+      },
+      {
+        "Row": 2,
+        "Col": 6,
+        "UnitCardName": "PowerRepeater"
+      },
+      {
+        "Row": 2,
+        "Col": 7,
+        "UnitCardName": "RepairMachine"
+      }
+    ],
+    "PrepareTurn": 7
   }
 ]

@@ -112,11 +112,11 @@
     "SynergyCategory": "Noble",
     "TargetSprite": "noble_symbol",
     "SynergyNameKey": "synergy_noble",
-    "CommonDescKey": "귀족은 전투에 승리할 때마다 더 많은 보수를 줍니다. \\n(2) 전투 승리 골드 +10 \\n(4) 전투 승리 골드 +20 \\n(5) 전투 승리 골드 +30",
+    "CommonDescKey": "귀족은 전투에 승리할 때마다 더 많은 보수를 줍니다. \\n(2) 전투 승리 골드 +10 \\n(3) 전투 승리 골드 +20 \\n(4) 전투 승리 골드 +30",
     "SynergyCountList": [
       2,
-      4,
-      5
+      3,
+      4
     ],
     "DescKey": [
       "todo",
@@ -241,7 +241,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "mechanic_symbol",
     "SynergyNameKey": "synergy_engineer",
-    "CommonDescKey": "기계공 유닛은 같은 행 최전방의 유닛에게 방어도를 제공합니다. \\n(2) 기계공의 행동 카드 사용 시 최전방 유닛에게 방어도 1 부여",
+    "CommonDescKey": "기계공 유닛은 같은 행 최전방의 유닛에게 방어도를 제공합니다. \\n(1) 기계공의 행동 카드 사용 시 최전방 유닛에게 방어도 1 부여",
     "SynergyCountList": [
       1
     ],
