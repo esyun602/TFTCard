@@ -33,7 +33,17 @@ public class TurnSystem
 					
 					routine.AddOnCompleteOnce(() =>
 					{
-						if(!targetCard.IsDead) Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(targetCard);
+						if (!targetCard.IsDead)
+						{
+							if (targetCard.Stat.GetValueByValueType(SkillValueType.Exhaustion) != 0)
+							{
+								Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.RemoveEnemyCard(targetCard);
+							}
+							else
+							{
+								Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.AddEnemyCardToDrop(targetCard);
+							}
+						}
 						CurrentUsedCost = value;
 					});
 					routine.AddOnFailOnce(() => CurrentUsedCost = value);
