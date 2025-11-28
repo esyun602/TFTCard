@@ -28,7 +28,7 @@
     "OverrideClassName": "AddOptionBattleSynergy",
     "TargetSprite": "steamengine_symbol",
     "SynergyNameKey": "synergy_steamengine",
-    "CommonDescKey": "증기기관 유닛은 화상을 입을 때마다 강화됩니다. \\n(2) 화상이 부여될 때, 강화 1을 얻습니다. \\n(4) 화상이 부여될 때, 강화 2를 얻습니다. \\n(6) 증기기관 유닛은 화상 피해를 받지 않습니다.",
+    "CommonDescKey": "증기기관 유닛은 화상을 입을 때 강화됩니다. \\n(2) 화상을 입을 때, 강화 1을 얻습니다. \\n(4) 강화 수치 2로 증가. \\n(6) 강화 수치 3으로 증가. 증기기관 유닛은 더 이상 화상 피해를 받지 않습니다.",
     "SynergyCountList": [
       2,
       4,
