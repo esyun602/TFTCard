@@ -193,7 +193,6 @@ public class BattleUI : UIInstance
 
 	private void OnEnergyChange(EnergyChangeNotice m)
 	{
-		energy.text = m.CurValue.ToString();
 	}
 
 	public void OnTurnEndClick()
@@ -252,7 +251,15 @@ public class BattleUI : UIInstance
 	private void Update()
 	{
 		//todo: remove test code
-		energy.text = Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn.ToString();
+		if (Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn <= 0)
+		{
+			energy.transform.parent.gameObject.SetActive(false);
+		}
+		else
+		{
+			energy.transform.parent.gameObject.SetActive(true);
+			energy.text = Game.Instance.GetGameMode<BattleStageGameMode>()?.WaveSystem?.LeftNextWaveTurn.ToString();
+		}
 	}
 
 	protected override void OnRemove()
