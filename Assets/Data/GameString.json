@@ -173,7 +173,7 @@
   },
   {
     "StringKey": "act_skill_overheat_propulsion_desc",
-    "KorString": "<b>근접</b>. 월터가 적에게 피해를\\n{$attack}만큼 주고, 자신에게 <color=#CC0000>화상</color>을 {$burnAdd} 부여합니다."
+    "KorString": "<b>근접</b>.\n월터가 적에게 피해를 {$attack}만큼 주고, 자신에게\n<color=#CC0000>화상</color>을 {$burnAdd} 부여합니다."
   },
   {
     "StringKey": "act_skill_flamethrower",
@@ -253,7 +253,7 @@
   },
   {
     "StringKey": "act_skill_dawsonaction_desc",
-    "KorString": "<b>근접</b>. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 뽑을 카드 더미의 맨 위에 놓습니다."
+    "KorString": "<b>근접</b>.\n도슨이 적에게 피해를\n{$attack} 주고, 다음 사용하는\n카드를 뽑을 카드\n더미의 맨 위에\n놓습니다."
   },
   {
     "StringKey": "act_skill_dawsonactionplus",
@@ -261,7 +261,7 @@
   },
   {
     "StringKey": "act_skill_dawsonactionplus_desc",
-    "KorString": "<b>근접</b>. 도슨이 적에게 피해를 {$attack} 주고, 다음 사용하는 카드를 다시 손으로 가져옵니다."
+    "KorString": "<b>근접</b>.\n도슨이 적에게 피해를\n{$attack} 주고, 다음 사용하는\n카드를 다시 손으로\n가져옵니다."
   },
   {
     "StringKey": "act_skill_desmondaction",
