@@ -40,6 +40,11 @@
     "DescKey": "skill_stock_desc"
   },
   {
+    "Name": "Sharpen",
+    "ClassName": "SharpenSkillAction",
+    "DescKey": "skill_sharpen_desc"
+  },
+  {
     "Name": "OverheatPropulsion",
     "ClassName": "OverheatPropulsionAction",
     "DescKey": "act_skill_overheat_propulsion_desc"

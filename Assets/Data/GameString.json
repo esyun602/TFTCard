@@ -448,6 +448,14 @@
     "KorString": "카드 {$draw}장을 뽑습니다."
   },
   {
+    "StringKey": "skill_sharpen",
+    "KorString": "벼리기"
+  },
+  {
+    "StringKey": "skill_sharpen_desc",
+    "KorString": "선택한 대상에게 강화를 {$attackAdd} 부여합니다."
+  },
+  {
     "StringKey": "synergy_steamengine",
     "KorString": "증기기관"
   },

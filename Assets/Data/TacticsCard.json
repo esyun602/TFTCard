@@ -52,5 +52,14 @@
     "CardResource": "stock_default",
     "ActionSpecName": "Stock",
     "CardUseType": "Global"
+  },
+  {
+    "Id": 8,
+    "Name": "Sharpen",
+    "NameKey": "skill_sharpen",
+    "StatSpecName": "SharpenStat",
+    "CardResource": "sharpen_default",
+    "ActionSpecName": "Sharpen",
+    "CardUseType": "Targeting"
   }
 ]

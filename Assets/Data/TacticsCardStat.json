@@ -38,5 +38,10 @@
     "Name": "StockStat",
     "Cost": 1,
     "Draw": 3
+  },
+  {
+    "Name": "SharpenStat",
+    "Cost": 1,
+    "AttackAdd": 3
   }
 ]
