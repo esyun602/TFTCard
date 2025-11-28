@@ -185,7 +185,7 @@
       ""
     ],
     "Attack": 0,
-    "MaxHp": 25
+    "MaxHp": 10
   },
   {
     "Name": "EnemyPatrolMachineStat",
