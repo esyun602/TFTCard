@@ -113,6 +113,7 @@
     "SynergyCategory": "Noble",
     "TargetSprite": "noble_symbol",
     "SynergyNameKey": "synergy_noble",
+    "OptionName": "NobleOption",
     "CommonDescKey": "귀족은 전투에 승리할 때마다 더 많은 보수를 줍니다. \\n(2) 전투 승리 골드 +10 \\n(3) 전투 승리 골드 +20 \\n(4) 전투 승리 골드 +30",
     "SynergyCountList": [
       2,
