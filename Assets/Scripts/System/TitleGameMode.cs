@@ -26,7 +26,6 @@ public class TitleGameMode : IGameMode
 		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Shield")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Repose")));
 		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("Repose")));
-		Game.Instance.GetPlayer().CurrentPlayInfo.AddCard(new TacticsCard(GameDataSystem.Instance.GetGameData<CardData>().GetTacticsCardSpecByName("FireArrow")));
 
 		var info =	GameDataSystem.Instance.GetGameData<FlowGenData>().GetFlowSpec("EnemyFlow").GenerateFlow();
 		foreach (var head in info.GetHeads())

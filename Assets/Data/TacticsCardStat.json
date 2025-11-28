@@ -1,18 +1,19 @@
 [
   {
     "Name": "BreadSupplyStat",
-    "Cost": 1,
+    "Cost": 0,
     "Heal": 3
   },
   {
     "Name": "DamageStat",
-    "Cost": 1,
-    "Damage": 3
+    "Cost": 0,
+    "Damage": 4
   },
   {
     "Name": "FireArrowStat",
-    "Cost": 1,
-    "BurnAdd": 2
+    "Cost": 0,
+    "BurnAdd": 2,
+    "Damage": 2
   },
   {
     "Name": "QuickMotionStat",
@@ -25,8 +26,8 @@
   },
   {
     "Name": "ShieldStat",
-    "Cost": 1,
-    "ShieldAdd": 2
+    "Cost": 2,
+    "ShieldAdd": 5
   },
   {
     "Name": "SteamEngineProtectionStat",
@@ -36,6 +37,6 @@
   {
     "Name": "StockStat",
     "Cost": 1,
-    "Draw": 2
+    "Draw": 3
   }
 ]

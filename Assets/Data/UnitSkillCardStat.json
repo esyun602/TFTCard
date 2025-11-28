@@ -24,8 +24,8 @@
   },
   {
     "Name": "SteamPackStat",
-    "Cost": 0,
-    "BurnAdd": 2
+    "Cost": 1,
+    "BurnAdd": 1
   },
   {
     "Name": "VilhelmActionStat",
