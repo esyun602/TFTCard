@@ -31,6 +31,10 @@ public class FireArrowSkillAction : TacticsCardActionBase
 		timePassed += dt;
 		if (timePassed > 0f)
 		{
+			target.Damage(new DamageInfo()
+			{
+				Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage)
+			});
 			target.UnitCardBattleStat.AddBuff(new BurnBuff(BattleStat.GetValueByValueType(SkillValueType.BurnAdd)));
 			routineDone = true;
 		}
