@@ -20,7 +20,7 @@
   {
     "Name": "AutoMailStat",
     "Cost": 1,
-    "Damage": 1
+    "burnAdd": 2
   },
   {
     "Name": "SteamPackStat",

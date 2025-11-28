@@ -41,8 +41,8 @@
       "SteamEngine",
       " Mechanic"
     ],
-    "Attack": 4,
-    "MaxHp": 6
+    "Attack": 5,
+    "MaxHp": 10
   },
   {
     "Name": "BellaStat",
