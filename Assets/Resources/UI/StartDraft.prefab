@@ -250,17 +250,30 @@ MonoBehaviour:
   cardPerDraft: 2
   draftCount: 3
   draftCandidatesStrings:
-  - Alle
   - Firebat
-  - Pana
-  - Walter
+  - Vaper
+  - Cowl
+  - Guttie
+  - Bella
+  - Vilhelm
+  - Collector
+  - Graham
   - Norman
+  - Dawson
+  - Desmond
   - Derrick
   - Dustin
-  - Cowl
+  - Alle
+  - Equinox
+  - Posi
+  - Dacane
+  - Pana
+  - Walter
   endButton: {fileID: 697590482585072613}
   titleText: {fileID: 1291871986220176015}
   titleLabel: {fileID: 9062696232714694274}
+  placeHolder: []
+  cardScale: 1
 --- !u!1 &1468639183379043049
 GameObject:
   m_ObjectHideFlags: 0
