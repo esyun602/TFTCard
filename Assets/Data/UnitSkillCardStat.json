@@ -51,10 +51,10 @@
   },
   {
     "Name": "DesmondActionStat",
-    "Cost": 3,
+    "Cost": 1,
     "AttackAdd": [
-      5,
-      -5
+      3,
+      -3
     ]
   },
   {
@@ -71,8 +71,8 @@
   },
   {
     "Name": "DesmondActionPlusStat",
-    "Cost": 3,
-    "AttackAdd": 5
+    "Cost": 1,
+    "AttackAdd": 3
   },
   {
     "Name": "DerrickActionPlusStat",
