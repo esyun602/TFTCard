@@ -128,8 +128,8 @@
   },
   {
     "Name": "RepairMachineActionStat",
-    "Cost": -1,
-    "Heal": 3
+    "Cost": -2,
+    "Heal": 5
   },
   {
     "Name": "MechanizedSlaveActionStat",
