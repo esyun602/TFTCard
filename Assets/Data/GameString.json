@@ -421,7 +421,7 @@
   },
   {
     "StringKey": "skill_repose_desc",
-    "KorString": "선택한 아군 하나를\n이동시킵니다."
+    "KorString": "이 카드를 사용한 후,\n선택한 아군 하나를\n이동시킬 수 있습니다."
   },
   {
     "StringKey": "skill_fire_arrow",
@@ -429,7 +429,7 @@
   },
   {
     "StringKey": "skill_fire_arrow_desc",
-    "KorString": "대상에게 <color=#CC0000>화상</color>을\\n{$burnAdd} 부여합니다."
+    "KorString": "대상에게 피해를 {$damage} 주고, <color=#CC0000>화상</color>을 {$burnAdd} 부여합니다."
   },
   {
     "StringKey": "skill_bread_supply",
