@@ -180,32 +180,43 @@
     "Name": "real_wave_1",
     "CellList": [
       {
-        "Row": 0,
+        "Row": 1,
         "Col": 4,
         "UnitCardName": "PatrolMachine"
       },
       {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "PatrolMachine"
+      },
+      {
+        "Row": 2,
+        "Col": 5,
+        "UnitCardName": "HiredGangster"
+      }
+    ],
+    "PrepareTurn": 1
+  },
+  {
+    "Name": "real_wave_1_2",
+    "CellList": [
+      {
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "GuardAutomaton"
+      },
+      {
         "Row": 0,
         "Col": 5,
-        "UnitCardName": "RepairMachine"
+        "UnitCardName": "HiredGangster"
       },
       {
         "Row": 1,
         "Col": 4,
-        "UnitCardName": "HiredGangster"
-      },
-      {
-        "Row": 2,
-        "Col": 4,
-        "UnitCardName": "PatrolMachine"
-      },
-      {
-        "Row": 2,
-        "Col": 5,
-        "UnitCardName": "RepairMachine"
+        "UnitCardName": "GuardAutomaton"
       }
     ],
-    "PrepareTurn": 1
+    "PrepareTurn": 3
   },
   {
     "Name": "real_wave_2",

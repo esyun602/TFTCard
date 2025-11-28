@@ -5,7 +5,8 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "real_wave_1"
+      "real_wave_1",
+      "real_wave_1_2"
     ],
     "StageIcon": "StageIcon_1",
     "BattleStageBg": "battlefirst1"
