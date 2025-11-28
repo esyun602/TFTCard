@@ -30,13 +30,11 @@ public class AutoMailAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
+			BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Burn, BattleStat.GetValueByValueType(SkillValueType.BurnAdd));
+		}
+		else if (timePassed > 0.6f && timePassed - dt < 0.6f)
+		{
 			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(UnitValueType.Attack));
-			target.Damage(new DamageInfo()
-			{
-				DamageType = DamageType.Pierce,
-				Dmg = BattleStat.GetValueByValueType(SkillValueType.Damage),
-				Sender = BattleStat.Owner
-			});
 		}
 		else if(timePassed > 1.5f)
 		{
