@@ -35,6 +35,9 @@ public class PlayerBagPanel : UIInstance
 
 	[SerializeField] private Transform synergyArea;
 
+	[SerializeField] private RectTransform synergyScrollContent;
+	[SerializeField] private RectTransform synergyScrollRoot;
+
 	private List<PooledUnityObject> synergyLabelList;
 	
 	public Vector3 LeftTopOffset;
@@ -91,8 +94,12 @@ public class PlayerBagPanel : UIInstance
 
 			var pool = UnityObjectPool.GetOrCreateUIPool("BagSynergyLabel").Instantiate(parent: synergyArea);
 			synergyLabelList.Add(pool);
-			pool.GetComponent<BagSynergyLabel>().Initialize(category, count);
+			pool.GetComponent<BagSynergyLabel>().Initialize(category, count, synergyScrollRoot);
 		}
+		
+		var size = synergyScrollContent.sizeDelta;
+		size.y = synergyArea.childCount * 100f + 200f;
+		synergyScrollContent.sizeDelta = size;
 	}
 
 	private void DisposeAllSynergy()

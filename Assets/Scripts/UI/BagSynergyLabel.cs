@@ -16,6 +16,8 @@ namespace UI
 		[SerializeField] private SynergyDescUI descPanel;
 		[SerializeField] private TextMeshProUGUI countText;
 		[SerializeField] private Image frameImage;
+
+		private RectTransform root;
 		
 		private int NextIndex
 		{
@@ -46,8 +48,9 @@ namespace UI
 
 		private int count;
 
-		public void Initialize(SynergyCategory targetSynergyCategory, int count)
+		public void Initialize(SynergyCategory targetSynergyCategory, int count, RectTransform root)
 		{
+			this.root = root;
 			this.count = count;
 			var spec = GameDataSystem.Instance.GetGameData<SynergyData>().GetSynergySpec(targetSynergyCategory);
 			targetCategorySpec = spec;
@@ -61,11 +64,17 @@ namespace UI
 		public void OnPointerEnter(PointerEventData eventData)
 		{
 			descPanel.gameObject.SetActive(true);
-			transform.parent.parent.SetAsLastSibling();
+			root.SetAsLastSibling();
+			var size = root.sizeDelta;
+			size.x = 600f;
+			root.sizeDelta = size;
 		}
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
+			var size = root.sizeDelta;
+			size.x = 165f;
+			root.sizeDelta = size;
 			descPanel.gameObject.SetActive(false);
 		}
 
