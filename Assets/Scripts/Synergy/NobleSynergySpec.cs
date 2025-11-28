@@ -1,4 +1,4 @@
-public class NobleSynergySpec : SynergySpec
+public class NobleSynergySpec : AddOptionBattleSynergySpec
 {
     public override bool TryGenerateGlobalSynergyInstance(out IGlobalSynergy globalSynergy)
     {

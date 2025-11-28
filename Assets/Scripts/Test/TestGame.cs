@@ -6,6 +6,7 @@ public class TestGame : Game
 {
 	[SerializeField] private List<string> tacticsCardList;
 	[SerializeField] private List<string> unitCardList;
+	[SerializeField] private int startGold;
 	private void Start()
 	{
 		Invoke("StartTest", 0.5f);
@@ -14,6 +15,8 @@ public class TestGame : Game
 	private void StartTest()
 	{
 		Initialize();
+
+		GetPlayer().CurrentPlayInfo.GainGold(startGold);
 		
 		foreach (var cardName in tacticsCardList)
 		{

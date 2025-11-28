@@ -1,12 +1,12 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-public class NobleSynergy : IBattleSynergy
+public class NobleSynergy : AddOptionBattleSynergy
 {
-    private HashSet<IBattleObject> memberList;
     private SynergySpec spec;
-    private int[] goldGain = { 0,10,20,30 };
+    private int[] goldGain = { 0,10,15,20 };
 
-    public NobleSynergy(SynergySpec spec)
+    public NobleSynergy(NobleSynergySpec spec) : base(spec)
     {
         this.spec = spec;
         memberList = new();
@@ -14,23 +14,15 @@ public class NobleSynergy : IBattleSynergy
 
     public int Level => spec.GetGrade(memberList.Count);
 
-    public void Activate()
+    public override void Activate()
     {
         Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.RewardGoldAdd += goldGain[Level];
+        base.Activate();
     }
 
-    public void Deactivate()
+    public override void Deactivate()
     {
         Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.RewardGoldAdd -= goldGain[Level];
-    }
-
-    public void AddMember(IBattleObject obj)
-    {
-        memberList.Add(obj);
-    }
-
-    public void RemoveMember(IBattleObject obj)
-    {
-        memberList.Remove(obj);
+        base.Deactivate();
     }
 }

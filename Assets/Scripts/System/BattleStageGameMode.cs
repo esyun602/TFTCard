@@ -10,6 +10,7 @@ public class BattleStageGameMode : StageGameMode, IUpdatable
 	//fx system
 	//todo: input 관리해주는거 묶기
 	//todo: 오브젝트 리스트 파편화해서 관리하는 것 하나로 통일 
+	public bool IsInGame => battleStageStateMachine.CurrentState is BattleStageInGameState;
 	public DeckSystem DeckSystem { get; }
 	public TurnSystem TurnSystem { get; }
 	public WaveSystem WaveSystem { get; }

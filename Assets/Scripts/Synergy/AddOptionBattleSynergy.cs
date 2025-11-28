@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class AddOptionBattleSynergy : IBattleSynergy
 {
-    private HashSet<IBattleObject> memberList;
+    protected HashSet<IBattleObject> memberList;
     private AddOptionBattleSynergySpec spec;
 
     public AddOptionBattleSynergy(AddOptionBattleSynergySpec spec)
@@ -14,7 +14,7 @@ public class AddOptionBattleSynergy : IBattleSynergy
 
     public int Level => spec.GetGrade(memberList.Count);
 
-    public void Activate()
+    public virtual void Activate()
     {
         if (Level >= 1)
         {
@@ -25,7 +25,7 @@ public class AddOptionBattleSynergy : IBattleSynergy
         }
     }
 
-    public void Deactivate()
+    public virtual void Deactivate()
     {
         foreach (var m in memberList)
         {
