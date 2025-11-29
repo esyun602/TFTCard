@@ -19,9 +19,21 @@ public class RepairMachineRepairAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
-			var target = Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetRandomBattleObject(ObjectType.Enemy);
+			var targets = Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetAllObjectOfType(ObjectType.Enemy);
+			var notMaxHpList = new List<IBattleObject>();
+			foreach (var target in targets)
+			{
+				if (target.UnitCardBattleStat.GetValueByValueType(UnitValueType.Hp) <
+				    target.UnitCardBattleStat.GetValueByValueType(UnitValueType.MaxHp))
+				{
+					notMaxHpList.Add(target);
+				}
+			}
+
+			var healTarget = notMaxHpList.GetRandomElement() 
+			                 ?? Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetRandomBattleObject(ObjectType.Enemy);
 			
-			target.Heal(
+			healTarget.Heal(
 				new HealInfo()
 				{
 					Sender = BattleStat.Owner,
