@@ -30,15 +30,17 @@ public class RepairMachineRepairAction : UnitSkillCardActionBase
 				}
 			}
 
-			var healTarget = notMaxHpList.GetRandomElement() 
-			                 ?? Game.Instance.GetGameMode<BattleStageGameMode>().BattleFieldSystem.GetRandomBattleObject(ObjectType.Enemy);
-			
-			healTarget.Heal(
-				new HealInfo()
-				{
-					Sender = BattleStat.Owner,
-					HealAmount = BattleStat.GetValueByValueType(SkillValueType.Heal)
-				});
+			var healTarget = notMaxHpList.GetRandomElement();
+
+			if (healTarget != null)
+			{
+				healTarget.Heal(
+					new HealInfo()
+					{
+						Sender = BattleStat.Owner,
+						HealAmount = BattleStat.GetValueByValueType(SkillValueType.Heal)
+					});
+			}
 		}
 		else if (timePassed > 1.5f)
 		{
