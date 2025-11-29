@@ -99,7 +99,7 @@ public class EnemyGauge : UIInstance
     {
         var card = cardList.FindLast(x => x.TargetCard.Action == action);
         if (card == null) return;
-        iconList[cardList.IndexOf(card)].SetUse(true);
+        iconList[cardList.LastIndexOf(card)].SetUse(true);
     }
 
     public void DisposeBar()
