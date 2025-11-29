@@ -22,6 +22,7 @@ public class RegenerationBuff : BuffBase
 
     private void Regenerate()
     {
+        if (target == null) return;
         target.Heal(new HealInfo()
         {
             HealAmount = Level--,
