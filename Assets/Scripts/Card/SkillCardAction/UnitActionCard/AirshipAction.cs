@@ -35,7 +35,7 @@ public class AirshipAction : UnitSkillCardActionBase
                 BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(SkillValueType.AttackCount, -9999, 0);
             }
         }
-        else if (timePassed > 1.5f)
+        else if (timePassed > 1f)
         {
             routineDone = true;
         }

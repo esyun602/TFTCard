@@ -47,7 +47,7 @@ public class DawsonAction : UnitSkillCardActionBase
                 Game.Instance.GetGameMode<BattleStageGameMode>().BattleGlobalModifier.DropBlockAction.Enqueue(Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.ReturnHandCardToDeck);
             }
         }
-        else if (timePassed > 1.5f)
+        else if (timePassed > 1f)
         {
             routineDone = true;
         }

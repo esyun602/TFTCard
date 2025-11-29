@@ -74,7 +74,7 @@ public class HighPressureBombAction : UnitSkillCardActionBase
 				}
 			}
 		}
-		else if (timePassed > 1.5f)
+		else if (timePassed > 1f)
 		{
 			routineDone = true;
 		}

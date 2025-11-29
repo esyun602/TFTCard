@@ -42,7 +42,7 @@ public class DesmondAction : UnitSkillCardActionBase
                 BattleStat.Owner.UnitCardBattleStat.AddValueByValueType(UnitValueType.Attack, BattleStat.GetValuesByValueType(SkillValueType.AttackAdd)[1]);
             }
         }
-        else if (timePassed > 1.5f)
+        else if (timePassed > 1f)
         {
             routineDone = true;
         }

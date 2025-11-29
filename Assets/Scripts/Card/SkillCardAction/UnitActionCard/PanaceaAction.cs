@@ -30,7 +30,7 @@ public class PanaceaAction : UnitSkillCardActionBase
 		
 		timePassed += dt;
 
-		if (timePassed > 1.5f)
+		if (timePassed > 1f)
 		{
 			routineDone = true;
 		}

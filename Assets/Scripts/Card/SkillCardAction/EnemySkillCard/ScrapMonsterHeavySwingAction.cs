@@ -50,7 +50,7 @@ public class ScrapMonsterHeavySwingAction : UnitSkillCardActionBase
 			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateEnemySkillCardInstance(
 				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner));
 		}
-		else if (timePassed > 1.5f)
+		else if (timePassed > 1f)
 		{
 			routineDone = true;
 		}

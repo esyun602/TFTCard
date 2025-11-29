@@ -29,7 +29,7 @@ public class PowerRepeaterAllocateAction : UnitSkillCardActionBase
 				bo.UnitCardBattleStat.AddValueByValueType(UnitValueType.Attack, BattleStat.GetValueByValueType(UnitValueType.Attack));
 			}
 		}
-		else if (timePassed > 1.5f)
+		else if (timePassed > 1f)
 		{
 			routineDone = true;
 		}

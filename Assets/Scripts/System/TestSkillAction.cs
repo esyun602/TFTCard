@@ -38,7 +38,7 @@ public class TestSkillAction : TacticsCardActionBase
 				Dmg = Stat.GetValueByValueType(SkillValueType.Damage)
 			});
 		}
-		else if (timePassed > 1.5f)
+		else if (timePassed > 1f)
 		{
 			routineDone = true;
 		}

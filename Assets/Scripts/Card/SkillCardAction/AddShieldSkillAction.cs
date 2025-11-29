@@ -32,7 +32,7 @@ public class AddShieldSkillAction : TacticsCardActionBase
 		{
 			target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(SkillValueType.ShieldAdd));
 		}
-		else if (timePassed > 1.5f)
+		else if (timePassed > 1f)
 		{
 			routineDone = true;
 		}

@@ -36,7 +36,7 @@ public class DustinAction : UnitSkillCardActionBase
                 target.UnitCardBattleStat.AddValueByValueType(UnitValueType.Shield, BattleStat.GetValueByValueType(UnitValueType.Attack));
             }
         }
-        else if (timePassed > 1.5f)
+        else if (timePassed > 1f)
         {
             routineDone = true;
         }
