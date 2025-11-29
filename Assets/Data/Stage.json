@@ -23,7 +23,8 @@
     "MapData": "TestMap",
     "CamSize": 8.0,
     "WaveGridList": [
-      "real_wave_2"
+      "real_wave_2",
+      "real_wave_2_2"
     ],
     "StageIcon": "StageIcon_1",
     "BattleStageBg": "battlefirst"
