@@ -224,7 +224,7 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 5,
+    "Attack": 4,
     "MaxHp": 14
   },
   {
@@ -233,7 +233,7 @@
       ""
     ],
     "Attack": 2,
-    "MaxHp": 15
+    "MaxHp": 13
   },
   {
     "Name": "EnemySlaveGuardStat",
@@ -257,7 +257,7 @@
       ""
     ],
     "Attack": 6,
-    "MaxHp": 23
+    "MaxHp": 20
   },
   {
     "Name": "EnemyBrassMonsterStat",

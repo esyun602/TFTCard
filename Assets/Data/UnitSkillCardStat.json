@@ -2,7 +2,7 @@
   {
     "Name": "OverheatPropulsionStat",
     "Cost": 0,
-    "BurnAdd": 1
+    "BurnAdd": 2
   },
   {
     "Name": "FlamethrowerStat",
@@ -133,7 +133,7 @@
   },
   {
     "Name": "MechanizedSlaveActionStat",
-    "Cost": -3
+    "Cost": -2
   },
   {
     "Name": "SlaveGuardActionStat",
