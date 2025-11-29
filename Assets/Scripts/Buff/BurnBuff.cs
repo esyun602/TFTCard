@@ -23,6 +23,7 @@ public class BurnBuff : BuffBase
 
 	private void Burn()
 	{
+		if (target == null) return;
 		if (Level <= 0)
 		{
 			target.UnitCardBattleStat.RemoveBuff<BurnBuff>();

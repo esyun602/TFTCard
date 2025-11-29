@@ -45,6 +45,7 @@ public abstract class BuffBase : IBuff
 	public void RemoveFromObject()
 	{
 		NoticeSystem.Instance.Publish(new BuffRemoveNotice(target, this));
+		target = null;
 		OnRemove();
 	}
 
