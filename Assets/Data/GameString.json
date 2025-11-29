@@ -325,7 +325,7 @@
   },
   {
     "StringKey": "act_skill_equivalent_exchange_desc",
-    "KorString": "에퀴녹스가 적들에게 총 {$attack}만큼의 <color=#672f71>촉매</color>를 무작위로 나눠 부여합니다. 무작위 아군 하나에게 {$attack}만큼의 촉매를 부여합니다."
+    "KorString": "에퀴녹스가 적들에게 총 {$attack}만큼의 <color=#672f71>촉매</color>를 무작위로 나눠 부여하고, 각각 0의 피해를 줍니다. 무작위 아군 하나에게 {$attack}만큼의 촉매를 부여합니다."
   },
   {
     "StringKey": "act_skill_positive_feedback",

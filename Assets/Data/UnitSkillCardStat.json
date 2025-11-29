@@ -149,7 +149,7 @@
   },
   {
     "Name": "ScrapMonsterSmiteActionStat",
-    "Cost": -3,
+    "Cost": -2,
     "Exhaustion": 1
   },
   {

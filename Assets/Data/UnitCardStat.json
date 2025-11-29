@@ -140,8 +140,8 @@
       "Alchemist",
       " Strategy"
     ],
-    "Attack": 2,
-    "MaxHp": 10
+    "Attack": 3,
+    "MaxHp": 12
   },
   {
     "Name": "PosiStat",
@@ -256,8 +256,8 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 6,
-    "MaxHp": 20
+    "Attack": 4,
+    "MaxHp": 16
   },
   {
     "Name": "EnemyBrassMonsterStat",
