@@ -85,7 +85,7 @@ public class RewardUIPanel : UIInstance
 	{
 		//todo: 골드값 임시1
 		SfxManager.Instance.Play2D("Coins 07");
-		Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(50);
+		Game.Instance.GetPlayer().CurrentPlayInfo.GainGold(10);
 		goldButton.SetActive(false);
 	}
 	
