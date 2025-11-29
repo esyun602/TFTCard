@@ -114,7 +114,7 @@
     "TargetSprite": "noble_symbol",
     "SynergyNameKey": "synergy_noble",
     "OptionName": "NobleOption",
-    "CommonDescKey": "귀족은 전투에 승리할 때마다 더 많은 보수를 줍니다. \\n(2) 전투 승리 골드 +10 \\n(3) 전투 승리 골드 +20 \\n(4) 전투 승리 골드 +30",
+    "CommonDescKey": "귀족 유닛은 부를 축적하며, 축적한 부를 통해 강해집니다.\n(2) 승리 시 +10G, 보유 20G마다 강화 +1\n(3) 승리 시 +15G, 보유 20G마다 강화 +1\n(4) 승리 시 +20G, 보유 10G마다 강화 +1",
     "SynergyCountList": [
       2,
       3,
