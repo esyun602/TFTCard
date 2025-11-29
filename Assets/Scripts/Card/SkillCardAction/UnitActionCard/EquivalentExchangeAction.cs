@@ -58,6 +58,8 @@ public class EquivalentExchangeAction : UnitSkillCardActionBase
 			{
 				enemy.Damage(new DamageInfo()
 				{
+					DamageType = DamageType.SkillAttack,
+					Sender = BattleStat.Owner,
 					Dmg = 0
 				});
 			}
