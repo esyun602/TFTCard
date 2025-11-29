@@ -729,7 +729,7 @@
   },
   {
     "StringKey": "e_act_skill_rmrepairaction_desc",
-    "KorString": "$name%particle% 무작위 아군을 {$heal} 회복시킵니다."
+    "KorString": "$name%particle% 무작위의 부상당한 아군을 {$heal} 회복시킵니다."
   },
   {
     "StringKey": "e_act_skill_msblowaction_desc",
