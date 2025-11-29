@@ -12,6 +12,7 @@ public interface IUpdatableRoutine
 	public void AddInterruptAtInitialize(IUpdatableRoutine routine);
 	public void AddOnFailOnce(Action failAction);
 	public void AddOnCompleteOnce(Action failAction);
+	public int InterruptWaitCount { get; }
 }
 
 public static class IUpdatableRoutineExtensions

@@ -197,7 +197,18 @@ public class TurnSystem
 	
 	public void RegisterPlayerTurnRoutine(IUpdatableRoutine routine)
 	{
+		routine.AddOnCompleteOnce(() =>
+		{
+			NoticeSystem.Instance.Publish(new TurnInterruptChangeNotice(playerTurn.UpdatableCurrentRoutine.InterruptWaitCount));
+		});
+		
+		routine.AddOnFailOnce(() =>
+		{
+			NoticeSystem.Instance.Publish(new TurnInterruptChangeNotice(playerTurn.UpdatableCurrentRoutine.InterruptWaitCount));
+		});
+		
 		playerTurn.UpdatableCurrentRoutine.AddInterrupt(routine);
+		NoticeSystem.Instance.Publish(new TurnInterruptChangeNotice(playerTurn.UpdatableCurrentRoutine.InterruptWaitCount));
 	}
 
 	public void RegisterAutoTurnRoutine(IUpdatableRoutine routine)

@@ -98,6 +98,8 @@ public class DeckSystem
 		NoticeSystem.Instance.Subscribe<SkillCardActionRoutineCompleteNotice>(OnSkillCardActionComplete);
 		NoticeSystem.Instance.Subscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Subscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
+		NoticeSystem.Instance.Subscribe<TurnInterruptChangeNotice>(OnInterrupt);
+		
 		PlayerHand.Initialize();
 		PlayerField.Initialize();
 
@@ -116,7 +118,23 @@ public class DeckSystem
 		PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
 		PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
 	}
-	
+
+	private void OnInterrupt(TurnInterruptChangeNotice m)
+	{
+		if (m.Count == 0)
+		{
+			blockInputHandler.RestoreInputs(InputBlockFlag.All, Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem);
+			PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+			PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+		}
+		else
+		{
+			blockInputHandler.BlockInputs(InputBlockFlag.All, Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem);
+			PlayerHand.UpdateBlockFlags(blockInputHandler.BlockInput);
+			PlayerField.UpdateBlockFlags(blockInputHandler.BlockInput);
+		}
+	}
+
 	private void OnSkillCardActionTrigger(SkillCardActionTriggerNotice m)
 	{
 		blockInputHandler.BlockInputs(InputBlockFlag.All, m.TargetAction);
@@ -207,6 +225,9 @@ public class DeckSystem
 		NoticeSystem.Instance.Unsubscribe<PlayerFieldCardMoveNotice>(OnPlayerFieldCardMove);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnStartNotice>(OnPlayerTurnStart);
 		NoticeSystem.Instance.Unsubscribe<PlayerTurnEndNotice>(OnPlayerTurnEnd);
+		NoticeSystem.Instance.Unsubscribe<TurnInterruptChangeNotice>(OnInterrupt);
+		NoticeSystem.Instance.Unsubscribe<SkillCardActionTriggerNotice>(OnSkillCardActionTrigger);
+		NoticeSystem.Instance.Unsubscribe<SkillCardActionRoutineCompleteNotice>(OnSkillCardActionComplete);
 	}
 
 	private void OnPlayerTurnStart(PlayerTurnStartNotice m)

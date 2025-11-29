@@ -23,6 +23,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 	private Action disposableCompleteAction;
 	private Func<bool> triggerCondition;
 
+	private bool finished;
+
 	private UpdatableRoutineDelegate updateFunc;
 	public UpdatableRoutine(UpdatableRoutineDelegate routine, Action initializeAction = null, Action completeAction = null, Func<bool> triggerCondition = null)
 	{
@@ -40,8 +42,12 @@ public class UpdatableRoutine : IUpdatableRoutine
 		(chainQueue, chainQueueForInitialize) = (chainQueueForInitialize, chainQueue);
 		(interruptQueue, interruptQueueForInitialize) = (interruptQueueForInitialize, interruptQueue);
 
+		finished = false;
+		
 		if (triggerCondition != null && !triggerCondition.Invoke())
 		{
+			chainQueue = new();
+			interruptQueue = new();
 			disposableCompleteAction = null;
 			updateFunc = TriggerFailRoutine;
 			return;
@@ -76,7 +82,7 @@ public class UpdatableRoutine : IUpdatableRoutine
 		}
 		else if (currentSubRoutine == null && interruptQueue.Count == 0 && currentInterruptRoutine == null)
 		{
-			routineDone = true;
+			finished = routineDone = true;
 			CurrentRoutine = null;
 			disposableCompleteAction?.Invoke();
 			disposableCompleteAction = null;
@@ -121,9 +127,9 @@ public class UpdatableRoutine : IUpdatableRoutine
 
 	private void TriggerFailRoutine(float dt, out bool routineDone)
 	{
+		finished = routineDone = true;
 		disposableFailAction?.Invoke();
 		disposableFailAction = null;
-		routineDone = true;
 	}
 
 	public void AddChain(IUpdatableRoutine routine)
@@ -163,4 +169,8 @@ public class UpdatableRoutine : IUpdatableRoutine
 	{
 		this.disposableCompleteAction += completeAction;
 	}
+
+	public int InterruptWaitCount => interruptQueue.Count + (currentInterruptRoutine == null ||
+	                                                         ((currentInterruptRoutine as UpdatableRoutine)?.finished ??
+	                                                          false) ? 0 : 1);
 }
