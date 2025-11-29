@@ -765,7 +765,7 @@
   },
   {
     "StringKey": "e_act_skill_bmsmashaction_b_desc",
-    "KorString": "$name%particle% 선택한 행의 모두에게 피해를 {$attack} 줍니다.\\n<b>소멸</b>"
+    "KorString": "$name%particle% 가까운 적과 같은 행의 모두에게 피해를 {$attack} 줍니다.\\n<b>소멸</b>"
   },
   {
     "StringKey": "e_act_skill_mmattractionaction_desc",
