@@ -365,6 +365,9 @@ public class DeckSystem
 	//todo: 핸드를 구분할 건지 정해야함
 	public void DrawEnemyCard()
 	{
+		//최대 10개로 제한
+		if (Game.Instance.GetGameMode<BattleStageGameMode>().TurnSystem.CardCount >= 10) return;
+		
 		if (enemyCardPool.Count == 0)
 		{
 			if (enemyDropCardList.Count != 0)

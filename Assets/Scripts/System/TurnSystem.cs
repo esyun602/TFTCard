@@ -16,6 +16,8 @@ public class TurnSystem
 	private List<int> currentCostCumulative;
 	private int currentUsedCost;
 
+	public int CardCount => cardList.Count;
+	
 	public int CurrentUsedCost
 	{
 		get => currentUsedCost;
