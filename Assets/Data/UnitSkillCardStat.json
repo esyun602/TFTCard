@@ -137,7 +137,7 @@
   },
   {
     "Name": "SlaveGuardActionStat",
-    "Cost": -2
+    "Cost": -1
   },
   {
     "Name": "WorkshopSupervisorActionStat",
