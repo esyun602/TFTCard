@@ -2,7 +2,8 @@ using System.Collections.Generic;
 
 public class BrassMonsterPrepareActionSpec : SkillCardActionSpec
 {
-	public string TargetCardName { get; private set; }
+	public string HorizontalCardName { get; private set; }
+	public string VerticalCardName { get; private set; }
 	public override SkillCardActionBase CreateCardAction()
 	{
 		return new BrassMonsterPrepareAction(this);
@@ -10,6 +11,7 @@ public class BrassMonsterPrepareActionSpec : SkillCardActionSpec
 
 	protected override void OnInitialize(Dictionary<string, object> param)
 	{
-		TargetCardName = "BrassMonsterSmash";
+		HorizontalCardName = "BrassMonsterSmash";
+		VerticalCardName = "BrassMonsterSmash:Vertical";
 	}
 }

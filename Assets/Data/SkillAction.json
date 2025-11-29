@@ -236,7 +236,13 @@
   {
     "Name": "BrassMonsterSmashAction",
     "ClassName": "BrassMonsterSmashAction",
-    "DescKey": "e_act_skill_bmsmashaction_desc"
+    "DescKey": "e_act_skill_bmsmashaction_a_desc"
+  },
+  {
+    "Name": "BrassMonsterSmashAction:Vertical",
+    "ClassName": "BrassMonsterSmashAction",
+    "DescKey": "e_act_skill_bmsmashaction_b_desc",
+    "IsVertical": true
   },
   {
     "Name": "MagnetMonsterAttractionAction",

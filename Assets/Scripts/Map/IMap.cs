@@ -288,6 +288,12 @@ public static class IMapExtensions
 		return map.GetAllTilesInCol(col);
 	}
 
+	public static List<ITile> GetAllTilesInCol(this IMap map, ITile tile)
+	{
+		var (_, col) = map.GetTileCoord(tile);
+		return map.GetAllTilesInCol(col);
+	}
+	
 	public static List<ITile> GetAllTilesInCol(this IMap map, int col)
 	{
 		var targetList = new List<ITile>();

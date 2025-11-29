@@ -317,10 +317,19 @@
   {
     "Id": 35,
     "Name": "BrassMonsterSmash",
-    "NameKey": "unit_enemy_brassmonstersmash",
+    "NameKey": "unit_enemy_brassmonstersmash_a",
     "StatSpecName": "BrassMonsterSmashActionStat",
     "CardResource": "skill_enemy_brassmonster_2_default",
     "ActionSpecName": "BrassMonsterSmashAction",
+    "CardUseType": "Global"
+  },
+  {
+    "Id": 42,
+    "Name": "BrassMonsterSmash:Vertical",
+    "NameKey": "unit_enemy_brassmonstersmash_b",
+    "StatSpecName": "BrassMonsterSmashActionStat",
+    "CardResource": "skill_enemy_brassmonster_2_default",
+    "ActionSpecName": "BrassMonsterSmashAction:Vertical",
     "CardUseType": "Global"
   },
   {

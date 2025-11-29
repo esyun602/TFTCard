@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 {
-	private UnitSkillCardSpec targetCardSpec;
+	private UnitSkillCardSpec horizontalCardSpec;
+	private UnitSkillCardSpec verticalCardSpec;
 	private float timePassed = 0f;
 	
 	public BrassMonsterPrepareAction(BrassMonsterPrepareActionSpec spec) : base(spec)
 	{
-		targetCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.TargetCardName);
+		horizontalCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.HorizontalCardName);
+		verticalCardSpec = GameDataSystem.Instance.GetGameData<CardData>().GetUnitSkillCardSpecByName(spec.VerticalCardName);
 	}
 
 	public override IEnumerable<ITile> Targets => Enumerable.Empty<ITile>();
@@ -25,8 +28,16 @@ public class BrassMonsterPrepareAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0.15f && timePassed - dt < 0.15f)
 		{
-			Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateEnemySkillCardInstance(
-				BattleStat.Owner, new UnitSkillCard(targetCardSpec, Stat.Owner));
+			if (Random.value > 0.5f)
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateEnemySkillCardInstance(
+					BattleStat.Owner, new UnitSkillCard(horizontalCardSpec, Stat.Owner));
+			}
+			else
+			{
+				Game.Instance.GetGameMode<BattleStageGameMode>().DeckSystem.GenerateEnemySkillCardInstance(
+					BattleStat.Owner, new UnitSkillCard(verticalCardSpec, Stat.Owner));
+			}
 		}
 		else if (timePassed > 1.5f)
 		{

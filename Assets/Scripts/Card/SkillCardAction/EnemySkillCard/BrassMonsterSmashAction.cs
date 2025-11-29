@@ -1,20 +1,17 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class BrassMonsterSmashAction : UnitSkillCardActionBase
 {
 	private float timePassed = 0f;
+	private BrassMonsterSmashActionSpec smashSpec;
 
 	public BrassMonsterSmashAction(BrassMonsterSmashActionSpec spec) : base(spec)
 	{
+		smashSpec = spec;
 	}
 
-	public override IEnumerable<ITile> Targets
-	{
-		get
-		{
-			yield return GetTarget();
-		}
-	}
+	public override IEnumerable<ITile> Targets => GetTargets();
 
 	protected override void OnUpdate(float dt, out bool routineDone)
 	{
@@ -27,20 +24,24 @@ public class BrassMonsterSmashAction : UnitSkillCardActionBase
 		timePassed += dt;
 		if (timePassed > 0.2f && timePassed - dt < 0.2f)
 		{
-			var targetTile = GetTarget();
-			if (targetTile != null)
+			var targetTiles = GetTargets();
+			if (targetTiles != null)
 			{
 				var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
-				var target = map.GetBattleObjectOfTile(targetTile);
 
-				if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
+				List<IBattleObject> targets = targetTiles.Select(x => map.GetBattleObjectOfTile(x)).Where(x => x != null).ToList();
+
+				foreach (var target in targets)
 				{
-					target.Damage(new DamageInfo()
+					if (target?.ObjectType.IsHostile(BattleStat.Owner.ObjectType) == true)
 					{
-						DamageType = DamageType.NormalAttack,
-						Sender = BattleStat.Owner,
-						Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack) + BattleStat.GetValueByValueType(UnitValueType.Hp)
-					});
+						target.Damage(new DamageInfo()
+						{
+							DamageType = DamageType.NormalAttack,
+							Sender = BattleStat.Owner,
+							Dmg = BattleStat.GetValueByValueType(UnitValueType.Attack)
+						});
+					}
 				}
 			}
 		}
@@ -55,6 +56,26 @@ public class BrassMonsterSmashAction : UnitSkillCardActionBase
 		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
 
 		return map.GetAttackTargetTile(BattleStat.Owner);
+	}
+
+	private List<ITile> GetTargets()
+	{
+		var targetTile = GetTarget();
+		if (targetTile == null) return null;
+		
+		var map = Game.Instance.GetGameMode<BattleStageGameMode>().BattleStage.Map;
+
+		List<ITile> targets;
+		if (smashSpec.IsVertical)
+		{
+			targets = map.GetAllTilesInCol(targetTile).ToList();
+		}
+		else
+		{
+			targets = map.GetAllTilesInRow(targetTile, ObjectType.Ally).ToList();
+		}
+
+		return targets;
 	}
 
 	protected override void OnTrigger()
