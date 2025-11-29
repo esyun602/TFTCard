@@ -264,7 +264,7 @@
     "SynergyList": [
       ""
     ],
-    "Attack": 6,
+    "Attack": 5,
     "MaxHp": 42
   },
   {
@@ -289,7 +289,7 @@
       ""
     ],
     "Attack": 3,
-    "MaxHp": 32
+    "MaxHp": 22
   },
   {
     "Name": "EnemyPowerRepeaterStat",

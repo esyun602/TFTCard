@@ -343,11 +343,11 @@
       {
         "Row": 1,
         "Col": 4,
-        "UnitCardName": "VacuumTubeLump"
+        "UnitCardName": "PowerRepeater"
       },
       {
         "Row": 1,
-        "Col": 6,
+        "Col": 7,
         "UnitCardName": "BrassMonster"
       },
       {
@@ -364,35 +364,50 @@
       {
         "Row": 0,
         "Col": 4,
-        "UnitCardName": "FurnaceGolem"
+        "UnitCardName": "VacuumTubeLump"
       },
       {
-        "Row": 0,
-        "Col": 6,
+        "Row": 1,
+        "Col": 4,
+        "UnitCardName": "MutatedSlave"
+      },
+      {
+        "Row": 1,
+        "Col": 5,
         "UnitCardName": "PowerRepeater"
+      },
+      {
+        "Row": 2,
+        "Col": 4,
+        "UnitCardName": "VacuumTubeLump"
       }
     ],
-    "PrepareTurn": 4
+    "PrepareTurn": 5
   },
   {
     "Name": "boss_wave_3",
     "CellList": [
       {
-        "Row": 2,
-        "Col": 5,
-        "UnitCardName": "GuardAutomaton"
+        "Row": 0,
+        "Col": 4,
+        "UnitCardName": "FurnaceGolem"
+      },
+      {
+        "Row": 0,
+        "Col": 7,
+        "UnitCardName": "VacuumTubeLump"
       },
       {
         "Row": 2,
-        "Col": 6,
-        "UnitCardName": "PowerRepeater"
+        "Col": 4,
+        "UnitCardName": "ScrapMonster"
       },
       {
         "Row": 2,
         "Col": 7,
-        "UnitCardName": "RepairMachine"
+        "UnitCardName": "VacuumTubeLump"
       }
     ],
-    "PrepareTurn": 7
+    "PrepareTurn": 5
   }
 ]
